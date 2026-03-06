@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading;
 
 public partial class player_controller : CharacterBody2D
 {
@@ -134,6 +135,7 @@ public partial class player_controller : CharacterBody2D
             animationPlayer.Play("idle");
 		}
 
+        Thread.Sleep(1);
 		Velocity = velocity;
 		MoveAndSlide();
 	}

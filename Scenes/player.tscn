@@ -208,6 +208,9 @@ animations = [{
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animationPlayer")]
 script = ExtResource("1_v0iea")
+Speed = 100.0
+Acceleration = 1.0
+RopeSpeed = 20.0
 animationPlayer = NodePath("AnimatedSprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
@@ -220,4 +223,4 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" groups=["Camera"]]
-zoom = Vector2(3.5, 3.5)
+zoom = Vector2(5, 5)

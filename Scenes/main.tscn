@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=4 format=3 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="Script" uid="uid://dtoxaxrlw74ln" path="res://Scripts/Ground.cs" id="1_bo1nx"]
 [ext_resource type="TileSet" uid="uid://cqvv03cm71dkj" path="res://Resources/ground.tres" id="2_8gbba"]
+[ext_resource type="PackedScene" uid="uid://b4nfhud4df0d" path="res://Scenes/player.tscn" id="3_8gbba"]
 
 [node name="Main" type="Node2D"]
 
@@ -22,5 +23,5 @@ tile_set = ExtResource("2_8gbba")
 [node name="MineralLayer" type="TileMapLayer" parent="Ground"]
 tile_set = ExtResource("2_8gbba")
 
-[node name="Camera2D" type="Camera2D" parent="." groups=["Camera"]]
-zoom = Vector2(2, 2)
+[node name="Player" parent="." instance=ExtResource("3_8gbba")]
+position = Vector2(353, -21)
