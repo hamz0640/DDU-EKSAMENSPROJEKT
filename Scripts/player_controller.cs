@@ -6,9 +6,9 @@ using System.Threading;
 public partial class player_controller : CharacterBody2D
 {
 	[Export] public float Speed = 220.0f;
-	[Export] public float Acceleration = 80.0f;
-    [Export] public float Deceleration = 120.0f;
-	[Export] public float RopeSpeed = 150f;
+	[Export] public float Acceleration = 400.0f;
+    [Export] public float Deceleration = 600.0f;
+	[Export] public float RopeSpeed = 150.0f;
 	[Export] private AnimatedSprite2D animationPlayer;
     private bool isMounted = false;
     private bool IsWantedFlip = false;
@@ -42,8 +42,8 @@ public partial class player_controller : CharacterBody2D
 		{
 			if (IsOnFloor() && !isMounted)
 			{
-                if(velocity.X < Speed)
-                    velocity.X += -Acceleration;
+                if(Mathf.Abs(velocity.X) < Speed)
+                    velocity.X -= Acceleration * (float)delta;
                 if(velocity.X != 0)
                     IsWantedFlip = true;
             }
@@ -55,7 +55,7 @@ public partial class player_controller : CharacterBody2D
             if (IsOnFloor() && !isMounted)
             {
                 if (velocity.X < Speed)
-                    velocity.X += Acceleration;
+                    velocity.X += Acceleration * (float)delta;
                 if (velocity.X != 0)
                     IsWantedFlip = false;
             }
@@ -75,6 +75,7 @@ public partial class player_controller : CharacterBody2D
 			animationPlayer.Play("rope");
 		}
 
+        //Mathf.MoveToward();
 
         if (Math.Abs(velocity.X) < Speed) // Animation
         {
@@ -111,9 +112,9 @@ public partial class player_controller : CharacterBody2D
         if (inputDirection == Vector2.Zero && velocity.X != 0)
         {
             if(velocity.X < 0)
-                velocity.X += Acceleration;
+                velocity.X += Deceleration * (float)delta;
             if (velocity.X > 0)
-                velocity.X += -Acceleration;
+                velocity.X -= Deceleration * (float)delta;
         }
 
         Velocity = velocity;
