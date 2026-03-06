@@ -29,6 +29,14 @@ public partial class Ground : Node2D
         GroundNoise.Seed = random.Next();
         GroundNoise.NoiseType = FastNoiseLite.NoiseTypeEnum.Perlin;
         GroundNoise.Frequency = 0.05f;
+
+        for (int x = 0; x < 10; x++)
+        {
+            for (int y = -3; y > 1; y++)
+            {
+                loadedTiles.Add(new Vector2I(x, y));
+            }
+        }
     }
 
 
