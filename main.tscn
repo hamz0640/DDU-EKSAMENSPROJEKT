@@ -1,9 +1,17 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=5 format=3 uid="uid://c0724bqkcptf4"]
+=======
+[gd_scene load_steps=5 format=3 uid="uid://c1ucqypn3fxh4"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/icon.svg" id="1_ig7tw"]
 [ext_resource type="TileSet" uid="uid://cqvv03cm71dkj" path="res://Resources/ground.tres" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://dtoxaxrlw74ln" path="res://Scripts/Ground.cs" id="2_h2yge"]
+<<<<<<< Updated upstream
 [ext_resource type="PackedScene" path="res://Scenes/player.tscn" id="4_1bvp3"]
+=======
+[ext_resource type="PackedScene" uid="uid://b4nfhud4df0d" path="res://Scenes/player.tscn" id="4_1bvp3"]
+>>>>>>> Stashed changes
 
 [node name="Main" type="Node2D"]
 
