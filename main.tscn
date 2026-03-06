@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1ucqypn3fxh4"]
+[gd_scene load_steps=5 format=3 uid="uid://dgqp65jiwqthu"]
 
 [ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/icon.svg" id="1_ig7tw"]
 [ext_resource type="TileSet" uid="uid://cqvv03cm71dkj" path="res://Resources/ground.tres" id="2_0xm2m"]
