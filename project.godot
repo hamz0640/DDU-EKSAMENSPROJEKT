@@ -11,9 +11,25 @@ config_version=5
 [application]
 
 config/name="Company Policy"
-config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+run/main_scene="uid://c1ucqypn3fxh4"
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+config/icon="res://Assets/icon.svg"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
 
 [dotnet]
 
 project/assembly_name="Company Policy"
+
+[global_group]
+
+Camera=""
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
