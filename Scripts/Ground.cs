@@ -16,13 +16,17 @@ public partial class Ground : Node2D
     public int TileMargin = 1;
     [ExportGroup("References")]
     [Export]
-    public TileMapLayer Back = null;
+    public TileMapLayer BackgroundLayer = null;
     [Export]
-    public TileMapLayer Front = null;
+    public TileMapLayer GroundLayer = null;
+    [Export]
+    public TileMapLayer MineralLayer = null;
 
 
     public override void _Ready()
     {
+        Random random = new();
+        GroundNoise.Seed = random.Next();
         GroundNoise.NoiseType = FastNoiseLite.NoiseTypeEnum.Perlin;
         GroundNoise.Frequency = 0.05f;
     }
@@ -68,12 +72,18 @@ public partial class Ground : Node2D
                 }
 
                 loadedTiles.Add(localTilePosition);
+                BackgroundLayer.SetCellsTerrainConnect(
+                    [localTilePosition], 
+                    0, 
+                    0
+                );
+
                 float value = GroundNoise.GetNoise2D(x, y);
 
                 if (value > CaveThreshold)
                     continue;
                 
-                Back.SetCellsTerrainConnect(
+                GroundLayer.SetCellsTerrainConnect(
                     [localTilePosition], 
                     0, 
                     0
