@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://j7pn54iqe4ig"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_atpgl"]
+size = Vector2(1.75, 6.75)
+
+[node name="Rope" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.125, -3.375)
+shape = SubResource("RectangleShape2D_atpgl")
+disabled = true
