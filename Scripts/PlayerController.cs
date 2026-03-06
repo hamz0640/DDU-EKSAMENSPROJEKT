@@ -3,12 +3,11 @@ using System;
 using System.Security.AccessControl;
 using System.Threading;
 
-public partial class player_controller : CharacterBody2D
+public partial class PlayerController : CharacterBody2D
 {
-	[Export] public float MaxSpeed = 220.0f;
-	[Export] public float Acceleration = 400.0f;
-    [Export] public float Deceleration = 220.0f;
-	[Export] public float RopeSpeed = 150.0f;
+	[Export] public float MaxSpeed = 300.0f;
+	[Export] public float Acceleration = 150.0f;
+	[Export] public float RopeSpeed = 20.0f;
 	[Export] private AnimatedSprite2D animationPlayer;
     private bool isMounted = false;
     private bool IsWantedFlip = false;
@@ -28,7 +27,7 @@ public partial class player_controller : CharacterBody2D
         {
             velocity.X = Mathf.MoveToward(
                 velocity.X, 0,
-                Deceleration * (float)delta
+                Acceleration * (float)delta
             );
         } 
         else
@@ -40,7 +39,7 @@ public partial class player_controller : CharacterBody2D
             );
         } 
 
-        if (Mathf.Abs(velocity.X) != MaxSpeed && !isMounted)
+        if (Mathf.Abs(velocity.X) != MaxSpeed && !isMounted && Velocity.X != 0)
         {
             ShowSpecificFrame(
                 animationPlayer, 
@@ -53,6 +52,14 @@ public partial class player_controller : CharacterBody2D
             animationPlayer.FlipH = false;
         if (Velocity.X < 0.0)
             animationPlayer.FlipH = true;
+        
+        if (Velocity.X == 0.0 && inputDirection.X == 0.0)
+            animationPlayer.Play("idle");
+        
+        if (Mathf.Abs(Velocity.X) == MaxSpeed)
+        {
+            animationPlayer.Play("move");
+        }
 
         Velocity = velocity;
         MoveAndSlide();
@@ -167,7 +174,5 @@ public partial class player_controller : CharacterBody2D
         animationPlayer.Stop(); // Stop den først
         animationPlayer.Animation = animation;
         animationPlayer.Frame = frame; // Sæt frame bagefter
-
-        animationPlayer.FrameProgress = 0.0f;
     }
 }

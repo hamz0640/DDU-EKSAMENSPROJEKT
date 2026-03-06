@@ -55,6 +55,7 @@ public partial class Ground : Node2D
 
         BackgroundLayer.SetCellsTerrainConnect([
             new Vector2I(0, 0),
+            new Vector2I(1, 0),
             new Vector2I(2, 0),
             new Vector2I(3, 0),
             new Vector2I(4, 0),
