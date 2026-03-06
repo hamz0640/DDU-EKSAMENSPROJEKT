@@ -208,8 +208,9 @@ animations = [{
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animationPlayer")]
 script = ExtResource("1_v0iea")
-Speed = 100.0
-Acceleration = 1.0
+MaxSpeed = 75.0
+Acceleration = 300.0
+Deceleration = 440.0
 RopeSpeed = 20.0
 animationPlayer = NodePath("AnimatedSprite2D")
 
@@ -225,3 +226,4 @@ frame_progress = 0.112235
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" groups=["Camera"]]
 zoom = Vector2(5, 5)
+position_smoothing_enabled = true
