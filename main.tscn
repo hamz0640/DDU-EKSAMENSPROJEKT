@@ -5,11 +5,8 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="Ground" type="Node2D" parent="." node_paths=PackedStringArray("BackgroundLayer", "GroundLayer", "MineralLayer")]
+[node name="Ground" type="Node2D" parent="."]
 script = ExtResource("1_bo1nx")
-BackgroundLayer = NodePath("BackgroundLayer")
-GroundLayer = NodePath("GroundLayer")
-MineralLayer = NodePath("MineralLayer")
 
 [node name="BackgroundLayer" type="TileMapLayer" parent="Ground"]
 modulate = Color(0.396889, 0.396889, 0.396889, 1)
