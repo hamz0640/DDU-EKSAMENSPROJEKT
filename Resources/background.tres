@@ -1,10 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://vtp7jvawas5r"]
+[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://dt21gb75pk1by"]
 
-[ext_resource type="Script" uid="uid://dtoxaxrlw74ln" path="res://Scripts/Ground.cs" id="1_bo1nx"]
-[ext_resource type="TileSet" uid="uid://cqvv03cm71dkj" path="res://Resources/ground.tres" id="2_8gbba"]
-[ext_resource type="Texture2D" uid="uid://dwxlw8ig76rpq" path="res://Assets/block-out-tiles.png" id="2_kry3j"]
-[ext_resource type="PackedScene" uid="uid://b4nfhud4df0d" path="res://Scenes/player.tscn" id="3_8gbba"]
-[ext_resource type="Texture2D" uid="uid://m2m4v280l6pe" path="res://Assets/block-out-ship.png" id="3_21xkr"]
+[ext_resource type="Texture2D" uid="uid://dwxlw8ig76rpq" path="res://Assets/block-out-tiles.png" id="1_s4i46"]
+[ext_resource type="Texture2D" uid="uid://m2m4v280l6pe" path="res://Assets/block-out-ship.png" id="2_22alt"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_aiaad"]
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -16,7 +13,7 @@ polygon = PackedVector2Array(-16, -12.9498, 16, -12.9498, 16, 16, -16, 16)
 polygon = PackedVector2Array(-13.0398, -13.1297, 13.0398, -12.9498, 13.2196, 12.9498, -13.2196, 12.9498)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6bp64"]
-texture = ExtResource("2_kry3j")
+texture = ExtResource("1_s4i46")
 texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 1:0/0/terrain_set = 0
@@ -399,13 +396,13 @@ texture_region_size = Vector2i(32, 32)
 3:6/0/terrains_peering_bit/left_side = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_344ge"]
-texture = ExtResource("3_21xkr")
+texture = ExtResource("2_22alt")
 texture_region_size = Vector2i(32, 32)
 0:0/size_in_atlas = Vector2i(10, 4)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(-16, 16)
 
-[sub_resource type="TileSet" id="TileSet_ynf5e"]
+[resource]
 tile_size = Vector2i(32, 32)
 occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 0
@@ -415,25 +412,3 @@ terrain_set_0/terrain_0/name = "ground"
 terrain_set_0/terrain_0/color = Color(0.240383, 0.386883, 0.598139, 1)
 sources/0 = SubResource("TileSetAtlasSource_6bp64")
 sources/1 = SubResource("TileSetAtlasSource_344ge")
-
-[node name="Main" type="Node2D"]
-
-[node name="Ground" type="Node2D" parent="." node_paths=PackedStringArray("BackgroundLayer", "GroundLayer", "MineralLayer")]
-script = ExtResource("1_bo1nx")
-BackgroundLayer = NodePath("BackgroundLayer")
-GroundLayer = NodePath("GroundLayer")
-MineralLayer = NodePath("MineralLayer")
-
-[node name="BackgroundLayer" type="TileMapLayer" parent="Ground"]
-modulate = Color(0.396889, 0.396889, 0.396889, 1)
-tile_set = SubResource("TileSet_ynf5e")
-
-[node name="GroundLayer" type="TileMapLayer" parent="Ground"]
-tile_map_data = PackedByteArray(0, 0, 4, 0, 255, 255, 1, 0, 0, 0, 0, 0, 0, 0)
-tile_set = ExtResource("2_8gbba")
-
-[node name="MineralLayer" type="TileMapLayer" parent="Ground"]
-tile_set = ExtResource("2_8gbba")
-
-[node name="Player" parent="." instance=ExtResource("3_8gbba")]
-position = Vector2(79, -36)
