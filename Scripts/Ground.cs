@@ -32,11 +32,24 @@ public partial class Ground : Node2D
 
         for (int x = 0; x < 10; x++)
         {
-            for (int y = -3; y > 1; y++)
+            for (int y = -3; y < 1; y++)
             {
                 loadedTiles.Add(new Vector2I(x, y));
             }
         }
+
+        GroundLayer.SetCellsTerrainConnect([
+                new Vector2I(0, 0),
+                new Vector2I(2, 0),
+                new Vector2I(3, 0),
+                new Vector2I(4, 0),
+                new Vector2I(5, 0),
+                new Vector2I(6, 0),
+                new Vector2I(7, 0),
+                new Vector2I(8, 0),
+                new Vector2I(9, 0),
+                new Vector2I(10, 0),
+            ], 0, 0);
     }
 
 
