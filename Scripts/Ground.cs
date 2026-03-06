@@ -159,9 +159,9 @@ public partial class Ground : Node2D
     }
 
 
-    public bool IsUnbreakable(Vector2I tilePosition)
+    public bool IsBreakable(Vector2I tilePosition)
     {
-        return UnbreakableTiles.Contains(tilePosition);
+        return !UnbreakableTiles.Contains(tilePosition);
     }
 
 
