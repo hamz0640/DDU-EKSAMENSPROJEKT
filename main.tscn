@@ -1,35 +1,26 @@
-<<<<<<< Updated upstream
-[gd_scene load_steps=5 format=3 uid="uid://c0724bqkcptf4"]
-=======
-[gd_scene load_steps=5 format=3 uid="uid://c1ucqypn3fxh4"]
->>>>>>> Stashed changes
+[gd_scene load_steps=3 format=3 uid="uid://c1ucqypn3fxh4"]
 
-[ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/icon.svg" id="1_ig7tw"]
-[ext_resource type="TileSet" uid="uid://cqvv03cm71dkj" path="res://Resources/ground.tres" id="2_0xm2m"]
-[ext_resource type="Script" uid="uid://dtoxaxrlw74ln" path="res://Scripts/Ground.cs" id="2_h2yge"]
-<<<<<<< Updated upstream
-[ext_resource type="PackedScene" path="res://Scenes/player.tscn" id="4_1bvp3"]
-=======
-[ext_resource type="PackedScene" uid="uid://b4nfhud4df0d" path="res://Scenes/player.tscn" id="4_1bvp3"]
->>>>>>> Stashed changes
+[ext_resource type="Script" uid="uid://dtoxaxrlw74ln" path="res://Scripts/Ground.cs" id="1_bo1nx"]
+[ext_resource type="TileSet" uid="uid://cqvv03cm71dkj" path="res://Resources/ground.tres" id="2_8gbba"]
 
 [node name="Main" type="Node2D"]
 
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(960, 540)
-scale = Vector2(15, 8.4375)
-texture = ExtResource("1_ig7tw")
+[node name="Ground" type="Node2D" parent="." node_paths=PackedStringArray("BackgroundLayer", "GroundLayer", "MineralLayer")]
+script = ExtResource("1_bo1nx")
+BackgroundLayer = NodePath("BackgroundLayer")
+GroundLayer = NodePath("GroundLayer")
+MineralLayer = NodePath("MineralLayer")
 
-[node name="Ground" type="Node2D" parent="." node_paths=PackedStringArray("Back", "Front")]
-script = ExtResource("2_h2yge")
-Back = NodePath("Back")
-Front = NodePath("Front")
+[node name="BackgroundLayer" type="TileMapLayer" parent="Ground"]
+modulate = Color(0.396889, 0.396889, 0.396889, 1)
+tile_set = ExtResource("2_8gbba")
 
-[node name="Back" type="TileMapLayer" parent="Ground"]
-tile_set = ExtResource("2_0xm2m")
+[node name="GroundLayer" type="TileMapLayer" parent="Ground"]
+tile_map_data = PackedByteArray(0, 0, 4, 0, 255, 255, 1, 0, 0, 0, 0, 0, 0, 0)
+tile_set = ExtResource("2_8gbba")
 
-[node name="Front" type="TileMapLayer" parent="Ground"]
-tile_set = ExtResource("2_0xm2m")
+[node name="MineralLayer" type="TileMapLayer" parent="Ground"]
+tile_set = ExtResource("2_8gbba")
 
-[node name="Player" parent="." instance=ExtResource("4_1bvp3")]
-position = Vector2(383, -110)
+[node name="Camera2D" type="Camera2D" parent="." groups=["Camera"]]
+zoom = Vector2(2, 2)
