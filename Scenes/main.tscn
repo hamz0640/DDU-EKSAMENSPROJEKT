@@ -25,4 +25,4 @@ tile_set = ExtResource("2_8gbba")
 tile_set = ExtResource("2_8gbba")
 
 [node name="Player" parent="." instance=ExtResource("3_8gbba")]
-position = Vector2(79, -36)
+position = Vector2(98, -86)
