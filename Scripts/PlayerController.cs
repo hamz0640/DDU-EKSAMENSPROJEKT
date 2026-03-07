@@ -8,6 +8,7 @@ public partial class PlayerController : CharacterBody2D
 	[Export] public float MaxSpeed = 300.0f;
 	[Export] public float Acceleration = 150.0f;
 	[Export] public float RopeSpeed = 20.0f;
+    [Export] public float MiningSpeed = 0.5f;
 	[Export] private AnimatedSprite2D animationPlayer;
     private bool isMounted = false;
     private bool IsWantedFlip = false;
@@ -23,21 +24,8 @@ public partial class PlayerController : CharacterBody2D
             "ui_left", "ui_right", "ui_up", "ui_down"
         );
 
-        if (inputDirection.X == 0.0f)
-        {
-            velocity.X = Mathf.MoveToward(
-                velocity.X, 0,
-                Acceleration * (float)delta
-            );
-        } 
-        else
-        {
-            velocity.X = Mathf.MoveToward(
-                velocity.X, 
-                MaxSpeed * inputDirection.X,
-                Acceleration * (float)delta
-            );
-        } 
+        float towards = inputDirection.X == 0 ? 0 : MaxSpeed * inputDirection.X;
+        velocity.X = Mathf.MoveToward(velocity.X, towards, Acceleration * (float)delta);
 
         if (Mathf.Abs(velocity.X) != MaxSpeed && !isMounted && Velocity.X != 0)
         {
@@ -61,114 +49,44 @@ public partial class PlayerController : CharacterBody2D
             animationPlayer.Play("move");
         }
 
+        if (inputDirection.Angle() % (Mathf.Pi / 2.0) == 0 && inputDirection != Vector2.Zero)
+        {
+            Ground ground = (Ground)GetTree().GetFirstNodeInGroup("Ground");
+
+            Vector2I tileDirection = (Vector2I)inputDirection;
+            Vector2I tilePosition  = ground.ToTilePosition(GlobalPosition);
+            Vector2I miningTilePosition = tilePosition + tileDirection;
+
+            bool blocked = false;
+
+            if (tileDirection.X != 0)
+                blocked = IsOnWall();
+            else if (tileDirection.Y > 0)
+                blocked = IsOnFloor();
+            else if (tileDirection.Y < 0)
+                blocked = IsOnCeiling();
+
+            if (!blocked)
+                goto EarlyExit;
+
+            TileData tileData = ground.GroundLayer.GetCellTileData(miningTilePosition);
+            if (tileData == null)
+                goto EarlyExit;
+
+            float tileHealth = ground.TileHealth[miningTilePosition];
+            float newTileHealth = tileHealth - MiningSpeed * (float)delta;
+
+            if (newTileHealth <= 0.0)
+                ground.BreakTile(miningTilePosition);
+            else
+                ground.TileHealth[miningTilePosition] = newTileHealth;
+        }
+
+        EarlyExit:
+
         Velocity = velocity;
         MoveAndSlide();
-
-		// Vector2 velocity = Velocity;
-
-		// if (!IsOnFloor())
-		// {
-		// 	velocity += GetGravity() * (float)delta;
-		// }// Gravity
-
-		// if (Input.IsActionJustPressed("ui_accept"))
-		// {
-		// 	if (IsOnFloor())
-		// 	{
-        //         isMounted = true;
-		// 		GD.Print("Player mounted!");
-        //     }
-		// 	else
-		// 	{
-		// 		isMounted = false;
-        //         GD.Print("Player unmounted");
-        //     }
-		// }// Mounting and unmounting the rope
-
-		// Vector2 inputDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-
-        // if (inputDirection == Vector2.Left)
-		// {
-		// 	if (IsOnFloor() && !isMounted)
-		// 	{
-        //         if(Mathf.Abs(velocity.X) < Speed)
-        //             velocity.X -= Acceleration * (float)delta;
-        //         if(velocity.X != 0)
-        //             IsWantedFlip = true;
-        //     }
-        //     else
-        //         isMounted = false;
-		// }
-		// else if (inputDirection == Vector2.Right)
-		// {
-        //     if (IsOnFloor() && !isMounted)
-        //     {
-        //         if (velocity.X < Speed)
-        //             velocity.X += Acceleration * (float)delta;
-        //         if (velocity.X != 0)
-        //             IsWantedFlip = false;
-        //     }
-        //     else
-        //         isMounted = false;
-        // }
-		// else if (inputDirection == Vector2.Up && isMounted)
-		// {
-		// 	animationPlayer.FlipH = false;
-		// 	velocity.Y = -RopeSpeed;
-		// 	animationPlayer.Play("rope");
-		// }
-		// else if (inputDirection == Vector2.Down && isMounted)
-		// {
-		// 	animationPlayer.FlipH = false;
-		// 	velocity.Y = RopeSpeed;
-		// 	animationPlayer.Play("rope");
-		// }
-
-        // //Mathf.MoveToward();
-
-        // if (Math.Abs(velocity.X) < Speed) // Animation
-        // {
-        //     if (Math.Abs(velocity.X) != 0 && Math.Abs(velocity.X) < Speed / 5)
-        //     {
-        //         ShowSpecificFrame(animationPlayer, "acceleration", 0);
-        //         animationPlayer.FlipH = IsWantedFlip;
-        //     }
-        //     else if (Math.Abs(velocity.X) >= Speed / 5 && Math.Abs(velocity.X) < Speed / 4)
-        //     {
-        //         ShowSpecificFrame(animationPlayer, "acceleration", 1);
-        //     }
-        //     else if (Math.Abs(velocity.X) >= Speed / 4 && Math.Abs(velocity.X) < Speed / 3)
-        //     {
-        //         ShowSpecificFrame(animationPlayer, "acceleration", 2);
-        //     }
-        //     else if (Math.Abs(velocity.X) >= Speed / 3 && Math.Abs(velocity.X) < Speed / 2)
-        //     {
-        //         ShowSpecificFrame(animationPlayer, "acceleration", 2);
-        //     }
-        //     else if (Math.Abs(velocity.X) > Speed / 2 && Math.Abs(velocity.X) < Speed)
-        //         ShowSpecificFrame(animationPlayer, "acceleration", 3);
-        // }
-        // else if (Math.Abs(velocity.X) >= Speed)
-        // {
-        //     animationPlayer.Play("move");
-        // } 
-        
-        // if (velocity.X == 0)
-        // {
-        //     animationPlayer.Play("idle");
-        //     animationPlayer.FlipH = false;
-        // }
-        // if (inputDirection == Vector2.Zero && velocity.X != 0)
-        // {
-        //     if(velocity.X < 0)
-        //         velocity.X += Deceleration * (float)delta;
-        //     if (velocity.X > 0)
-        //         velocity.X -= Deceleration * (float)delta;
-        // }
-
-        // Velocity = velocity;
-		// MoveAndSlide();
-	}
+    }
     private static void ShowSpecificFrame(AnimatedSprite2D animationPlayer, string animation, int frame)
     {
         animationPlayer.Stop(); // Stop den først

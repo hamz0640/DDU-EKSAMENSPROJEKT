@@ -29,6 +29,7 @@ project/assembly_name="Company Policy"
 [global_group]
 
 Camera=""
+Ground=""
 
 [input]
 

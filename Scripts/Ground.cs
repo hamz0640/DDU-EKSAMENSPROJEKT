@@ -8,8 +8,9 @@ public partial class Ground : Node2D
 {
     private FastNoiseLite GroundNoise = new();
     private Vector2I lastTilePosition = Vector2I.MaxValue;
-    private HashSet<Vector2I> loadedTiles = new();
+    private HashSet<Vector2I> LoadedTiles = new();
     private HashSet<Vector2I> UnbreakableTiles = new();
+    public Dictionary<Vector2I, float> TileHealth = new();
     [ExportGroup("Configurations")]
     [Export]
     public float CaveThreshold = 0.2f;
@@ -35,38 +36,34 @@ public partial class Ground : Node2D
         {
             for (int y = -3; y < 1; y++)
             {
-                loadedTiles.Add(new Vector2I(x, y));
+                LoadedTiles.Add(new Vector2I(x, y));
             }
         }
 
-        GroundLayer.SetCellsTerrainConnect([
-            new Vector2I(0, 0),
-            new Vector2I(2, 0),
-            new Vector2I(3, 0),
-            new Vector2I(4, 0),
-            new Vector2I(5, 0),
-            new Vector2I(6, 0),
-            new Vector2I(7, 0),
-            new Vector2I(8, 0),
-            new Vector2I(9, 0),
-            new Vector2I(10, 0),
-            new Vector2I(11, 0)
-        ], 0, 0);
+        PlaceGroundTile(new Vector2I(0, 0), true);
+        PlaceGroundTile(new Vector2I(2, 0), true);
+        PlaceGroundTile(new Vector2I(3, 0), true);
+        PlaceGroundTile(new Vector2I(4, 0), true);
+        PlaceGroundTile(new Vector2I(5, 0), true);
+        PlaceGroundTile(new Vector2I(6, 0), true);
+        PlaceGroundTile(new Vector2I(7, 0), true);
+        PlaceGroundTile(new Vector2I(8, 0), true);
+        PlaceGroundTile(new Vector2I(9, 0), true);
+        PlaceGroundTile(new Vector2I(10, 0), true);
+        PlaceGroundTile(new Vector2I(11, 0), true);
 
-        BackgroundLayer.SetCellsTerrainConnect([
-            new Vector2I(0, 0),
-            new Vector2I(1, 0),
-            new Vector2I(2, 0),
-            new Vector2I(3, 0),
-            new Vector2I(4, 0),
-            new Vector2I(5, 0),
-            new Vector2I(6, 0),
-            new Vector2I(7, 0),
-            new Vector2I(8, 0),
-            new Vector2I(9, 0),
-            new Vector2I(10, 0),
-            new Vector2I(11, 0)
-        ], 0, 0);
+        PlaceBackgroundTile(new Vector2I(0, 0), true);
+        PlaceBackgroundTile(new Vector2I(1, 0), true);
+        PlaceBackgroundTile(new Vector2I(2, 0), true);
+        PlaceBackgroundTile(new Vector2I(3, 0), true);
+        PlaceBackgroundTile(new Vector2I(4, 0), true);
+        PlaceBackgroundTile(new Vector2I(5, 0), true);
+        PlaceBackgroundTile(new Vector2I(6, 0), true);
+        PlaceBackgroundTile(new Vector2I(7, 0), true);
+        PlaceBackgroundTile(new Vector2I(8, 0), true);
+        PlaceBackgroundTile(new Vector2I(9, 0), true);
+        PlaceBackgroundTile(new Vector2I(10, 0), true);
+        PlaceBackgroundTile(new Vector2I(11, 0), true);
     }
 
 
@@ -95,7 +92,6 @@ public partial class Ground : Node2D
         int rightMostTile  = tilePosition.X + horizontalTileExtent + TileMargin;
         
         int verticalTileExtent = (int)Mathf.Ceil(540.0 / camera.Zoom.Y / screenToTileFactor);
-        // int topMostTile    = tilePosition.Y - verticalTileExtent + TileMargin;
         int bottomMostTile = tilePosition.Y + verticalTileExtent + TileMargin;
 
         for (int x = leftMostTile; x <= rightMostTile; x++)
@@ -103,59 +99,31 @@ public partial class Ground : Node2D
             for (int y = bottomMostTile; y >= 0; y--)
             {
                 Vector2I localTilePosition = new Vector2I(x, y);
-                // GD.Print(localTilePosition);
-                if (loadedTiles.Contains(localTilePosition))
-                {
-                    continue;
-                }
-
-                if (y <= 1)
-                {
-                    BackgroundLayer.SetCellsTerrainConnect(
-                        [localTilePosition], 
-                        0, 
-                        0
-                    );
-                    GroundLayer.SetCellsTerrainConnect(
-                        [localTilePosition], 
-                        0, 
-                        0
-                    );
-                    UnbreakableTiles.Add(localTilePosition);
-                    continue;
-                }
-
-                loadedTiles.Add(localTilePosition);
-                BackgroundLayer.SetCellsTerrainConnect(
-                    [localTilePosition], 
-                    0, 
-                    0
-                );
-
-                float value = GroundNoise.GetNoise2D(x, y);
-
-                if (value > CaveThreshold)
+                if (LoadedTiles.Contains(localTilePosition))
                     continue;
                 
-                GroundLayer.SetCellsTerrainConnect(
-                    [localTilePosition], 
-                    0, 
-                    0
-                );
+
+                if (y < 1)
+                {
+                    PlaceBackgroundTile(localTilePosition, true);
+                    PlaceGroundTile(localTilePosition, true);
+
+                    continue;
+                }
+
+                PlaceBackgroundTile(localTilePosition, false);
+
+                float value = GroundNoise.GetNoise2D(x, y);
+                if (value < CaveThreshold)
+                    PlaceGroundTile(localTilePosition, false);
             }
         }
     }
 
 
-    public Vector2I toTilePosition(Vector2 position)
+    public Vector2I ToTilePosition(Vector2 position)
     {
-        float screenToTileFactor = 32.0f;
-        Vector2I tilePosition = new Vector2I(
-            (int)(position.X / screenToTileFactor),
-            (int)(position.Y / screenToTileFactor)
-        );
-
-        return tilePosition;
+        return GroundLayer.LocalToMap(position);
     }
 
 
@@ -170,10 +138,32 @@ public partial class Ground : Node2D
         if (UnbreakableTiles.Contains(tilePosition))
             return false;
 
-        GroundLayer.SetCellsTerrainConnect(
-            [tilePosition], 0, 0
-        );
+        GroundLayer.SetCellsTerrainConnect([tilePosition], 0, -1);
 
+        return true;
+    }
+
+    public bool PlaceGroundTile(Vector2I tilePosition, bool isUnbreakable)
+    {
+        LoadedTiles.Add(tilePosition);
+        if (isUnbreakable)
+            UnbreakableTiles.Add(tilePosition);
+        
+        GroundLayer.SetCellsTerrainConnect([tilePosition], 0, 0);
+        TileHealth[tilePosition] = 1.0f;
+        
+        return true;
+    }
+
+
+    public bool PlaceBackgroundTile(Vector2I tilePosition, bool isUnbreakable)
+    {
+        LoadedTiles.Add(tilePosition);
+        if (isUnbreakable)
+            UnbreakableTiles.Add(tilePosition);
+        
+        BackgroundLayer.SetCellsTerrainConnect([tilePosition], 0, 0);
+        
         return true;
     }
 }
