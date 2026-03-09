@@ -6,6 +6,8 @@ using System.Threading;
 public partial class PlayerController : CharacterBody2D
 {
 	[Export] public float MaxSpeed = 300.0f;
+
+    [Export] public float Jump = 400.0f;
 	[Export] public float Acceleration = 150.0f;
 	[Export] public float RopeSpeed = 20.0f;
     [Export] public float MiningSpeed = 0.5f;
@@ -23,6 +25,11 @@ public partial class PlayerController : CharacterBody2D
         Vector2 inputDirection = Input.GetVector(
             "ui_left", "ui_right", "ui_up", "ui_down"
         );
+
+         if (Input.IsActionJustPressed("ui_accept") && IsOnFloor() && !isMounted)
+        {
+        velocity.Y = -Jump;
+        }
 
         float towards = inputDirection.X == 0 ? 0 : MaxSpeed * inputDirection.X;
         velocity.X = Mathf.MoveToward(velocity.X, towards, Acceleration * (float)delta);
