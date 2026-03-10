@@ -43,26 +43,31 @@ public partial class PlayerController : CharacterBody2D
         {
             if (area.IsInGroup("wire"))
                 isTouchingWire = true;
-        }
+        } // Tjek om spilleren rører wiren
 
         if (Input.IsActionJustPressed("ui_mount") && isTouchingWire) // Funktionalitet til at mounte
         {
             isMounted = !isMounted;
             if (isMounted)
+            {
+                velocity.X = 0; // Fix walk glitch
                 velocity.Y = 0; // Fix jump glitch
+                Tween tween = GetTree().CreateTween(); // Snap to wire X coordinate
+                tween.SetEase(Tween.EaseType.Out);
+                tween.SetTrans(Tween.TransitionType.Quint);
+                tween.TweenProperty(this, "position", new Vector2(-50, this.Position.Y), 0.5f);
+            }
+
         }
 
         if (isMounted)
         {
-            //animationPlayer.Play("climb");
-            GlobalPosition = new Vector2(48, GlobalPosition.Y); // Snap to wire X coordinate
-
             if (isTouchingWire == false)
             {
                 velocity.Y = 20;
                 isMounted = false;
-                velocity.X = 120; // spring af wiren
-            }
+                velocity.X = 120;
+            } // spring af wiren når man rammer toppen
             else
             {
                 if (Input.IsActionJustPressed("ui_up"))
@@ -72,10 +77,10 @@ public partial class PlayerController : CharacterBody2D
 
                 if (Input.IsActionJustReleased("ui_up") || Input.IsActionJustReleased("ui_down"))
                     velocity.Y = 0;
-            }
+            } // Bevægelse op og ned på wiren
 
             // Da spilleren kravler på wiren, så kan den hverken bevæge sig sidelæns eller mine
-            goto EarlyExit;
+            //goto EarlyExit;
         }
 
         float towards = inputDirection.X == 0 ? 0 : MaxSpeed * inputDirection.X;

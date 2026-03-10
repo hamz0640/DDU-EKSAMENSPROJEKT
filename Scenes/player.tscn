@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/icon.svg" id="5_fkybt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
-size = Vector2(16, 6)
+size = Vector2(74.625, 2)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f60y1"]
 radius = 11.0
@@ -222,7 +222,7 @@ playerArea2D = NodePath("Area2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
 z_index = 1
-position = Vector2(0, -17)
+position = Vector2(0, -15)
 shape = SubResource("RectangleShape2D_fkybt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
