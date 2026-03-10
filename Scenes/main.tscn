@@ -36,13 +36,6 @@ position = Vector2(98, -86)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="EnergyBar" parent="CanvasLayer" instance=ExtResource("6_21xkr")]
-anchors_preset = -1
-anchor_left = -0.047
-anchor_top = -0.171
-anchor_right = 0.15
-anchor_bottom = 0.015
-offset_left = -8.75999
-offset_top = 6.68001
-offset_right = -280.0
-offset_bottom = -154.2
-size_flags_stretch_ratio = 1.08
+offset_left = -10.0
+offset_right = 90.0
+offset_bottom = 100.0
