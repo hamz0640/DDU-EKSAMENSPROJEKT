@@ -10,6 +10,7 @@
 [node name="Main" type="Node2D"]
 
 [node name="Ground" type="Node2D" parent="." node_paths=PackedStringArray("BackgroundLayer", "GroundLayer") groups=["Ground"]]
+z_index = 1
 script = ExtResource("1_bo1nx")
 BackgroundLayer = NodePath("BackgroundLayer")
 GroundLayer = NodePath("GroundLayer")
@@ -25,7 +26,7 @@ tile_map_data = PackedByteArray(0, 0, 4, 0, 255, 255, 1, 0, 0, 0, 0, 0, 0, 0)
 tile_set = ExtResource("2_8gbba")
 
 [node name="Wire" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_kry3j")]
-position = Vector2(48, -21)
+position = Vector2(48, -29)
 player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("3_8gbba")]
