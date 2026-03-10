@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cax47n27igvo5"]
 
-[ext_resource type="Script" uid="uid://cgxfhcml64mnv" path="res://Mineral.cs" id="1_asmqh"]
+[ext_resource type="Script" uid="uid://cgxfhcml64mnv" path="res://Scripts/Mineral.cs" id="1_asmqh"]
 [ext_resource type="Texture2D" uid="uid://m7p14kcvwd7i" path="res://Assets/block-out-minerals.png" id="2_u2dvv"]
 
 [node name="Mineral" type="Node2D" node_paths=PackedStringArray("Right", "Left", "Top", "Bottom")]
