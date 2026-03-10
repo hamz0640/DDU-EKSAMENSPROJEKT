@@ -62,6 +62,12 @@ public partial class PlayerController : CharacterBody2D
 
         if (isMounted)
         {
+            // Hvis velocity X er 0, så er spilleren mountet og på den rigtige position
+            if(Velocity.X == 0 && velocity.X == 0)
+            {
+                animationPlayer.Play("climb");
+            }
+
             if (isTouchingWire == false)
             {
                 velocity.Y = 20;
@@ -74,13 +80,29 @@ public partial class PlayerController : CharacterBody2D
                     velocity.Y = -WireSpeed;
                 if (Input.IsActionJustPressed("ui_down"))
                     velocity.Y = WireSpeed;
-
                 if (Input.IsActionJustReleased("ui_up") || Input.IsActionJustReleased("ui_down"))
                     velocity.Y = 0;
-            } // Bevægelse op og ned på wiren
+
+                Vector2 inputDirection2 = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+                if (Input.IsActionJustPressed("ui_accept"))
+                {   
+                    if (inputDirection2.X > 0)
+                    {
+                        velocity.Y = -150;
+                        velocity.X = 150;
+                    }
+                    if (inputDirection2.X < 0)
+                    {
+                        velocity.Y = -150;
+                        velocity.X = -150;
+                    }
+                    isMounted = false;
+                } // Hopper af wiren til siden
+
+            } // Bevægelse på wiren
 
             // Da spilleren kravler på wiren, så kan den hverken bevæge sig sidelæns eller mine
-            //goto EarlyExit;
+            goto EarlyExit;
         }
 
         float towards = inputDirection.X == 0 ? 0 : MaxSpeed * inputDirection.X;
