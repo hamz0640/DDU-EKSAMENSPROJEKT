@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class EnergyBar : Control
+public partial class EnergyBar : TextureProgressBar
 {
     [Export] public float MaxEnergy = 100f;
     [Export] public float DrainPerSecond = 10f;
@@ -9,7 +9,6 @@ public partial class EnergyBar : Control
     [Export] public float FlashSpeed = 3f;
     [Export] public float AnimationSpeed = 5f;
 
-    private TextureProgressBar _bar;
     private float _currentEnergy;
     private float _targetEnergy;
     private bool _isFlashing = false;
@@ -18,13 +17,12 @@ public partial class EnergyBar : Control
 
     public override void _Ready()
     {
-        _bar = GetNode<TextureProgressBar>("TextureProgressBar");
-        _bar.Scale = new Vector2(3.0f, 3.0f);
-        _bar.MinValue = 0;
-        _bar.MaxValue = MaxEnergy;
+        Scale = new Vector2(3.0f, 3.0f);
+        MinValue = 0;
+        MaxValue = MaxEnergy;
         _currentEnergy = MaxEnergy;
         _targetEnergy = MaxEnergy;
-        _bar.Value = MaxEnergy;
+        Value = MaxEnergy;
     }
 
     public override void _Process(double delta)
@@ -55,7 +53,7 @@ public partial class EnergyBar : Control
         _barTween.SetTrans(Tween.TransitionType.Linear); //lineær animation.
         _barTween.SetEase(Tween.EaseType.Out); //starter hurtigt → slutter langsomt.
         
-        _barTween.TweenProperty(_bar, "value", _targetEnergy, 1f / AnimationSpeed);
+        _barTween.TweenProperty(this, "value", _targetEnergy, 1f / AnimationSpeed);
     }
 
     private void StartFlash()
@@ -63,14 +61,14 @@ public partial class EnergyBar : Control
         _isFlashing = true;
         _flashTween?.Kill();
         _flashTween = CreateTween().SetLoops();
-        _flashTween.TweenProperty(_bar, "modulate", new Color(1, 0.2f, 0.2f), 1f / FlashSpeed);//farve ændring
-        _flashTween.TweenProperty(_bar, "modulate", new Color(1, 1, 1), 1f / FlashSpeed); 
+        _flashTween.TweenProperty(this, "modulate", new Color(1, 0.2f, 0.2f), 1f / FlashSpeed);//farve ændring
+        _flashTween.TweenProperty(this, "modulate", new Color(1, 1, 1), 1f / FlashSpeed); 
     }
 
     private void StopFlash()
     {
         _isFlashing = false;
         _flashTween?.Kill(); 
-        _bar.Modulate = new Color(1, 1, 1);
+        Modulate = new Color(1, 1, 1);
     }
 }

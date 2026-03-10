@@ -5,7 +5,7 @@
 [ext_resource type="TileSet" uid="uid://dt21gb75pk1by" path="res://Resources/background.tres" id="2_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://b4nfhud4df0d" path="res://Scenes/player.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://j7pn54iqe4ig" path="res://Scenes/wire.tscn" id="5_kry3j"]
-[ext_resource type="PackedScene" uid="uid://mereslp0s3c7" path="res://Scenes/energy_bar.tscn" id="6_21xkr"]
+[ext_resource type="PackedScene" uid="uid://btcichbg1pnh7" path="res://Scenes/ui.tscn" id="6_21xkr"]
 
 [node name="Main" type="Node2D"]
 
@@ -32,10 +32,4 @@ player = NodePath("../Player")
 [node name="Player" parent="." instance=ExtResource("3_8gbba")]
 position = Vector2(98, -86)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="EnergyBar" parent="CanvasLayer" instance=ExtResource("6_21xkr")]
-offset_left = 8.0
-offset_top = 32.0
-offset_right = 108.0
-offset_bottom = 132.0
+[node name="UI" parent="." instance=ExtResource("6_21xkr")]
