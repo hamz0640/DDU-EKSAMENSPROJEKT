@@ -1,8 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
 
 public partial class Ground : Node2D
 {
@@ -10,6 +8,7 @@ public partial class Ground : Node2D
     private Vector2I lastTilePosition = Vector2I.MaxValue;
     private HashSet<Vector2I> LoadedTiles = new();
     private HashSet<Vector2I> UnbreakableTiles = new();
+    private Dictionary<Vector2I, Mineral.MineralType> Minerals = new();
     public Dictionary<Vector2I, float> TileHealth = new();
     [ExportGroup("Configurations")]
     [Export]
@@ -21,8 +20,6 @@ public partial class Ground : Node2D
     public TileMapLayer BackgroundLayer = null;
     [Export]
     public TileMapLayer GroundLayer = null;
-    [Export]
-    public TileMapLayer MineralLayer = null;
 
 
     public override void _Ready()

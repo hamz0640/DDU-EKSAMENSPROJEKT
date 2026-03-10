@@ -205,6 +205,7 @@ animations = [{
 }]
 
 [node name="Player" type="Node2D"]
+z_index = 1000
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animationPlayer")]
 script = ExtResource("1_fkybt")
