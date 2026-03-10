@@ -37,6 +37,7 @@ public partial class WireManager : Node2D
         {
             nextSpawn.Y += spawnInterval;
             Area2D newArea = (Area2D)wireArea.Duplicate();
+            newArea.AddToGroup("wire");
             AddChild(newArea);
             newArea.GlobalPosition = nextSpawn;
             // Flyt den detekterene del af wiren til spidsen

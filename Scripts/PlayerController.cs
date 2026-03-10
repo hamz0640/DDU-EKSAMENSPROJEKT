@@ -9,16 +9,16 @@ public partial class PlayerController : CharacterBody2D
 
     [Export] public HeartsBar HeartsBar;
 
-    [Export] public float Jump = 400.0f;
+    [Export] public float Jump = 250.0f;
 	[Export] public float Acceleration = 150.0f;
-	[Export] public float RopeSpeed = 20.0f;
+	[Export] public float WireSpeed = 80.0f;
     [Export] public float MiningSpeed = 0.5f;
 	[Export] private AnimatedSprite2D animationPlayer;
     [Export] public float fullBatteryCapacity = 1;
+    [Export] private Area2D playerArea2D;
 
     private bool isMounted = false;
     private bool IsWantedFlip = false;
-    private HeartsBar _heartsBar;
     private float _timer = 0f;
 
 
@@ -27,29 +27,62 @@ public partial class PlayerController : CharacterBody2D
 	{
         Vector2 velocity = Velocity;
 
-        if (!IsOnFloor() && !isMounted)
+        if (!IsOnFloor() && !isMounted) // Hvis ikke på gulv, og ikke mountet på wiren, GRAVITY!
             velocity += GetGravity() * (float)delta;
         
         Vector2 inputDirection = Input.GetVector(
             "ui_left", "ui_right", "ui_up", "ui_down"
         );
 
-         if (Input.IsActionJustPressed("ui_accept") && IsOnFloor() && !isMounted)
+        if (Input.IsActionJustPressed("ui_accept") && IsOnFloor() && !isMounted) // Hvis ikke mountet og på gulv, JUMP!
+            velocity.Y = -Jump;
+
+        bool isTouchingWire = false;
+        var areas = playerArea2D.GetOverlappingAreas();
+        foreach (var area in areas)
         {
-        velocity.Y = -Jump;
+            if (area.IsInGroup("wire"))
+                isTouchingWire = true;
+        }
+
+        if (Input.IsActionJustPressed("ui_mount") && isTouchingWire) // Funktionalitet til at mounte
+        {
+            isMounted = !isMounted;
+            if (isMounted)
+                velocity.Y = 0; // Fix jump glitch
+        }
+
+        if (isMounted)
+        {
+            //animationPlayer.Play("climb");
+            GlobalPosition = new Vector2(48, GlobalPosition.Y); // Snap to wire X coordinate
+
+            if (isTouchingWire == false)
+            {
+                velocity.Y = 20;
+                isMounted = false;
+                velocity.X = 120; // spring af wiren
+            }
+            else
+            {
+                if (Input.IsActionJustPressed("ui_up"))
+                    velocity.Y = -WireSpeed;
+                if (Input.IsActionJustPressed("ui_down"))
+                    velocity.Y = WireSpeed;
+
+                if (Input.IsActionJustReleased("ui_up") || Input.IsActionJustReleased("ui_down"))
+                    velocity.Y = 0;
+            }
+
+            // Da spilleren kravler på wiren, så kan den hverken bevæge sig sidelæns eller mine
+            goto EarlyExit;
         }
 
         float towards = inputDirection.X == 0 ? 0 : MaxSpeed * inputDirection.X;
         velocity.X = Mathf.MoveToward(velocity.X, towards, Acceleration * (float)delta);
 
-        if (Mathf.Abs(velocity.X) != MaxSpeed && !isMounted && Velocity.X != 0)
-        {
-            ShowSpecificFrame(
-                animationPlayer, 
-                "acceleration", 
-                (int)(Mathf.Abs(Velocity.X) / (MaxSpeed / 5.0))
-            );
-        }
+        if (Mathf.Abs(velocity.X) != MaxSpeed && !isMounted && Velocity.X != 0) // Matematik til animationen
+            ShowSpecificFrame(animationPlayer, "acceleration", (int)(Mathf.Abs(Velocity.X) / (MaxSpeed / 5.0)));
 
         if (Velocity.X > 0.0)
             animationPlayer.FlipH = false;
@@ -67,7 +100,7 @@ public partial class PlayerController : CharacterBody2D
             animationPlayer.Play("move");
         }
 
-        if (inputDirection.Angle() % (Mathf.Pi / 2.0) == 0 && inputDirection != Vector2.Zero)
+        if (inputDirection.Angle() % (Mathf.Pi / 2.0) == 0 && inputDirection != Vector2.Zero) // Mine implementation
         {
             Ground ground = (Ground)GetTree().GetFirstNodeInGroup("Ground");
 
