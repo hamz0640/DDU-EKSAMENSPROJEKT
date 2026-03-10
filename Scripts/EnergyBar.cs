@@ -79,9 +79,9 @@ public partial class EnergyBar : TextureProgressBar
         Modulate = new Color(1, 1, 1);
     }
 
-    public bool HasEnergy(float amount)
+    public bool HasEnergy()
     {
-        return _currentEnergy >= amount;
+        return _currentEnergy > 0;
     }
 
     public void AddEnergy(float amount)
