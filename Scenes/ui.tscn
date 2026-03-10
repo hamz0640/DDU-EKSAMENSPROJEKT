@@ -1,84 +1,101 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgicofrtrichu"]
+[gd_scene load_steps=7 format=3 uid="uid://btcichbg1pnh7"]
 
-[ext_resource type="PackedScene" uid="uid://mereslp0s3c7" path="res://Scenes/energy_bar.tscn" id="1_jxero"]
+[ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/EL-bar_empty.png" id="1_m78vo"]
+[ext_resource type="Texture2D" uid="uid://dkmshhbxb00nf" path="res://Assets/half heart.png" id="2_2246s"]
 [ext_resource type="Texture2D" uid="uid://cg8buauwdt0d8" path="res://Assets/full heart.png" id="2_qdvrb"]
+[ext_resource type="Texture2D" uid="uid://unqtwkn0pyeq" path="res://Assets/EL-bar_full.png" id="2_smcll"]
+[ext_resource type="Texture2D" uid="uid://fm5hs4dqpld2" path="res://Assets/empty heart.png" id="3_q7pk6"]
+[ext_resource type="Script" uid="uid://ct7clapidpt65" path="res://Scripts/EnergyBar.cs" id="3_ryf15"]
 
 [node name="UI" type="CanvasLayer"]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 313.0
-offset_bottom = 307.0
+offset_right = 120.0
+offset_bottom = 86.0
+scale = Vector2(3, 3)
 
-[node name="TextureProgressBar" parent="VBoxContainer" instance=ExtResource("1_jxero")]
-custom_minimum_size = Vector2(312, 162)
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="EnergyBar" type="TextureProgressBar" parent="VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_vertical = 0
+texture_under = ExtResource("1_m78vo")
+texture_progress = ExtResource("2_smcll")
+script = ExtResource("3_ryf15")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-columns = 5
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 0
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_qdvrb")
-
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_qdvrb")
-
-[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_qdvrb")
-
-[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_qdvrb")
-
-[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_qdvrb")
-
-[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/GridContainer"]
+[node name="Red" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("2_qdvrb")
 
-[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_qdvrb")
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/Red"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "x0"
+horizontal_alignment = 2
+vertical_alignment = 2
 
-[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/GridContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("2_qdvrb")
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 0
 
-[node name="TextureRect9" type="TextureRect" parent="VBoxContainer/GridContainer"]
+[node name="Purple" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
-texture = ExtResource("2_qdvrb")
+texture = ExtResource("2_2246s")
 
-[node name="TextureRect10" type="TextureRect" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_qdvrb")
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer2/Purple"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "x0"
+horizontal_alignment = 2
+vertical_alignment = 2
 
-[node name="TextureRect11" type="TextureRect" parent="VBoxContainer/GridContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("2_qdvrb")
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 0
 
-[node name="TextureRect12" type="TextureRect" parent="VBoxContainer/GridContainer"]
+[node name="Yellow" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer3"]
 layout_mode = 2
-texture = ExtResource("2_qdvrb")
+texture = ExtResource("3_q7pk6")
 
-[node name="TextureRect13" type="TextureRect" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_qdvrb")
-
-[node name="TextureRect14" type="TextureRect" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_qdvrb")
-
-[node name="TextureRect15" type="TextureRect" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_qdvrb")
-
-[node name="TextureRect16" type="TextureRect" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_qdvrb")
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer3/Yellow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "x0"
+horizontal_alignment = 2
+vertical_alignment = 2

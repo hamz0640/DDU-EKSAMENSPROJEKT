@@ -23,9 +23,6 @@ public partial class EnergyBar : TextureProgressBar
         _currentEnergy = MaxEnergy;
         _targetEnergy = MaxEnergy;
         Value = MaxEnergy;
-
-        SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        CustomMinimumSize = new Vector2(0, 100); 
     }
 
     public override void _Process(double delta)
