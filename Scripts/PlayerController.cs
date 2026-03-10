@@ -49,7 +49,10 @@ public partial class PlayerController : CharacterBody2D
             animationPlayer.FlipH = true;
         
         if (Velocity.X == 0.0 && inputDirection.X == 0.0)
+        {
+            animationPlayer.FlipH = false;
             animationPlayer.Play("idle");
+        }
         
         if (Mathf.Abs(Velocity.X) == MaxSpeed)
         {

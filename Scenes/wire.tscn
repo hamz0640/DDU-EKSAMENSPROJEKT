@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b0xwskfs2tir7" path="res://Assets/wire.png" id="1_aw0jv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_atpgl"]
-size = Vector2(2, 32)
+size = Vector2(2, 11)
 
 [node name="Wire" type="Node2D" node_paths=PackedStringArray("wireTemplate")]
 script = ExtResource("1_amh6y")
@@ -13,13 +13,17 @@ wireTemplate = NodePath("Area2D")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -10.5)
 shape = SubResource("RectangleShape2D_atpgl")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(0, -10.5)
+scale = Vector2(1, 0.34375)
 texture = ExtResource("1_aw0jv")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="CheckIfNewNeeded"]
