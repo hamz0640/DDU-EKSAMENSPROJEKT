@@ -21,21 +21,83 @@ public partial class PlayerController : CharacterBody2D
     private bool IsWantedFlip = false;
     private float _timer = 0f;
 
+    // Jetpack 
+    [Export] public float JetpackForce = -500f;
+    [Export] public float BoostVelocity = -350f;
+    [Export] public float JetpackDrainRate = 5f;
+    [Export] public EnergyBar EnergyBar;
 
+    private EnergyBar _energyBar;
 
+    [Export] public float BoostDuration = 0.15f;
+
+    private enum JetpackState { Grounded, Boosting, Flying }
+    private JetpackState _jetpackState = JetpackState.Grounded;
+    private float _boostTimer = 0f;
+    private bool _isJetpacking = false;
+    public override void _Ready()
+    {
+    _energyBar = (EnergyBar)GetTree().GetFirstNodeInGroup("energy_bar");
+    }
     public override void _PhysicsProcess(double delta)
 	{
         Vector2 velocity = Velocity;
 
         if (!IsOnFloor() && !isMounted) // Hvis ikke på gulv, og ikke mountet på wiren, GRAVITY!
             velocity += GetGravity() * (float)delta;
+
+        bool isFalling = velocity.Y > 50f && !IsOnFloor();
         
         Vector2 inputDirection = Input.GetVector(
             "ui_left", "ui_right", "ui_up", "ui_down"
         );
 
-        if (Input.IsActionJustPressed("ui_accept") && IsOnFloor() && !isMounted) // Hvis ikke mountet og på gulv, JUMP!
-            velocity.Y = -Jump;
+        // Jetpack implementation 
+        bool spaceJustPressed = Input.IsActionJustPressed("ui_accept");
+        bool spaceHeld = Input.IsActionPressed("ui_accept");
+
+        if (!isMounted)
+        {
+            // Reset til grounded
+            if (IsOnFloor())
+                _jetpackState = JetpackState.Grounded;
+
+          switch (_jetpackState){
+            case JetpackState.Grounded:
+                _isJetpacking = false;
+                if (spaceJustPressed){
+                        velocity.Y = -Jump;
+                        _jetpackState = JetpackState.Boosting;
+                        _boostTimer = BoostDuration;
+                        animationPlayer.Play("jetpack jump"); 
+                    }
+                    break;
+
+            case JetpackState.Boosting:
+                _isJetpacking = true;
+                _boostTimer -= (float)delta;
+                animationPlayer.Play("jetpack boost"); 
+                if (_boostTimer <= 0f)
+                    _jetpackState = JetpackState.Flying;
+                break;
+
+            case JetpackState.Flying:
+                if (spaceHeld && _energyBar != null && _energyBar.HasEnergy())
+                {
+                     _isJetpacking = true;
+                    velocity.Y = Mathf.MoveToward(velocity.Y, JetpackForce, 1000f * (float)delta);
+                    _energyBar.DrainPerSecond(JetpackDrainRate, (float)delta);
+                    animationPlayer.Play("jetpack boost"); 
+                }
+                else if (isFalling)
+                {
+                    _isJetpacking = true;
+                    animationPlayer.Play("jetpack fall"); 
+                }
+                break;
+                }
+        }
+
 
         bool isTouchingWire = false;
         var areas = playerArea2D.GetOverlappingAreas();
@@ -108,23 +170,26 @@ public partial class PlayerController : CharacterBody2D
         float towards = inputDirection.X == 0 ? 0 : MaxSpeed * inputDirection.X;
         velocity.X = Mathf.MoveToward(velocity.X, towards, Acceleration * (float)delta);
 
-        if (Mathf.Abs(velocity.X) != MaxSpeed && !isMounted && Velocity.X != 0) // Matematik til animationen
-            ShowSpecificFrame(animationPlayer, "acceleration", (int)(Mathf.Abs(Velocity.X) / (MaxSpeed / 5.0)));
+        if (!_isJetpacking)
+        {
+                if (Mathf.Abs(velocity.X) != MaxSpeed && !isMounted && Velocity.X != 0) // Matematik til animationen
+                    ShowSpecificFrame(animationPlayer, "acceleration", (int)(Mathf.Abs(Velocity.X) / (MaxSpeed / 5.0)));
 
-        if (Velocity.X > 0.0)
-            animationPlayer.FlipH = false;
-        if (Velocity.X < 0.0)
-            animationPlayer.FlipH = true;
-        
-        if (Velocity.X == 0.0 && inputDirection.X == 0.0)
-        {
-            animationPlayer.FlipH = false;
-            animationPlayer.Play("idle");
-        }
-        
-        if (Mathf.Abs(Velocity.X) == MaxSpeed)
-        {
-            animationPlayer.Play("move");
+                if (Velocity.X > 0.0)
+                    animationPlayer.FlipH = false;
+                if (Velocity.X < 0.0)
+                    animationPlayer.FlipH = true;
+                
+                if (Velocity.X == 0.0 && inputDirection.X == 0.0)
+                {
+                    animationPlayer.FlipH = false;
+                    animationPlayer.Play("idle");
+                }
+                
+                if (Mathf.Abs(Velocity.X) == MaxSpeed)
+                {
+                    animationPlayer.Play("move");
+                }
         }
 
         if (inputDirection.Angle() % (Mathf.Pi / 2.0) == 0 && inputDirection != Vector2.Zero) // Mine implementation
