@@ -104,10 +104,12 @@ public partial class Ground : Node2D
         
         int verticalTileExtent = (int)Mathf.Ceil(540.0 / camera.Zoom.Y / screenToTileFactor);
         int bottomMostTile = tilePosition.Y + verticalTileExtent + TileMargin;
+        int topMostTile    = tilePosition.Y - verticalTileExtent - TileMargin;
+        topMostTile = Math.Max(0, topMostTile);
 
         for (int x = leftMostTile; x <= rightMostTile; x++)
         {
-            for (int y = bottomMostTile; y >= 0; y--)
+            for (int y = bottomMostTile; y >= topMostTile; y--)
             {
                 Vector2I localTilePosition = new Vector2I(x, y);
                 if (LoadedTiles.Contains(localTilePosition))
@@ -124,7 +126,7 @@ public partial class Ground : Node2D
 
         for (int x = leftMostTile; x <= rightMostTile; x++)
         {
-            for (int y = bottomMostTile; y >= 0; y--)
+            for (int y = bottomMostTile; y >= topMostTile; y--)
             {
                 Vector2I localTilePosition = new Vector2I(x, y);
                 if (LoadedTiles.Contains(localTilePosition))
@@ -140,7 +142,7 @@ public partial class Ground : Node2D
 
         for (int x = leftMostTile; x <= rightMostTile; x++)
         {
-            for (int y = bottomMostTile; y >= 0; y--)
+            for (int y = bottomMostTile; y >= topMostTile; y--)
             {
                 Vector2I localTilePosition = new Vector2I(x, y);
                 LoadedTiles.Add(localTilePosition);
