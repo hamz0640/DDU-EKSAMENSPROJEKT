@@ -14,16 +14,14 @@ public partial class PlayerController : CharacterBody2D
 	[Export] public float RopeSpeed = 20.0f;
     [Export] public float MiningSpeed = 0.5f;
 	[Export] private AnimatedSprite2D animationPlayer;
+    [Export] public float fullBatteryCapacity = 1;
+
     private bool isMounted = false;
     private bool IsWantedFlip = false;
     private HeartsBar _heartsBar;
     private float _timer = 0f;
 
 
-    public override void _Ready()
-    {
-    _heartsBar = GetNode<HeartsBar>("/root/Main/CanvasLayer2/HeartsBar");
-    }
 
     public override void _PhysicsProcess(double delta)
 	{
@@ -114,12 +112,4 @@ public partial class PlayerController : CharacterBody2D
         animationPlayer.Frame = frame; // Sæt frame bagefter
     }
 
-    public override void _Process(double delta){
-    _timer += (float)delta;
-
-    if (_timer >= 30f){
-        _heartsBar.TakeDamage(1);
-        _timer = 0f; // reset timer
-    }
-        }
 }
