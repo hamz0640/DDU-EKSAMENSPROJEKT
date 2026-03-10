@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=7 format=3 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="Script" uid="uid://dtoxaxrlw74ln" path="res://Scripts/Ground.cs" id="1_bo1nx"]
 [ext_resource type="TileSet" uid="uid://cqvv03cm71dkj" path="res://Resources/ground.tres" id="2_8gbba"]
 [ext_resource type="TileSet" uid="uid://dt21gb75pk1by" path="res://Resources/background.tres" id="2_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://b4nfhud4df0d" path="res://Scenes/player.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://j7pn54iqe4ig" path="res://Scenes/wire.tscn" id="5_kry3j"]
+[ext_resource type="PackedScene" uid="uid://mereslp0s3c7" path="res://Scenes/energy_bar.tscn" id="6_21xkr"]
 
 [node name="Main" type="Node2D"]
 
@@ -26,8 +27,22 @@ tile_set = ExtResource("2_8gbba")
 tile_set = ExtResource("2_8gbba")
 
 [node name="Wire" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_kry3j")]
-position = Vector2(62, -43)
+position = Vector2(48, -21)
 player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("3_8gbba")]
 position = Vector2(98, -86)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="EnergyBar" parent="CanvasLayer" instance=ExtResource("6_21xkr")]
+anchors_preset = -1
+anchor_left = -0.047
+anchor_top = -0.171
+anchor_right = 0.15
+anchor_bottom = 0.015
+offset_left = -8.75999
+offset_top = 6.68001
+offset_right = -280.0
+offset_bottom = -154.2
+size_flags_stretch_ratio = 1.08
