@@ -19,9 +19,12 @@ public partial class WireManager : Node2D
         if (player.GlobalPosition.Y > nextSpawnY)
         {
             CreateNew(new Vector2(GlobalPosition.X, nextSpawnY));
-
+            GD.Print("En er spawnet");
             nextSpawnY += spawnInterval;
+            GD.Print("Næste pos: " + nextSpawnY);
         }
+        else
+            GD.Print("CHecked but no, player X: "+ player.Transform.X + " Y: "+ player.Transform.Y);
     }
 
     public void CreateNew(Vector2 spawnPos)
