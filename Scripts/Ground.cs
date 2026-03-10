@@ -232,6 +232,10 @@ public partial class Ground : Node2D
         MineralNodeLUT.TryGetValue(tilePosition, out Mineral mineralCenter);
         if (mineralCenter != null)
         {
+            Mineral.MineralType mineralType = Minerals[tilePosition];
+            Global global = (Global)GetTree().Root.GetNode("Global");
+            global.EmitSignal("MineralPickedUp", [(int)mineralType]);
+
             RemoveChild(mineralCenter);
             Minerals.Remove(tilePosition);
             MineralNodeLUT.Remove(tilePosition);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://btcichbg1pnh7"]
+[gd_scene load_steps=8 format=3 uid="uid://btcichbg1pnh7"]
 
 [ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/EL-bar_empty.png" id="1_m78vo"]
 [ext_resource type="Texture2D" uid="uid://dkmshhbxb00nf" path="res://Assets/half heart.png" id="2_2246s"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://unqtwkn0pyeq" path="res://Assets/EL-bar_full.png" id="2_smcll"]
 [ext_resource type="Texture2D" uid="uid://fm5hs4dqpld2" path="res://Assets/empty heart.png" id="3_q7pk6"]
 [ext_resource type="Script" uid="uid://ct7clapidpt65" path="res://Scripts/EnergyBar.cs" id="3_ryf15"]
+[ext_resource type="Script" uid="uid://cy7a1nhxc65a7" path="res://Scripts/MineralCounter.cs" id="4_smcll"]
 
 [node name="UI" type="CanvasLayer"]
 
@@ -34,12 +35,15 @@ script = ExtResource("3_ryf15")
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer" node_paths=PackedStringArray("MineralImage", "NumberLabel")]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 0
+script = ExtResource("4_smcll")
+MineralImage = NodePath("Red")
+NumberLabel = NodePath("Red/Label")
 
 [node name="Red" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -52,16 +56,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "x0"
+text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer" node_paths=PackedStringArray("MineralImage", "NumberLabel")]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 0
+script = ExtResource("4_smcll")
+MineralImage = NodePath("Purple")
+NumberLabel = NodePath("Purple/Label")
+ReactOnPickupOf = 1
 
 [node name="Purple" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
@@ -74,16 +82,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "x0"
+text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer" node_paths=PackedStringArray("MineralImage", "NumberLabel")]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 0
+script = ExtResource("4_smcll")
+MineralImage = NodePath("Yellow")
+NumberLabel = NodePath("Yellow/Label")
+ReactOnPickupOf = 2
 
 [node name="Yellow" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer3"]
 layout_mode = 2
@@ -96,6 +108,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "x0"
+text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
