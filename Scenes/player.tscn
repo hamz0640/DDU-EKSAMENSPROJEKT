@@ -211,6 +211,7 @@ z_index = 1000
 script = ExtResource("1_fkybt")
 MaxSpeed = 75.0
 Acceleration = 300.0
+MiningSpeed = 10.0
 animationPlayer = NodePath("AnimatedSprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]

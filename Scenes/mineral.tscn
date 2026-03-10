@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://cax47n27igvo5"]
 
-[ext_resource type="Texture2D" uid="uid://m7p14kcvwd7i" path="res://Assets/block-out-minerals.png" id="1_dfvjl"]
-[ext_resource type="Script" uid="uid://cgxfhcml64mnv" path="res://Mineral.cs" id="1_ipkc8"]
+[ext_resource type="Script" uid="uid://cgxfhcml64mnv" path="res://Mineral.cs" id="1_asmqh"]
+[ext_resource type="Texture2D" uid="uid://m7p14kcvwd7i" path="res://Assets/block-out-minerals.png" id="2_u2dvv"]
 
 [node name="Mineral" type="Node2D" node_paths=PackedStringArray("Right", "Left", "Top", "Bottom")]
-script = ExtResource("1_ipkc8")
+script = ExtResource("1_asmqh")
 Right = NodePath("Right")
 Left = NodePath("Left")
 Top = NodePath("Top")
@@ -13,7 +13,7 @@ Bottom = NodePath("Bottom")
 [node name="Right" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(29, 0)
-texture = ExtResource("1_dfvjl")
+texture = ExtResource("2_u2dvv")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
@@ -21,7 +21,7 @@ region_rect = Rect2(0, 0, 32, 32)
 visible = false
 position = Vector2(-29, 0)
 rotation = 3.14159
-texture = ExtResource("1_dfvjl")
+texture = ExtResource("2_u2dvv")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
@@ -29,7 +29,7 @@ region_rect = Rect2(0, 0, 32, 32)
 visible = false
 position = Vector2(0, -29)
 rotation = 4.71239
-texture = ExtResource("1_dfvjl")
+texture = ExtResource("2_u2dvv")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
@@ -37,6 +37,6 @@ region_rect = Rect2(0, 0, 32, 32)
 visible = false
 position = Vector2(0, 29)
 rotation = 1.5708
-texture = ExtResource("1_dfvjl")
+texture = ExtResource("2_u2dvv")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
