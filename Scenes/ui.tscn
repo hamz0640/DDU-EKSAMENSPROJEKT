@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://btcichbg1pnh7"]
 
 [ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/EL-bar_empty.png" id="1_m78vo"]
-[ext_resource type="Texture2D" uid="uid://dkmshhbxb00nf" path="res://Assets/half heart.png" id="2_2246s"]
-[ext_resource type="Texture2D" uid="uid://cg8buauwdt0d8" path="res://Assets/full heart.png" id="2_qdvrb"]
 [ext_resource type="Texture2D" uid="uid://unqtwkn0pyeq" path="res://Assets/EL-bar_full.png" id="2_smcll"]
-[ext_resource type="Texture2D" uid="uid://fm5hs4dqpld2" path="res://Assets/empty heart.png" id="3_q7pk6"]
 [ext_resource type="Script" uid="uid://ct7clapidpt65" path="res://Scripts/EnergyBar.cs" id="3_ryf15"]
 [ext_resource type="Script" uid="uid://cy7a1nhxc65a7" path="res://Scripts/MineralCounter.cs" id="4_smcll"]
+[ext_resource type="Texture2D" uid="uid://ccmxrdrhb55mo" path="res://Assets/block-out-red-mineral.png" id="5_smcll"]
+[ext_resource type="Texture2D" uid="uid://dc4qo7tc2nrnp" path="res://Assets/block-out-purple-mineral.png" id="6_ryf15"]
+[ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/block-out-yellow-mineral.png" id="7_mmixe"]
 
 [node name="UI" type="CanvasLayer"]
 
@@ -47,7 +47,7 @@ NumberLabel = NodePath("Red/Label")
 
 [node name="Red" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-texture = ExtResource("2_qdvrb")
+texture = ExtResource("5_smcll")
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/Red"]
 layout_mode = 1
@@ -73,7 +73,7 @@ ReactOnPickupOf = 1
 
 [node name="Purple" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
-texture = ExtResource("2_2246s")
+texture = ExtResource("6_ryf15")
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer2/Purple"]
 layout_mode = 1
@@ -99,7 +99,7 @@ ReactOnPickupOf = 2
 
 [node name="Yellow" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer3"]
 layout_mode = 2
-texture = ExtResource("3_q7pk6")
+texture = ExtResource("7_mmixe")
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer3/Yellow"]
 layout_mode = 1
