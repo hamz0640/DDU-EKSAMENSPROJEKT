@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://btcichbg1pnh7"]
+[gd_scene load_steps=3 format=3 uid="uid://cgicofrtrichu"]
 
 [ext_resource type="PackedScene" uid="uid://mereslp0s3c7" path="res://Scenes/energy_bar.tscn" id="1_jxero"]
 [ext_resource type="Texture2D" uid="uid://cg8buauwdt0d8" path="res://Assets/full heart.png" id="2_qdvrb"]
