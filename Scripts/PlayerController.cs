@@ -25,8 +25,6 @@ public partial class PlayerController : CharacterBody2D
     [Export] public float JetpackForce = -500f;
     [Export] public float BoostVelocity = -350f;
     [Export] public float JetpackDrainRate = 5f;
-    [Export] public EnergyBar EnergyBar;
-
     private EnergyBar _energyBar;
 
     [Export] public float BoostDuration = 0.15f;
@@ -37,7 +35,12 @@ public partial class PlayerController : CharacterBody2D
     private bool _isJetpacking = false;
     public override void _Ready()
     {
-    _energyBar = (EnergyBar)GetTree().GetFirstNodeInGroup("energy_bar");
+       _energyBar = GetTree().GetFirstNodeInGroup("energy_bar") as EnergyBar;
+
+        if (_energyBar == null)
+        {
+            GD.PrintErr("EnergyBar not found in group   ");
+        }
     }
     public override void _PhysicsProcess(double delta)
 	{
