@@ -13,7 +13,7 @@ config_version=5
 config/name="Company Policy"
 run/main_scene="uid://vtp7jvawas5r"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
-config/icon="uid://dq1awjibriy8h"
+config/icon="res://Assets/icon.svg"
 
 [display]
 
