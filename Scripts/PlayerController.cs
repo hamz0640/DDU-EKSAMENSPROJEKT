@@ -7,6 +7,8 @@ public partial class PlayerController : CharacterBody2D
 {
 	[Export] public float MaxSpeed = 300.0f;
 
+    [Export] public HeartsBar HeartsBar;
+
     [Export] public float Jump = 400.0f;
 	[Export] public float Acceleration = 150.0f;
 	[Export] public float RopeSpeed = 20.0f;
@@ -14,6 +16,14 @@ public partial class PlayerController : CharacterBody2D
 	[Export] private AnimatedSprite2D animationPlayer;
     private bool isMounted = false;
     private bool IsWantedFlip = false;
+    private HeartsBar _heartsBar;
+    private float _timer = 0f;
+
+
+    public override void _Ready()
+    {
+    _heartsBar = GetNode<HeartsBar>("/root/Main/CanvasLayer2/HeartsBar");
+    }
 
     public override void _PhysicsProcess(double delta)
 	{
@@ -103,4 +113,13 @@ public partial class PlayerController : CharacterBody2D
         animationPlayer.Animation = animation;
         animationPlayer.Frame = frame; // Sæt frame bagefter
     }
+
+    public override void _Process(double delta){
+    _timer += (float)delta;
+
+    if (_timer >= 30f){
+        _heartsBar.TakeDamage(1);
+        _timer = 0f; // reset timer
+    }
+        }
 }

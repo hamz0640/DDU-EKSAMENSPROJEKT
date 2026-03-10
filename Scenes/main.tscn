@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=8 format=3 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="Script" uid="uid://dtoxaxrlw74ln" path="res://Scripts/Ground.cs" id="1_bo1nx"]
 [ext_resource type="TileSet" uid="uid://cqvv03cm71dkj" path="res://Resources/ground.tres" id="2_8gbba"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b4nfhud4df0d" path="res://Scenes/player.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://j7pn54iqe4ig" path="res://Scenes/wire.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://mereslp0s3c7" path="res://Scenes/energy_bar.tscn" id="6_21xkr"]
+[ext_resource type="PackedScene" uid="uid://dggkcsbfv0meb" path="res://Scenes/hearts_bar.tscn" id="7_6bp64"]
 
 [node name="Main" type="Node2D"]
 
@@ -37,3 +38,7 @@ position = Vector2(98, -86)
 offset_left = -10.0
 offset_right = 90.0
 offset_bottom = 100.0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="HeartsBar" parent="CanvasLayer2" instance=ExtResource("7_6bp64")]
