@@ -9,7 +9,7 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="Ground" type="Node2D" parent="." node_paths=PackedStringArray("BackgroundLayer", "GroundLayer", groups=["Ground"]]
+[node name="Ground" type="Node2D" parent="." node_paths=PackedStringArray("BackgroundLayer", "GroundLayer") groups=["Ground"]]
 script = ExtResource("1_bo1nx")
 BackgroundLayer = NodePath("BackgroundLayer")
 GroundLayer = NodePath("GroundLayer")
