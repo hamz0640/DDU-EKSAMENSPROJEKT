@@ -6,9 +6,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_atpgl"]
 size = Vector2(2, 11)
 
-[node name="Wire" type="Node2D" node_paths=PackedStringArray("wireTemplate", "wireArea")]
+[node name="Wire" type="Node2D" node_paths=PackedStringArray("wireArea")]
 script = ExtResource("1_amh6y")
-wireTemplate = NodePath("Area2D")
 wireArea = NodePath("Area2D")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -16,14 +15,16 @@ z_index = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 z_index = 1
-position = Vector2(0, -10.5)
+position = Vector2(1, 5.5)
 shape = SubResource("RectangleShape2D_atpgl")
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
 z_index = 1
-position = Vector2(0, -10.5)
 scale = Vector2(1, 0.34375)
 texture = ExtResource("1_aw0jv")
+centered = false
+region_enabled = true
+region_rect = Rect2(15, 0, 2, 32)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
