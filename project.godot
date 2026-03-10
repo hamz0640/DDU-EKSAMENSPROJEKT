@@ -30,6 +30,7 @@ project/assembly_name="Company Policy"
 
 Camera=""
 Ground=""
+energy_bar=""
 
 [input]
 
