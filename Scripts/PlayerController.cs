@@ -128,12 +128,13 @@ public partial class PlayerController : CharacterBody2D
         if (isMounted)
         {
             // Hvis velocity X er 0, så er spilleren mountet og på den rigtige position
+            animationPlayer.FlipH = false;
             if(Velocity.X == 0 && velocity.X == 0)
             {
                 animationPlayer.Play("climb");
             }
 
-            if (isTouchingWire == false)
+            if (GlobalPosition.Y < -22)
             {
                 velocity.Y = 20;
                 isMounted = false;
