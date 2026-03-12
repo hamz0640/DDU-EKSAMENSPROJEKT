@@ -46,7 +46,7 @@ public partial class PlayerController : CharacterBody2D
 	{
         Vector2 velocity = Velocity;
 
-        if (!IsOnFloor() && !isMounted) // Hvis ikke på gulv, og ikke mountet på wiren, GRAVITY!
+        if (!IsOnFloor() && !isMounted ) // Hvis ikke på gulv, og ikke mountet på wiren, GRAVITY!
             velocity += GetGravity() * (float)delta;
 
         bool isFalling = velocity.Y > 50f && !IsOnFloor();
@@ -89,7 +89,7 @@ public partial class PlayerController : CharacterBody2D
                 {
                     
                     _isJetpacking = true;
-                    velocity.Y = Mathf.MoveToward(velocity.Y, JetpackForce, 1000f * (float)delta);
+                    velocity.Y = JetpackForce;
                     _energyBar.DrainPerSecond(JetpackDrainRate, (float)delta);
                     if (Velocity.X > 0.0)
                         animationPlayer.FlipH = false;
@@ -115,8 +115,7 @@ public partial class PlayerController : CharacterBody2D
 
         bool isTouchingWire = false;
         var areas = playerArea2D.GetOverlappingAreas();
-        foreach (var area in areas)
-        {
+        foreach (var area in areas){
             if (area.IsInGroup("wire"))
                 isTouchingWire = true;
         } // Tjek om spilleren rører wiren

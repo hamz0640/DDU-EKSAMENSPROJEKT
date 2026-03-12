@@ -526,6 +526,8 @@ Acceleration = 300.0
 MiningSpeed = 10.0
 animationPlayer = NodePath("AnimatedSprite2D")
 playerArea2D = NodePath("Area2D")
+JetpackForce = -150.0
+BoostVelocity = -175.0
 
 [node name="Area2D" type="Area2D" parent="CharacterBody2D"]
 
@@ -539,8 +541,9 @@ shape = SubResource("CapsuleShape2D_f60y1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_xuaoq")
-animation = &"jetpack side"
+animation = &"jetpack jump"
 autoplay = "idle"
+frame_progress = 0.902531
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" groups=["Camera"]]
 zoom = Vector2(5, 5)
