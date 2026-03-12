@@ -519,13 +519,12 @@ animations = [{
 [node name="Player" type="Node2D"]
 z_index = 1000
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("animationPlayer", "playerArea2D")]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("AnimationPlayer", "PlayerArea2D")]
 script = ExtResource("1_fkybt")
 MaxSpeed = 75.0
 Acceleration = 300.0
-MiningSpeed = 10.0
-animationPlayer = NodePath("AnimatedSprite2D")
-playerArea2D = NodePath("Area2D")
+AnimationPlayer = NodePath("AnimatedSprite2D")
+PlayerArea2D = NodePath("Area2D")
 JetpackForce = -150.0
 BoostVelocity = -175.0
 

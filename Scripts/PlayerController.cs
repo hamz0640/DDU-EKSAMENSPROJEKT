@@ -12,7 +12,6 @@ public partial class PlayerController : CharacterBody2D
     [Export] public float Jump = 250.0f;
 	[Export] public float Acceleration = 150.0f;
 	[Export] public float WireSpeed = 80.0f;
-    [Export] public float MiningSpeed = 0.5f;
 	[Export] private AnimatedSprite2D AnimationPlayer;
     [Export] public float FullBatteryCapacity = 1;
     [Export] private Area2D PlayerArea2D;
@@ -229,8 +228,11 @@ if (!IsMounted)
             if (tileData == null)
                 goto EarlyExit;
 
+            Global global = Global.GetInstance();
+            float miningSpeed = global.GetStat<float>("MiningSpeed");
+
             float tileHealth = ground.TileHealth[miningTilePosition];
-            float newTileHealth = tileHealth - MiningSpeed * (float)delta;
+            float newTileHealth = tileHealth - miningSpeed * (float)delta;
 
             if (newTileHealth <= 0.0)
                 ground.BreakTile(miningTilePosition);
