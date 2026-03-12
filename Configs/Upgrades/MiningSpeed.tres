@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MiningSpeed" load_steps=2 format=3 uid="uid://chm6ire2b12r"]
+
+[ext_resource type="Script" uid="uid://d2it48brbmpv8" path="res://Configs/UpgradeDefinitions/MiningSpeed.cs" id="1_cbk7w"]
+
+[resource]
+script = ExtResource("1_cbk7w")
+RedCrystalAmount = 1
+PurpleCrystalAmount = 0
+YellowCrystalAmount = 0
+MaxBuyAmount = 0
+metadata/_custom_type_script = "uid://d2it48brbmpv8"

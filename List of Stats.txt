@@ -1,0 +1,2 @@
+MaxInventorySpace (uint)
+MiningSpeed (float)
