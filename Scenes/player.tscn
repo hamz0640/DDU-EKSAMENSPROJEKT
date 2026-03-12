@@ -527,6 +527,7 @@ AnimationPlayer = NodePath("AnimatedSprite2D")
 PlayerArea2D = NodePath("Area2D")
 JetpackForce = -150.0
 BoostVelocity = -175.0
+JetpackDrainRate = 6.0
 
 [node name="Area2D" type="Area2D" parent="CharacterBody2D"]
 
