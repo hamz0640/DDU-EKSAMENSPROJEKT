@@ -24,7 +24,7 @@ public partial class MineralCounter : Node
             return;
 
         Global global = (Global)GetTree().Root.GetNode("Global");
-        if (global.TotalMineralCount < global.MaxInventorySpace)
+        if (global.TotalMineralCount < global.GetStat<uint>("MaxInventorySpace"))
         {
             global.MineralCount[mineralType] += 1;
             global.TotalMineralCount += 1;

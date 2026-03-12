@@ -185,7 +185,7 @@ public partial class Ground : Node2D
             return;
             
         
-        PackedScene mineralScene = GD.Load<PackedScene>("res://Scenes/Mineral.tscn");
+        PackedScene mineralScene = GD.Load<PackedScene>("res://Scenes/mineral.tscn");
         Mineral mineral = mineralScene.Instantiate<Mineral>();
         AddChild(mineral);
         
