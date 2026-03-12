@@ -13,31 +13,31 @@ public partial class PlayerController : CharacterBody2D
 	[Export] public float Acceleration = 150.0f;
 	[Export] public float WireSpeed = 80.0f;
     [Export] public float MiningSpeed = 0.5f;
-	[Export] private AnimatedSprite2D animationPlayer;
-    [Export] public float fullBatteryCapacity = 1;
-    [Export] private Area2D playerArea2D;
+	[Export] private AnimatedSprite2D AnimationPlayer;
+    [Export] public float FullBatteryCapacity = 1;
+    [Export] private Area2D PlayerArea2D;
 
-    private bool isMounted = false;
+    private bool IsMounted = false;
     private bool IsWantedFlip = false;
-    private float _timer = 0f;
+    private float Timer = 0f;
 
     // Jetpack 
     [Export] public float JetpackForce = -500f;
     [Export] public float BoostVelocity = -350f;
     [Export] public float JetpackDrainRate = 5f;
-    private EnergyBar _energyBar;
+    private EnergyBar EnergyBar;
 
     [Export] public float BoostDuration = 0.15f;
 
     private enum JetpackState { Grounded, Boosting, Flying }
-    private JetpackState _jetpackState = JetpackState.Grounded;
-    private float _boostTimer = 0f;
-    private bool _isJetpacking = false;
+    private JetpackState JetpackStateVar = JetpackState.Grounded;
+    private float BoostTimer = 0f;
+    private bool IsJetpacking = false;
     public override void _Ready()
     {
-       _energyBar = GetTree().GetFirstNodeInGroup("energy_bar") as EnergyBar;
+       EnergyBar = GetTree().GetFirstNodeInGroup("energy_bar") as EnergyBar;
 
-        if (_energyBar == null)
+        if (EnergyBar == null)
         {
             GD.PrintErr("EnergyBar not found in group   ");
         }
@@ -46,65 +46,65 @@ public partial class PlayerController : CharacterBody2D
 	{
         Vector2 velocity = Velocity;
 
-        if (!IsOnFloor() && !isMounted ) // Hvis ikke på gulv, og ikke mountet på wiren, GRAVITY!
+        if (!IsOnFloor() && !IsMounted ) // Hvis ikke på gulv, og ikke mountet på wiren, GRAVITY!
             velocity += GetGravity() * (float)delta;
 
-        bool isFalling = velocity.Y > 100f && !IsOnFloor();
+        bool IsFalling = velocity.Y > 100f && !IsOnFloor();
         
         Vector2 inputDirection = Input.GetVector(
             "ui_left", "ui_right", "ui_up", "ui_down"
         );  
 
         // Jetpack implementation 
-        bool spaceJustPressed = Input.IsActionJustPressed("ui_accept");
-        bool spaceHeld = Input.IsActionPressed("ui_accept");
+        bool SpaceJustPressed = Input.IsActionJustPressed("ui_accept");
+        bool SpaceHeld = Input.IsActionPressed("ui_accept");
 
-if (!isMounted)
+if (!IsMounted)
 {
     if (IsOnFloor())
-        _jetpackState = JetpackState.Grounded;
+        JetpackStateVar = JetpackState.Grounded;
 
-    switch (_jetpackState)
+    switch (JetpackStateVar)
     {
         case JetpackState.Grounded:
-            _isJetpacking = false;
-            if (spaceJustPressed)
+            IsJetpacking = false;
+            if (SpaceJustPressed)
             {
                 velocity.Y = -Jump;
-                _jetpackState = JetpackState.Boosting;
-                _boostTimer = BoostDuration;
-                animationPlayer.Play("jetpack jump");
+                JetpackStateVar = JetpackState.Boosting;
+                BoostTimer = BoostDuration;
+                AnimationPlayer.Play("jetpack jump");
             }
             break;
 
         case JetpackState.Boosting:
-            _isJetpacking = true;
-            _boostTimer -= (float)delta;
-            animationPlayer.Play("jetpack boost");
-            if (_boostTimer <= 0f)
-                _jetpackState = JetpackState.Flying;
+            IsJetpacking = true;
+            BoostTimer -= (float)delta;
+            AnimationPlayer.Play("jetpack boost");
+            if (BoostTimer <= 0f)
+                JetpackStateVar = JetpackState.Flying;
             break;
 
         case JetpackState.Flying:
-            if (spaceHeld && _energyBar != null && _energyBar.HasEnergy())
+            if (SpaceHeld && EnergyBar != null && EnergyBar.HasEnergy())
             {
-                _isJetpacking = true;
+                IsJetpacking = true;
                 velocity.Y = JetpackForce;
-                _energyBar.DrainPerSecond(JetpackDrainRate, (float)delta);
+                EnergyBar.DrainPerSecond(JetpackDrainRate, (float)delta);
 
                 if (Velocity.X > 0.0)
                 {
-                    animationPlayer.FlipH = false;
-                    animationPlayer.Play("jetpack side");
+                    AnimationPlayer.FlipH = false;
+                    AnimationPlayer.Play("jetpack side");
                 }
                 else if (Velocity.X < 0.0)
                 {
-                    animationPlayer.FlipH = true;
-                    animationPlayer.Play("jetpack side");
+                    AnimationPlayer.FlipH = true;
+                    AnimationPlayer.Play("jetpack side");
                 }
                 else
                 {
-                    animationPlayer.Play("jetpack boost");
+                    AnimationPlayer.Play("jetpack boost");
                 }
             }
            
@@ -113,7 +113,7 @@ if (!isMounted)
 }
 
         bool isTouchingWire = false;
-        var areas = playerArea2D.GetOverlappingAreas();
+        var areas = PlayerArea2D.GetOverlappingAreas();
         foreach (var area in areas){
             if (area.IsInGroup("wire"))
                 isTouchingWire = true;
@@ -121,8 +121,8 @@ if (!isMounted)
 
         if (Input.IsActionJustPressed("ui_mount") && isTouchingWire) // Funktionalitet til at mounte
         {
-            isMounted = !isMounted;
-            if (isMounted)
+            IsMounted = !IsMounted;
+            if (IsMounted)
             {
                 velocity.X = 0; // Fix walk glitch
                 velocity.Y = 0; // Fix jump glitch
@@ -134,19 +134,19 @@ if (!isMounted)
 
         }
 
-        if (isMounted)
+        if (IsMounted)
         {
             // Hvis velocity X er 0, så er spilleren mountet og på den rigtige position
-            animationPlayer.FlipH = false;
+            AnimationPlayer.FlipH = false;
             if(Velocity.X == 0 && velocity.X == 0)
             {
-                animationPlayer.Play("climb");
+                AnimationPlayer.Play("climb");
             }
 
             if (GlobalPosition.Y < -22)
             {
                 velocity.Y = 20;
-                isMounted = false;
+                IsMounted = false;
                 velocity.X = 120;
             } // spring af wiren når man rammer toppen
             else
@@ -171,7 +171,7 @@ if (!isMounted)
                         velocity.Y = -150;
                         velocity.X = -150;
                     }
-                    isMounted = false;
+                    IsMounted = false;
                 } // Hopper af wiren til siden
 
             } // Bevægelse på wiren
@@ -183,25 +183,25 @@ if (!isMounted)
         float towards = inputDirection.X == 0 ? 0 : MaxSpeed * inputDirection.X;
         velocity.X = Mathf.MoveToward(velocity.X, towards, Acceleration * (float)delta);
 
-        if (!_isJetpacking)
+        if (!IsJetpacking)
         {
-                if (Mathf.Abs(velocity.X) != MaxSpeed && !isMounted && Velocity.X != 0) // Matematik til animationen
-                    ShowSpecificFrame(animationPlayer, "acceleration", (int)(Mathf.Abs(Velocity.X) / (MaxSpeed / 5.0)));
+                if (Mathf.Abs(velocity.X) != MaxSpeed && !IsMounted && Velocity.X != 0) // Matematik til animationen
+                    ShowSpecificFrame(AnimationPlayer, "acceleration", (int)(Mathf.Abs(Velocity.X) / (MaxSpeed / 5.0)));
 
                 if (Velocity.X > 0.0)
-                    animationPlayer.FlipH = false;
+                    AnimationPlayer.FlipH = false;
                 if (Velocity.X < 0.0)
-                    animationPlayer.FlipH = true;
+                    AnimationPlayer.FlipH = true;
                 
                 if (Velocity.X == 0.0 && inputDirection.X == 0.0)
                 {
-                    animationPlayer.FlipH = false;
-                    animationPlayer.Play("idle");
+                    AnimationPlayer.FlipH = false;
+                    AnimationPlayer.Play("idle");
                 }
                 
                 if (Mathf.Abs(Velocity.X) == MaxSpeed)
                 {
-                    animationPlayer.Play("move");
+                    AnimationPlayer.Play("move");
                 }
         }
 
@@ -243,11 +243,11 @@ if (!isMounted)
         Velocity = velocity;
         MoveAndSlide();
     }
-    private static void ShowSpecificFrame(AnimatedSprite2D animationPlayer, string animation, int frame)
+    private static void ShowSpecificFrame(AnimatedSprite2D AnimationPlayer, string Animation, int frame)
     {
-        animationPlayer.Stop(); // Stop den først
-        animationPlayer.Animation = animation;
-        animationPlayer.Frame = frame; // Sæt frame bagefter
+        AnimationPlayer.Stop(); // Stop den først
+        AnimationPlayer.Animation = Animation;
+        AnimationPlayer.Frame = frame; // Sæt frame bagefter
     }
 
 }
