@@ -87,10 +87,21 @@ public partial class PlayerController : CharacterBody2D
             case JetpackState.Flying:
                 if (spaceHeld && _energyBar != null && _energyBar.HasEnergy())
                 {
-                     _isJetpacking = true;
+                    
+                    _isJetpacking = true;
                     velocity.Y = Mathf.MoveToward(velocity.Y, JetpackForce, 1000f * (float)delta);
                     _energyBar.DrainPerSecond(JetpackDrainRate, (float)delta);
-                    animationPlayer.Play("jetpack boost"); 
+                    if (Velocity.X > 0.0)
+                        animationPlayer.FlipH = false;
+                    if (Velocity.X < 0.0)
+                        animationPlayer.FlipH = true;
+                    
+                    animationPlayer.Play("jetpack side");
+
+                    if (Velocity.X == 0)
+                        {
+                            animationPlayer.Play("jetpack boost");
+                        }
                 }
                 else if (isFalling)
                 {
