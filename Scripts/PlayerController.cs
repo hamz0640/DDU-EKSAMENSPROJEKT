@@ -7,8 +7,6 @@ public partial class PlayerController : CharacterBody2D
 {
 	[Export] public float MaxSpeed = 300.0f;
 
-    [Export] public HeartsBar HeartsBar;
-
     [Export] public float Jump = 250.0f;
 	[Export] public float Acceleration = 150.0f;
 	[Export] public float WireSpeed = 80.0f;
