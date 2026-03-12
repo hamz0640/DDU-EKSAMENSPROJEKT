@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://djfihwdiwhouv"]
+
+[ext_resource type="Script" uid="uid://cwenjnid3sarv" path="res://Scripts/ChargingZone.cs" id="1_ddd63"]
+
+[node name="ChargingZone" type="Area2D"]
+script = ExtResource("1_ddd63")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-83, 1)
+scale = Vector2(2.87852, 3.6825)
+polygon = PackedVector2Array(-40, -1, -39.3297, -1.3996, -28, -13, -21, -19, -12, -24, -4, -28, 5, -32, 14, -33, 26, -34, 42, -33, 57, -30, 66, -27, 74, -22, 81.5093, -18.8946, 87.7792, -13.996, 97, -8, 100, -4, 102, -1)
+one_way_collision_margin = 0.0
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="OnBodyExited"]
