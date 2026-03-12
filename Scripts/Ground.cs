@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public partial class Ground : Node2D
 {
@@ -234,7 +233,7 @@ public partial class Ground : Node2D
         {
             Mineral.MineralType mineralType = Minerals[tilePosition];
             Global global = (Global)GetTree().Root.GetNode("Global");
-            global.EmitSignal("MineralPickedUp", [(int)mineralType]);
+            global.EmitSignal("MineralCountUpdated", [(int)mineralType, true]);
 
             RemoveChild(mineralCenter);
             Minerals.Remove(tilePosition);

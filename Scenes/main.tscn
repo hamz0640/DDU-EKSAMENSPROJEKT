@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=10 format=3 uid="uid://vtp7jvawas5r"]
 
+[ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dtoxaxrlw74ln" path="res://Scripts/Ground.cs" id="1_bo1nx"]
 [ext_resource type="TileSet" uid="uid://cqvv03cm71dkj" path="res://Resources/ground.tres" id="2_8gbba"]
 [ext_resource type="TileSet" uid="uid://dt21gb75pk1by" path="res://Resources/background.tres" id="2_jjvhh"]
@@ -7,7 +8,30 @@
 [ext_resource type="PackedScene" uid="uid://j7pn54iqe4ig" path="res://Scenes/wire.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://btcichbg1pnh7" path="res://Scenes/ui.tscn" id="6_21xkr"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
+size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6bp64"]
+size = Vector2(32, 24)
+
 [node name="Main" type="Node2D"]
+
+[node name="UpgradeStation" type="Node2D" parent="." node_paths=PackedStringArray("InputChute", "UpgradeConsole")]
+script = ExtResource("1_6bp64")
+InputChute = NodePath("InputChute")
+UpgradeConsole = NodePath("UpgradeConsole")
+
+[node name="InputChute" type="Area2D" parent="UpgradeStation"]
+position = Vector2(156, -25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpgradeStation/InputChute"]
+shape = SubResource("RectangleShape2D_21xkr")
+
+[node name="UpgradeConsole" type="Area2D" parent="UpgradeStation"]
+position = Vector2(188, -25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpgradeStation/UpgradeConsole"]
+shape = SubResource("RectangleShape2D_6bp64")
 
 [node name="Ground" type="Node2D" parent="." node_paths=PackedStringArray("BackgroundLayer", "GroundLayer") groups=["Ground"]]
 z_index = 1

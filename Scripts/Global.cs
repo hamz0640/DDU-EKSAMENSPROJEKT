@@ -9,23 +9,49 @@ public partial class Global : Node
     }
 
     [Signal]
-    public delegate void MineralPickedUpEventHandler(Mineral.MineralType mineralType);
-    [Signal]
-    public delegate void MineralDroppedEventHandler(Mineral.MineralType mineralType);
-
-    public Dictionary<Mineral.MineralType, uint> MineralCount = new();
+    public delegate void MineralCountUpdatedEventHandler(Mineral.MineralType mineralType, bool pickedUp);
     private Dictionary<string, Variant> Stats = new();
-    public uint TotalMineralCount = 0;
+    private Dictionary<string, Variant> State = new();
 
 
     public override void _Ready()
     {
-        MineralCount[Mineral.MineralType.Red]    = 0;
-        MineralCount[Mineral.MineralType.Purple] = 0;
-        MineralCount[Mineral.MineralType.Yellow] = 0;
-
+        // ===== Stats =====
         Stats["MaxInventorySpace"] = 10;
         Stats["MiningSpeed"] = 0.5f;
+
+        // ===== State =====
+        // Minerals
+        State["RedMineralCount"]    = (uint)0;
+        State["PurpleMineralCount"] = (uint)0;
+        State["YellowMineralCount"] = (uint)0;
+        State["TotalMineralCount"]  = (uint)0;
+
+        // Upgrade Console
+        State["DepositedRedMineralCount"]    = (uint)0;
+        State["DepositedPurpleMineralCount"] = (uint)0;
+        State["DepositedYellowMineralCount"] = (uint)0;
+    }
+
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (Input.IsActionJustPressed("give_op"))
+        {
+            SetStat("MiningSpeed", 100.0f);
+
+            SetState("DepositedRedMineralCount",    (uint)99999);
+            SetState("DepositedPurpleMineralCount", (uint)99999);
+            SetState("DepositedYellowMineralCount", (uint)99999);
+
+            SetState("RedMineralCount",    (uint)99999);
+            SetState("PurpleMineralCount", (uint)99999);
+            SetState("YellowMineralCount", (uint)99999);
+
+            EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Red,    false]);
+            EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Purple, false]);
+            EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Yellow, false]);
+        }
     }
 
 
@@ -36,6 +62,16 @@ public partial class Global : Node
 
     public void SetStat<[MustBeVariant] T>(string stat, T value)
     {
-        Stats[stat] = Variant.From<T>(value);
+        Stats[stat] = Variant.From(value);
+    }
+
+    public T GetState<[MustBeVariant] T>(string state)
+    {
+        return State[state].As<T>();
+    }
+
+    public void SetState<[MustBeVariant] T>(string state, T value)
+    {
+        State[state] = Variant.From(value);
     }
 }
