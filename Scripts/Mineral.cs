@@ -22,21 +22,21 @@ public partial class Mineral : Node2D
         
         switch (Type) {
             case MineralType.Red:
-                Rect2 rect1 = new Rect2(00, 00, new Vector2(32, 32)); 
+                Rect2 rect1 = new Rect2(10, 00, new Vector2(32, 32)); 
                 Right.RegionRect  = rect1;
                 Left.RegionRect   = rect1;
                 Top.RegionRect    = rect1;
                 Bottom.RegionRect = rect1;
                 break;
             case MineralType.Purple:
-                Rect2 rect2 = new Rect2(00, 32, new Vector2(32, 32)); 
+                Rect2 rect2 = new Rect2(10, 32, new Vector2(32, 32)); 
                 Right.RegionRect  = rect2;
                 Left.RegionRect   = rect2;
                 Top.RegionRect    = rect2;
                 Bottom.RegionRect = rect2;
                 break;
             case MineralType.Yellow:
-                Rect2 rect3 = new Rect2(00, 64, new Vector2(32, 32)); 
+                Rect2 rect3 = new Rect2(10, 64, new Vector2(32, 32)); 
                 Right.RegionRect  = rect3;
                 Left.RegionRect   = rect3;
                 Top.RegionRect    = rect3;
