@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://mereslp0s3c7"]
 
 [ext_resource type="Script" uid="uid://ct7clapidpt65" path="res://Scripts/EnergyBar.cs" id="1_mydjc"]
-[ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/EL-bar_empty.png" id="2_frj1s"]
-[ext_resource type="Texture2D" uid="uid://unqtwkn0pyeq" path="res://Assets/EL-bar_full.png" id="3_xwmno"]
+[ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/Bars/EL-bar_empty.png" id="2_frj1s"]
+[ext_resource type="Texture2D" uid="uid://unqtwkn0pyeq" path="res://Assets/Bars/EL-bar_full.png" id="3_xwmno"]
 
 [node name="TextureProgressBar" type="TextureProgressBar" groups=["energy_bar"]]
 custom_minimum_size = Vector2(200, 100)

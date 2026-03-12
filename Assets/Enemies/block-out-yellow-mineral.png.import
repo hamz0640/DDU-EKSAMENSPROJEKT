@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m2m4v280l6pe"
-path="res://.godot/imported/block-out-ship.png-e7d175c5367c631b5656648f33851632.ctex"
+uid="uid://dl4vrhq8if4l8"
+path="res://.godot/imported/block-out-yellow-mineral.png-1590b84d54f1aac2b970948b06319117.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/block-out-ship.png"
-dest_files=["res://.godot/imported/block-out-ship.png-e7d175c5367c631b5656648f33851632.ctex"]
+source_file="res://Assets/Enemies/block-out-yellow-mineral.png"
+dest_files=["res://.godot/imported/block-out-yellow-mineral.png-1590b84d54f1aac2b970948b06319117.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://unqtwkn0pyeq"
-path="res://.godot/imported/EL-bar_full.png-a3a03d0b91a231e7b798d1bbd0ebcf8c.ctex"
+uid="uid://dc4qo7tc2nrnp"
+path="res://.godot/imported/block-out-purple-mineral.png-222f400f10386ae8de5d281c89ba9901.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/EL-bar_full.png"
-dest_files=["res://.godot/imported/EL-bar_full.png-a3a03d0b91a231e7b798d1bbd0ebcf8c.ctex"]
+source_file="res://Assets/Upgrades/block-out-purple-mineral.png"
+dest_files=["res://.godot/imported/block-out-purple-mineral.png-222f400f10386ae8de5d281c89ba9901.ctex"]
 
 [params]
 

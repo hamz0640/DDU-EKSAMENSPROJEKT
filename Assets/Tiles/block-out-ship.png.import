@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7jokrqdqeh4h"
-path="res://.godot/imported/EL-bar_empty.png-6e7f17a1584010392b009061d27f46fc.ctex"
+uid="uid://m2m4v280l6pe"
+path="res://.godot/imported/block-out-ship.png-10be508d56d68802e79600a2a5c80d7b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/EL-bar_empty.png"
-dest_files=["res://.godot/imported/EL-bar_empty.png-6e7f17a1584010392b009061d27f46fc.ctex"]
+source_file="res://Assets/Tiles/block-out-ship.png"
+dest_files=["res://.godot/imported/block-out-ship.png-10be508d56d68802e79600a2a5c80d7b.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwxlw8ig76rpq"
-path="res://.godot/imported/block-out-tiles.png-8d1a6878cbcc3deff806b4a1ee4c4a1d.ctex"
+uid="uid://dq1awjibriy8h"
+path="res://.godot/imported/icon.svg-09d416435436552b2aea0678a49c720c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/block-out-tiles.png"
-dest_files=["res://.godot/imported/block-out-tiles.png-8d1a6878cbcc3deff806b4a1ee4c4a1d.ctex"]
+source_file="res://Assets/Icons/icon.svg"
+dest_files=["res://.godot/imported/icon.svg-09d416435436552b2aea0678a49c720c.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

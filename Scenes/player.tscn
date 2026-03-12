@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dh1rdwbefqlb" path="res://Assets/Player/MonoWheelRobotIdle.png" id="3_fkybt"]
 [ext_resource type="Texture2D" uid="uid://cibnv2xic76qu" path="res://Assets/Player/MonoWheelRobotWireClimb.png" id="3_x3wgy"]
 [ext_resource type="Texture2D" uid="uid://di3ilsn1oxcnd" path="res://Assets/Player/MonoWheelRobotDriveSide.png" id="4_x3wgy"]
-[ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/icon.svg" id="5_fkybt"]
+[ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/Icons/icon.svg" id="5_fkybt"]
 [ext_resource type="Texture2D" uid="uid://orjki3dl2aoq" path="res://Assets/Player/MonoWheelRobotJetpackSide.png" id="7_f1ek2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
@@ -543,7 +543,7 @@ shape = SubResource("CapsuleShape2D_f60y1")
 sprite_frames = SubResource("SpriteFrames_xuaoq")
 animation = &"jetpack jump"
 autoplay = "idle"
-frame_progress = 0.902531
+frame_progress = 0.0754941
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" groups=["Camera"]]
 zoom = Vector2(5, 5)
