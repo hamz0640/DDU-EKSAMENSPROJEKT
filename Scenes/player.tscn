@@ -418,7 +418,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"jetpack fall",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -541,9 +541,9 @@ shape = SubResource("CapsuleShape2D_f60y1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_xuaoq")
-animation = &"jetpack jump"
+animation = &"jetpack fall"
 autoplay = "idle"
-frame_progress = 0.0754941
+frame_progress = 0.888494
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" groups=["Camera"]]
 zoom = Vector2(5, 5)

@@ -49,69 +49,68 @@ public partial class PlayerController : CharacterBody2D
         if (!IsOnFloor() && !isMounted ) // Hvis ikke på gulv, og ikke mountet på wiren, GRAVITY!
             velocity += GetGravity() * (float)delta;
 
-        bool isFalling = velocity.Y > 50f && !IsOnFloor();
+        bool isFalling = velocity.Y > 100f && !IsOnFloor();
         
         Vector2 inputDirection = Input.GetVector(
             "ui_left", "ui_right", "ui_up", "ui_down"
-        );
+        );  
 
         // Jetpack implementation 
         bool spaceJustPressed = Input.IsActionJustPressed("ui_accept");
         bool spaceHeld = Input.IsActionPressed("ui_accept");
 
-        if (!isMounted)
-        {
-            // Reset til grounded
-            if (IsOnFloor())
-                _jetpackState = JetpackState.Grounded;
+if (!isMounted)
+{
+    if (IsOnFloor())
+        _jetpackState = JetpackState.Grounded;
 
-          switch (_jetpackState){
-            case JetpackState.Grounded:
-                _isJetpacking = false;
-                if (spaceJustPressed){
-                        velocity.Y = -Jump;
-                        _jetpackState = JetpackState.Boosting;
-                        _boostTimer = BoostDuration;
-                        animationPlayer.Play("jetpack jump"); 
-                    }
-                    break;
+    switch (_jetpackState)
+    {
+        case JetpackState.Grounded:
+            _isJetpacking = false;
+            if (spaceJustPressed)
+            {
+                velocity.Y = -Jump;
+                _jetpackState = JetpackState.Boosting;
+                _boostTimer = BoostDuration;
+                animationPlayer.Play("jetpack jump");
+            }
+            break;
 
-            case JetpackState.Boosting:
+        case JetpackState.Boosting:
+            _isJetpacking = true;
+            _boostTimer -= (float)delta;
+            animationPlayer.Play("jetpack boost");
+            if (_boostTimer <= 0f)
+                _jetpackState = JetpackState.Flying;
+            break;
+
+        case JetpackState.Flying:
+            if (spaceHeld && _energyBar != null && _energyBar.HasEnergy())
+            {
                 _isJetpacking = true;
-                _boostTimer -= (float)delta;
-                animationPlayer.Play("jetpack boost"); 
-                if (_boostTimer <= 0f)
-                    _jetpackState = JetpackState.Flying;
-                break;
+                velocity.Y = JetpackForce;
+                _energyBar.DrainPerSecond(JetpackDrainRate, (float)delta);
 
-            case JetpackState.Flying:
-                if (spaceHeld && _energyBar != null && _energyBar.HasEnergy())
+                if (Velocity.X > 0.0)
                 {
-                    
-                    _isJetpacking = true;
-                    velocity.Y = JetpackForce;
-                    _energyBar.DrainPerSecond(JetpackDrainRate, (float)delta);
-                    if (Velocity.X > 0.0)
-                        animationPlayer.FlipH = false;
-                    if (Velocity.X < 0.0)
-                        animationPlayer.FlipH = true;
-                    
+                    animationPlayer.FlipH = false;
                     animationPlayer.Play("jetpack side");
-
-                    if (Velocity.X == 0)
-                        {
-                            animationPlayer.Play("jetpack boost");
-                        }
                 }
-                else if (isFalling)
+                else if (Velocity.X < 0.0)
                 {
-                    _isJetpacking = true;
-                    animationPlayer.Play("jetpack fall"); 
+                    animationPlayer.FlipH = true;
+                    animationPlayer.Play("jetpack side");
                 }
-                break;
+                else
+                {
+                    animationPlayer.Play("jetpack boost");
                 }
-        }
-
+            }
+           
+            break;
+    }
+}
 
         bool isTouchingWire = false;
         var areas = playerArea2D.GetOverlappingAreas();
