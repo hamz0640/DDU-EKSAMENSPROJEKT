@@ -18,6 +18,12 @@ public partial class UpgradeIcon : MarginContainer
 
     private void _OnButtonPressed()
     {
+        if (RelatedUpgradeResource.AmountBought >= RelatedUpgradeResource.MaxBuyAmount)
+        {
+            GD.Print("Attempted to buy" + UpgradeName.Text + " but it was already maxxed");
+            return;
+        }
+
         GD.Print("Attempt buy");
         Global global = Global.GetInstance();
         
@@ -39,6 +45,7 @@ public partial class UpgradeIcon : MarginContainer
             return;
         
         GD.Print("Bought " + UpgradeName.Text);
+        RelatedUpgradeResource.OnBuy();
 
         uint NewDepositedRedMineralCount    = DepositedRedMineralCount    - RequiredRedMineralCount;
         uint NewDepositedPurpleMineralCount = DepositedPurpleMineralCount - RequiredPurpleMineralCount;

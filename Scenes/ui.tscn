@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://unqtwkn0pyeq" path="res://Assets/Bars/EL-bar_full.png" id="2_smcll"]
 [ext_resource type="Script" uid="uid://ct7clapidpt65" path="res://Scripts/EnergyBar.cs" id="3_ryf15"]
 [ext_resource type="Script" uid="uid://cy7a1nhxc65a7" path="res://Scripts/MineralCounter.cs" id="4_smcll"]
-[ext_resource type="Texture2D" uid="uid://ccmxrdrhb55mo" path="res://Assets/block-out-red-mineral.png" id="5_smcll"]
-[ext_resource type="Texture2D" uid="uid://dc4qo7tc2nrnp" path="res://Assets/Upgrades/block-out-purple-mineral.png" id="6_ryf15"]
+[ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/block-out-red-mineral.png" id="5_smcll"]
+[ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Upgrades/block-out-purple-mineral.png" id="6_ryf15"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Enemies/block-out-yellow-mineral.png" id="7_mmixe"]
 
 [node name="UI" type="CanvasLayer"]

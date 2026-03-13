@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://ij8v42cma06a" path="res://Scripts/UpgradeMenu.cs" id="1_2hr16"]
 [ext_resource type="Script" uid="uid://dc52rqj6ct6ug" path="res://Scripts/scroll_container.gd" id="1_11363"]
-[ext_resource type="Texture2D" uid="uid://ccmxrdrhb55mo" path="res://Assets/block-out-red-mineral.png" id="1_lhh40"]
-[ext_resource type="Texture2D" uid="uid://dc4qo7tc2nrnp" path="res://Assets/Upgrades/block-out-purple-mineral.png" id="2_2hr16"]
+[ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/block-out-red-mineral.png" id="1_lhh40"]
+[ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Upgrades/block-out-purple-mineral.png" id="2_2hr16"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Enemies/block-out-yellow-mineral.png" id="3_lpopj"]
 
 [node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("HFlowContainer", "RedMineralCount", "PurpleMineralCount", "YellowMineralCount")]
