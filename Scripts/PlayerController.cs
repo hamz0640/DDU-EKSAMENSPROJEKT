@@ -23,6 +23,7 @@ public partial class PlayerController : CharacterBody2D
     [Export] public float BoostVelocity = -350f;
     [Export] public float JetpackDrainRate = 5f;
     private EnergyBar EnergyBar;
+    private bool IsJumpingSideways = false;
 
     [Export] public float BoostDuration = 0.15f;
 
@@ -63,24 +64,38 @@ if (!IsMounted)
 
     switch (JetpackStateVar)
     {
-        case JetpackState.Grounded:
-            IsJetpacking = false;
-            if (SpaceJustPressed)
-            {
-                velocity.Y = -Jump;
-                JetpackStateVar = JetpackState.Boosting;
-                BoostTimer = BoostDuration;
-                AnimationPlayer.Play("jetpack jump");
-            }
-            break;
+case JetpackState.Grounded:
+    IsJetpacking = false;
+    if (SpaceJustPressed)
+    {
+        velocity.Y = -Jump;
+        JetpackStateVar = JetpackState.Boosting;
+        BoostTimer = BoostDuration;
 
-        case JetpackState.Boosting:
-            IsJetpacking = true;
-            BoostTimer -= (float)delta;
-            AnimationPlayer.Play("jetpack boost");
-            if (BoostTimer <= 0f)
-                JetpackStateVar = JetpackState.Flying;
-            break;
+        if (Velocity.X != 0.0)
+        {
+            AnimationPlayer.FlipH = Velocity.X < 0.0;
+            AnimationPlayer.Play("jetpack jump side");
+            IsJumpingSideways = true;
+        }
+        else
+        {
+            AnimationPlayer.Play("jetpack jump");
+            IsJumpingSideways = false;
+        }
+    }
+    break;
+
+case JetpackState.Boosting:
+    IsJetpacking = true;
+    BoostTimer -= (float)delta;
+    if (IsJumpingSideways)
+        AnimationPlayer.Play("jetpack jump side");
+    else
+        AnimationPlayer.Play("jetpack boost");
+    if (BoostTimer <= 0f)
+        JetpackStateVar = JetpackState.Flying;
+    break;
 
         case JetpackState.Flying:
             if (SpaceHeld && EnergyBar != null && EnergyBar.HasEnergy())
