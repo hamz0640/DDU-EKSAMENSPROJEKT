@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=11 format=3 uid="uid://vtp7jvawas5r"]
 
-[ext_resource type="PackedScene" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
+[ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
+[ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
 [ext_resource type="Script" uid="uid://dtoxaxrlw74ln" path="res://Scripts/Ground.cs" id="1_bo1nx"]
 [ext_resource type="TileSet" uid="uid://cqvv03cm71dkj" path="res://Resources/ground.tres" id="2_8gbba"]
 [ext_resource type="TileSet" uid="uid://dt21gb75pk1by" path="res://Resources/background.tres" id="2_jjvhh"]
@@ -16,7 +17,10 @@ size = Vector2(32, 24)
 
 [node name="Main" type="Node2D"]
 
-[node name="UpgradeStation" type="Node2D" parent="."]
+[node name="UpgradeStation" type="Node2D" parent="." node_paths=PackedStringArray("InputChute", "UpgradeConsole")]
+script = ExtResource("1_344ge")
+InputChute = NodePath("InputChute")
+UpgradeConsole = NodePath("UpgradeConsole")
 
 [node name="InputChute" type="Area2D" parent="UpgradeStation"]
 position = Vector2(156, -25)

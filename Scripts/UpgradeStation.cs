@@ -22,7 +22,7 @@ public partial class UpgradeStation : Node2D
         float distanceToUpgradeConsole = cameraPosition.DistanceTo(UpgradeConsolePosition);
 
         bool closerToInputChute = distanceToInputChute < distanceToUpgradeConsole;
-        
+
         bool canDepositMinerals    = InputChute.GetOverlappingBodies().Contains(player) && closerToInputChute;
         bool canOpenUpgradeConsole = UpgradeConsole.GetOverlappingBodies().Contains(player) && !closerToInputChute;
 
