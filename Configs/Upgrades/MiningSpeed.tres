@@ -7,5 +7,5 @@ script = ExtResource("1_cbk7w")
 RedMineralAmount = 1
 PurpleMineralAmount = 0
 YellowMineralAmount = 0
-MaxBuyAmount = 0
+MaxBuyAmount = 5
 metadata/_custom_type_script = "uid://d2it48brbmpv8"

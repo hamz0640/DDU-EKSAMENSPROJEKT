@@ -12,6 +12,6 @@ public partial class MiningSpeed : Upgrade
         float currentMiningSpeed = global.GetStat<float>("MiningSpeed");
         float newMiningSpeed = currentMiningSpeed * 1.1f;
 
-        global.SetStat<float>("MiningSpeed", newMiningSpeed);
+        global.SetStat("MiningSpeed", newMiningSpeed);
     }
 }

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MaxInventorySpace" load_steps=2 format=3 uid="uid://byqsb7xss331r"]
+
+[ext_resource type="Script" uid="uid://d22mrdwr54kr5" path="res://Configs/UpgradeDefinitions/MaxInventorySpace.cs" id="1_441kk"]
+
+[resource]
+script = ExtResource("1_441kk")
+RedMineralAmount = 0
+PurpleMineralAmount = 2
+YellowMineralAmount = 1
+MaxBuyAmount = 5
+metadata/_custom_type_script = "uid://d22mrdwr54kr5"

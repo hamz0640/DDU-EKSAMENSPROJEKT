@@ -32,6 +32,8 @@ public partial class UpgradeStation : Node2D
 
             UpgradeMenu.HFlowContainer.AddChild(upgradeIcon);
             GD.Print(upgradeIcon.UpgradeName.Text + " loaded");
+
+            upgradeIcon.RelatedUpgradeResource = upgrade;
         }
     }
 
@@ -53,8 +55,10 @@ public partial class UpgradeStation : Node2D
         bool canDepositMinerals    = InputChute.GetOverlappingBodies().Contains(player) && closerToInputChute;
         bool canOpenUpgradeConsole = UpgradeConsole.GetOverlappingBodies().Contains(player) && !closerToInputChute;
 
-        if (canDepositMinerals && Input.IsActionJustPressed("interact"))
+        if (canDepositMinerals && Input.IsActionJustPressed("interact")) {
+            GD.Print("Deposited Minerals");
             DepositMinerals();
+        }
 
         if (canOpenUpgradeConsole && Input.IsActionJustPressed("interact"))
         {
