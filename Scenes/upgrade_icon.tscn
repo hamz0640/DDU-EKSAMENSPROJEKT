@@ -1,17 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvk82ceqa118l"]
+[gd_scene load_steps=6 format=3 uid="uid://dvk82ceqa118l"]
 
+[ext_resource type="Script" uid="uid://c1v3kupouoy36" path="res://Scripts/UpgradeIcon.cs" id="1_2n46o"]
 [ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/Icons/icon.svg" id="1_piis4"]
 [ext_resource type="Texture2D" uid="uid://ccmxrdrhb55mo" path="res://Assets/block-out-red-mineral.png" id="2_dhj4i"]
 [ext_resource type="Texture2D" uid="uid://dc4qo7tc2nrnp" path="res://Assets/Upgrades/block-out-purple-mineral.png" id="3_2n46o"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Enemies/block-out-yellow-mineral.png" id="4_o57w2"]
 
-[node name="MarginContainer2" type="MarginContainer"]
+[node name="MarginContainer2" type="MarginContainer" node_paths=PackedStringArray("RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "UpgradeName", "Icon")]
 offset_right = 230.0
 offset_bottom = 294.0
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
+script = ExtResource("1_2n46o")
+RedMineralCount = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/TextureRect/Label")
+PurpleMineralCount = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/TextureRect2/Label2")
+YellowMineralCount = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/TextureRect3/Label3")
+UpgradeName = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/Label")
+Icon = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/TextureRect")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2

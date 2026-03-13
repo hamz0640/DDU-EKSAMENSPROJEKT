@@ -5,9 +5,9 @@ using System;
 public abstract partial class Upgrade : Resource
 {
 
-    [Export] public uint RedCrystalAmount;
-    [Export] public uint PurpleCrystalAmount;
-    [Export] public uint YellowCrystalAmount;
+    [Export] public uint RedMineralAmount;
+    [Export] public uint PurpleMineralAmount;
+    [Export] public uint YellowMineralAmount;
     [Export] public uint MaxBuyAmount;
     public uint AmountBought = 0;
 

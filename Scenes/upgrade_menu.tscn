@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://eo5gb72cyek"]
+[gd_scene load_steps=6 format=3 uid="uid://eo5gb72cyek"]
 
+[ext_resource type="Script" uid="uid://ij8v42cma06a" path="res://Scripts/UpgradeMenu.cs" id="1_2hr16"]
 [ext_resource type="Script" uid="uid://dc52rqj6ct6ug" path="res://Scripts/scroll_container.gd" id="1_11363"]
 [ext_resource type="Texture2D" uid="uid://ccmxrdrhb55mo" path="res://Assets/block-out-red-mineral.png" id="1_lhh40"]
 [ext_resource type="Texture2D" uid="uid://dc4qo7tc2nrnp" path="res://Assets/Upgrades/block-out-purple-mineral.png" id="2_2hr16"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Enemies/block-out-yellow-mineral.png" id="3_lpopj"]
 
-[node name="MarginContainer" type="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("HFlowContainer", "RedMineralCount", "PurpleMineralCount", "YellowMineralCount")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,6 +16,11 @@ theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
+script = ExtResource("1_2hr16")
+HFlowContainer = NodePath("MarginContainer/VBoxContainer/MarginContainer/PanelContainer/ScrollContainer/HFlowContainer")
+RedMineralCount = NodePath("MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/TextureRect/Label")
+PurpleMineralCount = NodePath("MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/TextureRect2/Label")
+YellowMineralCount = NodePath("MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/TextureRect3/Label")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 2

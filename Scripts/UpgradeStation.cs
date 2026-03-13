@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class UpgradeStation : Node2D
 {
@@ -8,7 +9,31 @@ public partial class UpgradeStation : Node2D
     [Export]
     public Area2D UpgradeConsole = null;
     [Export]
-    public CanvasLayer UpgradeMenu = null;
+    public UpgradeMenu UpgradeMenu = null;
+    private List<Upgrade> Upgrades = [];
+
+
+    public override void _Ready()
+    {
+        string upgradePath = "res://Configs/Upgrades";
+        DirAccess upgradesDir = DirAccess.Open(upgradePath);
+        foreach (string localUpgradePath in upgradesDir.GetFiles())
+        {
+            Upgrade upgrade = (Upgrade)GD.Load(upgradePath + "/" + localUpgradePath);
+            Upgrades.Add(upgrade);
+
+            PackedScene scene = (PackedScene)GD.Load("res://Scenes/upgrade_icon.tscn");
+            UpgradeIcon upgradeIcon = (UpgradeIcon)scene.Instantiate();
+
+            upgradeIcon.UpgradeName.Text = localUpgradePath.GetBaseName();
+            upgradeIcon.RedMineralCount.Text    = upgrade.RedMineralAmount.ToString();
+            upgradeIcon.PurpleMineralCount.Text = upgrade.PurpleMineralAmount.ToString();
+            upgradeIcon.YellowMineralCount.Text = upgrade.YellowMineralAmount.ToString();
+
+            UpgradeMenu.HFlowContainer.AddChild(upgradeIcon);
+            GD.Print(upgradeIcon.UpgradeName.Text + " loaded");
+        }
+    }
 
 
     public override void _PhysicsProcess(double delta)
