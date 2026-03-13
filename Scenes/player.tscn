@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://b4nfhud4df0d"]
+[gd_scene load_steps=83 format=3 uid="uid://b4nfhud4df0d"]
 
 [ext_resource type="Script" uid="uid://ctijk7g5hnmqw" path="res://Scripts/PlayerController.cs" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://buypuapjok54f" path="res://Assets/Player/MonoWheelRobotJetpackBoot.png" id="2_8erm5"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://di3ilsn1oxcnd" path="res://Assets/Player/MonoWheelRobotDriveSide.png" id="4_x3wgy"]
 [ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/Icons/icon.svg" id="5_fkybt"]
 [ext_resource type="Texture2D" uid="uid://orjki3dl2aoq" path="res://Assets/Player/MonoWheelRobotJetpackSide.png" id="7_f1ek2"]
-[ext_resource type="Texture2D" uid="uid://dgtevtgnb3fnq" path="res://Assets/Player/MonoWheelRobotJetPackBootSide.png" id="7_tx1dd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
 size = Vector2(74.625, 2)
@@ -213,10 +212,6 @@ region = Rect2(224, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_bi64h"]
 atlas = ExtResource("4_x3wgy")
 region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wcnj3"]
-atlas = ExtResource("7_tx1dd")
-region = Rect2(256, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ss172"]
 atlas = ExtResource("7_f1ek2")
@@ -481,9 +476,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bi64h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wcnj3")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ss172")
