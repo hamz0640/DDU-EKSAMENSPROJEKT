@@ -7,6 +7,8 @@ public partial class UpgradeStation : Node2D
     public Area2D InputChute = null;
     [Export]
     public Area2D UpgradeConsole = null;
+    [Export]
+    public CanvasLayer UpgradeMenu = null;
 
 
     public override void _PhysicsProcess(double delta)
@@ -31,7 +33,7 @@ public partial class UpgradeStation : Node2D
 
         if (canOpenUpgradeConsole && Input.IsActionJustPressed("interact"))
         {
-            
+            UpgradeMenu.Visible = !UpgradeMenu.Visible;
         }
     }
 
