@@ -67,4 +67,4 @@ player = NodePath("../Player")
 [node name="Player" parent="." instance=ExtResource("3_8gbba")]
 position = Vector2(98, -86)
 
-[node name="UI" parent="." instance=ExtResource("6_21xkr")]
+[node name="UI" parent="." groups=["UI"] instance=ExtResource("6_21xkr")]

@@ -18,6 +18,7 @@ config/icon="res://Assets/Icons/icon.svg"
 [autoload]
 
 Global="*res://Scripts/Global.cs"
+WaveManager="*res://Scripts/WaveManager.cs"
 
 [display]
 
@@ -35,6 +36,7 @@ project/assembly_name="Company Policy"
 Camera=""
 Ground=""
 energy_bar=""
+UI=""
 
 [input]
 

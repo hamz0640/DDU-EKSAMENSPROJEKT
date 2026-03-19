@@ -62,8 +62,21 @@ public partial class UpgradeStation : Node2D
 
         if (canOpenUpgradeConsole && Input.IsActionJustPressed("interact"))
         {
-            UpgradeMenu.Visible = !UpgradeMenu.Visible;
+            ToggleUpgradeConsole();
         }
+
+        if (distanceToUpgradeConsole > 21.0 && UpgradeMenu.Visible)
+        {
+            ToggleUpgradeConsole();
+        }
+    }
+
+    private void ToggleUpgradeConsole()
+    {
+        CanvasLayer UI = (CanvasLayer)GetTree().GetFirstNodeInGroup("UI");
+
+        UI.Visible = !UI.Visible;
+        UpgradeMenu.Visible = !UpgradeMenu.Visible;
     }
 
     private void DepositMinerals()
