@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public partial class Global : Node
 {
+    // TODO: Implement get caching (i.e. store the global in a private class
+    // variable, instead of getting it each time)
     public static Global GetInstance() {
         return (Global)((SceneTree)Engine.GetMainLoop()).Root.GetNode("/root/Global");
     }

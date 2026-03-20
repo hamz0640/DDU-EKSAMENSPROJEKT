@@ -13,18 +13,20 @@ public partial class UpgradeIcon : MarginContainer
     public Label UpgradeName = null;
     [Export]
     public TextureRect Icon = null;
+    [Export]
+    public Label AmountBought = null;
     public Upgrade RelatedUpgradeResource = null; 
 
 
     private void _OnButtonPressed()
     {
-        if (RelatedUpgradeResource.AmountBought >= RelatedUpgradeResource.MaxBuyAmount)
+        if (RelatedUpgradeResource.AmountBought >= RelatedUpgradeResource.MaxBuyAmount &&
+            RelatedUpgradeResource.MaxBuyAmount != 0)
         {
-            GD.Print("Attempted to buy" + UpgradeName.Text + " but it was already maxxed");
+            GD.Print("Attempted to buy " + UpgradeName.Text + " but it was already maxxed");
             return;
         }
 
-        GD.Print("Attempt buy");
         Global global = Global.GetInstance();
         
         uint DepositedRedMineralCount    = global.GetState<uint>("DepositedRedMineralCount");
@@ -36,16 +38,36 @@ public partial class UpgradeIcon : MarginContainer
         uint RequiredYellowMineralCount = RelatedUpgradeResource.YellowMineralAmount;
 
         if (DepositedRedMineralCount < RequiredRedMineralCount)
+        {
+            GD.Print("Attempted to buy " + UpgradeName.Text + " but didn't have enough red minerals");
             return;
+        }
+            
         
         if (DepositedPurpleMineralCount < RequiredPurpleMineralCount)
+        {
+            GD.Print("Attempted to buy " + UpgradeName.Text + " but didn't have enough purple minerals");
             return;
+        }
 
         if (DepositedYellowMineralCount < RequiredYellowMineralCount)
+        {
+            GD.Print("Attempted to buy " + UpgradeName.Text + " but didn't have enough yellow minerals");
             return;
+        }
         
         GD.Print("Bought " + UpgradeName.Text);
         RelatedUpgradeResource.OnBuy();
+        if (RelatedUpgradeResource.MaxBuyAmount == 0)
+        {
+            AmountBought.Text = "0/∞";
+        } 
+        else
+        {
+            string boughtAmount = RelatedUpgradeResource.AmountBought.ToString();
+            string maxBuyAmount = RelatedUpgradeResource.MaxBuyAmount.ToString();
+            AmountBought.Text = boughtAmount + "/" + maxBuyAmount;
+        }
 
         uint NewDepositedRedMineralCount    = DepositedRedMineralCount    - RequiredRedMineralCount;
         uint NewDepositedPurpleMineralCount = DepositedPurpleMineralCount - RequiredPurpleMineralCount;

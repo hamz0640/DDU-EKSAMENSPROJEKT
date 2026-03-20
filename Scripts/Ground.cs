@@ -15,7 +15,7 @@ public partial class Ground : Node2D
     public Dictionary<Vector2I, float> TileHealth = new();
     [ExportGroup("Configurations")]
     [Export]
-    public float CaveThreshold = 0.2f;
+    public float CaveThreshold = 0.25f;
     [Export]
     public int TileMargin = 1;
     [Export]
@@ -35,7 +35,7 @@ public partial class Ground : Node2D
     {
         GroundNoise.Seed = rand.Next();
         GroundNoise.NoiseType = FastNoiseLite.NoiseTypeEnum.Perlin;
-        GroundNoise.Frequency = 0.05f;
+        GroundNoise.Frequency = 0.2f;
 
         for (int x = 0; x < 10; x++)
         {
@@ -116,7 +116,7 @@ public partial class Ground : Node2D
 
                 PlaceBackgroundTile(localTilePosition);
 
-                if (y < 1 || (GroundNoise.GetNoise2D(x, y) < CaveThreshold))
+                if (y < 1 || (GroundNoise.GetNoise2D(x / 3.0f, y) < CaveThreshold))
                 {
                     PlaceGroundTile(localTilePosition, y < 1);
                 }

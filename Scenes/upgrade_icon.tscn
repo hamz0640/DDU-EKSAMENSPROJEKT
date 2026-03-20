@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Upgrades/block-out-purple-mineral.png" id="3_2n46o"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Enemies/block-out-yellow-mineral.png" id="4_o57w2"]
 
-[node name="MarginContainer2" type="MarginContainer" node_paths=PackedStringArray("RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "UpgradeName", "Icon")]
+[node name="UpgradeIcon" type="MarginContainer" node_paths=PackedStringArray("RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "UpgradeName", "Icon", "AmountBought")]
 offset_right = 230.0
 offset_bottom = 294.0
 theme_override_constants/margin_left = 15
@@ -14,11 +14,12 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 script = ExtResource("1_2n46o")
-RedMineralCount = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/TextureRect/Label")
-PurpleMineralCount = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/TextureRect2/Label2")
-YellowMineralCount = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/TextureRect3/Label3")
-UpgradeName = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/Label")
-Icon = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/TextureRect")
+RedMineralCount = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/RedMineral/RedMineralAmount")
+PurpleMineralCount = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/PurpleMineral/PurpleMineralAmount")
+YellowMineralCount = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/YellowMineral/YellowMineralAmount")
+UpgradeName = NodePath("PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2/UpgradeName")
+Icon = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Icon")
+AmountBought = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Icon/AmountBought")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -36,9 +37,21 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("1_piis4")
+
+[node name="AmountBought" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Icon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "0/∞"
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -50,7 +63,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2"]
+[node name="UpgradeName" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Mining Speed"
@@ -62,13 +75,13 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+[node name="RedMineral" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_dhj4i")
 expand_mode = 4
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/TextureRect"]
+[node name="RedMineralAmount" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/RedMineral"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,13 +92,13 @@ text = "1"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="TextureRect2" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+[node name="PurpleMineral" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("3_2n46o")
 expand_mode = 4
 
-[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/TextureRect2"]
+[node name="PurpleMineralAmount" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/PurpleMineral"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -96,13 +109,13 @@ text = "1"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="TextureRect3" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+[node name="YellowMineral" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("4_o57w2")
 expand_mode = 4
 
-[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/TextureRect3"]
+[node name="YellowMineralAmount" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/HBoxContainer/YellowMineral"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

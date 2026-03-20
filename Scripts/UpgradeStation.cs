@@ -29,6 +29,15 @@ public partial class UpgradeStation : Node2D
             upgradeIcon.RedMineralCount.Text    = upgrade.RedMineralAmount.ToString();
             upgradeIcon.PurpleMineralCount.Text = upgrade.PurpleMineralAmount.ToString();
             upgradeIcon.YellowMineralCount.Text = upgrade.YellowMineralAmount.ToString();
+            if (upgrade.MaxBuyAmount == 0)
+            {
+                upgradeIcon.AmountBought.Text = "0/∞";
+            } 
+            else
+            {
+                upgradeIcon.AmountBought.Text = "0/" + upgrade.MaxBuyAmount;
+            }
+            
 
             UpgradeMenu.HFlowContainer.AddChild(upgradeIcon);
             GD.Print(upgradeIcon.UpgradeName.Text + " loaded");
@@ -98,6 +107,8 @@ public partial class UpgradeStation : Node2D
         global.SetState<uint>("RedMineralCount", 0);
         global.SetState<uint>("PurpleMineralCount", 0);
         global.SetState<uint>("YellowMineralCount", 0);
+
+        global.SetState<uint>("TotalMineralCount", 0);
 
         global.EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Red,    false]);
         global.EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Purple, false]);

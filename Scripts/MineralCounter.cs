@@ -28,8 +28,8 @@ public partial class MineralCounter : Node
         uint totalMineralCount = global.GetState<uint>("TotalMineralCount");
         uint maxInventorySpace = global.GetStat<uint>("MaxInventorySpace");
 
-        // if (totalMineralCount >= maxInventorySpace)
-        //     return;
+        if (totalMineralCount >= maxInventorySpace && pickedUp == true)
+            return;
 
         uint mineralCount = 0;
         uint add = pickedUp ? 1u : 0u;
