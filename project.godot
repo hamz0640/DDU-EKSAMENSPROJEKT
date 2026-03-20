@@ -37,6 +37,7 @@ Camera=""
 Ground=""
 energy_bar=""
 UI=""
+Enemy=""
 
 [input]
 
