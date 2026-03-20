@@ -1,0 +1,38 @@
+using Godot;
+using System;
+
+public partial class EnemySpawner : Node2D
+{
+    private uint CurrentWave = 0;
+    private SceneTreeTimer TimeUntilNextEnemy = null;
+    float TimeBetweenSpawns = 1.0f;
+    public override void _Ready()
+    {
+        TimeUntilNextEnemy = GetTree().CreateTimer(TimeBetweenSpawns, false);
+        WaveManager waveManager = (WaveManager)GetTree().Root.GetNode("WaveManager");
+        waveManager.WaveStarted += OnWaveStarted;
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+
+        WaveManager waveManager = WaveManager.GetInstance();
+        if (waveManager.CurrentWave == null)
+        {
+            return;
+        }
+
+        if (TimeUntilNextEnemy.TimeLeft <= 0.0 && waveManager.CurrentWave.Enemies.Count > 0)
+        {
+            TimeUntilNextEnemy = GetTree().CreateTimer(TimeBetweenSpawns, false);
+            Enemy enemy = (Enemy)waveManager.CurrentWave.Enemies[0].Instantiate();
+            waveManager.CurrentWave.Enemies.RemoveAt(0);
+            AddChild(enemy);
+        }
+    }
+
+    public void OnWaveStarted(uint waveNumber)
+    {
+        CurrentWave = waveNumber;
+    }
+}

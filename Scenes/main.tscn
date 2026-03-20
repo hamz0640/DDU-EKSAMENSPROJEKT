@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b4nfhud4df0d" path="res://Scenes/player.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://j7pn54iqe4ig" path="res://Scenes/wire.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://btcichbg1pnh7" path="res://Scenes/ui.tscn" id="6_21xkr"]
-[ext_resource type="PackedScene" path="res://Scenes/enemy.tscn" id="10_hptm8"]
+[ext_resource type="Script" uid="uid://bep4klwunyd34" path="res://Scripts/EnemySpawner.cs" id="11_d1ilt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
 size = Vector2(24, 24)
@@ -70,14 +70,6 @@ position = Vector2(98, -86)
 
 [node name="UI" parent="." groups=["UI"] instance=ExtResource("6_21xkr")]
 
-[node name="Enemy" parent="." instance=ExtResource("10_hptm8")]
-position = Vector2(485, -20)
-
-[node name="Enemy2" parent="." instance=ExtResource("10_hptm8")]
-position = Vector2(602, -20)
-
-[node name="Enemy3" parent="." instance=ExtResource("10_hptm8")]
-position = Vector2(755, -46)
-
-[node name="Enemy4" parent="." instance=ExtResource("10_hptm8")]
-position = Vector2(835, -40)
+[node name="EnemySpawner" type="Node2D" parent="."]
+position = Vector2(895, -69)
+script = ExtResource("11_d1ilt")
