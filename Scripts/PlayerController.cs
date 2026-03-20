@@ -242,7 +242,7 @@ case JetpackState.Boosting:
                 goto EarlyExit;
 
             Global global = Global.GetInstance();
-            float miningSpeed = global.GetStat<float>("MiningSpeed");
+            float miningSpeed = global.GetState<float>("MiningSpeed");
 
             float tileHealth = ground.TileHealth[miningTilePosition];
             float newTileHealth = tileHealth - miningSpeed * (float)delta;

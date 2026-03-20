@@ -12,15 +12,14 @@ public partial class Global : Node
 
     [Signal]
     public delegate void MineralCountUpdatedEventHandler(Mineral.MineralType mineralType, bool pickedUp);
-    private Dictionary<string, Variant> Stats = new();
     private Dictionary<string, Variant> State = new();
 
 
     public override void _Ready()
     {
         // ===== Stats =====
-        Stats["MaxInventorySpace"] = 10;
-        Stats["MiningSpeed"] = 0.5f;
+        State["MaxInventorySpace"] = 10;
+        State["MiningSpeed"] = 0.5f;
 
         // ===== State =====
         // Minerals
@@ -43,7 +42,7 @@ public partial class Global : Node
     {
         if (Input.IsActionJustPressed("give_op"))
         {
-            SetStat("MiningSpeed", 100.0f);
+            SetState("MiningSpeed", 100.0f);
 
             SetState("DepositedRedMineralCount",    (uint)99999);
             SetState("DepositedPurpleMineralCount", (uint)99999);
@@ -59,16 +58,6 @@ public partial class Global : Node
         }
     }
 
-
-    public T GetStat<[MustBeVariant] T>(string stat)
-    {
-        return Stats[stat].As<T>();
-    }
-
-    public void SetStat<[MustBeVariant] T>(string stat, T value)
-    {
-        Stats[stat] = Variant.From(value);
-    }
 
     public T GetState<[MustBeVariant] T>(string state)
     {

@@ -60,7 +60,7 @@ public partial class UpgradeIcon : MarginContainer
         RelatedUpgradeResource.OnBuy();
         if (RelatedUpgradeResource.MaxBuyAmount == 0)
         {
-            AmountBought.Text = "0/∞";
+            AmountBought.Text = RelatedUpgradeResource.AmountBought.ToString() + "/∞";
         } 
         else
         {

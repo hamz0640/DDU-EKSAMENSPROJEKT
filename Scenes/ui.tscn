@@ -10,12 +10,12 @@
 
 [node name="UI" type="CanvasLayer"]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="BarAndMinerals" type="VBoxContainer" parent="."]
 offset_right = 120.0
 offset_bottom = 86.0
 scale = Vector2(3, 3)
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="EnergyBar" type="MarginContainer" parent="BarAndMinerals"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_vertical = 0
@@ -24,7 +24,7 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 4
 
-[node name="EnergyBar" type="TextureProgressBar" parent="VBoxContainer/MarginContainer" groups=["energy_bar"]]
+[node name="EnergyBar" type="TextureProgressBar" parent="BarAndMinerals/EnergyBar" groups=["energy_bar"]]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_vertical = 0
@@ -32,10 +32,10 @@ texture_under = ExtResource("1_m78vo")
 texture_progress = ExtResource("2_smcll")
 script = ExtResource("3_ryf15")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Minerals" type="HBoxContainer" parent="BarAndMinerals"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer" node_paths=PackedStringArray("MineralImage", "NumberLabel")]
+[node name="MarginContainer" type="MarginContainer" parent="BarAndMinerals/Minerals" node_paths=PackedStringArray("MineralImage", "NumberLabel")]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 0
@@ -45,11 +45,11 @@ script = ExtResource("4_smcll")
 MineralImage = NodePath("Red")
 NumberLabel = NodePath("Red/Label")
 
-[node name="Red" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer"]
+[node name="Red" type="TextureRect" parent="BarAndMinerals/Minerals/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("5_smcll")
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/Red"]
+[node name="Label" type="Label" parent="BarAndMinerals/Minerals/MarginContainer/Red"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,7 +60,7 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer" node_paths=PackedStringArray("MineralImage", "NumberLabel")]
+[node name="MarginContainer2" type="MarginContainer" parent="BarAndMinerals/Minerals" node_paths=PackedStringArray("MineralImage", "NumberLabel")]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 0
@@ -71,11 +71,11 @@ MineralImage = NodePath("Purple")
 NumberLabel = NodePath("Purple/Label")
 ReactOnPickupOf = 1
 
-[node name="Purple" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer2"]
+[node name="Purple" type="TextureRect" parent="BarAndMinerals/Minerals/MarginContainer2"]
 layout_mode = 2
 texture = ExtResource("6_ryf15")
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer2/Purple"]
+[node name="Label" type="Label" parent="BarAndMinerals/Minerals/MarginContainer2/Purple"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -86,7 +86,7 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer" node_paths=PackedStringArray("MineralImage", "NumberLabel")]
+[node name="MarginContainer3" type="MarginContainer" parent="BarAndMinerals/Minerals" node_paths=PackedStringArray("MineralImage", "NumberLabel")]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 0
@@ -97,11 +97,11 @@ MineralImage = NodePath("Yellow")
 NumberLabel = NodePath("Yellow/Label")
 ReactOnPickupOf = 2
 
-[node name="Yellow" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer3"]
+[node name="Yellow" type="TextureRect" parent="BarAndMinerals/Minerals/MarginContainer3"]
 layout_mode = 2
 texture = ExtResource("7_mmixe")
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer3/Yellow"]
+[node name="Label" type="Label" parent="BarAndMinerals/Minerals/MarginContainer3/Yellow"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

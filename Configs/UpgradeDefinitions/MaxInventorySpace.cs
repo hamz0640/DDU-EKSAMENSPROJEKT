@@ -9,9 +9,9 @@ public partial class MaxInventorySpace : Upgrade
         Global global = Global.GetInstance();
         AmountBought += 1;
 
-        uint currentMaxInventorySpace = global.GetStat<uint>("MaxInventorySpace");
+        uint currentMaxInventorySpace = global.GetState<uint>("MaxInventorySpace");
         uint newMaxInventorySpace = currentMaxInventorySpace + 1;
 
-        global.SetStat("MaxInventorySpace", newMaxInventorySpace);
+        global.SetState("MaxInventorySpace", newMaxInventorySpace);
     }
 }

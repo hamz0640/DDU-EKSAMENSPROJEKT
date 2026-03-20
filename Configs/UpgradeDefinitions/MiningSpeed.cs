@@ -9,9 +9,9 @@ public partial class MiningSpeed : Upgrade
         Global global = Global.GetInstance();
         AmountBought += 1;
 
-        float currentMiningSpeed = global.GetStat<float>("MiningSpeed");
+        float currentMiningSpeed = global.GetState<float>("MiningSpeed");
         float newMiningSpeed = currentMiningSpeed * 1.15f;
 
-        global.SetStat("MiningSpeed", newMiningSpeed);
+        global.SetState("MiningSpeed", newMiningSpeed);
     }
 }
