@@ -544,7 +544,7 @@ shape = SubResource("CapsuleShape2D_f60y1")
 sprite_frames = SubResource("SpriteFrames_xuaoq")
 animation = &"jetpack side"
 autoplay = "idle"
-frame_progress = 0.748531
+frame_progress = 0.232728
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" groups=["Camera"]]
 zoom = Vector2(5, 5)
