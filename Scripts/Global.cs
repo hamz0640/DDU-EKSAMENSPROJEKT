@@ -17,11 +17,14 @@ public partial class Global : Node
 
     public override void _Ready()
     {
+        // Name?
+        State["CurrentEnergy"] = 100f;
+        State["MaxEnergy"] = 100f;
+
         // ===== Stats =====
         State["MaxInventorySpace"] = 10;
         State["MiningSpeed"] = 0.5f;
 
-        // ===== State =====
         // Minerals
         State["RedMineralCount"]    = (uint)0;
         State["PurpleMineralCount"] = (uint)0;

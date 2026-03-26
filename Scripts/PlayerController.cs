@@ -22,7 +22,6 @@ public partial class PlayerController : CharacterBody2D
     [Export] public float JetpackForce = -500f;
     [Export] public float BoostVelocity = -350f;
     [Export] public float JetpackDrainRate = 5f;
-    private EnergyBar EnergyBar;
     private bool IsJumpingSideways = false;
 
     [Export] public float BoostDuration = 0.15f;
@@ -31,20 +30,13 @@ public partial class PlayerController : CharacterBody2D
     private JetpackState JetpackStateVar = JetpackState.Grounded;
     private float BoostTimer = 0f;
     private bool IsJetpacking = false;
-    public override void _Ready()
-    {
-       EnergyBar = GetTree().GetFirstNodeInGroup("energy_bar") as EnergyBar;
 
-        if (EnergyBar == null)
-        {
-            GD.PrintErr("EnergyBar not found in group   ");
-        }
-    }
     public override void _PhysicsProcess(double delta)
 	{
         Vector2 velocity = Velocity;
 
-        if (!IsOnFloor() && !IsMounted ) // Hvis ikke på gulv, og ikke mountet på wiren, GRAVITY!
+        // Hvis ikke på gulv, og ikke mountet på wiren, GRAVITY!
+        if (!IsOnFloor() && !IsMounted ) 
             velocity += GetGravity() * (float)delta;
 
         bool IsFalling = velocity.Y > 100f && !IsOnFloor();
@@ -57,72 +49,78 @@ public partial class PlayerController : CharacterBody2D
         bool SpaceJustPressed = Input.IsActionJustPressed("ui_accept");
         bool SpaceHeld = Input.IsActionPressed("ui_accept");
 
-if (!IsMounted)
-{
-    if (IsOnFloor())
-        JetpackStateVar = JetpackState.Grounded;
+        Global global = Global.GetInstance();
 
-    switch (JetpackStateVar)
-    {
-case JetpackState.Grounded:
-    IsJetpacking = false;
-    if (SpaceJustPressed)
-    {
-        velocity.Y = -Jump;
-        JetpackStateVar = JetpackState.Boosting;
-        BoostTimer = BoostDuration;
-
-        if (Velocity.X != 0.0)
+        if (!IsMounted)
         {
-            AnimationPlayer.FlipH = Velocity.X < 0.0;
-            AnimationPlayer.Play("jetpack jump side");
-            IsJumpingSideways = true;
-        }
-        else
-        {
-            AnimationPlayer.Play("jetpack jump");
-            IsJumpingSideways = false;
-        }
-    }
-    break;
+            if (IsOnFloor())
+                JetpackStateVar = JetpackState.Grounded;
 
-case JetpackState.Boosting:
-    IsJetpacking = true;
-    BoostTimer -= (float)delta;
-    if (IsJumpingSideways)
-        AnimationPlayer.Play("jetpack jump side");
-    else
-        AnimationPlayer.Play("jetpack boost");
-    if (BoostTimer <= 0f)
-        JetpackStateVar = JetpackState.Flying;
-    break;
-
-        case JetpackState.Flying:
-            if (SpaceHeld && EnergyBar != null && EnergyBar.HasEnergy())
+            switch (JetpackStateVar)
             {
-                IsJetpacking = true;
-                velocity.Y = JetpackForce;
-                EnergyBar.DrainPerSecond(JetpackDrainRate, (float)delta);
+                case JetpackState.Grounded:
+                    IsJetpacking = false;
+                    if (SpaceJustPressed)
+                    {
+                        velocity.Y = -Jump;
+                        JetpackStateVar = JetpackState.Boosting;
+                        BoostTimer = BoostDuration;
 
-                if (Velocity.X > 0.0)
-                {
-                    AnimationPlayer.FlipH = false;
-                    AnimationPlayer.Play("jetpack side");
-                }
-                else if (Velocity.X < 0.0)
-                {
-                    AnimationPlayer.FlipH = true;
-                    AnimationPlayer.Play("jetpack side");
-                }
-                else
-                {
-                    AnimationPlayer.Play("jetpack boost");
-                }
+                        if (Velocity.X != 0.0)
+                        {
+                            AnimationPlayer.FlipH = Velocity.X < 0.0;
+                            AnimationPlayer.Play("jetpack jump side");
+                            IsJumpingSideways = true;
+                        }
+                        else
+                        {
+                            AnimationPlayer.Play("jetpack jump");
+                            IsJumpingSideways = false;
+                        }
+                    }
+                    break;
+
+                case JetpackState.Boosting:
+                    IsJetpacking = true;
+                    BoostTimer -= (float)delta;
+                    if (IsJumpingSideways)
+                        AnimationPlayer.Play("jetpack jump side");
+                    else
+                        AnimationPlayer.Play("jetpack boost");
+                    if (BoostTimer <= 0f)
+                        JetpackStateVar = JetpackState.Flying;
+                    break;
+
+                case JetpackState.Flying:
+                    float currentEnergy = global.GetState<float>("CurrentEnergy");
+                    if (SpaceHeld && currentEnergy > 0)
+                    {
+                        IsJetpacking = true;
+                        velocity.Y = JetpackForce;
+                        currentEnergy -= JetpackDrainRate * (float)delta;
+                        currentEnergy = Mathf.Max(currentEnergy, 0);
+                        global.SetState("CurrentEnergy", currentEnergy);
+                        GD.Print("Drained energy " + currentEnergy);
+
+                        if (Velocity.X > 0.0)
+                        {
+                            AnimationPlayer.FlipH = false;
+                            AnimationPlayer.Play("jetpack side");
+                        }
+                        else if (Velocity.X < 0.0)
+                        {
+                            AnimationPlayer.FlipH = true;
+                            AnimationPlayer.Play("jetpack side");
+                        }
+                        else
+                        {
+                            AnimationPlayer.Play("jetpack boost");
+                        }
+                    }
+                
+                    break;
             }
-           
-            break;
-    }
-}
+        }
 
         bool isTouchingWire = false;
         var areas = PlayerArea2D.GetOverlappingAreas();
@@ -241,7 +239,6 @@ case JetpackState.Boosting:
             if (tileData == null)
                 goto EarlyExit;
 
-            Global global = Global.GetInstance();
             float miningSpeed = global.GetState<float>("MiningSpeed");
 
             float tileHealth = ground.TileHealth[miningTilePosition];
@@ -258,6 +255,7 @@ case JetpackState.Boosting:
         Velocity = velocity;
         MoveAndSlide();
     }
+
     private static void ShowSpecificFrame(AnimatedSprite2D AnimationPlayer, string Animation, int frame)
     {
         AnimationPlayer.Stop(); // Stop den først

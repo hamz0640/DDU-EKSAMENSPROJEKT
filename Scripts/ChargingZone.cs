@@ -3,38 +3,46 @@ using Godot;
 public partial class ChargingZone : Area2D
 {
     [Export] public float ChargeRate = 5f; 
-
+    
+    private bool IsInChargingZone = false; 
     private PlayerController Player = null;
-    private EnergyBar EnergyBar = null;
 
     public override void _Ready()
     {
         BodyEntered += OnBodyEntered;
         BodyExited += OnBodyExited;
-
-        EnergyBar = GetTree().GetFirstNodeInGroup("energy_bar") as EnergyBar;
-
-        if (EnergyBar == null)
-            GD.PrintErr("ChargingZone shi not found in group ");
     }
 
     public override void _Process(double delta)
     {
-        if (Player != null && EnergyBar != null)
+        if (!IsInChargingZone)
         {
-            EnergyBar.AddEnergy(ChargeRate * (float)delta);
+            return;
         }
+
+        Global global = Global.GetInstance();
+        
+        float currentEnergy = global.GetState<float>("CurrentEnergy"); 
+        float maxEnergy     = global.GetState<float>("MaxEnergy");
+        
+        currentEnergy += ChargeRate * (float)delta;
+        currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
+
+        global.SetState("CurrentEnergy", currentEnergy);
     }
 
     private void OnBodyEntered(Node2D body)
     {
-        if (body is PlayerController player)
-            Player = player;
+        if (body is PlayerController)
+        {
+            IsInChargingZone = true;
+        }
     }
 
     private void OnBodyExited(Node2D body)
     {
-        if (body is PlayerController player && Player == player)
-            Player = null;
+        if (body is PlayerController) {
+            IsInChargingZone = false;
+        }
     }
 }
