@@ -80,4 +80,5 @@ public partial class Enemy : CharacterBody2D
 		var node = scene.Instantiate();
 		AddChild(node);
     }
+
 }

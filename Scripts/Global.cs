@@ -37,7 +37,7 @@ public partial class Global : Node
         State["DepositedYellowMineralCount"] = (uint)0;
 
         // Wave
-        State["ShieldHealth"] = 0.0f;
+        State["ShieldHealth"] = 200.0f;
     }
 
 
