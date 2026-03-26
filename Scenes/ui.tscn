@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://btcichbg1pnh7"]
+[gd_scene load_steps=9 format=3 uid="uid://btcichbg1pnh7"]
 
 [ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/Bars/EL-bar_empty.png" id="1_m78vo"]
 [ext_resource type="Texture2D" uid="uid://unqtwkn0pyeq" path="res://Assets/Bars/EL-bar_full.png" id="2_smcll"]
 [ext_resource type="Script" uid="uid://ct7clapidpt65" path="res://Scripts/EnergyBar.cs" id="3_ryf15"]
+[ext_resource type="Script" uid="uid://cax40dl2of44o" path="res://Scripts/WaveCounterLabel.cs" id="4_ryf15"]
 [ext_resource type="Script" uid="uid://cy7a1nhxc65a7" path="res://Scripts/MineralCounter.cs" id="4_smcll"]
 [ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/block-out-red-mineral.png" id="5_smcll"]
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Upgrades/block-out-purple-mineral.png" id="6_ryf15"]
@@ -15,7 +16,10 @@ offset_right = 120.0
 offset_bottom = 86.0
 scale = Vector2(3, 3)
 
-[node name="EnergyBar" type="MarginContainer" parent="BarAndMinerals"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BarAndMinerals"]
+layout_mode = 2
+
+[node name="EnergyBar" type="MarginContainer" parent="BarAndMinerals/HBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_vertical = 0
@@ -24,13 +28,22 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 4
 
-[node name="EnergyBar" type="TextureProgressBar" parent="BarAndMinerals/EnergyBar" groups=["energy_bar"]]
+[node name="EnergyBar" type="TextureProgressBar" parent="BarAndMinerals/HBoxContainer/EnergyBar" groups=["energy_bar"]]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_vertical = 0
 texture_under = ExtResource("1_m78vo")
 texture_progress = ExtResource("2_smcll")
 script = ExtResource("3_ryf15")
+
+[node name="Label" type="Label" parent="BarAndMinerals/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_ryf15")
 
 [node name="Minerals" type="HBoxContainer" parent="BarAndMinerals"]
 layout_mode = 2
