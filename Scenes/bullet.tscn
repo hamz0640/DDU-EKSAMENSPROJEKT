@@ -1,10 +1,51 @@
-[gd_scene load_steps=3 format=3 uid="uid://ttnx45yg8rxi"]
+[gd_scene load_steps=8 format=3 uid="uid://ttnx45yg8rxi"]
 
 [ext_resource type="Script" uid="uid://do2rajpqw480t" path="res://Scripts/Bullet.cs" id="1_oduel"]
 [ext_resource type="Texture2D" uid="uid://c40qp4d34g1sb" path="res://Assets/Icons/Bullet.png" id="2_oduel"]
+[ext_resource type="Texture2D" uid="uid://com3xu3bqmmhy" path="res://Assets/Enemies/BulletHit.png" id="3_ycag2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6afsh"]
+size = Vector2(4, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6afsh"]
+atlas = ExtResource("2_oduel")
+region = Rect2(0, 0, 3, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odot3"]
+atlas = ExtResource("3_ycag2")
+region = Rect2(0, 0, 5, 5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t8o6v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6afsh")
+}],
+"loop": true,
+"name": &"Bullet",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odot3")
+}],
+"loop": true,
+"name": &"Hit",
+"speed": 24.0
+}]
 
 [node name="Bullet" type="CharacterBody2D"]
 script = ExtResource("1_oduel")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_oduel")
+[node name="BulletHit" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletHit"]
+scale = Vector2(0.714617, 0.72)
+shape = SubResource("RectangleShape2D_6afsh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t8o6v")
+animation = &"Hit"
+
+[connection signal="area_entered" from="BulletHit" to="." method="OnAreaEntered"]
+[connection signal="body_entered" from="BulletHit" to="." method="OnBodyEntered"]
