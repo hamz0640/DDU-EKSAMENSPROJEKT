@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://b4nfhud4df0d"]
+[gd_scene load_steps=76 format=3 uid="uid://b4nfhud4df0d"]
 
 [ext_resource type="Script" uid="uid://ctijk7g5hnmqw" path="res://Scripts/PlayerController.cs" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://buypuapjok54f" path="res://Assets/Player/MonoWheelRobotJetpackBoot.png" id="2_8erm5"]
@@ -144,34 +144,6 @@ region = Rect2(192, 0, 32, 42)
 [sub_resource type="AtlasTexture" id="AtlasTexture_vq3lt"]
 atlas = ExtResource("3_f1ek2")
 region = Rect2(224, 0, 32, 42)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pukcj"]
-atlas = ExtResource("2_8erm5")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1htnp"]
-atlas = ExtResource("2_8erm5")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m376e"]
-atlas = ExtResource("2_8erm5")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6b312"]
-atlas = ExtResource("2_8erm5")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lisdf"]
-atlas = ExtResource("2_8erm5")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n1x1j"]
-atlas = ExtResource("2_8erm5")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c8b32"]
-atlas = ExtResource("2_8erm5")
-region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nj1g2"]
 atlas = ExtResource("2_8erm5")
@@ -417,27 +389,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pukcj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1htnp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m376e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6b312")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lisdf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n1x1j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c8b32")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_nj1g2")
 }],
 "loop": true,
@@ -591,8 +542,9 @@ shape = SubResource("CapsuleShape2D_f60y1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_xuaoq")
-animation = &"jetpack jump side"
+animation = &"jetpack fall"
 autoplay = "idle"
+frame_progress = 0.620984
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" groups=["Camera"]]
 zoom = Vector2(5, 5)

@@ -48,6 +48,7 @@ public partial class PlayerController : CharacterBody2D
         // Jetpack implementation 
         bool SpaceJustPressed = Input.IsActionJustPressed("ui_accept");
         bool SpaceHeld = Input.IsActionPressed("ui_accept");
+        float SideMove = 20.0f;
 
         Global global = Global.GetInstance();
 
@@ -66,7 +67,7 @@ public partial class PlayerController : CharacterBody2D
                         JetpackStateVar = JetpackState.Boosting;
                         BoostTimer = BoostDuration;
 
-                        if (Velocity.X != 0.0)
+                        if (Velocity.X > 0.0)
                         {
                             AnimationPlayer.FlipH = Velocity.X < 0.0;
                             AnimationPlayer.Play("jetpack jump side");
@@ -102,22 +103,20 @@ public partial class PlayerController : CharacterBody2D
                         global.SetState("CurrentEnergy", currentEnergy);
                         GD.Print("Drained energy " + currentEnergy);
 
-                        if (Velocity.X > 0.0)
+                        if (Velocity.Y > 0.0)
                         {
-                            AnimationPlayer.FlipH = false;
-                            AnimationPlayer.Play("jetpack side");
+                            AnimationPlayer.Play("jetpack fall");
                         }
-                        else if (Velocity.X < 0.0)
+                        else if (Mathf.Abs(Velocity.X) > SideMove)
                         {
-                            AnimationPlayer.FlipH = true;
+                            AnimationPlayer.FlipH = Velocity.X < 0.0;
                             AnimationPlayer.Play("jetpack side");
                         }
                         else
                         {
-                            AnimationPlayer.Play("jetpack boost");
+                            AnimationPlayer.Play("jetpack boost"); 
                         }
                     }
-                
                     break;
             }
         }
