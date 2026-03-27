@@ -19,7 +19,7 @@ public partial class Global : Node
     {
         // Name?
         State["CurrentEnergy"] = 100f;
-        State["MaxEnergy"] = 100f;
+        State["MaxEnergy"]     = 100f;
 
         // ===== Stats =====
         State["MaxInventorySpace"] = 10;

@@ -103,7 +103,6 @@ public partial class PlayerController : CharacterBody2D
                         currentEnergy -= JetpackDrainRate * (float)delta;
                         currentEnergy = Mathf.Max(currentEnergy, 0);
                         global.SetState("CurrentEnergy", currentEnergy);
-                        GD.Print("Drained energy " + currentEnergy);
                     }
                     else
                     {
