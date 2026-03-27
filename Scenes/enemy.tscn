@@ -167,6 +167,8 @@ animations = [{
 }]
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_afpow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -176,3 +178,7 @@ shape = SubResource("RectangleShape2D_afpow")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dhkrs")
 animation = &"Run&Gun"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="EnemyEntered"]

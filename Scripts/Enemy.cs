@@ -10,6 +10,7 @@ public partial class Enemy : CharacterBody2D
 	Vector2 Origo = new Vector2(0, 0);
 	Vector2 Spawn;
 	private bool hasShot = false;
+	int Offset;
 	
     public override void _Ready()
 	{
@@ -18,19 +19,20 @@ public partial class Enemy : CharacterBody2D
 		animation.Play("Walking");
 		animation.FlipH = true;
 		GlobalPosition = Spawn;
+		Offset = rnd.Next(0, 100);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
         Global global = Global.GetInstance();
-        if (global.GetState<float>("ShieldHealth") < 0.0f)
+        if (global.GetState<float>("ShieldHealth") > 0.0)
 		{
-			EnemyDistance = rnd.Next(350,450);
+			EnemyDistance = 500+Offset;
 		}
 		else
 		{
-			EnemyDistance = rnd.Next(500,600);
+			EnemyDistance =350+Offset;
 		}
 		
 		if (GlobalPosition.DistanceTo(Origo) < EnemyDistance)
@@ -80,5 +82,13 @@ public partial class Enemy : CharacterBody2D
 		var node = scene.Instantiate();
 		AddChild(node);
     }
+
+	void EnemyEntered(Node2D body)
+	{
+		//if (body is Enemy)
+		//{
+		//	AddCollisionExceptionWith(body);
+		//}
+	}
 
 }
