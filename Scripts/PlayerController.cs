@@ -31,6 +31,10 @@ public partial class PlayerController : CharacterBody2D
     private float BoostTimer = 0f;
     private bool IsJetpacking = false;
 
+        private float LastMoveInput = 1f;
+        private float InputZeroTimer = 0f;
+        private const float InputZeroGrace = 0.1f; // 100 ms ani delay ig
+
     public override void _PhysicsProcess(double delta)
 	{
         Vector2 velocity = Velocity;
@@ -48,11 +52,11 @@ public partial class PlayerController : CharacterBody2D
         // Jetpack implementation 
         bool SpaceJustPressed = Input.IsActionJustPressed("ui_accept");
         bool SpaceHeld = Input.IsActionPressed("ui_accept");
-        float SideMove = 20.0f;
 
         Global global = Global.GetInstance();
 
         if (!IsMounted)
+        GD.Print($"State: {JetpackStateVar} | FlipH: {AnimationPlayer.FlipH} | LastMove: {LastMoveInput:F2}");
         {
             if (IsOnFloor())
                 JetpackStateVar = JetpackState.Grounded;
@@ -61,15 +65,17 @@ public partial class PlayerController : CharacterBody2D
             {
                 case JetpackState.Grounded:
                     IsJetpacking = false;
+                    IsJumpingSideways = false; // Nulstil når man lander
                     if (SpaceJustPressed)
                     {
                         velocity.Y = -Jump;
                         JetpackStateVar = JetpackState.Boosting;
                         BoostTimer = BoostDuration;
 
-                        if (Mathf.Abs(Velocity.X) > SideMove)
+                        float jumpInput = Input.GetAxis("ui_left", "ui_right");
+                        if (Mathf.Abs(jumpInput) > 0.1f)
                         {
-                            AnimationPlayer.FlipH = Velocity.X < 0.0;
+                            AnimationPlayer.FlipH = jumpInput < 0.0;
                             AnimationPlayer.Play("jetpack jump side");
                             IsJumpingSideways = true;
                         }
@@ -84,12 +90,27 @@ public partial class PlayerController : CharacterBody2D
                 case JetpackState.Boosting:
                     IsJetpacking = true;
                     BoostTimer -= (float)delta;
-                    if (IsJumpingSideways){
-                        AnimationPlayer.FlipH = Velocity.X < 0.0;
+
+                    float boostMoveInput = Input.GetAxis("ui_left", "ui_right");
+
+                    if (IsJumpingSideways)
+                    {
+                        // Skift til side-animation hvis man skifter retning
+                        if (Mathf.Abs(boostMoveInput) > 0.1f)
+                            AnimationPlayer.FlipH = boostMoveInput < 0.0;
                         AnimationPlayer.Play("jetpack jump side");
-                        }
+                    }
+                    else if (Mathf.Abs(boostMoveInput) > 0.1f)
+                    {
+                        AnimationPlayer.FlipH = boostMoveInput < 0.0;
+                        AnimationPlayer.Play("jetpack side");
+                        IsJumpingSideways = true; 
+                    }
                     else
+                    {
                         AnimationPlayer.Play("jetpack boost");
+                    }
+
                     if (BoostTimer <= 0f)
                         JetpackStateVar = JetpackState.Flying;
                     break;
@@ -109,21 +130,34 @@ public partial class PlayerController : CharacterBody2D
                         IsJetpacking = false;
                     }
 
+                    float moveInput = Input.GetAxis("ui_left", "ui_right");
+
+                    if (Mathf.Abs(moveInput) > 0.1f)
+                    {
+                        LastMoveInput = moveInput;
+                        InputZeroTimer = 0f; 
+                    }
+                    else
+                    {
+                        InputZeroTimer += (float)delta; 
+                    }
+
+                    float effectiveMoveInput = (InputZeroTimer < InputZeroGrace) ? LastMoveInput : 0f;
+
                     if (Velocity.Y > 0.0)
                     {
                         AnimationPlayer.Play("jetpack fall");
                     }
-                    else if (Mathf.Abs(Velocity.X) > SideMove)
+                    else if (Mathf.Abs(effectiveMoveInput) > 0.1f)
                     {
-                        AnimationPlayer.FlipH = Velocity.X < 0.0;
+                        AnimationPlayer.FlipH = effectiveMoveInput < 0.0;
                         AnimationPlayer.Play("jetpack side");
                     }
                     else
                     {
-                        AnimationPlayer.Play("jetpack boost"); 
+                        AnimationPlayer.Play("jetpack boost");
                     }
-                
-                break;
+                    break;
             }
         }
 
