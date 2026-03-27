@@ -1,5 +1,7 @@
 using Godot;
+using Godot.NativeInterop;
 using System;
+using System.Linq;
 
 public partial class WaveManager : Node
 {
@@ -7,30 +9,34 @@ public partial class WaveManager : Node
     public delegate void WaveStartedEventHandler(uint waveNumber);
     private SceneTreeTimer WaveTimer;
     [Export]
-    public float MiningTime = 60.0f;
+    public float MiningTime = 0.0f;
     private uint waveNumber = 0;
     public Wave CurrentWave = null;
     private DirAccess WavesDir = null;
+    private string[] waves = null;
 
     public static WaveManager GetInstance() {
         return (WaveManager)((SceneTree)Engine.GetMainLoop()).Root.GetNode("/root/WaveManager");
     }
 
     public override void _Ready()
-    {
+    {   
         WavesDir = DirAccess.Open("res://Configs/Waves/");
-        WavesDir.ListDirBegin();
+        waves = WavesDir.GetFiles();
 
         WaveTimer = GetTree().CreateTimer(MiningTime, false);
         WaveTimer.Timeout += () =>
         {
-            string next = WavesDir.GetNext();
+            string next = waves[waveNumber];
+            GD.Print(next);
             Wave wave = GD.Load<Wave>("res://Configs/Waves/" + next);
             CurrentWave = wave;
 
             EmitSignal("WaveStarted", waveNumber);
-            GD.Print("New wave has begun");
+            GD.Print("Wave " + waveNumber + " started");
+            
             waveNumber += 1;
+            waveNumber = Math.Clamp(waveNumber, 0, (uint)waves.Length - 1);
         };
     }
 
@@ -44,18 +50,15 @@ public partial class WaveManager : Node
         int EnemiesInWorld = GetTree().GetNodeCountInGroup("Enemy");
         if (WaveTimer.TimeLeft <= 0.0 && CurrentWave.Enemies.Count <= 0 && EnemiesInWorld <= 0)
         {
-            GD.Print("Mining time has started");
-            WaveTimer = GetTree().CreateTimer(MiningTime, false);
+            string next = waves[waveNumber];
+            Wave wave = GD.Load<Wave>("res://Configs/Waves/" + next);
+            CurrentWave = wave;
 
-            WaveTimer.Timeout += () =>
-            {
-                Wave wave = GD.Load<Wave>("res://Configs/Waves/" + WavesDir.GetNext());
-                CurrentWave = wave;
-
-                EmitSignal("WaveStarted", waveNumber);
-                GD.Print("New wave has begun");
-                waveNumber += 1;
-            };
+            EmitSignal("WaveStarted", waveNumber);
+            GD.Print("Wave " + waveNumber + " started");
+            
+            waveNumber += 1;
+            waveNumber = Math.Clamp(waveNumber, 0, (uint)waves.Length - 1);
         }
     }
 

@@ -56,7 +56,6 @@ public partial class PlayerController : CharacterBody2D
         Global global = Global.GetInstance();
 
         if (!IsMounted)
-        GD.Print($"State: {JetpackStateVar} | FlipH: {AnimationPlayer.FlipH} | LastMove: {LastMoveInput:F2}");
         {
             if (IsOnFloor())
                 JetpackStateVar = JetpackState.Grounded;
