@@ -1,0 +1,102 @@
+[gd_scene load_steps=15 format=3 uid="uid://niarbobpjhhp"]
+
+[ext_resource type="Texture2D" uid="uid://cnnlxdv3g6nl4" path="res://Assets/turret.png" id="1_fcprl"]
+[ext_resource type="Script" uid="uid://dbruew2b1rcuv" path="res://Scripts/Turret.cs" id="1_hskch"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hskch"]
+atlas = ExtResource("1_fcprl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6spbj"]
+atlas = ExtResource("1_fcprl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pulj5"]
+atlas = ExtResource("1_fcprl")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahfaj"]
+atlas = ExtResource("1_fcprl")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ku01o"]
+atlas = ExtResource("1_fcprl")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_628tr"]
+atlas = ExtResource("1_fcprl")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74mb1"]
+atlas = ExtResource("1_fcprl")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxjjt"]
+atlas = ExtResource("1_fcprl")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpwha"]
+atlas = ExtResource("1_fcprl")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfgsf"]
+atlas = ExtResource("1_fcprl")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gt1ld"]
+atlas = ExtResource("1_fcprl")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_axnog"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hskch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6spbj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pulj5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahfaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ku01o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_628tr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74mb1")
+}],
+"loop": false,
+"name": &"deploy",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxjjt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpwha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfgsf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gt1ld")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 10.0
+}]
+
+[node name="turret" type="Node2D" groups=["Turret"]]
+script = ExtResource("1_hskch")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_axnog")
+animation = &"shoot"
+autoplay = "deploy"

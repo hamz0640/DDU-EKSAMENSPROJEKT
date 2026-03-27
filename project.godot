@@ -38,6 +38,7 @@ Ground=""
 energy_bar=""
 UI=""
 Enemy=""
+Turret=""
 
 [input]
 
