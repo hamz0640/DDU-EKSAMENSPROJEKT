@@ -9,7 +9,7 @@ public partial class WaveManager : Node
     public delegate void WaveStartedEventHandler(uint waveNumber);
     private SceneTreeTimer WaveTimer;
     [Export]
-    public float MiningTime = 60.0f;
+    public float MiningTime = 10.0f;
     private uint waveNumber = 0;
     public Wave CurrentWave = null;
     private DirAccess WavesDir = null;

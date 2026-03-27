@@ -6,9 +6,11 @@ public partial class ChargingZone : Area2D
     
     private bool IsInChargingZone = false; 
     private PlayerController Player = null;
+    Sprite2D sprite;
 
     public override void _Ready()
     {
+        sprite = GetNode<Sprite2D>("Sprite2D");
         BodyEntered += OnBodyEntered;
         BodyExited += OnBodyExited;
     }
@@ -24,11 +26,22 @@ public partial class ChargingZone : Area2D
         
         float currentEnergy = global.GetState<float>("CurrentEnergy"); 
         float maxEnergy     = global.GetState<float>("MaxEnergy");
+        float shieldEnergy = global.GetState<float>("ShieldHealth");
         
         currentEnergy += ChargeRate * (float)delta;
         currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
 
         global.SetState("CurrentEnergy", currentEnergy);
+
+        if (shieldEnergy <= 0)
+        {
+            sprite.Visible = false;
+        }
+
+        else
+        {
+            sprite.Visible = true;
+        }
     }
 
     private void OnBodyEntered(Node2D body)

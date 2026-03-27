@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://djfihwdiwhouv"]
+[gd_scene load_steps=3 format=3 uid="uid://djfihwdiwhouv"]
 
 [ext_resource type="Script" uid="uid://cwenjnid3sarv" path="res://Scripts/ChargingZone.cs" id="1_ddd63"]
+[ext_resource type="Texture2D" uid="uid://bkuyij7epxu0o" path="res://Assets/Tiles/ShieldGlow.png" id="2_vhn45"]
 
 [node name="ChargingZone" type="Area2D"]
 script = ExtResource("1_ddd63")
@@ -8,8 +9,12 @@ script = ExtResource("1_ddd63")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(-83, 1)
 scale = Vector2(2.87852, 3.6825)
-polygon = PackedVector2Array(-40, -1, -39.3297, -1.3996, -28, -13, -21, -19, -12, -24, -4, -28, 5, -32, 14, -33, 26, -34, 42, -33, 57, -30, 66, -27, 74, -22, 81.5093, -18.8946, 87.7792, -13.996, 97, -8, 100, -4, 102, -1)
+polygon = PackedVector2Array(-26.7499, 7.60353, -38.5615, -1.90088, -39.9511, -13.5777, -29.1817, -24.1684, -13.2012, -30.9572, 0, -33.6728, 12.8538, -35.0306, 23.6233, -36.1168, 39.9511, -36.1168, 59.0581, -33.4012, 73.3016, -29.871, 83.3762, -26.0693, 91.7138, -21.4528, 97.967, -14.1208, 98.3144, -8.14664, 95.8826, -1.62933, 91.7138, 3.25866, 84.4184, 7.87509)
 one_way_collision_margin = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -49)
+texture = ExtResource("2_vhn45")
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnBodyExited"]
