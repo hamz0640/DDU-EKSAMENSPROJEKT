@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://niarbobpjhhp"]
+[gd_scene load_steps=16 format=3 uid="uid://niarbobpjhhp"]
 
 [ext_resource type="Texture2D" uid="uid://cnnlxdv3g6nl4" path="res://Assets/turret.png" id="1_fcprl"]
 [ext_resource type="Script" uid="uid://dbruew2b1rcuv" path="res://Scripts/Turret.cs" id="1_hskch"]
@@ -93,10 +93,17 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="turret" type="Node2D" groups=["Turret"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hskch"]
+size = Vector2(14, 19)
+
+[node name="turret" type="CharacterBody2D" groups=["Turret"]]
 script = ExtResource("1_hskch")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_axnog")
 animation = &"shoot"
 autoplay = "deploy"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 6.5)
+shape = SubResource("RectangleShape2D_hskch")

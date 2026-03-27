@@ -30,11 +30,16 @@ public partial class Turret : CharacterBody2D
 		{
 			if (!deployed)
 			{
-                animator.Play("deploy");
-				GetTree().CreateTimer(Shootspeed).Timeout += _TimeOutShoot;
+				deployed = true;
+				GetTree().CreateTimer(3).Timeout += _DeployAnimation;
             }
 		}
         MoveAndSlide();
+    }
+	private void _DeployAnimation()
+	{
+        animator.Play("deploy");
+        GetTree().CreateTimer(2).Timeout += _TimeOutShoot;
     }
 	private void _TimeOutShoot()
 	{
