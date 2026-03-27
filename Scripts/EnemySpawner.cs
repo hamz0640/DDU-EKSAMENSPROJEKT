@@ -27,8 +27,6 @@ public partial class EnemySpawner : Node2D
             TimeUntilNextEnemy = GetTree().CreateTimer(TimeBetweenSpawns, false);
             Enemy enemy = (Enemy)waveManager.CurrentWave.Enemies[0].Instantiate();
             waveManager.CurrentWave.Enemies.RemoveAt(0);
-            GD.Print("Spawned enemy, remaining enemies: ", waveManager.CurrentWave.Enemies.Count);
-            GD.Print(waveManager.CurrentWave);
             AddChild(enemy);
         }
     }

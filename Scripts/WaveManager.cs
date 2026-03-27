@@ -9,7 +9,7 @@ public partial class WaveManager : Node
     public delegate void WaveStartedEventHandler(uint waveNumber);
     private SceneTreeTimer WaveTimer;
     [Export]
-    public float MiningTime = 0.0f;
+    public float MiningTime = 60.0f;
     private uint waveNumber = 0;
     public Wave CurrentWave = null;
     private DirAccess WavesDir = null;
@@ -28,7 +28,6 @@ public partial class WaveManager : Node
         WaveTimer.Timeout += () =>
         {
             string next = waves[waveNumber];
-            GD.Print(next);
             Wave wave = GD.Load<Wave>("res://Configs/Waves/" + next);
             CurrentWave = wave;
 
