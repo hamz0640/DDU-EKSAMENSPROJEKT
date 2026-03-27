@@ -15,6 +15,6 @@ public abstract partial class Upgrade : Resource
 
     public virtual bool CanBuy(SceneTree tree)
     {
-        return AmountBought < MaxBuyAmount;
+        return AmountBought < MaxBuyAmount || MaxBuyAmount == 0;
     }
 }
