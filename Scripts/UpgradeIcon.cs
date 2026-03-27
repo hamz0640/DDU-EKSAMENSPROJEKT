@@ -20,8 +20,7 @@ public partial class UpgradeIcon : MarginContainer
 
     private void _OnButtonPressed()
     {
-        if (RelatedUpgradeResource.AmountBought >= RelatedUpgradeResource.MaxBuyAmount &&
-            RelatedUpgradeResource.MaxBuyAmount != 0)
+        if (!RelatedUpgradeResource.CanBuy(GetTree()))
         {
             GD.Print("Attempted to buy " + UpgradeName.Text + " but it was already maxxed");
             return;
@@ -57,7 +56,8 @@ public partial class UpgradeIcon : MarginContainer
         }
         
         GD.Print("Bought " + UpgradeName.Text);
-        RelatedUpgradeResource.OnBuy();
+
+        RelatedUpgradeResource.OnBuy(GetTree());
         if (RelatedUpgradeResource.MaxBuyAmount == 0)
         {
             AmountBought.Text = RelatedUpgradeResource.AmountBought.ToString() + "/∞";

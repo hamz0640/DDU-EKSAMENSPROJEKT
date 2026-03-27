@@ -11,5 +11,10 @@ public abstract partial class Upgrade : Resource
     [Export] public uint MaxBuyAmount;
     public uint AmountBought = 0;
 
-    public abstract void OnBuy();
+    public abstract void OnBuy(SceneTree tree);
+
+    public virtual bool CanBuy(SceneTree tree)
+    {
+        return AmountBought < MaxBuyAmount;
+    }
 }

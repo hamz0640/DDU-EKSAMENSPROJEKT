@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TurretUpgrade" load_steps=2 format=3 uid="uid://fhyqv4o6xrjq"]
+
+[ext_resource type="Script" uid="uid://bllpo04jn1ams" path="res://Configs/UpgradeDefinitions/TurretUpgrade.cs" id="1_rvy5f"]
+
+[resource]
+script = ExtResource("1_rvy5f")
+RedMineralAmount = 0
+PurpleMineralAmount = 1
+YellowMineralAmount = 0
+MaxBuyAmount = 0
+metadata/_custom_type_script = "uid://bllpo04jn1ams"

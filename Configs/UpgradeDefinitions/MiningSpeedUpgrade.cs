@@ -2,9 +2,9 @@ using Godot;
 
 
 [GlobalClass]
-public partial class MiningSpeed : Upgrade
+public partial class MiningSpeedUpgrade : Upgrade
 {
-    public override void OnBuy()
+    public override void OnBuy(SceneTree _tree)
     {
         Global global = Global.GetInstance();
         AmountBought += 1;

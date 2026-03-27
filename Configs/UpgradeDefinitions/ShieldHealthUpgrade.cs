@@ -2,9 +2,9 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class ShieldHealth : Upgrade
+public partial class ShieldHealthUpgrade : Upgrade
 {
-    public override void OnBuy()
+    public override void OnBuy(SceneTree _tree)
     {
         Global global = Global.GetInstance();
         float shieldHealth = global.GetState<float>("ShieldHealth") + 20.0f;

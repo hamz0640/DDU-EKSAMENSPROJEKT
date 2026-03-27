@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ShieldHealth" load_steps=2 format=3 uid="uid://b1qsmsxjq6bb4"]
 
-[ext_resource type="Script" uid="uid://cuxkkwdgb2vyf" path="res://Configs/UpgradeDefinitions/ShieldHealth.cs" id="1_hepoy"]
+[ext_resource type="Script" uid="uid://cuxkkwdgb2vyf" path="res://Configs/UpgradeDefinitions/ShieldHealthUpgrade.cs" id="1_hepoy"]
 
 [resource]
 script = ExtResource("1_hepoy")
