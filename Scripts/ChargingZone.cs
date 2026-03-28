@@ -7,6 +7,7 @@ public partial class ChargingZone : Area2D
     private bool IsInChargingZone = false; 
     private PlayerController Player = null;
     Sprite2D sprite;
+    float MostRecentShieldEnergy;
 
     public override void _Ready()
     {
@@ -35,16 +36,34 @@ public partial class ChargingZone : Area2D
             global.SetState("CurrentEnergy", currentEnergy);
         }
 
-        // Gradvis synlighed basseret på dens energi
-        Color tempColor = sprite.Modulate;
-        tempColor.A = (float)((((float)shieldEnergy / 2)/100)+0.1);
-        if (tempColor.A > 1)
-            tempColor.A = 1;
-        sprite.Modulate = tempColor;
-        if (shieldEnergy <= 0)
-            sprite.Visible = false;
-        else
-            sprite.Visible = true;
+
+        if (shieldEnergy < MostRecentShieldEnergy && shieldEnergy > 40) // Hvis ramt, pulsér
+            PulseShield();
+
+        switch (shieldEnergy) // Ranges from 0 - 200
+        {
+            case >= 40:
+                // Gradvis synlighed basseret på dens energi
+                sprite.Visible = true;
+                Color tempColor = sprite.Modulate;
+                tempColor.A = (float)((((float)shieldEnergy / 2) / 100));
+                if (tempColor.A > 1)
+                    tempColor.A = 1;
+                sprite.Modulate = tempColor;
+                break;
+            case >= 1:
+                // Pulsering for at indikere danger eller sådan noget
+                sprite.Visible = true;
+                Color tempColorT = sprite.Modulate;
+                float rawSin = Mathf.Sin(Time.GetTicksMsec() * 0.005f);
+                tempColorT.A = Mathf.Remap(rawSin, -1.0f, 1.0f, 0.2f, 0.3f);
+                sprite.Modulate = tempColorT;
+                break;
+            case <= 0:
+                sprite.Visible = false;
+                break;
+        }
+        MostRecentShieldEnergy = shieldEnergy;
     }
 
     private void OnBodyEntered(Node2D body)
@@ -60,5 +79,17 @@ public partial class ChargingZone : Area2D
         if (body is PlayerController) {
             IsInChargingZone = false;
         }
+    }
+
+    public void PulseShield()
+    {
+        Tween tween = GetTree().CreateTween();
+
+        // Stærk farve ændring
+        sprite.Modulate = new Color(1.05f, 1.05f, 1.05f);
+        // Lav en overgang tilbage til normal
+        tween.TweenProperty(sprite, "modulate", new Color(1, 1, 1, sprite.Modulate.A), 0.1f)
+             .SetTrans(Tween.TransitionType.Expo)
+             .SetEase(Tween.EaseType.Out);
     }
 }
