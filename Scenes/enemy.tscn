@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://le1uk7mi0bid" path="res://Assets/Enemies/EnemyRun&Gun.png" id="2_0830c"]
 [ext_resource type="Texture2D" uid="uid://c742qeo7hoxp2" path="res://Assets/Enemies/EnemyWalk.png" id="3_0830c"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_afpow"]
-size = Vector2(10, 32)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_287tu"]
+radius = 5.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ghaa6"]
 atlas = ExtResource("2_0830c")
@@ -117,7 +117,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Run&Gun",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -173,11 +173,12 @@ script = ExtResource("1_afpow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 0)
-shape = SubResource("RectangleShape2D_afpow")
+shape = SubResource("CapsuleShape2D_287tu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dhkrs")
-animation = &"Run&Gun"
+animation = &"Shooting"
+frame_progress = 0.849135
 
 [node name="Area2D" type="Area2D" parent="."]
 

@@ -46,10 +46,16 @@ public partial class Turret : CharacterBody2D
 		if (deployed)
 		{
             animator.Play("shoot");
-            // Shoot logic spawn bullet and smth
-
+			// Shoot logic spawn bullet and smth
+			BulletSpawn();
             // End shoot logic
             GetTree().CreateTimer(Shootspeed).Timeout += _TimeOutShoot;
         }
 	}
+    void BulletSpawn()
+    {
+        var scene = GD.Load<PackedScene>("res://Scenes/turretBullet.tscn");
+        var node = scene.Instantiate();
+        AddChild(node);
+    }
 }

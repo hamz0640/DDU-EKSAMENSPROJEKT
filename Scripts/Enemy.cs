@@ -19,7 +19,7 @@ public partial class Enemy : CharacterBody2D
 		animation.Play("Walking");
 		animation.FlipH = true;
 		GlobalPosition = Spawn;
-		Offset = rnd.Next(0, 100);
+		Offset = rnd.Next(0, 60);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,11 +28,11 @@ public partial class Enemy : CharacterBody2D
         Global global = Global.GetInstance();
         if (global.GetState<float>("ShieldHealth") > 0.0)
 		{
-			EnemyDistance = 500+Offset;
+			EnemyDistance = 400+Offset;
 		}
 		else
 		{
-			EnemyDistance =350+Offset;
+			EnemyDistance =330+Offset;
 		}
 		
 		if (GlobalPosition.DistanceTo(Origo) < EnemyDistance)

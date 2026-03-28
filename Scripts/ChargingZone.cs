@@ -27,21 +27,24 @@ public partial class ChargingZone : Area2D
         float currentEnergy = global.GetState<float>("CurrentEnergy"); 
         float maxEnergy     = global.GetState<float>("MaxEnergy");
         float shieldEnergy = global.GetState<float>("ShieldHealth");
-        
-        currentEnergy += ChargeRate * (float)delta;
-        currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
 
-        global.SetState("CurrentEnergy", currentEnergy);
+        if (shieldEnergy > 1)
+        {
+            currentEnergy += ChargeRate * (float)delta;
+            currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
+            global.SetState("CurrentEnergy", currentEnergy);
+        }
 
+        // Gradvis synlighed basseret på dens energi
+        Color tempColor = sprite.Modulate;
+        tempColor.A = (float)((((float)shieldEnergy / 2)/100)+0.1);
+        if (tempColor.A > 1)
+            tempColor.A = 1;
+        sprite.Modulate = tempColor;
         if (shieldEnergy <= 0)
-        {
             sprite.Visible = false;
-        }
-
         else
-        {
             sprite.Visible = true;
-        }
     }
 
     private void OnBodyEntered(Node2D body)

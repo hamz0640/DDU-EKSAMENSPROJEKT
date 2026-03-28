@@ -94,7 +94,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hskch"]
-size = Vector2(14, 19)
+size = Vector2(11, 19)
 
 [node name="turret" type="CharacterBody2D" node_paths=PackedStringArray("animator") groups=["Turret"]]
 script = ExtResource("1_hskch")
@@ -106,5 +106,5 @@ animation = &"shoot"
 autoplay = "deploy"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 6.5)
+position = Vector2(-2.5, 6.5)
 shape = SubResource("RectangleShape2D_hskch")

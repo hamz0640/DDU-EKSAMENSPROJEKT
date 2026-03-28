@@ -21,7 +21,7 @@ public partial class Bullet : CharacterBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        Velocity = new Vector2(-100, 0);
+        Velocity = new Vector2(-200, 0);
         MoveAndSlide();
 		CheckDistance();
     }
@@ -30,6 +30,8 @@ public partial class Bullet : CharacterBody2D
 	{
 		if (body.Name == "ChargingZone" || body is PlayerController)
 		{
+			animation.Play("Hit");
+
 			global.SetState<float>("CurrentEnergy",PlayerEnergy()-Damage);
 
 			GD.Print(PlayerEnergy());
