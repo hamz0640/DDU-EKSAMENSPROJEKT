@@ -38,11 +38,11 @@ public partial class ChargingZone : Area2D
 
 
         if (shieldEnergy < MostRecentShieldEnergy && shieldEnergy > 40) // Hvis ramt, pulsér
-            PulseShield();
+            PulseShield(sprite.Modulate.A);
 
         switch (shieldEnergy) // Ranges from 0 - 200
         {
-            case >= 40:
+            case >= 50:
                 // Gradvis synlighed basseret på dens energi
                 sprite.Visible = true;
                 Color tempColor = sprite.Modulate;
@@ -55,7 +55,7 @@ public partial class ChargingZone : Area2D
                 // Pulsering for at indikere danger eller sådan noget
                 sprite.Visible = true;
                 Color tempColorT = sprite.Modulate;
-                float rawSin = Mathf.Sin(Time.GetTicksMsec() * 0.005f);
+                float rawSin = Mathf.Sin(Time.GetTicksMsec() * 0.01f);
                 tempColorT.A = Mathf.Remap(rawSin, -1.0f, 1.0f, 0.2f, 0.3f);
                 sprite.Modulate = tempColorT;
                 break;
@@ -81,14 +81,14 @@ public partial class ChargingZone : Area2D
         }
     }
 
-    public void PulseShield()
+    public void PulseShield(float OriginalAValue)
     {
         Tween tween = GetTree().CreateTween();
 
         // Stærk farve ændring
-        sprite.Modulate = new Color(1.05f, 1.05f, 1.05f);
+        sprite.Modulate = new Color(1.5f, 1.5f, 1.5f, OriginalAValue);
         // Lav en overgang tilbage til normal
-        tween.TweenProperty(sprite, "modulate", new Color(1, 1, 1, sprite.Modulate.A), 0.1f)
+        tween.TweenProperty(sprite, "modulate", new Color(1, 1, 1, OriginalAValue), 0.1f)
              .SetTrans(Tween.TransitionType.Expo)
              .SetEase(Tween.EaseType.Out);
     }
