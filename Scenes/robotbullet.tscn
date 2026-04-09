@@ -10,8 +10,11 @@ size = Vector2(5, 5)
 script = ExtResource("1_s6rdv")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+light_mask = 4
+visibility_layer = 4
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_txmtx")
 
@@ -20,4 +23,4 @@ position = Vector2(1, 1.42109e-14)
 scale = Vector2(0.179688, 0.179688)
 texture = ExtResource("2_ov1at")
 
-[connection signal="area_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]
+[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]
