@@ -64,6 +64,8 @@ public partial class Turret : CharacterBody2D
 	void _on_area_2d_body_entered(CharacterBody2D body)
 	{
 		enemiesWithin++;
+		GD.Print($"Bullet hit: {body.Name} | Type: {body.GetType()} | Groups: {string.Join(", ", body.GetGroups())}");
+
     }
 
     void _on_area_2d_body_exited(CharacterBody2D body)
