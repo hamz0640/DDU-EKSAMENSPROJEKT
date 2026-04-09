@@ -167,7 +167,7 @@ animations = [{
 }]
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_afpow")
 

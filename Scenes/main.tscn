@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=14 format=3 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b4nfhud4df0d" path="res://Scenes/player.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://j7pn54iqe4ig" path="res://Scenes/wire.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://btcichbg1pnh7" path="res://Scenes/ui.tscn" id="6_21xkr"]
+[ext_resource type="PackedScene" uid="uid://bu4awqbrm06dy" path="res://Scenes/turret.tscn" id="11_6iyac"]
 [ext_resource type="Script" uid="uid://bep4klwunyd34" path="res://Scripts/EnemySpawner.cs" id="11_d1ilt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
@@ -66,10 +67,14 @@ position = Vector2(47, -37)
 player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("3_8gbba")]
-position = Vector2(98, -86)
+position = Vector2(177, -80)
 
 [node name="UI" parent="." groups=["UI"] instance=ExtResource("6_21xkr")]
+visible = false
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 position = Vector2(895, -69)
 script = ExtResource("11_d1ilt")
+
+[node name="turret" parent="." instance=ExtResource("11_6iyac")]
+position = Vector2(101, -23)

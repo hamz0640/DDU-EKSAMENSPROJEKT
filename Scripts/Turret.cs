@@ -7,6 +7,7 @@ public partial class Turret : CharacterBody2D
 	[Export] AnimatedSprite2D animator;
 	[Export] int Shootspeed = 1;
 	bool deployed = false;
+	int enemiesWithin = 0;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -45,7 +46,7 @@ public partial class Turret : CharacterBody2D
 	
 	private void _TimeOutShoot()
 	{
-		if (deployed)
+		if (enemiesWithin >0)
 		{
             animator.Play("shoot");
 			// Shoot logic spawn bullet and smth
@@ -53,16 +54,22 @@ public partial class Turret : CharacterBody2D
             // End shoot logic
             GetTree().CreateTimer(Shootspeed).Timeout += _TimeOutShoot;
         }
+		else
+		{
+			animator.Play("shoot");
+			animator.Pause();
+            GetTree().CreateTimer(Shootspeed).Timeout += _TimeOutShoot;
+        }
 	}
     
-	static void _on_area_2d_area_entered(Area2D body)
+	void _on_area_2d_body_entered(CharacterBody2D body)
 	{
-		GD.Print("Body entered! " + body.Name);
-	}
+		enemiesWithin++;
+    }
 
-    static void _on_area_2d_area_exited(Area2D body)
+    void _on_area_2d_body_exited(CharacterBody2D body)
     {
-        GD.Print("Body exited! " + body.Name);
+		enemiesWithin--;
     }
 
     void BulletSpawn()
