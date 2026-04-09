@@ -1,7 +1,8 @@
-[gd_scene load_steps=76 format=3 uid="uid://b4nfhud4df0d"]
+[gd_scene load_steps=82 format=3 uid="uid://b4nfhud4df0d"]
 
 [ext_resource type="Script" uid="uid://ctijk7g5hnmqw" path="res://Scripts/PlayerController.cs" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://buypuapjok54f" path="res://Assets/Player/MonoWheelRobotJetpackBoot.png" id="2_8erm5"]
+[ext_resource type="PackedScene" uid="uid://bae4ehv5xhcda" path="res://Scenes/robotbullet.tscn" id="2_gymyn"]
 [ext_resource type="Texture2D" uid="uid://dn52ab5uy1yce" path="res://Assets/Player/MonoWheelRobotAccelerateSide.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://bcdyui1yw32i6" path="res://Assets/Player/MonoWheelRobotJetpackFront.png" id="3_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://dh1rdwbefqlb" path="res://Assets/Player/MonoWheelRobotIdle.png" id="3_fkybt"]
@@ -9,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://di3ilsn1oxcnd" path="res://Assets/Player/MonoWheelRobotDriveSide.png" id="4_x3wgy"]
 [ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/Icons/icon.svg" id="5_fkybt"]
 [ext_resource type="Texture2D" uid="uid://orjki3dl2aoq" path="res://Assets/Player/MonoWheelRobotJetpackSide.png" id="7_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://mq6nmf5eavp1" path="res://Assets/Player/MonoWheelRobotShoot.png" id="10_tx1dd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
 size = Vector2(74.625, 2)
@@ -269,6 +271,22 @@ region = Rect2(192, 0, 32, 32)
 atlas = ExtResource("4_x3wgy")
 region = Rect2(224, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pukcj"]
+atlas = ExtResource("10_tx1dd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1htnp"]
+atlas = ExtResource("10_tx1dd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m376e"]
+atlas = ExtResource("10_tx1dd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6b312"]
+atlas = ExtResource("10_tx1dd")
+region = Rect2(96, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_xuaoq"]
 animations = [{
 "frames": [{
@@ -515,6 +533,23 @@ animations = [{
 "loop": true,
 "name": &"rope",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pukcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1htnp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m376e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6b312")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
 }]
 
 [node name="Player" type="Node2D"]
@@ -526,6 +561,7 @@ MaxSpeed = 75.0
 Acceleration = 300.0
 AnimationPlayer = NodePath("AnimatedSprite2D")
 PlayerArea2D = NodePath("Area2D")
+BulletScene = ExtResource("2_gymyn")
 JetpackForce = -150.0
 BoostVelocity = -175.0
 JetpackDrainRate = 6.0
@@ -542,9 +578,8 @@ shape = SubResource("CapsuleShape2D_f60y1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_xuaoq")
-animation = &"jetpack side"
+animation = &"shoot"
 autoplay = "idle"
-frame_progress = 0.232728
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" groups=["Camera"]]
 zoom = Vector2(5, 5)
