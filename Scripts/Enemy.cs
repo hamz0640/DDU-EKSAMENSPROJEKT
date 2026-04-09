@@ -10,10 +10,13 @@ public partial class Enemy : CharacterBody2D
 	Vector2 Origo = new Vector2(0, 0);
 	Vector2 Spawn;
 	private bool hasShot = false;
+	[Export] public int MaxHealth = 3;
+	private int currentHealth;
 	int Offset;
 	
     public override void _Ready()
 	{
+		currentHealth = MaxHealth;
 		Spawn =new Vector2(rnd.Next(700, 800), -10);
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		animation.Play("Walking");
@@ -57,10 +60,10 @@ public partial class Enemy : CharacterBody2D
             Velocity = new Vector2(-Speed, 0);
             MoveAndSlide();
         }
-        if (GlobalPosition.DistanceTo(Origo) < EnemyDistance && Velocity != new Vector2 (0,0))
+        if (GlobalPosition.DistanceTo(Origo) > EnemyDistance)
 		{
             animation.Play("Run&Gun");
-            if (animation.Frame == 1)
+            if (animation.Frame == 1 || animation.Frame == 5)
             {
                 if (!hasShot)
                 {
@@ -83,12 +86,16 @@ public partial class Enemy : CharacterBody2D
 		AddChild(node);
     }
 
-	void EnemyEntered(Node2D body)
+	public void TakeDamage(int damage)
 	{
-		//if (body is Enemy)
-		//{
-		//	AddCollisionExceptionWith(body);
-		//}
+		currentHealth -= damage;
+
+		if (currentHealth <= 0)
+		{
+			QueueFree();
+		}
 	}
+
+	
 
 }
