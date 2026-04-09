@@ -57,10 +57,10 @@ public partial class Enemy : CharacterBody2D
             Velocity = new Vector2(-Speed, 0);
             MoveAndSlide();
         }
-        if (GlobalPosition.DistanceTo(Origo) < EnemyDistance && Velocity != new Vector2 (0,0))
+        if (GlobalPosition.DistanceTo(Origo) > EnemyDistance)
 		{
             animation.Play("Run&Gun");
-            if (animation.Frame == 1)
+            if (animation.Frame == 1 || animation.Frame == 5)
             {
                 if (!hasShot)
                 {
@@ -83,12 +83,6 @@ public partial class Enemy : CharacterBody2D
 		AddChild(node);
     }
 
-	void EnemyEntered(Node2D body)
-	{
-		//if (body is Enemy)
-		//{
-		//	AddCollisionExceptionWith(body);
-		//}
-	}
+	
 
 }
