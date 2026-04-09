@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +13,7 @@ public partial class Global : Node
 
     [Signal]
     public delegate void MineralCountUpdatedEventHandler(Mineral.MineralType mineralType, bool pickedUp);
-    private Dictionary<string, Variant> State = new();
+    private System.Collections.Generic.Dictionary<string, Variant> State = new();
 
 
     public override void _Ready()
@@ -35,6 +36,7 @@ public partial class Global : Node
         State["DepositedRedMineralCount"]    = (uint)0;
         State["DepositedPurpleMineralCount"] = (uint)0;
         State["DepositedYellowMineralCount"] = (uint)0;
+        State["Upgrades"] = new Array<Upgrade>();
 
         // Wave
         State["ShieldHealth"] = 200.0f;

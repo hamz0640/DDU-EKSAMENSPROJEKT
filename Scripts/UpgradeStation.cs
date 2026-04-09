@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
 
@@ -10,40 +11,24 @@ public partial class UpgradeStation : Node2D
     public Area2D UpgradeConsole = null;
     [Export]
     public UpgradeMenu UpgradeMenu = null;
-    private List<Upgrade> Upgrades = [];
 
 
     public override void _Ready()
     {
+        Global global = Global.GetInstance();
+        Array<Upgrade> upgrades = global.GetState<Array<Upgrade>>("Upgrades");
+
         string upgradePath = "res://Configs/Upgrades";
         DirAccess upgradesDir = DirAccess.Open(upgradePath);
         foreach (string localUpgradePath in upgradesDir.GetFiles())
         {
             Upgrade upgrade = (Upgrade)GD.Load(upgradePath + "/" + localUpgradePath);
-            Upgrades.Add(upgrade);
+            upgrade.UpgradeName = localUpgradePath.GetBaseName();
 
-            PackedScene scene = (PackedScene)GD.Load("res://Scenes/upgrade_icon.tscn");
-            UpgradeIcon upgradeIcon = (UpgradeIcon)scene.Instantiate();
-
-            upgradeIcon.UpgradeName.Text = localUpgradePath.GetBaseName();
-            upgradeIcon.RedMineralCount.Text    = upgrade.RedMineralAmount.ToString();
-            upgradeIcon.PurpleMineralCount.Text = upgrade.PurpleMineralAmount.ToString();
-            upgradeIcon.YellowMineralCount.Text = upgrade.YellowMineralAmount.ToString();
-            if (upgrade.MaxBuyAmount == 0)
-            {
-                upgradeIcon.AmountBought.Text = "0/∞";
-            } 
-            else
-            {
-                upgradeIcon.AmountBought.Text = "0/" + upgrade.MaxBuyAmount;
-            }
-            
-
-            UpgradeMenu.HFlowContainer.AddChild(upgradeIcon);
-            GD.Print(upgradeIcon.UpgradeName.Text + " loaded");
-
-            upgradeIcon.RelatedUpgradeResource = upgrade;
+            upgrades.Add(upgrade);
         }
+
+        global.SetState("Upgrades", upgrades);
     }
 
 
