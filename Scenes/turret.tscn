@@ -1,7 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://bu4awqbrm06dy"]
+[gd_scene load_steps=17 format=3 uid="uid://bu4awqbrm06dy"]
 
 [ext_resource type="Texture2D" uid="uid://cnnlxdv3g6nl4" path="res://Assets/turret.png" id="1_fcprl"]
 [ext_resource type="Script" uid="uid://dbruew2b1rcuv" path="res://Scripts/Turret.cs" id="1_hskch"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6spbj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hskch"]
 atlas = ExtResource("1_fcprl")
@@ -94,17 +96,23 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hskch"]
-size = Vector2(11, 19)
+size = Vector2(46, 6)
 
 [node name="turret" type="CharacterBody2D" node_paths=PackedStringArray("animator") groups=["Turret"]]
 script = ExtResource("1_hskch")
 animator = NodePath("AnimatedSprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 6)
+shape = SubResource("RectangleShape2D_6spbj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_axnog")
 animation = &"shoot"
 autoplay = "deploy"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2.5, 6.5)
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(116, 8)
 shape = SubResource("RectangleShape2D_hskch")

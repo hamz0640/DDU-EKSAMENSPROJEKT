@@ -36,11 +36,13 @@ public partial class Turret : CharacterBody2D
 		}
         MoveAndSlide();
     }
+
 	private void _DeployAnimation()
 	{
         animator.Play("deploy");
         GetTree().CreateTimer(2).Timeout += _TimeOutShoot;
     }
+	
 	private void _TimeOutShoot()
 	{
 		if (deployed)
@@ -52,6 +54,17 @@ public partial class Turret : CharacterBody2D
             GetTree().CreateTimer(Shootspeed).Timeout += _TimeOutShoot;
         }
 	}
+    
+	static void _on_area_2d_area_entered(Area2D body)
+	{
+		GD.Print("Body entered! " + body.Name);
+	}
+
+    static void _on_area_2d_area_exited(Area2D body)
+    {
+        GD.Print("Body exited! " + body.Name);
+    }
+
     void BulletSpawn()
     {
         var scene = GD.Load<PackedScene>("res://Scenes/turretBullet.tscn");
