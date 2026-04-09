@@ -23,6 +23,10 @@ public partial class Enemy : CharacterBody2D
 		animation.FlipH = true;
 		GlobalPosition = Spawn;
 		Offset = rnd.Next(0, 60);
+
+		GD.Print("=== ENEMY DEBUG ===");
+		GD.Print("Enemy Layer: " + CollisionLayer);
+		GD.Print("Enemy Mask: " + CollisionMask);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -94,8 +98,4 @@ public partial class Enemy : CharacterBody2D
 		}
 	}
 
-	void _on_area_2d_body_entered(CharacterBody2D body)
-	{
-		TakeDamage(1.5);
-	}
 }
