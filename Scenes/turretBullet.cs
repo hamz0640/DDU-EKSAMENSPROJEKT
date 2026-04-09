@@ -28,7 +28,16 @@ public partial class turretBullet : CharacterBody2D
     void OnBodyEntered(Node2D body)
     {
         animation.Play("Hit");
+        GD.Print($"Bullet hit: {body.Name} | Type: {body.GetType()} | Groups: {string.Join(", ", body.GetGroups())}");
+        
         QueueFree();
+
+        if (body is Enemy enemy)
+        {
+            GD.Print("Enemy hit!");
+            enemy.TakeDamage(1);
+            QueueFree();
+        }
     }
 
     float PlayerEnergy()
