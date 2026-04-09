@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bu4awqbrm06dy"]
+[gd_scene load_steps=18 format=3 uid="uid://bu4awqbrm06dy"]
 
 [ext_resource type="Texture2D" uid="uid://cnnlxdv3g6nl4" path="res://Assets/turret.png" id="1_fcprl"]
 [ext_resource type="Script" uid="uid://dbruew2b1rcuv" path="res://Scripts/Turret.cs" id="1_hskch"]
@@ -32,6 +32,10 @@ region = Rect2(160, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_74mb1"]
 atlas = ExtResource("1_fcprl")
 region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27lag"]
+atlas = ExtResource("1_fcprl")
+region = Rect2(288, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxjjt"]
 atlas = ExtResource("1_fcprl")
@@ -79,6 +83,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_27lag")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hxjjt")
 }, {
 "duration": 1.0,
@@ -109,8 +121,9 @@ shape = SubResource("RectangleShape2D_6spbj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_axnog")
-animation = &"shoot"
+animation = &"idle"
 autoplay = "deploy"
+frame_progress = 0.211965
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4

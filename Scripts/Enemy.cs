@@ -10,8 +10,8 @@ public partial class Enemy : CharacterBody2D
 	Vector2 Origo = new Vector2(0, 0);
 	Vector2 Spawn;
 	private bool hasShot = false;
-	[Export] public int MaxHealth = 3;
-	private int currentHealth;
+	[Export] public double MaxHealth = 3;
+	private double currentHealth;
 	int Offset;
 	
     public override void _Ready()
@@ -53,7 +53,6 @@ public partial class Enemy : CharacterBody2D
 			{
 				hasShot = false;
 			}
-		
 		}
 		else
 		{
@@ -76,7 +75,6 @@ public partial class Enemy : CharacterBody2D
                 hasShot = false;
             }
         }
-
     }
 
 	void BulletSpawn()
@@ -86,7 +84,7 @@ public partial class Enemy : CharacterBody2D
 		AddChild(node);
     }
 
-	public void TakeDamage(int damage)
+	public void TakeDamage(double damage)
 	{
 		currentHealth -= damage;
 
@@ -96,6 +94,8 @@ public partial class Enemy : CharacterBody2D
 		}
 	}
 
-	
-
+	void _on_area_2d_body_entered(CharacterBody2D body)
+	{
+		TakeDamage(1.5);
+	}
 }

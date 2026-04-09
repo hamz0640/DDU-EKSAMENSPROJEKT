@@ -56,8 +56,7 @@ public partial class Turret : CharacterBody2D
         }
 		else
 		{
-			animator.Play("shoot");
-			animator.Pause();
+			animator.Play("idle");
             GetTree().CreateTimer(Shootspeed).Timeout += _TimeOutShoot;
         }
 	}

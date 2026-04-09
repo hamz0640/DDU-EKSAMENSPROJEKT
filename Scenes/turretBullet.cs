@@ -7,7 +7,6 @@ public partial class turretBullet : CharacterBody2D
     AnimatedSprite2D animation;
     bool IsHit = false;
     Global global = Global.GetInstance();
-    float Damage = 5;
     Vector2 Spawn;
 
     public override void _Ready()
@@ -21,7 +20,7 @@ public partial class turretBullet : CharacterBody2D
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
-        Velocity = new Vector2(20, 0);
+        Velocity = new Vector2(50, 0);
         MoveAndSlide();
         CheckDistance();
     }
@@ -32,10 +31,6 @@ public partial class turretBullet : CharacterBody2D
         QueueFree();
     }
 
-    void OnAreaEntered(Area2D body)
-    {
-
-    }
     float PlayerEnergy()
     {
         return global.GetState<float>("CurrentEnergy");
@@ -53,6 +48,4 @@ public partial class turretBullet : CharacterBody2D
             QueueFree();
         }
     }
-
-
 }

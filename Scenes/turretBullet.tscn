@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://diwo3t26wpwq3"]
+[gd_scene load_steps=9 format=3 uid="uid://diwo3t26wpwq3"]
 
 [ext_resource type="Script" uid="uid://b7bsnt4wcu7y8" path="res://Scenes/turretBullet.cs" id="1_0hh05"]
 [ext_resource type="Texture2D" uid="uid://c40qp4d34g1sb" path="res://Assets/Icons/Bullet.png" id="2_nje4e"]
@@ -34,12 +34,19 @@ animations = [{
 "speed": 24.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hh05"]
+size = Vector2(3, 2)
+
 [node name="Bullet" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 8
 script = ExtResource("1_0hh05")
 
 [node name="BulletHit" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletHit"]
+light_mask = 8
+visibility_layer = 8
 position = Vector2(-0.285383, 0)
 scale = Vector2(0.714617, 0.72)
 shape = SubResource("RectangleShape2D_6afsh")
@@ -50,5 +57,10 @@ scale = Vector2(1.16667, 0.5)
 sprite_frames = SubResource("SpriteFrames_t8o6v")
 animation = &"Bullet"
 
-[connection signal="area_entered" from="BulletHit" to="." method="OnAreaEntered"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 8
+visibility_layer = 8
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_0hh05")
+
 [connection signal="body_entered" from="BulletHit" to="." method="OnBodyEntered"]
