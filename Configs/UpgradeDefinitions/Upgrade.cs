@@ -10,6 +10,7 @@ public abstract partial class Upgrade : Resource
     [Export] public uint YellowMineralAmount;
     [Export] public uint MaxBuyAmount;
     public uint AmountBought = 0;
+    public string UpgradeName = "Not Set";
 
     public abstract void OnBuy(SceneTree tree);
 

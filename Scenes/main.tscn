@@ -70,7 +70,6 @@ player = NodePath("../Player")
 position = Vector2(177, -80)
 
 [node name="UI" parent="." groups=["UI"] instance=ExtResource("6_21xkr")]
-visible = false
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 position = Vector2(895, -69)

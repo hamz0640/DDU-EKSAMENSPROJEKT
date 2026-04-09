@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvk82ceqa118l"]
+[gd_scene load_steps=6 format=3 uid="uid://b1qcoapldww77"]
 
 [ext_resource type="Script" uid="uid://c1v3kupouoy36" path="res://Scripts/UpgradeIcon.cs" id="1_2n46o"]
 [ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/Icons/icon.svg" id="1_piis4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Enemies/block-out-yellow-mineral.png" id="4_o57w2"]
 
 [node name="UpgradeIcon" type="MarginContainer" node_paths=PackedStringArray("RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "UpgradeName", "Icon", "AmountBought")]
+custom_minimum_size = Vector2(300, 0)
 offset_right = 230.0
 offset_bottom = 294.0
 theme_override_constants/margin_left = 15
@@ -40,6 +41,7 @@ layout_mode = 2
 [node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("1_piis4")
+expand_mode = 4
 
 [node name="AmountBought" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Icon"]
 layout_mode = 1

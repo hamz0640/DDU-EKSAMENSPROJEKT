@@ -18,6 +18,9 @@ public partial class DeathSliders : Control
         {
             Tween tween = GetTree().CreateTween();
 
+            TopDeathSlider.Show();
+            BottomDeathSlider.Show();
+
             tween.SetParallel(true);
             tween.TweenProperty(TopDeathSlider, "position", new Vector2(0, 0), 0.5);
             tween.TweenProperty(BottomDeathSlider, "position", new Vector2(0, 540), 0.5);

@@ -1,21 +1,32 @@
 using Godot;
+using Godot.Collections;
 using System;
+using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 public partial class UpgradeMenu : MarginContainer
 {
     [Export]
-    public HFlowContainer HFlowContainer = null;
+    public HBoxContainer HBoxContainer = null;
+    [Export]
+    public HBoxContainer ShieldHealth = null;
     [Export]
     private Label RedMineralCount = null;
     [Export]
     private Label PurpleMineralCount = null;
     [Export]
     private Label YellowMineralCount = null;
+    private Random random = null;
 
     public override void _Ready()
     {
-        Global global = (Global)GetTree().Root.GetNode("Global");
+        Global global = Global.GetInstance();
         global.MineralCountUpdated += HandleUpdate;
+
+        WaveManager waveManager = WaveManager.GetInstance();
+        waveManager.WaveStarted += HandleShopChange;
+
+        random = new(0);
     }
 
 
@@ -37,6 +48,86 @@ public partial class UpgradeMenu : MarginContainer
                 uint yellowMineralCount = global.GetState<uint>("DepositedYellowMineralCount");
                 YellowMineralCount.Text = yellowMineralCount.ToString();
                 break;
+        }
+    }
+
+    private void HandleShopChange(uint waveNumber)
+    {
+        Global global = Global.GetInstance();
+        Array<Upgrade> upgrades = global.GetState<Array<Upgrade>>("Upgrades");
+        GD.Print(upgrades);
+
+        foreach (Upgrade upgrade in upgrades)
+        {
+            // Could be a problem, if the ShieldHealth upgrade ever changes it's
+            // name (Possibly to include a space?)
+            GD.Print(upgrade.UpgradeName);
+            if (upgrade.UpgradeName == "ShieldHealth")
+            {
+                PackedScene scene = (PackedScene)GD.Load("res://Scenes/upgrade_icon.tscn");
+                UpgradeIcon upgradeIcon = (UpgradeIcon)scene.Instantiate();
+
+                upgradeIcon.UpgradeName.Text = upgrade.UpgradeName;
+                upgradeIcon.RedMineralCount.Text    = upgrade.RedMineralAmount.ToString();
+                upgradeIcon.PurpleMineralCount.Text = upgrade.PurpleMineralAmount.ToString();
+                upgradeIcon.YellowMineralCount.Text = upgrade.YellowMineralAmount.ToString();
+                upgradeIcon.AmountBought.Text = "0/∞";
+
+                upgradeIcon.RelatedUpgradeResource = upgrade;
+                ShieldHealth.AddChild(upgradeIcon);
+            }
+        }
+        
+        for (int i = 0; i < HBoxContainer.GetChildCount(); i++)
+        {
+            GetChild(i).QueueFree();
+        }
+
+        List<int> selectedIndices = new List<int>();
+        for (int i = 0; i < 3; i++)
+        {
+            int upgradeIndex = random.Next(0, Mathf.Max(3, upgrades.Count));
+            // Check to ensure that ShieldHealth isn't picked as one of the
+            // random upgrades, as that would feel not good :c
+            if (upgrades[upgradeIndex].UpgradeName == "ShieldHealth")
+                selectedIndices.Add(upgradeIndex);
+
+            while (selectedIndices.Contains(upgradeIndex))
+            {
+                upgradeIndex = random.Next(0, Mathf.Max(3, upgrades.Count));
+
+                // Check to ensure that ShieldHealth isn't picked as one of the
+                // random upgrades, as that would feel not good :c
+                if (upgrades[upgradeIndex].UpgradeName == "ShieldHealth")
+                    selectedIndices.Add(upgradeIndex);
+            }
+            
+            GD.Print(upgradeIndex);
+            GD.Print(upgrades.Count);
+            
+            selectedIndices.Add(upgradeIndex);
+            Upgrade upgrade = upgrades[upgradeIndex];
+
+            PackedScene scene = (PackedScene)GD.Load("res://Scenes/upgrade_icon.tscn");
+            UpgradeIcon upgradeIcon = (UpgradeIcon)scene.Instantiate();
+
+            upgradeIcon.UpgradeName.Text = upgrade.UpgradeName;
+            upgradeIcon.RedMineralCount.Text    = upgrade.RedMineralAmount.ToString();
+            upgradeIcon.PurpleMineralCount.Text = upgrade.PurpleMineralAmount.ToString();
+            upgradeIcon.YellowMineralCount.Text = upgrade.YellowMineralAmount.ToString();
+            if (upgrade.MaxBuyAmount == 0)
+            {
+                upgradeIcon.AmountBought.Text = "0/∞";
+            } 
+            else
+            {
+                upgradeIcon.AmountBought.Text = "0/" + upgrade.MaxBuyAmount;
+            }
+
+            HBoxContainer.AddChild(upgradeIcon);
+            GD.Print(upgradeIcon.UpgradeName.Text + " loaded");
+
+            upgradeIcon.RelatedUpgradeResource = upgrade;
         }
     }
 }
