@@ -123,7 +123,7 @@ shape = SubResource("RectangleShape2D_6spbj")
 sprite_frames = SubResource("SpriteFrames_axnog")
 animation = &"idle"
 autoplay = "deploy"
-frame_progress = 0.211965
+frame_progress = 0.0655701
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4

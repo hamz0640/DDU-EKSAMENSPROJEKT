@@ -171,7 +171,7 @@ size = Vector2(2, 30)
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
-collision_mask = 10
+collision_mask = 2
 script = ExtResource("1_afpow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
