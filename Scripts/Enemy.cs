@@ -10,10 +10,13 @@ public partial class Enemy : CharacterBody2D
 	Vector2 Origo = new Vector2(0, 0);
 	Vector2 Spawn;
 	private bool hasShot = false;
+	[Export] public int MaxHealth = 3;
+	private int currentHealth;
 	int Offset;
 	
     public override void _Ready()
 	{
+		currentHealth = MaxHealth;
 		Spawn =new Vector2(rnd.Next(700, 800), -10);
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		animation.Play("Walking");
@@ -82,6 +85,16 @@ public partial class Enemy : CharacterBody2D
 		var node = scene.Instantiate();
 		AddChild(node);
     }
+
+	public void TakeDamage(int damage)
+	{
+		currentHealth -= damage;
+
+		if (currentHealth <= 0)
+		{
+			QueueFree();
+		}
+	}
 
 	
 
