@@ -1,8 +1,9 @@
 using Godot;
 using System;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
-public partial class DeathSliders : Control
+public partial class DeathSliders : Control 
 {
     [Export]
     private ColorRect TopDeathSlider;
@@ -10,7 +11,18 @@ public partial class DeathSliders : Control
     private ColorRect BottomDeathSlider;
 
     private bool IsDead = false;
+    private void OnQuitPressed()
+        {
+            string exePath = OS.GetExecutablePath();
 
+            Process.Start(new ProcessStartInfo
+        {
+            FileName = exePath,
+            UseShellExecute = true
+        });
+
+            GetTree().Quit();
+        }
     public override void _Process(double delta)
     {
         Global global = Global.GetInstance();
@@ -34,9 +46,13 @@ public partial class DeathSliders : Control
             {
                 GetTree().CreateTimer(0.5).Timeout += () =>
                 {
-                    GetTree().Quit();       
+                   OnQuitPressed();    
                 };
             };
+
+            
+
+
         }
     }
 }
