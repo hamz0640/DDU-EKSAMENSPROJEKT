@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://diwo3t26wpwq3"]
 
-[ext_resource type="Script" path="res://Scenes/turretBullet.cs" id="1_0hh05"]
+[ext_resource type="Script" uid="uid://b7bsnt4wcu7y8" path="res://Scripts/turretBullet.cs" id="1_0hh05"]
 [ext_resource type="Texture2D" uid="uid://c40qp4d34g1sb" path="res://Assets/Icons/Bullet.png" id="2_nje4e"]
 [ext_resource type="Texture2D" uid="uid://com3xu3bqmmhy" path="res://Assets/Enemies/BulletHit.png" id="3_ujgty"]
 
