@@ -60,7 +60,7 @@ public partial class UpgradeMenu : MarginContainer
             // Could be a problem, if the ShieldHealth upgrade ever changes it's
             // name (Possibly to include a space?)
             GD.Print(upgrade.UpgradeName);
-            if (upgrade.UpgradeName == "ShieldHealth" && ShieldHealth.GetChildCount() == 0)
+            if (upgrade.UpgradeName == "Shield Health" && ShieldHealth.GetChildCount() == 0)
             {
                 PackedScene scene = (PackedScene)GD.Load("res://Scenes/upgrade_icon.tscn");
                 UpgradeIcon upgradeIcon = (UpgradeIcon)scene.Instantiate();
@@ -87,7 +87,7 @@ public partial class UpgradeMenu : MarginContainer
             int upgradeIndex = random.Next(0, Mathf.Max(3, upgrades.Count));
             // Check to ensure that ShieldHealth isn't picked as one of the
             // random upgrades, as that would feel not good :c
-            if (upgrades[upgradeIndex].UpgradeName == "ShieldHealth")
+            if (upgrades[upgradeIndex].UpgradeName == "Shield Health")
                 selectedIndices.Add(upgradeIndex);
 
             while (selectedIndices.Contains(upgradeIndex))
@@ -96,7 +96,7 @@ public partial class UpgradeMenu : MarginContainer
 
                 // Check to ensure that ShieldHealth isn't picked as one of the
                 // random upgrades, as that would feel not good :c
-                if (upgrades[upgradeIndex].UpgradeName == "ShieldHealth")
+                if (upgrades[upgradeIndex].UpgradeName == "Shield Health")
                     selectedIndices.Add(upgradeIndex);
             }
             
