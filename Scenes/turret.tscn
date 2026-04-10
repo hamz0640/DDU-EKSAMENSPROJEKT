@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://bu4awqbrm06dy"]
 
-[ext_resource type="Texture2D" uid="uid://cnnlxdv3g6nl4" path="res://Assets/turret.png" id="1_fcprl"]
+[ext_resource type="Texture2D" uid="uid://cnnlxdv3g6nl4" path="res://Assets/Tiles/turret.png" id="1_fcprl"]
 [ext_resource type="Script" uid="uid://dbruew2b1rcuv" path="res://Scripts/Turret.cs" id="1_hskch"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6spbj"]

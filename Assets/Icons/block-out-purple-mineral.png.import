@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwxlw8ig76rpq"
-path="res://.godot/imported/block-out-tiles.png-ee425dfa4a84db480ddae5684bffa9c2.ctex"
+uid="uid://vxoogc1pv7yd"
+path="res://.godot/imported/block-out-purple-mineral.png-7d5fd10882ddc497d3e3edcac1ed1527.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Audio/block-out-tiles.png"
-dest_files=["res://.godot/imported/block-out-tiles.png-ee425dfa4a84db480ddae5684bffa9c2.ctex"]
+source_file="res://Assets/Icons/block-out-purple-mineral.png"
+dest_files=["res://.godot/imported/block-out-purple-mineral.png-7d5fd10882ddc497d3e3edcac1ed1527.ctex"]
 
 [params]
 

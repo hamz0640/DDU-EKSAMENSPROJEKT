@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c1v3kupouoy36" path="res://Scripts/UpgradeIcon.cs" id="1_2n46o"]
 [ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/Icons/icon.svg" id="1_piis4"]
-[ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/block-out-red-mineral.png" id="2_dhj4i"]
-[ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Upgrades/block-out-purple-mineral.png" id="3_2n46o"]
-[ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Enemies/block-out-yellow-mineral.png" id="4_o57w2"]
+[ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/Icons/block-out-red-mineral.png" id="2_dhj4i"]
+[ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="3_2n46o"]
+[ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="4_o57w2"]
 
 [node name="UpgradeIcon" type="MarginContainer" node_paths=PackedStringArray("RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "UpgradeName", "Icon", "AmountBought")]
 custom_minimum_size = Vector2(300, 0)

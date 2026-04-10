@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=8 format=3 uid="uid://cqvv03cm71dkj"]
 
-[ext_resource type="Texture2D" uid="uid://dwxlw8ig76rpq" path="res://Assets/Audio/block-out-tiles.png" id="1_aiaad"]
+[ext_resource type="Texture2D" uid="uid://dwxlw8ig76rpq" path="res://Assets/Tiles/block-out-tiles.png" id="1_aiaad"]
 [ext_resource type="Texture2D" uid="uid://m2m4v280l6pe" path="res://Assets/Tiles/block-out-ship.png" id="2_ujj56"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_aiaad"]

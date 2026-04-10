@@ -20,14 +20,6 @@ public partial class StartScreen : Control
 
     private void OnQuitPressed()
     {
-        string exePath = OS.GetExecutablePath();
-
-    	Process.Start(new ProcessStartInfo
-    {
-        FileName = exePath,
-        UseShellExecute = true
-    });
-
     	GetTree().Quit();
     }
 }

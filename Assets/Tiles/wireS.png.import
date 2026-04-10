@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fm5hs4dqpld2"
-path="res://.godot/imported/empty heart.png-2c66b32fd76f38621b7f072da21f6022.ctex"
+uid="uid://b4uqjsnsebgyl"
+path="res://.godot/imported/wireS.png-117c2f2f26cbc01fa8191c1e7c77402d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/empty heart.png"
-dest_files=["res://.godot/imported/empty heart.png-2c66b32fd76f38621b7f072da21f6022.ctex"]
+source_file="res://Assets/Tiles/wireS.png"
+dest_files=["res://.godot/imported/wireS.png-117c2f2f26cbc01fa8191c1e7c77402d.ctex"]
 
 [params]
 

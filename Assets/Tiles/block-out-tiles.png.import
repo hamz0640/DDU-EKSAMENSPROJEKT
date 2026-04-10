@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkmshhbxb00nf"
-path="res://.godot/imported/half heart.png-020e9e198dba061b68945d63c5d3c349.ctex"
+uid="uid://dwxlw8ig76rpq"
+path="res://.godot/imported/block-out-tiles.png-c5ffef9a08002ce06fd2679d42d0d8cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/half heart.png"
-dest_files=["res://.godot/imported/half heart.png-020e9e198dba061b68945d63c5d3c349.ctex"]
+source_file="res://Assets/Tiles/block-out-tiles.png"
+dest_files=["res://.godot/imported/block-out-tiles.png-c5ffef9a08002ce06fd2679d42d0d8cd.ctex"]
 
 [params]
 

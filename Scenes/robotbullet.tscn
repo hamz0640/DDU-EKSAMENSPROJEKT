@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bae4ehv5xhcda"]
 
 [ext_resource type="Script" uid="uid://o83t282k5ksr" path="res://Scripts/Robotbullet.cs" id="1_s6rdv"]
-[ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Upgrades/block-out-purple-mineral.png" id="2_ov1at"]
+[ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="2_ov1at"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_txmtx"]
 size = Vector2(5, 5)

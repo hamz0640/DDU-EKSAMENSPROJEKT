@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg8buauwdt0d8"
-path="res://.godot/imported/full heart.png-24e04f77a43b47ad3a29d9404f063456.ctex"
+uid="uid://bnjukcn7ice43"
+path="res://.godot/imported/block-out-red-mineral.png-11f0e9c4b5753da494116deaa33d4b34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/full heart.png"
-dest_files=["res://.godot/imported/full heart.png-24e04f77a43b47ad3a29d9404f063456.ctex"]
+source_file="res://Assets/Icons/block-out-red-mineral.png"
+dest_files=["res://.godot/imported/block-out-red-mineral.png-11f0e9c4b5753da494116deaa33d4b34.ctex"]
 
 [params]
 

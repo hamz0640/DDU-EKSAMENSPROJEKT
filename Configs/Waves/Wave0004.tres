@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Wave" load_steps=3 format=3 uid="uid://dokm51pfmbs6l"]
 
 [ext_resource type="PackedScene" uid="uid://bo5nx05jemu0x" path="res://Scenes/enemy.tscn" id="1_qnb2r"]
-[ext_resource type="Script" uid="uid://cu7doqycys8pn" path="res://Configs/Wave.cs" id="2_7tgyp"]
+[ext_resource type="Script" uid="uid://cu7doqycys8pn" path="res://Scripts/Wave.cs" id="2_7tgyp"]
 
 [resource]
 script = ExtResource("2_7tgyp")

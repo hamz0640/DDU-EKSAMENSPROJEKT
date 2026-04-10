@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://j7pn54iqe4ig"]
 
 [ext_resource type="Script" uid="uid://c5v60vrcuasq4" path="res://Scripts/WireManager.cs" id="1_amh6y"]
-[ext_resource type="Texture2D" uid="uid://755uku5g68np" path="res://Assets/wire.png" id="1_aw0jv"]
+[ext_resource type="Texture2D" uid="uid://755uku5g68np" path="res://Assets/Tiles/wire.png" id="1_aw0jv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_atpgl"]
 size = Vector2(2, 11)
