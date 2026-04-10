@@ -15,7 +15,6 @@ public partial class StartScreen : Control
 
     private void OnStartPressed()
     {
-        // Change to your main game scene
         GetTree().ChangeSceneToFile("res://Scenes/main.tscn");
     }
 
