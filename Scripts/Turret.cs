@@ -61,16 +61,22 @@ public partial class Turret : CharacterBody2D
         }
 	}
     
-	void _on_area_2d_body_entered(CharacterBody2D body)
+	void _on_area_2d_body_entered(Node2D body)
 	{
-		enemiesWithin++;
-		GD.Print($"Bullet hit: {body.Name} | Type: {body.GetType()} | Groups: {string.Join(", ", body.GetGroups())}");
+		if (body is CharacterBody2D character)
+		{
+			enemiesWithin++;
+			GD.Print($"Enemy entered: {character.Name}");
+		}	
+	}
 
-    }
-
-    void _on_area_2d_body_exited(CharacterBody2D body)
+    void _on_area_2d_body_exited(Node2D body)
     {
-		enemiesWithin--;
+		if (body is CharacterBody2D character)
+		{
+			enemiesWithin--;
+			GD.Print($"Enemy entered: {character.Name}");
+		}
     }
 
     void BulletSpawn()
