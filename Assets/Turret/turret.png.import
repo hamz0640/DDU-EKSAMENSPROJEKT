@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cra1v3g3r3s4f"
-path="res://.godot/imported/block-out-turret.png-3e46a66b0e14628aa6b9301b13aa8e30.ctex"
+uid="uid://cnnlxdv3g6nl4"
+path="res://.godot/imported/turret.png-46dfe6373c2079c03448b28af8359f7c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Tiles/block-out-turret.png"
-dest_files=["res://.godot/imported/block-out-turret.png-3e46a66b0e14628aa6b9301b13aa8e30.ctex"]
+source_file="res://Assets/Turret/turret.png"
+dest_files=["res://.godot/imported/turret.png-46dfe6373c2079c03448b28af8359f7c.ctex"]
 
 [params]
 
