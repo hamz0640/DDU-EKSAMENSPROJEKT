@@ -192,19 +192,31 @@ public partial class PlayerController : CharacterBody2D {
         isTouchingWire = true;
     }  // Tjek om spilleren rører wiren
 
-    if (Input.IsActionJustPressed("ui_mount") &&
-        isTouchingWire)  // Funktionalitet til at mounte
+    if (Input.IsActionJustPressed("ui_mount") && isTouchingWire)
     {
-      IsMounted = !IsMounted;
-      if (IsMounted) {
-        velocity.X = 0;                         // Fix walk glitch
-        velocity.Y = 0;                         // Fix jump glitch
-        Tween tween = GetTree().CreateTween();  // Snap to wire X coordinate
-        tween.SetEase(Tween.EaseType.Out);
-        tween.SetTrans(Tween.TransitionType.Quint);
-        tween.TweenProperty(this, "position", new Vector2(-50, this.Position.Y),
-                            0.5f);
-      }
+        IsMounted = !IsMounted;
+        if (IsMounted)
+        {
+            velocity.X = 0;
+            velocity.Y = 0;
+
+            Area2D touchedWire = null;
+            foreach (var area in areas)
+            {
+                if (area.IsInGroup("wire"))
+                {
+                    touchedWire = area;
+                    break;
+                }
+            }
+
+            float wireX = touchedWire != null ? touchedWire.GlobalPosition.X +1 : GlobalPosition.X;
+
+            Tween tween = GetTree().CreateTween();
+            tween.SetEase(Tween.EaseType.Out);
+            tween.SetTrans(Tween.TransitionType.Quint);
+            tween.TweenProperty(this, "global_position", new Vector2(wireX, GlobalPosition.Y), 0.5f);
+        }
     }
 
     if (IsMounted) {
