@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="ShieldHealth" load_steps=2 format=3 uid="uid://b1qsmsxjq6bb4"]
+[gd_resource type="Resource" script_class="ShieldHealthUpgrade" load_steps=2 format=3 uid="uid://b1qsmsxjq6bb4"]
 
 [ext_resource type="Script" uid="uid://cuxkkwdgb2vyf" path="res://Configs/UpgradeDefinitions/ShieldHealthUpgrade.cs" id="1_hepoy"]
 
 [resource]
 script = ExtResource("1_hepoy")
-RedMineralAmount = 1
-PurpleMineralAmount = 0
-YellowMineralAmount = 0
+RedMineralAmount = 0
+PurpleMineralAmount = 1
+YellowMineralAmount = 1
 MaxBuyAmount = 0
 metadata/_custom_type_script = "uid://cuxkkwdgb2vyf"
