@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dbruew2b1rcuv" path="res://Scripts/Turret.cs" id="1_hskch"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6spbj"]
-size = Vector2(17, 19)
+size = Vector2(17, 18)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hskch"]
 atlas = ExtResource("1_fcprl")
@@ -119,12 +119,13 @@ animations = [{
 size = Vector2(96, 6)
 
 [node name="turret" type="CharacterBody2D" node_paths=PackedStringArray("animator") groups=["Turret"]]
+z_index = 5
 collision_layer = 0
 script = ExtResource("1_hskch")
 animator = NodePath("AnimatedSprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 6.5)
+position = Vector2(-0.5, 6)
 shape = SubResource("RectangleShape2D_6spbj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

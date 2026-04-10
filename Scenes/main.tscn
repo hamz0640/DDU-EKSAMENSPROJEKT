@@ -59,7 +59,7 @@ tile_set = ExtResource("2_jjvhh")
 
 [node name="GroundLayer" type="TileMapLayer" parent="Ground"]
 z_index = 1
-tile_map_data = PackedByteArray(0, 0, 4, 0, 255, 255, 1, 0, 0, 0, 0, 0, 0, 0)
+tile_map_data = PackedByteArray(0, 0, 4, 0, 255, 255, 1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 253, 255, 2, 0, 0, 0, 0, 0, 0, 0)
 tile_set = ExtResource("2_8gbba")
 
 [node name="Wire" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_kry3j")]

@@ -1,7 +1,8 @@
-[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://cqvv03cm71dkj"]
+[gd_resource type="TileSet" load_steps=10 format=3 uid="uid://cqvv03cm71dkj"]
 
 [ext_resource type="Texture2D" uid="uid://dwxlw8ig76rpq" path="res://Assets/Tiles/block-out-tiles.png" id="1_aiaad"]
 [ext_resource type="Texture2D" uid="uid://m2m4v280l6pe" path="res://Assets/Tiles/block-out-ship.png" id="2_ujj56"]
+[ext_resource type="Texture2D" uid="uid://cra1v3g3r3s4f" path="res://Assets/Tiles/block-out-turret.png" id="3_m0mrx"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_aiaad"]
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -449,6 +450,11 @@ texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(-16, 16)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ggrwy"]
+texture = ExtResource("3_m0mrx")
+texture_region_size = Vector2i(41, 65)
+0:0/0 = 0
+
 [resource]
 tile_size = Vector2i(32, 32)
 occlusion_layer_0/light_mask = 1
@@ -458,3 +464,4 @@ terrain_set_0/terrain_0/name = "ground"
 terrain_set_0/terrain_0/color = Color(0.240383, 0.386883, 0.598139, 1)
 sources/0 = SubResource("TileSetAtlasSource_aiaad")
 sources/1 = SubResource("TileSetAtlasSource_m0mrx")
+sources/2 = SubResource("TileSetAtlasSource_ggrwy")
