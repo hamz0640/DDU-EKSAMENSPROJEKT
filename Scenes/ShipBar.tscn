@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmik8c7oy1xq1"]
+
+[ext_resource type="Texture2D" uid="uid://kvomyd46ohes" path="res://Assets/Bars/ship bar empty.png" id="1_g8plq"]
+[ext_resource type="Texture2D" uid="uid://xj1ls2aqaswo" path="res://Assets/Bars/Ship bar full.png" id="2_ckdtg"]
+[ext_resource type="Script" uid="uid://ct7clapidpt65" path="res://Scripts/EnergyBar.cs" id="3_bxv0j"]
+
+[node name="TextureProgressBar" type="TextureProgressBar" groups=["energy_bar"]]
+custom_minimum_size = Vector2(200, 100)
+anchors_preset = -1
+anchor_right = 5.0
+anchor_bottom = 1.35
+offset_left = 2.0
+offset_top = 1.0
+offset_right = -9286.0
+offset_bottom = -1295.0
+scale = Vector2(3, 3)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+nine_patch_stretch = true
+texture_under = ExtResource("1_g8plq")
+texture_progress = ExtResource("2_ckdtg")
+script = ExtResource("3_bxv0j")
