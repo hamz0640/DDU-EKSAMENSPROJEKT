@@ -69,7 +69,7 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Mining Speed"
-autowrap_mode = 1
+autowrap_mode = 3
 
 [node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

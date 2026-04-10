@@ -9,7 +9,7 @@ public partial class WaveManager : Node
     public delegate void WaveStartedEventHandler(uint waveNumber);
     private SceneTreeTimer WaveTimer;
     [Export]
-    public float MiningTime = 10.0f;
+    public float MiningTime = 60.0f;
     public uint waveNumber { get; private set; } = 0;
     public Wave CurrentWave = null;
     private DirAccess WavesDir = null;
@@ -49,15 +49,19 @@ public partial class WaveManager : Node
         int EnemiesInWorld = GetTree().GetNodeCountInGroup("Enemy");
         if (WaveTimer.TimeLeft <= 0.0 && CurrentWave.Enemies.Count <= 0 && EnemiesInWorld <= 0)
         {
-            string next = waves[waveNumber];
-            Wave wave = GD.Load<Wave>("res://Configs/Waves/" + next);
-            CurrentWave = wave;
+            WaveTimer = GetTree().CreateTimer(MiningTime, false);
+            WaveTimer.Timeout += () =>
+            {
+                string next = waves[waveNumber];
+                Wave wave = GD.Load<Wave>("res://Configs/Waves/" + next);
+                CurrentWave = wave;
 
-            EmitSignal("WaveStarted", waveNumber);
-            GD.Print("Wave " + waveNumber + " started");
-            
-            waveNumber += 1;
-            waveNumber = Math.Clamp(waveNumber, 0, (uint)waves.Length - 1);
+                EmitSignal("WaveStarted", waveNumber);
+                GD.Print("Wave " + waveNumber + " started");
+                
+                waveNumber += 1;
+                waveNumber = Math.Clamp(waveNumber, 0, (uint)waves.Length - 1);
+            };
         }
     }
 
