@@ -49,7 +49,7 @@ public partial class UpgradeMenu : MarginContainer
         }
     }
 
-    private void HandleShopChange(uint waveNumber)
+    public void HandleShopChange(uint waveNumber)
     {
         Global global = Global.GetInstance();
         Array<Upgrade> upgrades = global.GetState<Array<Upgrade>>("Upgrades");
@@ -60,7 +60,7 @@ public partial class UpgradeMenu : MarginContainer
             // Could be a problem, if the ShieldHealth upgrade ever changes it's
             // name (Possibly to include a space?)
             GD.Print(upgrade.UpgradeName);
-            if (upgrade.UpgradeName == "ShieldHealth")
+            if (upgrade.UpgradeName == "ShieldHealth" && ShieldHealth.GetChildCount() == 0)
             {
                 PackedScene scene = (PackedScene)GD.Load("res://Scenes/upgrade_icon.tscn");
                 UpgradeIcon upgradeIcon = (UpgradeIcon)scene.Instantiate();

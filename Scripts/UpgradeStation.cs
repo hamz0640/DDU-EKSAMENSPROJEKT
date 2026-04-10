@@ -29,6 +29,7 @@ public partial class UpgradeStation : Node2D
         }
 
         global.SetState("Upgrades", upgrades);
+        UpgradeMenu.HandleShopChange(0);
     }
 
 
