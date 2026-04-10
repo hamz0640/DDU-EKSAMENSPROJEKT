@@ -235,6 +235,13 @@ public partial class Ground : Node2D
             Global global = (Global)GetTree().Root.GetNode("Global");
             global.EmitSignal("MineralCountUpdated", [(int)mineralType, true]);
 
+            float fortune = global.GetState<float>("Fortune");
+            Random random = new Random();
+            while (random.NextSingle() * fortune > 1.0)
+            {
+                global.EmitSignal("MineralCountUpdated", [(int)mineralType, true]);
+            }
+
             RemoveChild(mineralCenter);
             Minerals.Remove(tilePosition);
             MineralNodeLUT.Remove(tilePosition);

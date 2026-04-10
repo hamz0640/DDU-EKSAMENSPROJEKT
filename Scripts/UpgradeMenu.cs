@@ -16,7 +16,7 @@ public partial class UpgradeMenu : MarginContainer
     private Label PurpleMineralCount = null;
     [Export]
     private Label YellowMineralCount = null;
-    private Random random = null;
+    private Random random = new();
 
     public override void _Ready()
     {
@@ -25,8 +25,6 @@ public partial class UpgradeMenu : MarginContainer
 
         WaveManager waveManager = WaveManager.GetInstance();
         waveManager.WaveStarted += HandleShopChange;
-
-        random = new(0);
     }
 
 
@@ -80,7 +78,7 @@ public partial class UpgradeMenu : MarginContainer
         
         for (int i = 0; i < HBoxContainer.GetChildCount(); i++)
         {
-            GetChild(i).QueueFree();
+            HBoxContainer.GetChild(i).QueueFree();
         }
 
         List<int> selectedIndices = new List<int>();

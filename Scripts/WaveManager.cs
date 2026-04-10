@@ -10,7 +10,7 @@ public partial class WaveManager : Node
     private SceneTreeTimer WaveTimer;
     [Export]
     public float MiningTime = 10.0f;
-    private uint waveNumber = 0;
+    public uint waveNumber { get; private set; } = 0;
     public Wave CurrentWave = null;
     private DirAccess WavesDir = null;
     private string[] waves = null;
@@ -65,10 +65,5 @@ public partial class WaveManager : Node
     public float TimeUntilNextWave()
     {
         return (float)WaveTimer.TimeLeft;
-    }
-
-    public float WaveNumber()
-    {
-        return waveNumber;
     }
 }
