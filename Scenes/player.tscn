@@ -401,7 +401,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_vq3lt")
 }],
 "loop": true,
-"name": &"jetpack boost",
+"name": &"jetpack_boost",
 "speed": 5.0
 }, {
 "frames": [{
@@ -409,7 +409,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_nj1g2")
 }],
 "loop": true,
-"name": &"jetpack fall",
+"name": &"jetpack_fall",
 "speed": 4.0
 }, {
 "frames": [{
@@ -438,8 +438,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_ax3m3")
 }],
 "loop": true,
-"name": &"jetpack jump",
-"speed": 10.0
+"name": &"jetpack_jump",
+"speed": 60.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -464,7 +464,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_pg0gw")
 }],
 "loop": true,
-"name": &"jetpack jump side",
+"name": &"jetpack_jump_side",
 "speed": 10.0
 }, {
 "frames": [{
@@ -493,7 +493,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_by7i4")
 }],
 "loop": true,
-"name": &"jetpack side",
+"name": &"jetpack_side",
 "speed": 5.0
 }, {
 "frames": [{
@@ -569,7 +569,7 @@ shape = SubResource("CapsuleShape2D_f60y1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xuaoq")
-animation = &"shoot"
+animation = &"jetpack_jump"
 autoplay = "idle"
 
 [node name="Camera2D" type="Camera2D" parent="." groups=["Camera"]]

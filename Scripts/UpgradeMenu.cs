@@ -53,13 +53,11 @@ public partial class UpgradeMenu : MarginContainer
     {
         Global global = Global.GetInstance();
         Array<Upgrade> upgrades = global.GetState<Array<Upgrade>>("Upgrades");
-        GD.Print(upgrades);
 
         foreach (Upgrade upgrade in upgrades)
         {
             // Could be a problem, if the ShieldHealth upgrade ever changes it's
             // name (Possibly to include a space?)
-            GD.Print(upgrade.UpgradeName);
             if (upgrade.UpgradeName == "Shield Health" && ShieldHealth.GetChildCount() == 0)
             {
                 PackedScene scene = (PackedScene)GD.Load("res://Scenes/upgrade_icon.tscn");
@@ -100,9 +98,6 @@ public partial class UpgradeMenu : MarginContainer
                     selectedIndices.Add(upgradeIndex);
             }
             
-            GD.Print(upgradeIndex);
-            GD.Print(upgrades.Count);
-            
             selectedIndices.Add(upgradeIndex);
             Upgrade upgrade = upgrades[upgradeIndex];
 
@@ -123,7 +118,6 @@ public partial class UpgradeMenu : MarginContainer
             }
 
             HBoxContainer.AddChild(upgradeIcon);
-            GD.Print(upgradeIcon.UpgradeName.Text + " loaded");
 
             upgradeIcon.RelatedUpgradeResource = upgrade;
         }

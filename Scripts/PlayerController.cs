@@ -33,7 +33,16 @@ public partial class PlayerController : CharacterBody2D
 
 	private int TimeSinceMountChange = 0;
 
+	private AnimatedSprite2D anim = null;
+
 	enum State { Ground, Air, Wire };
+
+
+    public override void _Ready()
+    {
+        anim = (AnimatedSprite2D)GetNode("AnimatedSprite2D");
+    }
+
 
     public override void _PhysicsProcess(double delta)
     {
@@ -52,9 +61,43 @@ public partial class PlayerController : CharacterBody2D
 		}
 
 		HandleMine((float)delta);
+		HandleAnimations();
 
 		TimeSinceMountChange += 1;
     }
+
+
+	private void HandleAnimations()
+	{
+		anim.FlipH = Velocity.X < 0.0;
+
+		if (CurrentState == State.Ground)
+		{
+			if (Mathf.Abs(Velocity.X) == MaxSpeed)
+				anim.Play("move");
+			else if (Velocity.X == 0.0f)
+				anim.Play("idle");
+			else
+				ShowSpecificFrame("acceleration", (int)(Mathf.Abs(Velocity.X) / (MaxSpeed / 5.0)));
+		}
+
+		if (CurrentState == State.Wire)
+		{
+			anim.Play("climb");
+		}
+
+		if (CurrentState == State.Air)
+		{
+			if (!JetpackActivated)
+			{
+				anim.Play("jetpack_fall");
+			}
+			else
+			{
+				anim.Play("jetpack_boost");
+			}
+		}
+	}
 
 
 	private void HandleTransitions()
@@ -236,9 +279,9 @@ public partial class PlayerController : CharacterBody2D
 	}
       
 
-	private static void ShowSpecificFrame(AnimatedSprite2D AnimationPlayer, string Animation, int frame) {
-		AnimationPlayer.Stop();  // Stop den først
-		AnimationPlayer.Animation = Animation;
-		AnimationPlayer.Frame = frame;  // Sæt frame bagefter
+	private void ShowSpecificFrame(string Animation, int frame) {
+		anim.Stop();  // Stop den først
+		anim.Animation = Animation;
+		anim.Frame = frame;  // Sæt frame bagefter
 	}
 }
