@@ -51,6 +51,8 @@ public partial class PlayerController : CharacterBody2D
 				break;
 		}
 
+		HandleMine((float)delta);
+
 		TimeSinceMountChange += 1;
     }
 
@@ -93,6 +95,51 @@ public partial class PlayerController : CharacterBody2D
 				tween.TweenProperty(this, "global_position:x", wireX, 0.5f);
 			}
 		}
+	}
+
+
+	private void HandleMine(float delta)
+	{
+		Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
+
+		if (inputDirection.Angle() % (Mathf.Pi / 2.0) == 0 && inputDirection != Vector2.Zero)
+        {
+			Global global = Global.GetInstance();
+            Ground ground = (Ground)GetTree().GetFirstNodeInGroup("Ground");
+
+			float miningSpeed = global.GetState<float>("MiningSpeed");
+
+            Vector2I tileDirection = (Vector2I)inputDirection;
+            Vector2I tilePosition  = ground.ToTilePosition(GlobalPosition);
+            Vector2I miningTilePosition = tilePosition + tileDirection;
+
+            bool blocked = false;
+
+            if (tileDirection.X != 0)
+                blocked = IsOnWall();
+            else if (tileDirection.Y > 0)
+                blocked = IsOnFloor();
+            else if (tileDirection.Y < 0)
+                blocked = IsOnCeiling();
+
+            if (!blocked)
+                goto EarlyExit;
+
+            TileData tileData = ground.GroundLayer.GetCellTileData(miningTilePosition);
+            if (tileData == null)
+                goto EarlyExit;
+
+            float tileHealth = ground.TileHealth[miningTilePosition];
+            float newTileHealth = tileHealth - miningSpeed * (float)delta;
+
+            if (newTileHealth <= 0.0)
+                ground.BreakTile(miningTilePosition);
+            else
+                ground.TileHealth[miningTilePosition] = newTileHealth;
+        }
+
+        EarlyExit:
+			return;
 	}
 
 
