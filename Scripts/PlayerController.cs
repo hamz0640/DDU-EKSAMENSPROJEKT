@@ -1,342 +1,189 @@
 using Godot;
 using System;
+using System.Data;
 using System.Security.AccessControl;
 using System.Threading;
 
-public partial class PlayerController : CharacterBody2D {
-  [Export]
-  public float MaxSpeed = 300.0f;
+public partial class PlayerController : CharacterBody2D 
+{
+	[ExportGroup("Basic Movement")]
+	[Export]
+	public float MaxSpeed = 75.0f;
+	[Export]
+	public float BasicAcceleration = 300.0f;
+	[Export]
+	public float JumpForce = 250.0f;
+	[ExportGroup("Wire Movement")]
+	[Export]
+	public float MaxWireSpeed = 100.0f;
+	[Export]
+	public float WireAcceleration = 600.0f;
+	[Export]
+	public Area2D WireArea = null;
+	[Export]
+	public float DismountBoost = 150.0f;
+	[ExportGroup("Air Movement")]
+	[Export]
+	public float MaxJetpackSpeed = 100.0f;
+	[Export]
+	public float JetpackAcceleration = 100.0f;
 
-  [Export]
-  public float Jump = 250.0f;
-  [Export]
-  public float Acceleration = 150.0f;
-  [Export]
-  public float WireSpeed = 80.0f;
-  [Export]
-  private AnimatedSprite2D AnimationPlayer;
-  [Export]
-  public float FullBatteryCapacity = 1;
-  [Export]
-  private Area2D PlayerArea2D;
-  [Export]
-  public PackedScene BulletScene;
-  private float ShootCooldown = 0f;
-  [Export]
-  public float ShootRate = 0.3f;
+	private State CurrentState = State.Ground;
+	private bool JetpackActivated = false;
 
-  private bool IsMounted = false;
-  private bool IsWantedFlip = false;
-  private float Timer = 0f;
+	private int TimeSinceMountChange = 0;
 
-  // Jetpack
-  [Export]
-  public float JetpackForce = -500f;
-  [Export]
-  public float BoostVelocity = -350f;
-  [Export]
-  public float JetpackDrainRate = 5f;
-  private bool IsJumpingSideways = false;
+	enum State { Ground, Air, Wire };
 
-  [Export]
-  public float BoostDuration = 0.15f;
-
-  private enum JetpackState { Grounded, Boosting, Flying }
-  private JetpackState JetpackStateVar = JetpackState.Grounded;
-  private float BoostTimer = 0f;
-  private bool IsJetpacking = false;
-
-  private float LastMoveInput = 1f;
-  private float InputZeroTimer = 0f;
-  private const float InputZeroGrace = 0.1f;  // 100 ms ani delay ig
-  private bool IsShooting = false;
-
-  public override void _Ready() {
-    AnimationPlayer.AnimationFinished += OnAnimationFinished;
-  }
-
-  private void OnAnimationFinished() {
-    if (AnimationPlayer.Animation == "shoot")
-      IsShooting = false;
-  }
-
-  public override void _PhysicsProcess(double delta) {
-    Vector2 velocity = Velocity;
-
-    // Hvis ikke på gulv, og ikke mountet på wiren, GRAVITY!
-    if (!IsOnFloor() && !IsMounted)
-      velocity += GetGravity() * (float)delta;
-
-    bool IsFalling = velocity.Y > 100f && !IsOnFloor();
-
-    Vector2 inputDirection =
-        Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-
-    // Jetpack implementation
-    bool SpaceJustPressed = Input.IsActionJustPressed("ui_accept");
-    bool SpaceHeld = Input.IsActionPressed("ui_accept");
-    bool ShootPressed = Input.IsActionPressed("shoot");
-
-    ShootCooldown -= (float)delta;
-
-    Global global = Global.GetInstance();
-
-    if (!IsMounted) {
-      if (inputDirection.X > 0.0f)
-        AnimationPlayer.FlipH = false;
-      if (inputDirection.X < 0.0f)
-        AnimationPlayer.FlipH = true;
-
-      if (ShootPressed && IsOnFloor() && !IsMounted && ShootCooldown <= 0f) {
-        IsShooting = true;
-        ShootCooldown = ShootRate;
-        AnimationPlayer.Play("shoot");
-
-       Robotbullet bullet = BulletScene.Instantiate<Robotbullet>();
-
-        bullet.Direction = AnimationPlayer.FlipH ? -1 : 1;
-        
-        GetParent().AddChild(bullet);
-        Vector2 offset = new Vector2(-1, 2);
-        bullet.GlobalPosition = GlobalPosition + offset;
-        
-      }
-
-      if (IsOnFloor())
-        JetpackStateVar = JetpackState.Grounded;
-
-      switch (JetpackStateVar) {
-        case JetpackState.Grounded:
-          IsJetpacking = false;
-          IsJumpingSideways = false;  // Nulstil når man lander
-          if (SpaceJustPressed) {
-            velocity.Y = -Jump;
-            JetpackStateVar = JetpackState.Boosting;
-            BoostTimer = BoostDuration;
-
-            float jumpInput = Input.GetAxis("ui_left", "ui_right");
-            if (Mathf.Abs(jumpInput) > 0.1f) {
-              AnimationPlayer.FlipH = jumpInput < 0.0;
-              AnimationPlayer.Play("jetpack jump side");
-              IsJumpingSideways = true;
-            } else {
-              AnimationPlayer.Play("jetpack jump");
-              IsJumpingSideways = false;
-            }
-          }
-          break;
-
-        case JetpackState.Boosting:
-          IsJetpacking = true;
-          BoostTimer -= (float)delta;
-
-          float boostMoveInput = Input.GetAxis("ui_left", "ui_right");
-
-          if (IsJumpingSideways) {
-            // Skift til side-animation hvis man skifter retning
-            if (Mathf.Abs(boostMoveInput) > 0.1f)
-              AnimationPlayer.FlipH = boostMoveInput < 0.0;
-            AnimationPlayer.Play("jetpack jump side");
-          } else if (Mathf.Abs(boostMoveInput) > 0.1f) {
-            AnimationPlayer.FlipH = boostMoveInput < 0.0;
-            AnimationPlayer.Play("jetpack side");
-            IsJumpingSideways = true;
-          } else {
-            AnimationPlayer.Play("jetpack boost");
-          }
-
-          if (BoostTimer <= 0f)
-            JetpackStateVar = JetpackState.Flying;
-          break;
-
-        case JetpackState.Flying:
-          float currentEnergy = global.GetState<float>("CurrentEnergy");
-          if (SpaceHeld && currentEnergy > 0) {
-            IsJetpacking = true;
-            velocity.Y = JetpackForce;
-            currentEnergy -= JetpackDrainRate * (float)delta;
-            currentEnergy = Mathf.Max(currentEnergy, 0);
-            global.SetState("CurrentEnergy", currentEnergy);
-          } else {
-            IsJetpacking = false;
-          }
-
-          float moveInput = Input.GetAxis("ui_left", "ui_right");
-
-          if (Mathf.Abs(moveInput) > 0.1f) {
-            LastMoveInput = moveInput;
-            InputZeroTimer = 0f;
-          } else {
-            InputZeroTimer += (float)delta;
-          }
-
-          float effectiveMoveInput =
-              (InputZeroTimer < InputZeroGrace) ? LastMoveInput : 0f;
-
-          if (Velocity.Y > 0.0) {
-            AnimationPlayer.Play("jetpack fall");
-          } else if (Mathf.Abs(effectiveMoveInput) > 0.1f) {
-            AnimationPlayer.FlipH = effectiveMoveInput < 0.0;
-            AnimationPlayer.Play("jetpack side");
-          } else {
-            AnimationPlayer.Play("jetpack boost");
-          }
-          break;
-      }
-    }
-
-    bool isTouchingWire = false;
-    var areas = PlayerArea2D.GetOverlappingAreas();
-    foreach (var area in areas) {
-      if (area.IsInGroup("wire"))
-        isTouchingWire = true;
-    }  // Tjek om spilleren rører wiren
-
-    if (Input.IsActionJustPressed("ui_mount") && isTouchingWire)
+    public override void _PhysicsProcess(double delta)
     {
-        IsMounted = !IsMounted;
-        if (IsMounted)
-        {
-            velocity.X = 0;
-            velocity.Y = 0;
+		HandleTransitions();
+		
+		switch (CurrentState) {
+			case State.Ground:
+				HandleGroundMovement((float)delta);
+				break;
+			case State.Air:
+				HandleAirMovement((float)delta);
+				break;
+			case State.Wire:
+				HandleWireMovement((float)delta);
+				break;
+		}
 
-            Area2D touchedWire = null;
-            foreach (var area in areas)
-            {
-                if (area.IsInGroup("wire"))
-                {
-                    touchedWire = area;
-                    break;
-                }
-            }
-
-            float wireX = touchedWire != null ? touchedWire.GlobalPosition.X +1 : GlobalPosition.X;
-
-            Tween tween = GetTree().CreateTween();
-            tween.SetEase(Tween.EaseType.Out);
-            tween.SetTrans(Tween.TransitionType.Quint);
-            tween.TweenProperty(this, "global_position", new Vector2(wireX, GlobalPosition.Y), 0.5f);
-        }
+		TimeSinceMountChange += 1;
     }
 
-    if (IsMounted) {
-      // Hvis velocity X er 0, så er spilleren mountet og på den rigtige
-      // position
-      AnimationPlayer.FlipH = false;
-      if (Velocity.X == 0 && velocity.X == 0) {
-        AnimationPlayer.Play("climb");
-      }
 
-      if (GlobalPosition.Y < -22) {
-        velocity.Y = 20;
-        IsMounted = false;
-        velocity.X = 120;
-      }  // spring af wiren når man rammer toppen
-      else {
-        if (Input.IsActionJustPressed("ui_up"))
-          velocity.Y = -WireSpeed;
-        if (Input.IsActionJustPressed("ui_down"))
-          velocity.Y = WireSpeed;
-        if (Input.IsActionJustReleased("ui_up") ||
-            Input.IsActionJustReleased("ui_down"))
-          velocity.Y = 0;
+	private void HandleTransitions()
+	{
+		// Early return, because the transition back to Air/Ground state, from
+		// the wire state, is handled in the HandleWireMovement function
+		if (CurrentState == State.Wire)
+			return;
 
-        Vector2 inputDirection2 =
-            Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-        if (Input.IsActionJustPressed("ui_accept")) {
-          if (inputDirection2.X > 0) {
-            velocity.Y = -150;
-            velocity.X = 150;
-          }
-          if (inputDirection2.X < 0) {
-            velocity.Y = -150;
-            velocity.X = -150;
-          }
-          IsMounted = false;
-        }  // Hopper af wiren til siden
+		if (IsOnFloor()) 
+			CurrentState = State.Ground;
+		else
+			CurrentState = State.Air;
 
-      }  // Bevægelse på wiren
+		if (Input.IsActionJustPressed("mount"))
+		{
+			bool isTouchingWire = false;
+			float wireX = 0.0f;
 
-      // Da spilleren kravler på wiren, så kan den hverken bevæge sig sidelæns
-      // eller mine
-      goto EarlyExit;
-    }
+			var areas = WireArea.GetOverlappingAreas();
+			foreach (var area in areas) {
+				if (area.IsInGroup("wire")) {
+					isTouchingWire = true;
+					wireX = area.GlobalPosition.X;
+					break;
+				}
+			}
 
-    float towards = inputDirection.X == 0 ? 0 : MaxSpeed * inputDirection.X;
-    velocity.X =
-        Mathf.MoveToward(velocity.X, towards, Acceleration * (float)delta);
+			if (isTouchingWire && TimeSinceMountChange > 1)
+			{
+				TimeSinceMountChange = -1;
+				CurrentState = State.Wire;
+				Velocity = Vector2.Zero;
 
-    if (!IsJetpacking && !IsShooting) {
-      if (Mathf.Abs(velocity.X) != MaxSpeed && !IsMounted && Velocity.X != 0) {
-        AnimationPlayer.Play("acceleration");
-      }
+				Tween tween = GetTree().CreateTween();
+				tween.SetEase(Tween.EaseType.Out);
+				tween.SetTrans(Tween.TransitionType.Quint);
+				tween.TweenProperty(this, "global_position:x", wireX, 0.5f);
+			}
+		}
+	}
 
-      if (Velocity.X > 0.0)
-        AnimationPlayer.FlipH = false;
-      if (Velocity.X < 0.0)
-        AnimationPlayer.FlipH = true;
 
-      if (Velocity.X == 0.0 && inputDirection.X == 0.0) {
-        AnimationPlayer.FlipH = false;
-        AnimationPlayer.Play("idle");
-      }
+	private void HandleGroundMovement(float delta)
+	{
+		JetpackActivated = false;
+		Vector2 velocity = Velocity;
 
-      if (Mathf.Abs(Velocity.X) == MaxSpeed) {
-        AnimationPlayer.Play("move");
-      }
-    }
+		float sidewaysInput = Input.GetAxis("left", "right");
+		float towards = sidewaysInput == 0 ? 0 : MaxSpeed * sidewaysInput;
 
-    if (!ShootPressed && IsShooting) {
-      IsShooting = false;
-    }
+		velocity.X = Mathf.MoveToward(velocity.X, towards, BasicAcceleration * (float)delta);
+		if (Input.IsActionPressed("jump"))
+		{
+			velocity.Y -= JumpForce;
+		}
+		
+		Velocity = velocity;
+		MoveAndSlide();
+	}
 
-    if (inputDirection.Angle() % (Mathf.Pi / 2.0) == 0 &&
-        inputDirection != Vector2.Zero)  // Mine implementation
-    {
-      Ground ground = (Ground)GetTree().GetFirstNodeInGroup("Ground");
 
-      Vector2I tileDirection = (Vector2I)inputDirection;
-      Vector2I tilePosition = ground.ToTilePosition(GlobalPosition);
-      Vector2I miningTilePosition = tilePosition + tileDirection;
+	private void HandleAirMovement(float delta)
+	{
+		Vector2 velocity = Velocity;
 
-      bool blocked = false;
+		float sidewaysInput = Input.GetAxis("left", "right");
+		float towards = sidewaysInput == 0 ? 0 : MaxSpeed * sidewaysInput;
+		velocity.X = Mathf.MoveToward(velocity.X, towards, BasicAcceleration * delta);
 
-      if (tileDirection.X != 0)
-        blocked = IsOnWall();
-      else if (tileDirection.Y > 0)
-        blocked = IsOnFloor();
-      else if (tileDirection.Y < 0)
-        blocked = IsOnCeiling();
+		if (Input.IsActionPressed("jump")) {
+			if (Velocity.Y > 0.0f)
+			{
+				JetpackActivated = true;
+			}
+		}
+		else
+		{
+			JetpackActivated = false;
+		}
 
-      if (!blocked)
-        goto EarlyExit;
+		Global global = Global.GetInstance();
+		float currentEnergy = global.GetState<float>("CurrentEnergy");
+		float jetpackEfficiency = global.GetState<float>("JetpackEffeciency");
+		float jetpackDrain      = global.GetState<float>("JetpackDrain");
 
-      TileData tileData =
-          ground.GroundLayer.GetCellTileData(miningTilePosition);
-      if (tileData == null)
-        goto EarlyExit;
+		if (JetpackActivated && currentEnergy > 0.0f)
+		{
+			velocity.Y = Mathf.MoveToward(Velocity.Y, -MaxJetpackSpeed, JetpackAcceleration * delta);
+			currentEnergy -= (1.0f / jetpackEfficiency) * jetpackDrain * delta;
+			global.SetState("CurrentEnergy", currentEnergy);
+		}
+		else
+		{
+			velocity += GetGravity() * delta;
+		}
 
-      float miningSpeed = global.GetState<float>("MiningSpeed");
+		Velocity = velocity;
+		MoveAndSlide();
+	}
 
-      float tileHealth = ground.TileHealth[miningTilePosition];
-      float newTileHealth = tileHealth - miningSpeed * (float)delta;
+	private void HandleWireMovement(float delta)
+	{
+		Vector2 velocity = Velocity;
 
-      if (newTileHealth <= 0.0)
-        ground.BreakTile(miningTilePosition);
-      else
-        ground.TileHealth[miningTilePosition] = newTileHealth;
-    }
+		if (!Input.IsActionJustPressed("mount"))
+		{
+			float upwardsInput = Input.GetAxis("up", "down");
+			float towards = upwardsInput == 0 ? 0 : MaxWireSpeed * upwardsInput;
+			velocity.Y = Mathf.MoveToward(velocity.Y, towards, WireAcceleration * (float)delta);
+		} 
+		else if (TimeSinceMountChange > 1)
+		{
+			TimeSinceMountChange = -1;
+			CurrentState = State.Air;
+			float sidewaysInput = Input.GetAxis("left", "right");
 
-  EarlyExit:
+			if (sidewaysInput != 0)
+			{
+				velocity += new Vector2(1.0f * sidewaysInput, -0.5f) * DismountBoost;
+			}
+		}
 
-    Velocity = velocity;
-    MoveAndSlide();
-  }
+		Velocity = velocity;
+		MoveAndSlide();
+	}
+      
 
-  private static void ShowSpecificFrame(AnimatedSprite2D AnimationPlayer,
-                                        string Animation, int frame) {
-    AnimationPlayer.Stop();  // Stop den først
-    AnimationPlayer.Animation = Animation;
-    AnimationPlayer.Frame = frame;  // Sæt frame bagefter
-  }
+	private static void ShowSpecificFrame(AnimatedSprite2D AnimationPlayer, string Animation, int frame) {
+		AnimationPlayer.Stop();  // Stop den først
+		AnimationPlayer.Animation = Animation;
+		AnimationPlayer.Frame = frame;  // Sæt frame bagefter
+	}
 }

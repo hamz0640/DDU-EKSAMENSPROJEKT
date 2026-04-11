@@ -18,9 +18,11 @@ public partial class Global : Node
 
     public override void _Ready()
     {
-        // Name?
+        // Jetpack?
         State["CurrentEnergy"] = 100f;
         State["MaxEnergy"]     = 100f;
+        State["JetpackEffeciency"] = 1.0f;
+        State["JetpackDrain"] = 15.0f;
 
         // ===== Stats =====
         State["MaxInventorySpace"] = 10;

@@ -1,8 +1,7 @@
-[gd_scene load_steps=82 format=3 uid="uid://b4nfhud4df0d"]
+[gd_scene load_steps=81 format=3 uid="uid://b4nfhud4df0d"]
 
 [ext_resource type="Script" uid="uid://ctijk7g5hnmqw" path="res://Scripts/PlayerController.cs" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://buypuapjok54f" path="res://Assets/Player/MonoWheelRobotJetpackBoot.png" id="2_8erm5"]
-[ext_resource type="PackedScene" uid="uid://bae4ehv5xhcda" path="res://Scenes/robotbullet.tscn" id="2_gymyn"]
 [ext_resource type="Texture2D" uid="uid://dn52ab5uy1yce" path="res://Assets/Player/MonoWheelRobotAccelerateSide.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://bcdyui1yw32i6" path="res://Assets/Player/MonoWheelRobotJetpackFront.png" id="3_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://dh1rdwbefqlb" path="res://Assets/Player/MonoWheelRobotIdle.png" id="3_fkybt"]
@@ -552,36 +551,27 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="Node2D"]
-z_index = 1000
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("AnimationPlayer", "PlayerArea2D")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("WireArea")]
+z_index = 10
 collision_mask = 3
 script = ExtResource("1_fkybt")
-MaxSpeed = 75.0
-Acceleration = 300.0
-AnimationPlayer = NodePath("AnimatedSprite2D")
-PlayerArea2D = NodePath("Area2D")
-BulletScene = ExtResource("2_gymyn")
-JetpackForce = -150.0
-BoostVelocity = -175.0
-JetpackDrainRate = 6.0
+WireArea = NodePath("Area2D")
 
-[node name="Area2D" type="Area2D" parent="CharacterBody2D"]
+[node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 z_index = 1
 shape = SubResource("RectangleShape2D_fkybt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_f60y1")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xuaoq")
 animation = &"shoot"
 autoplay = "idle"
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" groups=["Camera"]]
+[node name="Camera2D" type="Camera2D" parent="." groups=["Camera"]]
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true

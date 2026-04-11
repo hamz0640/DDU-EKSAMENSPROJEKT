@@ -1,2 +1,0 @@
-MaxInventorySpace (uint)
-MiningSpeed (float)

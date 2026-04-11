@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=18 format=3 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://bkr7xjj3ucoke" path="res://Assets/RoofTurret/block-out-barrel.png" id="11_6iyac"]
 [ext_resource type="Script" uid="uid://bep4klwunyd34" path="res://Scripts/EnemySpawner.cs" id="11_d1ilt"]
 [ext_resource type="PackedScene" uid="uid://csyuey7k8y0dm" path="res://Scenes/interactable.tscn" id="12_6iyac"]
+[ext_resource type="Script" uid="uid://wq5het8c2qxr" path="res://Scripts/TurretDoor.cs" id="13_jkdf5"]
+[ext_resource type="Script" uid="uid://dbfgrp7iair86" path="res://Scripts/Interactable.cs" id="14_wsu2k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6iyac"]
 size = Vector2(24, 24)
@@ -19,7 +21,7 @@ size = Vector2(24, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkdf5"]
 size = Vector2(32, 24)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fdnlq"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k12tt"]
 size = Vector2(24, 38)
 
 [node name="Main" type="Node2D"]
@@ -85,8 +87,15 @@ rotation = 0.140107
 texture = ExtResource("11_6iyac")
 offset = Vector2(30.1216, -0.168114)
 
-[node name="TurretDoor" parent="." instance=ExtResource("12_6iyac")]
-position = Vector2(229, -18)
+[node name="TurretDoor" type="Node2D" parent="." node_paths=PackedStringArray("Interactable")]
+script = ExtResource("13_jkdf5")
+Interactable = NodePath("Interactable")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TurretDoor"]
-shape = SubResource("RectangleShape2D_fdnlq")
+[node name="Interactable" type="Area2D" parent="TurretDoor"]
+position = Vector2(229, -19)
+script = ExtResource("14_wsu2k")
+metadata/_custom_type_script = "uid://dbfgrp7iair86"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TurretDoor/Interactable"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_k12tt")

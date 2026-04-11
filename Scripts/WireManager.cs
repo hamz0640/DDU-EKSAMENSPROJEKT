@@ -2,7 +2,7 @@ using Godot;
 using System;
 public partial class WireManager : Node2D
 {
-    [Export] private Node2D player;
+    [Export] private CharacterBody2D player;
     [Export] private Area2D wireArea;
     [Export] private Sprite2D wireSprite;
     private Vector2 nextSpawn;
@@ -17,8 +17,7 @@ public partial class WireManager : Node2D
     
     public void CheckIfNewNeeded()
     {
-        var character = player.GetNode<CharacterBody2D>("CharacterBody2D");
-        if (character.GlobalPosition.Y + 10 > nextSpawn.Y)
+        if (player.GlobalPosition.Y + 10 > nextSpawn.Y)
         {
             CreateNew();
         }
