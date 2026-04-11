@@ -201,6 +201,7 @@ public partial class PlayerController : CharacterBody2D
 		MoveAndSlide();
 	}
 
+
 	private void HandleWireMovement(float delta)
 	{
 		Vector2 velocity = Velocity;
@@ -221,6 +222,13 @@ public partial class PlayerController : CharacterBody2D
 			{
 				velocity += new Vector2(1.0f * sidewaysInput, -0.5f) * DismountBoost;
 			}
+		}
+
+		if (GlobalPosition.Y < -15.0f)
+		{
+			velocity += new Vector2(1.0f, -0.5f) * DismountBoost;
+			TimeSinceMountChange = -1;
+			CurrentState = State.Air;
 		}
 
 		Velocity = velocity;
