@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=16 format=3 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
@@ -9,14 +9,18 @@
 [ext_resource type="PackedScene" uid="uid://b4nfhud4df0d" path="res://Scenes/player.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://j7pn54iqe4ig" path="res://Scenes/wire.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://btcichbg1pnh7" path="res://Scenes/ui.tscn" id="6_21xkr"]
-[ext_resource type="PackedScene" uid="uid://bu4awqbrm06dy" path="res://Scenes/turret.tscn" id="11_6iyac"]
+[ext_resource type="Texture2D" uid="uid://bkr7xjj3ucoke" path="res://Assets/RoofTurret/block-out-barrel.png" id="11_6iyac"]
 [ext_resource type="Script" uid="uid://bep4klwunyd34" path="res://Scripts/EnemySpawner.cs" id="11_d1ilt"]
+[ext_resource type="PackedScene" uid="uid://csyuey7k8y0dm" path="res://Scenes/interactable.tscn" id="12_6iyac"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6iyac"]
 size = Vector2(24, 24)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6bp64"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkdf5"]
 size = Vector2(32, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fdnlq"]
+size = Vector2(24, 38)
 
 [node name="Main" type="Node2D"]
 
@@ -26,17 +30,17 @@ InputChute = NodePath("InputChute")
 UpgradeConsole = NodePath("UpgradeConsole")
 UpgradeMenu = NodePath("UpgradeMenu/MarginContainer")
 
-[node name="InputChute" type="Area2D" parent="UpgradeStation"]
+[node name="InputChute" parent="UpgradeStation" instance=ExtResource("12_6iyac")]
 position = Vector2(156, -25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpgradeStation/InputChute"]
-shape = SubResource("RectangleShape2D_21xkr")
+shape = SubResource("RectangleShape2D_6iyac")
 
-[node name="UpgradeConsole" type="Area2D" parent="UpgradeStation"]
+[node name="UpgradeConsole" parent="UpgradeStation" instance=ExtResource("12_6iyac")]
 position = Vector2(188, -25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpgradeStation/UpgradeConsole"]
-shape = SubResource("RectangleShape2D_6bp64")
+shape = SubResource("RectangleShape2D_jkdf5")
 
 [node name="UpgradeMenu" type="CanvasLayer" parent="UpgradeStation"]
 
@@ -75,5 +79,14 @@ position = Vector2(177, -80)
 position = Vector2(895, -69)
 script = ExtResource("11_d1ilt")
 
-[node name="turret" parent="." instance=ExtResource("11_6iyac")]
-position = Vector2(101, -23)
+[node name="Turret" type="Sprite2D" parent="."]
+position = Vector2(208.878, -96.8548)
+rotation = 0.140107
+texture = ExtResource("11_6iyac")
+offset = Vector2(30.1216, -0.168114)
+
+[node name="TurretDoor" parent="." instance=ExtResource("12_6iyac")]
+position = Vector2(229, -18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TurretDoor"]
+shape = SubResource("RectangleShape2D_fdnlq")

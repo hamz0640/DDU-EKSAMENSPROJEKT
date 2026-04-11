@@ -40,6 +40,7 @@ energy_bar=""
 UI=""
 Enemy=""
 Turret=""
+Interactable=""
 
 [input]
 
