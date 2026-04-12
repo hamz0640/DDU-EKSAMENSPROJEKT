@@ -83,7 +83,7 @@ public partial class Enemy : CharacterBody2D
 
 	void BulletSpawn()
 	{
-		var scene=GD.Load<PackedScene>("res://Scenes/bullet.tscn");
+		var scene=GD.Load<PackedScene>("res://Scenes/enemy_bullet.tscn");
 		var node = scene.Instantiate();
 		AddChild(node);
     }

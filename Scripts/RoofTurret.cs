@@ -34,6 +34,18 @@ public partial class RoofTurret : Sprite2D
             Crosshair.GlobalPosition = mousePosition;
             Crosshair.GlobalRotation = 0;
         }
+
+        if (InTurret && Input.IsActionJustPressed("jump"))
+        {
+            PackedScene bulletScene = (PackedScene)GD.Load("res://Scenes/roof_turret_bullet.tscn");
+            RoofTurretBullet bullet = (RoofTurretBullet)bulletScene.Instantiate();
+
+            bullet.Velocity = Vector2.Right.Rotated(Rotation).Normalized() * 1000.0f;
+            bullet.Rotation = Rotation;
+            bullet.GlobalPosition = GlobalPosition + Vector2.Right.Rotated(Rotation).Normalized() * 60.0f;
+
+            GetTree().Root.AddChild(bullet);
+        }
     }
 
 

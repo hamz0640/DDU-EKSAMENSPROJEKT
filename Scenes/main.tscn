@@ -102,4 +102,5 @@ script = ExtResource("15_wsu2k")
 Crosshair = NodePath("Crosshair")
 
 [node name="Crosshair" type="Sprite2D" parent="RoofTurret"]
+visible = false
 texture = ExtResource("15_k12tt")
