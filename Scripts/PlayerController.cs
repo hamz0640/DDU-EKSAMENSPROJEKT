@@ -34,18 +34,23 @@ public partial class PlayerController : CharacterBody2D
 	private int TimeSinceMountChange = 0;
 
 	private AnimatedSprite2D anim = null;
+	private bool InTurret = false;
 
 	enum State { Ground, Air, Wire };
 
 
     public override void _Ready()
     {
+		((TurretDoor)GetNode("/root/Main/TurretDoor")).ToggleTurret += OnToggleTurret;
         anim = (AnimatedSprite2D)GetNode("AnimatedSprite2D");
     }
 
 
     public override void _PhysicsProcess(double delta)
     {
+		if (InTurret)
+			return;
+		
 		HandleTransitions();
 		
 		switch (CurrentState) {
@@ -65,6 +70,21 @@ public partial class PlayerController : CharacterBody2D
 
 		TimeSinceMountChange += 1;
     }
+
+
+	private void OnToggleTurret() {
+		if (!InTurret)
+		{
+			Hide();
+			GlobalPosition = new Vector2(229, -20);
+			InTurret = true;
+		} 
+		else
+		{
+			Show();
+			InTurret = false;
+		}
+	}
 
 
 	private void HandleAnimations()

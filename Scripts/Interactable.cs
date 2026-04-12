@@ -3,7 +3,6 @@ using Godot.Collections;
 using System;
 
 
-[GlobalClass]
 public partial class Interactable : Area2D
 {
     [Signal]

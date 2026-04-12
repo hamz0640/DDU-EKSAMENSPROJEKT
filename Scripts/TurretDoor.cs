@@ -5,11 +5,12 @@ public partial class TurretDoor : Node2D
 {
     [Export]
     Interactable Interactable = null;
+    [Signal]
+    public delegate void ToggleTurretEventHandler();
     public override void _Ready()
     {
-        AddUserSignal("ToggleTurret");
         Interactable.Interact += () => {
-            EmitSignal("ToggleTurret");
+            EmitSignal(SignalName.ToggleTurret);
         };
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=19 format=3 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
@@ -13,7 +13,11 @@
 [ext_resource type="Script" uid="uid://bep4klwunyd34" path="res://Scripts/EnemySpawner.cs" id="11_d1ilt"]
 [ext_resource type="PackedScene" uid="uid://csyuey7k8y0dm" path="res://Scenes/interactable.tscn" id="12_6iyac"]
 [ext_resource type="Script" uid="uid://wq5het8c2qxr" path="res://Scripts/TurretDoor.cs" id="13_jkdf5"]
-[ext_resource type="Script" uid="uid://dbfgrp7iair86" path="res://Scripts/Interactable.cs" id="14_wsu2k"]
+[ext_resource type="Texture2D" uid="uid://bwpditu68il4a" path="res://Assets/RoofTurret/crosshair.png" id="15_k12tt"]
+[ext_resource type="Script" uid="uid://daovwbkwwn7hh" path="res://Scripts/RoofTurret.cs" id="15_wsu2k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k12tt"]
+size = Vector2(24, 38)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6iyac"]
 size = Vector2(24, 24)
@@ -21,10 +25,18 @@ size = Vector2(24, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkdf5"]
 size = Vector2(32, 24)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k12tt"]
-size = Vector2(24, 38)
-
 [node name="Main" type="Node2D"]
+
+[node name="TurretDoor" type="Node2D" parent="." node_paths=PackedStringArray("Interactable")]
+script = ExtResource("13_jkdf5")
+Interactable = NodePath("Interactable")
+
+[node name="Interactable" parent="TurretDoor" instance=ExtResource("12_6iyac")]
+position = Vector2(229, -19)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TurretDoor/Interactable"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_k12tt")
 
 [node name="UpgradeStation" type="Node2D" parent="." node_paths=PackedStringArray("InputChute", "UpgradeConsole", "UpgradeMenu")]
 script = ExtResource("1_344ge")
@@ -76,26 +88,19 @@ player = NodePath("../Player")
 position = Vector2(177, -80)
 
 [node name="UI" parent="." groups=["UI"] instance=ExtResource("6_21xkr")]
+visible = false
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 position = Vector2(895, -69)
 script = ExtResource("11_d1ilt")
 
-[node name="Turret" type="Sprite2D" parent="."]
+[node name="RoofTurret" type="Sprite2D" parent="." node_paths=PackedStringArray("Crosshair")]
 position = Vector2(208.878, -96.8548)
-rotation = 0.140107
 texture = ExtResource("11_6iyac")
 offset = Vector2(30.1216, -0.168114)
+script = ExtResource("15_wsu2k")
+Crosshair = NodePath("Crosshair")
 
-[node name="TurretDoor" type="Node2D" parent="." node_paths=PackedStringArray("Interactable")]
-script = ExtResource("13_jkdf5")
-Interactable = NodePath("Interactable")
-
-[node name="Interactable" type="Area2D" parent="TurretDoor"]
-position = Vector2(229, -19)
-script = ExtResource("14_wsu2k")
-metadata/_custom_type_script = "uid://dbfgrp7iair86"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TurretDoor/Interactable"]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_k12tt")
+[node name="Crosshair" type="Sprite2D" parent="RoofTurret"]
+visible = false
+texture = ExtResource("15_k12tt")
