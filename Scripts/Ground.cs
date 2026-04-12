@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public partial class Ground : Node2D
 {
     private FastNoiseLite GroundNoise = new();
-    private Vector2I lastTilePosition = Vector2I.MaxValue;
+    private Vector2I LastTilePosition = Vector2I.MaxValue;
+    private Vector2  LastCameraZoom = Vector2.Inf;
     private HashSet<Vector2I> LoadedTiles = new();
     private HashSet<Vector2I> PlacedTiles = new();
     private HashSet<Vector2I> UnbreakableTiles = new();
@@ -81,6 +82,7 @@ public partial class Ground : Node2D
     {
         Camera2D camera = (Camera2D)GetTree().GetFirstNodeInGroup("Camera");
         Vector2 cameraPosition = camera.GlobalPosition;
+        Vector2 cameraZoom = camera.Zoom;
 
         float screenToTileFactor = 32.0f;
         Vector2I tilePosition = new Vector2I(
@@ -88,13 +90,14 @@ public partial class Ground : Node2D
             (int)(cameraPosition.Y / screenToTileFactor)
         );
         
-        if (tilePosition == lastTilePosition)
+        if (tilePosition == LastTilePosition && cameraZoom == LastCameraZoom)
         {
             return;
         }
         else
         {
-            lastTilePosition = tilePosition;
+            LastTilePosition = tilePosition;
+            LastCameraZoom   = cameraZoom;
         }
 
         int horizontalTileExtent = (int)Mathf.Ceil(960.0 / camera.Zoom.X / screenToTileFactor);
