@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://kvomyd46ohes" path="res://Assets/Bars/ship bar empty.png" id="1_g8plq"]
 [ext_resource type="Texture2D" uid="uid://xj1ls2aqaswo" path="res://Assets/Bars/Ship bar full.png" id="2_ckdtg"]
-[ext_resource type="Script" uid="uid://ct7clapidpt65" path="res://Scripts/EnergyBar.cs" id="3_bxv0j"]
+[ext_resource type="Script" uid="uid://b6llfh6igtnln" path="res://Scripts/ShipBar.cs" id="3_ckdtg"]
 
 [node name="TextureProgressBar" type="TextureProgressBar" groups=["energy_bar"]]
 custom_minimum_size = Vector2(200, 100)
@@ -19,4 +19,4 @@ size_flags_vertical = 3
 nine_patch_stretch = true
 texture_under = ExtResource("1_g8plq")
 texture_progress = ExtResource("2_ckdtg")
-script = ExtResource("3_bxv0j")
+script = ExtResource("3_ckdtg")

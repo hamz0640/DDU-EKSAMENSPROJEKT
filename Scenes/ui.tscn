@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://btcichbg1pnh7"]
 
 [ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/Bars/EL-bar_empty.png" id="1_m78vo"]
-[ext_resource type="PackedScene" path="res://Scenes/ShipBar.tscn" id="1_nt8jn"]
+[ext_resource type="PackedScene" uid="uid://dmik8c7oy1xq1" path="res://Scenes/ShipBar.tscn" id="1_nt8jn"]
 [ext_resource type="Texture2D" uid="uid://unqtwkn0pyeq" path="res://Assets/Bars/EL-bar_full.png" id="2_smcll"]
 [ext_resource type="Script" uid="uid://ct7clapidpt65" path="res://Scripts/EnergyBar.cs" id="3_ryf15"]
 [ext_resource type="Script" uid="uid://cax40dl2of44o" path="res://Scripts/WaveCounterLabel.cs" id="4_ryf15"]
