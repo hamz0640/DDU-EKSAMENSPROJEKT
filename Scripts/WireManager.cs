@@ -15,14 +15,15 @@ public partial class WireManager : Node2D
         nextSpawn.X = wireArea.GlobalPosition.X;
     } // Original spawn position
     
-    public void CheckIfNewNeeded()
+    public override void _Process(double delta)
     {
         if (player.GlobalPosition.Y + 10 > nextSpawn.Y)
         {
+            HandleMine((float)delta);
             CreateNew();
         }
-    } // Hvis spilleren er længere nede end wire, lav wiren længere
-    
+    }
+
     public void CreateNew()
     {
         bool touchingGround = false;
@@ -44,4 +45,32 @@ public partial class WireManager : Node2D
 
         }
     } // Lav ny wire i forlængelse af den gamle HVIS IKKE den ville ramme en ground block
+
+    private void HandleMine(float delta)
+    {
+        Global global = Global.GetInstance();
+        Ground ground = (Ground)GetTree().GetFirstNodeInGroup("Ground");
+
+        float miningSpeed = global.GetState<float>("MiningSpeed");
+
+        Vector2I tileDirection = (Vector2I)Vector2.Down;
+        Vector2I tilePosition = ground.ToTilePosition(GlobalPosition);
+        Vector2I miningTilePosition = tilePosition + tileDirection;
+
+        if (!ground.TileHealth.ContainsKey(miningTilePosition))
+        {
+            GD.Print("bjjksgnjsnjsgjssgesjgeks");
+            return;
+        }
+
+        float tileHealth = ground.TileHealth[miningTilePosition];
+        float newTileHealth = tileHealth - miningSpeed * (float)delta;
+
+        GD.Print($"Graver i: {miningTilePosition} - HP tilbage: {newTileHealth}");
+
+        if (newTileHealth <= 0.0)
+            ground.BreakTile(miningTilePosition);
+        else
+            ground.TileHealth[miningTilePosition] = newTileHealth;
+    }
 }
