@@ -13,7 +13,7 @@ public partial class Turret : CharacterBody2D
 	{
 		animator.Pause();
 		GD.Print("Turret spawned");
-		this.Position = new Vector2(this.Position.X, -SpawnHeight);
+		this.Position = new Vector2(100, -SpawnHeight);
 		//Screenshake
 
 	}
