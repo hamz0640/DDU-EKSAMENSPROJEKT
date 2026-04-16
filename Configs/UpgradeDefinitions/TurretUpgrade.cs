@@ -12,6 +12,8 @@ public partial class TurretUpgrade : Upgrade
         Turret turret = (Turret)turretScene.Instantiate();
         turret.GlobalPosition = new Vector2(0, -1000);
         root.AddChild(turret);
+
+        AmountBought += 1;
     }
 
     public override bool CanBuy(SceneTree tree)

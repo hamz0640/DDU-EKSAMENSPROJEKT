@@ -14,5 +14,7 @@ public partial class ShieldRegenUpgrade : Upgrade
 
             ShieldHealth += 100f;
         };
+
+        AmountBought += 1;
     }
 }
