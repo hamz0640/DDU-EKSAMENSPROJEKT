@@ -26,7 +26,7 @@ public partial class DeathSliders : Control
     public override void _Process(double delta)
     {
         Global global = Global.GetInstance();
-        if (global.GetState<float>("CurrentEnergy") <= 0.0f && IsDead == false)
+        if (global.GetState<float>("CurrentEnergy") <= 0.0f || global.GetState<float>("CurrentShipHealth") <= 0.0f && IsDead == false)
         {
             Tween tween = GetTree().CreateTween();
 

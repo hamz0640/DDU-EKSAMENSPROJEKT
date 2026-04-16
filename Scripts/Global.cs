@@ -43,6 +43,11 @@ public partial class Global : Node
 
         // Wave
         State["ShieldHealth"] = 200.0f;
+
+        // Ship
+        State["ShipHealth"] = 100.0f;
+        State["CurrentShipHealth"] = 100.0f;
+
     }
 
 

@@ -32,9 +32,9 @@ public partial class EnemyBullet : CharacterBody2D
 		{
 			animation.Play("Hit");
 
-			global.SetState<float>("CurrentEnergy",PlayerEnergy()-Damage);
+			global.SetState<float>("CurrentShipHealth",ShipHealth()-Damage);
 
-			GD.Print(PlayerEnergy());
+			GD.Print(ShipHealth());
 			QueueFree();
 				
 		}
@@ -53,9 +53,9 @@ public partial class EnemyBullet : CharacterBody2D
             
         }
 	}
-	float PlayerEnergy()
+	float ShipHealth()
 	{
-		return global.GetState<float>("CurrentEnergy");
+		return global.GetState<float>("CurrentShipHealth");
 	}
 
 	float ShieldEnergy()

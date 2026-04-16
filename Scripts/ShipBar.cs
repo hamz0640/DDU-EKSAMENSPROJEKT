@@ -4,42 +4,46 @@ using System;
 public partial class ShipBar : TextureProgressBar
 {
     [Export] public float FlashSpeed = 3f;
-    [Export] public float AnimationSpeed = 5f;
+    [Export] public float LowEnergyThreshold = 25.0f;
 
-    
-    private float LowEnergyThreshold = 25.0f;
-
+    private bool _isFlashing = false;
+    private Tween _flashTween;
     private bool IsFlashing = false;
     private Tween FlashTween;
     private Tween BarTween;
+    private Global _global;
 
     public override void _Ready()
     {
-        Global global = Global.GetInstance();
+        _global = Global.GetInstance();
+
+        float maxHealth = _global.GetState<float>("ShipHealth");
 
         MinValue = 0;
-        MaxValue = global.GetState<float>("MaxEnergy");
-
-        Value = global.GetState<float>("MaxEnergy");
+        MaxValue = maxHealth;
+        Value = maxHealth;
     }
 
     public override void _Process(double delta)
     {
-        Global global = Global.GetInstance();
+        if (_global == null)
+            return;
 
-        float currentEnergy = global.GetState<float>("CurrentEnergy");
-        float maxEnergy     = global.GetState<float>("MaxEnergy");
-        float percentage = currentEnergy / maxEnergy * 100f;
+        float currentHealth = _global.GetState<float>("CurrentShipHealth");
+        float maxHealth     = _global.GetState<float>("ShipHealth");
 
-        Value = percentage;
+        if (maxHealth <= 0)
+            return;
 
-        if (percentage <= LowEnergyThreshold && !IsFlashing)
+        Value = currentHealth;
+
+        float percentage = (currentHealth / maxHealth) * 100f;
+
+        if (percentage <= LowEnergyThreshold && !_isFlashing)
             StartFlash();
-        else if (percentage > LowEnergyThreshold && IsFlashing)
+        else if (percentage > LowEnergyThreshold && _isFlashing)
             StopFlash();
     }
-
-
     private void StartFlash()
     {
         IsFlashing = true;
@@ -55,4 +59,5 @@ public partial class ShipBar : TextureProgressBar
         FlashTween?.Kill();
         Modulate = new Color(1, 1, 1);
     }
+
 }
