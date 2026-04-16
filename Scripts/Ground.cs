@@ -72,7 +72,6 @@ public partial class Ground : Node2D
         PlaceBackgroundTile(new Vector2I(11, 0));
     }
 
-
     public override void _Process(double delta)
     {
         LoadNewTiles();
@@ -165,21 +164,25 @@ public partial class Ground : Node2D
         float hiYellow = loYellow + YellowProbability;
 
 
+        Tracker tracker = Tracker.GetInstance();
         bool shouldInstantiate = false;
         if (mineralValue > loRed && mineralValue < hiRed)
         {
             mineralType = Mineral.MineralType.Red;
+            tracker.IncrementTracking("Mine:MineralsSpawned:Red", 1u);
             shouldInstantiate = true;
         }
             
         if (mineralValue > loPurple && mineralValue < hiPurple)
         {
             mineralType = Mineral.MineralType.Purple;
+            tracker.IncrementTracking("Mine:MineralsSpawned:Purple", 1u);
             shouldInstantiate = true;
         }
         if (mineralValue > loYellow && mineralValue < hiYellow)
         {
             mineralType = Mineral.MineralType.Yellow;
+            tracker.IncrementTracking("Mine:MineralsSpawned:Yellow", 1u);
             shouldInstantiate = true;
         }
 
@@ -231,6 +234,7 @@ public partial class Ground : Node2D
         if (UnbreakableTiles.Contains(tilePosition))
             return false;
         
+        Tracker tracker = Tracker.GetInstance();
         MineralNodeLUT.TryGetValue(tilePosition, out Mineral mineralCenter);
         if (mineralCenter != null)
         {
@@ -238,16 +242,47 @@ public partial class Ground : Node2D
             Global global = (Global)GetTree().Root.GetNode("Global");
             global.EmitSignal("MineralCountUpdated", [(int)mineralType, true]);
 
+            tracker.IncrementTracking("Mine:TotalMined", 1u);
+            switch (mineralType) {
+                case Mineral.MineralType.Red:
+                    tracker.IncrementTracking("Mine:MineralsMined:Red", 1u);
+                    break;
+                case Mineral.MineralType.Purple:
+                    tracker.IncrementTracking("Mine:MineralsMined:Purple", 1u);
+                    break;
+                case Mineral.MineralType.Yellow:
+                    tracker.IncrementTracking("Mine:MineralsMined:Yellow", 1u);
+                    break;
+            }
+
             float fortune = global.GetState<float>("Fortune");
             Random random = new Random();
             while (random.NextSingle() * fortune > 1.0)
             {
                 global.EmitSignal("MineralCountUpdated", [(int)mineralType, true]);
+
+                tracker.IncrementTracking("Mine:TotalMined", 1u);
+                switch (mineralType) {
+                    case Mineral.MineralType.Red:
+                        tracker.IncrementTracking("Mine:MineralsMined:Red", 1u);
+                        break;
+                    case Mineral.MineralType.Purple:
+                        tracker.IncrementTracking("Mine:MineralsMined:Purple", 1u);
+                        break;
+                    case Mineral.MineralType.Yellow:
+                        tracker.IncrementTracking("Mine:MineralsMined:Yellow", 1u);
+                        break;
+                }
             }
 
             RemoveChild(mineralCenter);
             Minerals.Remove(tilePosition);
             MineralNodeLUT.Remove(tilePosition);
+        }
+        else
+        {
+            tracker.IncrementTracking("Mine:DirtMined", 1u);
+            tracker.IncrementTracking("Mine:TotalMined", 1u);
         }
 
         MineralNodeLUT.TryGetValue(tilePosition + Vector2I.Up,    out Mineral mineralUp);

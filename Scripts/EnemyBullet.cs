@@ -32,6 +32,9 @@ public partial class EnemyBullet : CharacterBody2D
 	{
 		if (body.Name == "ChargingZone" || body is PlayerController)
 		{
+			Tracker tracker = Tracker.GetInstance();
+			tracker.IncrementTracking("Wave:ShieldDamageTaken", Damage);
+
 			animation.Play("Hit");
 
 			global.SetState<float>("CurrentShipHealth",ShipHealth()-Damage);

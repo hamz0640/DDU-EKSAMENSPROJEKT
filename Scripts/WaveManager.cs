@@ -32,7 +32,15 @@ public partial class WaveManager : Node
             return;
         }
 
+        Tracker tracker = Tracker.GetInstance();
+
         int EnemiesInWorld = GetTree().GetNodeCountInGroup("Enemy");
+
+        if (EnemiesInWorld > 0)
+        {
+            tracker.IncrementTracking("Time:InWaves", (float)delta);
+        }
+
         if (WaveTimer.TimeLeft <= 0.0 && CurrentWave.Enemies.Count <= 0 && EnemiesInWorld <= 0)
         {
             WaveTimer = GetTree().CreateTimer(MiningTime, false);
@@ -45,6 +53,7 @@ public partial class WaveManager : Node
                 EmitSignal("WaveStarted", waveNumber);
                 GD.Print("Wave " + waveNumber + " started");
                 
+                tracker.IncrementTracking("Max:WaveReached", 1u);
                 waveNumber += 1;
                 waveNumber = Math.Clamp(waveNumber, 0, (uint)waves.Length - 1);
             };

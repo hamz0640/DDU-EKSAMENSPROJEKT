@@ -56,6 +56,9 @@ public partial class UpgradeIcon : MarginContainer
         }
         
         GD.Print("Bought " + UpgradeName.Text);
+        Tracker tracker = Tracker.GetInstance();
+        tracker.IncrementTracking("UpgradesBought:Total", 1u);
+        tracker.IncrementTracking("UpgradesBought:" + UpgradeName.Text, 1u);
 
         RelatedUpgradeResource.OnBuy(GetTree());
         if (RelatedUpgradeResource.MaxBuyAmount == 0)

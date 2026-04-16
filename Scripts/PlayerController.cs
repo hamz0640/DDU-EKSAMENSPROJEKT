@@ -48,20 +48,38 @@ public partial class PlayerController : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
+		Tracker tracker = Tracker.GetInstance();
+		tracker.IncrementTracking("Time:Total", (float)delta);
+		if (GlobalPosition.Y > 0)
+		{
+			tracker.IncrementTracking("Time:InMine", (float)delta);
+		}
+
+		float maxDepthReached = tracker.GetTracking<float>("Max:DepthReached");
+		float maxWidthReached = tracker.GetTracking<float>("Max:WidthReached");
+		tracker.SetTracking("Max:DepthReached", Mathf.Max(maxDepthReached, GlobalPosition.Y));
+		tracker.SetTracking("Max:WidthReached", Mathf.Max(maxWidthReached, Mathf.Abs(GlobalPosition.X)));
+
 		if (InTurret)
+		{
+			tracker.IncrementTracking("Time:InTurret", (float)delta);
 			return;
-		
+		}
+
 		HandleTransitions();
 		
 		switch (CurrentState) {
 			case State.Ground:
 				HandleGroundMovement((float)delta);
+				tracker.IncrementTracking("Time:OnGround", (float)delta);
 				break;
 			case State.Air:
 				HandleAirMovement((float)delta);
+				tracker.IncrementTracking("Time:InAir", (float)delta);
 				break;
 			case State.Wire:
 				HandleWireMovement((float)delta);
+				tracker.IncrementTracking("Time:OnWire", (float)delta);
 				break;
 		}
 
@@ -224,6 +242,7 @@ public partial class PlayerController : CharacterBody2D
 
 	private void HandleAirMovement(float delta)
 	{
+		Tracker tracker = Tracker.GetInstance();
 		Vector2 velocity = Velocity;
 
 		float sidewaysInput = Input.GetAxis("left", "right");
@@ -248,8 +267,9 @@ public partial class PlayerController : CharacterBody2D
 
 		if (JetpackActivated && currentEnergy > 0.0f)
 		{
+			tracker.IncrementTracking("Time:UsingJetpack", delta);
 			velocity.Y = Mathf.MoveToward(Velocity.Y, -MaxJetpackSpeed, JetpackAcceleration * delta);
-			currentEnergy -= (1.0f / jetpackEfficiency) * jetpackDrain * delta;
+			currentEnergy -= 1.0f / jetpackEfficiency * jetpackDrain * delta;
 			global.SetState("CurrentEnergy", currentEnergy);
 		}
 		else

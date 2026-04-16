@@ -17,6 +17,10 @@ public partial class Asteroid : Bullet
         // Dette kører koden inde i Bullet scriptet
         base._Ready();
         GD.Print("Asteroid spawned");
+
+        Tracker tracker = Tracker.GetInstance();
+        tracker.IncrementTracking("Wave:AsteroidsSpawned", 1u);
+
         this.Position = new Vector2(rnd.Next(-1200, 1200), -1000);
 
         RotationSpeed = rnd.Next(2, 10);
@@ -34,8 +38,13 @@ public partial class Asteroid : Bullet
 
         if (hit is ChargingZone)
         {
+            Tracker tracker = Tracker.GetInstance();
+            tracker.IncrementTracking("Wave:AsteroidsHitShield", 1u);
+            tracker.IncrementTracking("Wave:ShieldDamageTaken",  Damage);
+
             GD.Print("Asteroid hit Charging Zone");
             global.SetState<float>("CurrentEnergy", PlayerEnergy() - Damage);
+
             QueueFree();
         }
     }

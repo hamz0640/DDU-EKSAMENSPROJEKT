@@ -18,6 +18,9 @@ public partial class RoofTurretBullet : Bullet
         }
         if (hit.GetParent() is Asteroid)
         {
+            Tracker tracker = Tracker.GetInstance();
+            tracker.IncrementTracking("Wave:AsteroidsShot", 1u);
+
             hit.GetParent().QueueFree();
             QueueFree();
         }
