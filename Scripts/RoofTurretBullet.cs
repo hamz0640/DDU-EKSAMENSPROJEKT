@@ -16,6 +16,11 @@ public partial class RoofTurretBullet : Bullet
             hit.GetParent().QueueFree();
             QueueFree();
         }
+        if (hit.GetParent() is Asteroid)
+        {
+            hit.GetParent().QueueFree();
+            QueueFree();
+        }
     }
 
 
