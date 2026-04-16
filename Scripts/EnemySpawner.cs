@@ -29,7 +29,7 @@ public partial class EnemySpawner : Node2D
             Enemy enemy = (Enemy)waveManager.CurrentWave.Enemies[0].Instantiate();
             waveManager.CurrentWave.Enemies.RemoveAt(0);
             AddChild(enemy);
-            if (rnd.Next(0,5)==5)
+            if (rnd.Next(0,5)==4)
             {
                 var scene = GD.Load<PackedScene>("res://Scenes/asteroid.tscn");
                 Asteroid asteroid = scene.Instantiate<Asteroid>();
