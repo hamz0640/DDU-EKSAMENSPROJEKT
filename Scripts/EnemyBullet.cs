@@ -10,6 +10,8 @@ public partial class EnemyBullet : CharacterBody2D
 	float Damage = 5;
 	Vector2 Spawn;
 
+	public Vector2 Direction = Vector2.Left;
+
     public override void _Ready()
 	{
 		GlobalPosition = GlobalPosition-Offset;
@@ -21,7 +23,7 @@ public partial class EnemyBullet : CharacterBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        Velocity = new Vector2(-200, 0);
+    	Velocity = Direction * 200;
         MoveAndSlide();
 		CheckDistance();
     }

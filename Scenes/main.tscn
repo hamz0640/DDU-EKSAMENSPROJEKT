@@ -91,7 +91,7 @@ position = Vector2(177, -80)
 visible = false
 
 [node name="EnemySpawner" type="Node2D" parent="."]
-position = Vector2(895, -69)
+position = Vector2(861, -14)
 script = ExtResource("11_d1ilt")
 
 [node name="RoofTurret" type="Sprite2D" parent="." node_paths=PackedStringArray("Crosshair")]

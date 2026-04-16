@@ -17,19 +17,17 @@ public partial class Enemy : CharacterBody2D
     public override void _Ready()
 	{
 		currentHealth = MaxHealth;
-		Spawn =new Vector2(rnd.Next(700, 800), -10);
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		animation.Play("Walking");
-		animation.FlipH = true;
-		GlobalPosition = Spawn;
-		Offset = rnd.Next(0, 60);
-
+		animation.FlipH = Speed < 0;
+		// Spawn = new Vector2(rnd.Next(700, 800), -10);
+		// GlobalPosition = Spawn;
+		// Offset = rnd.Next(0, 60);
 		GD.Print("=== ENEMY DEBUG ===");
 		GD.Print("Enemy Layer: " + CollisionLayer);
 		GD.Print("Enemy Mask: " + CollisionMask);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
         Global global = Global.GetInstance();
@@ -60,7 +58,7 @@ public partial class Enemy : CharacterBody2D
 		}
 		else
 		{
-            Velocity = new Vector2(-Speed, 0);
+            Velocity = new Vector2(Speed, 0);
             MoveAndSlide();
         }
         if (GlobalPosition.DistanceTo(Origo) > EnemyDistance)
@@ -84,8 +82,14 @@ public partial class Enemy : CharacterBody2D
 	void BulletSpawn()
 	{
 		var scene=GD.Load<PackedScene>("res://Scenes/enemy_bullet.tscn");
-		var node = scene.Instantiate();
-		AddChild(node);
+		var node = scene.Instantiate<EnemyBullet>();
+		if (Speed > 0)
+        	node.Direction = Vector2.Right;
+    	else
+        	node.Direction = Vector2.Left;
+
+		GetParent().AddChild(node);
+    	node.GlobalPosition = GlobalPosition;
     }
 
 	public void TakeDamage(double damage)
@@ -95,6 +99,19 @@ public partial class Enemy : CharacterBody2D
 		if (currentHealth <= 0)
 		{
 			QueueFree();
+		}
+	}
+	public void SetSpawnSide(bool spawnRight)
+	{
+		if (spawnRight)
+		{
+			Spawn = new Vector2(rnd.Next(700, 800), -10);
+			Speed = -Math.Abs(Speed); // move left
+		}
+		else
+		{
+			Spawn = new Vector2(rnd.Next(-800, -700), -10);
+			Speed = Math.Abs(Speed); // move right
 		}
 	}
 

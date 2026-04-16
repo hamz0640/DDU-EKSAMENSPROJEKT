@@ -6,6 +6,7 @@ public partial class EnemySpawner : Node2D
     private uint CurrentWave = 0;
     private SceneTreeTimer TimeUntilNextEnemy = null;
     float TimeBetweenSpawns = 1.0f;
+    private int spawnCount = 0;
     public override void _Ready()
     {
         TimeUntilNextEnemy = GetTree().CreateTimer(TimeBetweenSpawns, false);
@@ -27,12 +28,27 @@ public partial class EnemySpawner : Node2D
             TimeUntilNextEnemy = GetTree().CreateTimer(TimeBetweenSpawns, false);
             Enemy enemy = (Enemy)waveManager.CurrentWave.Enemies[0].Instantiate();
             waveManager.CurrentWave.Enemies.RemoveAt(0);
+
+            bool spawnRight = spawnCount % 2 == 0;
+            enemy.SetSpawnSide(spawnRight);
+
+            spawnCount++; 
+
             AddChild(enemy);
+
+            if (!spawnRight)
+            {
+                enemy.GlobalPosition = new Vector2(
+                    -500,
+                    enemy.GlobalPosition.Y
+                );
+            }
         }
     }
 
     public void OnWaveStarted(uint waveNumber)
     {
         CurrentWave = waveNumber;
+        spawnCount = 0;
     }
 }
