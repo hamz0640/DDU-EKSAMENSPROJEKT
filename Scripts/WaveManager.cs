@@ -23,20 +23,6 @@ public partial class WaveManager : Node
     {   
         WavesDir = DirAccess.Open("res://Configs/Waves/");
         waves = WavesDir.GetFiles();
-
-        WaveTimer = GetTree().CreateTimer(MiningTime, false);
-        WaveTimer.Timeout += () =>
-        {
-            string next = waves[waveNumber];
-            Wave wave = GD.Load<Wave>("res://Configs/Waves/" + next);
-            CurrentWave = wave;
-
-            EmitSignal("WaveStarted", waveNumber);
-            GD.Print("Wave " + waveNumber + " started");
-            
-            waveNumber += 1;
-            waveNumber = Math.Clamp(waveNumber, 0, (uint)waves.Length - 1);
-        };
     }
 
     public override void _PhysicsProcess(double delta)
@@ -69,5 +55,29 @@ public partial class WaveManager : Node
     public float TimeUntilNextWave()
     {
         return (float)WaveTimer.TimeLeft;
+    }
+
+    public void StartWaves()
+    {
+        waveNumber = 0;
+        StartNextWaveTimer();
+    }
+
+    public void StartNextWaveTimer()
+    {
+        WaveTimer = GetTree().CreateTimer(MiningTime, false);
+        WaveTimer.Timeout += OnWaveTimerTimeout;
+    }
+    private void OnWaveTimerTimeout()
+    {
+        string next = waves[waveNumber];
+        Wave wave = GD.Load<Wave>("res://Configs/Waves/" + next);
+        CurrentWave = wave;
+
+        EmitSignal("WaveStarted", waveNumber);
+        GD.Print("Wave " + waveNumber + " started");
+        
+        waveNumber += 1;
+        waveNumber = Math.Clamp(waveNumber, 0, (uint)waves.Length - 1);
     }
 }
