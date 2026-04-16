@@ -71,7 +71,6 @@ public partial class PlayerController : CharacterBody2D
 		TimeSinceMountChange += 1;
     }
 
-
 	private void OnToggleTurret() {
 		if (!InTurret)
 		{
@@ -85,7 +84,6 @@ public partial class PlayerController : CharacterBody2D
 			InTurret = false;
 		}
 	}
-
 
 	private void HandleAnimations()
 	{
@@ -118,7 +116,6 @@ public partial class PlayerController : CharacterBody2D
 			}
 		}
 	}
-
 
 	private void HandleTransitions()
 	{
@@ -155,7 +152,7 @@ public partial class PlayerController : CharacterBody2D
 				Tween tween = GetTree().CreateTween();
 				tween.SetEase(Tween.EaseType.Out);
 				tween.SetTrans(Tween.TransitionType.Quint);
-				tween.TweenProperty(this, "global_position:x", wireX, 0.5f);
+				tween.TweenProperty(this, "global_position:x", wireX+1, 0.5f);
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+
 public partial class WireManager : Node2D
 {
     [Export] private CharacterBody2D player;
@@ -13,13 +14,13 @@ public partial class WireManager : Node2D
     {
         nextSpawn.Y = startYpos + spawnInterval;
         nextSpawn.X = wireArea.GlobalPosition.X;
-    } // Original spawn position
-    
+    }
+
     public override void _Process(double delta)
     {
-        if (player.GlobalPosition.Y + 10 > nextSpawn.Y)
+        if (player.GlobalPosition.Y - 10 > nextSpawn.Y)
         {
-            HandleMine((float)delta);
+            HandleMine((float)delta, wireArea.GlobalPosition);
             CreateNew();
         }
     }
@@ -30,9 +31,10 @@ public partial class WireManager : Node2D
         var bodies = wireArea.GetOverlappingBodies();
         foreach (var body in bodies)
         {
-            if (body.Name == "GroundLayer")
+            if (body.Name == "GroundLayer" || body.IsInGroup("Ground"))
                 touchingGround = true;
         }
+
         if (!touchingGround)
         {
             nextSpawn.Y += spawnInterval;
@@ -40,37 +42,52 @@ public partial class WireManager : Node2D
             newArea.AddToGroup("wire");
             AddChild(newArea);
             newArea.GlobalPosition = nextSpawn;
-            // Flyt den detekterene del af wiren til spidsen
+
+            // Flyt detektoren til den nye spids
             wireArea.GlobalPosition = nextSpawn;
-
         }
-    } // Lav ny wire i forlængelse af den gamle HVIS IKKE den ville ramme en ground block
+    }
 
-    private void HandleMine(float delta)
+    private void HandleMine(float delta, Vector2 checkPosition)
     {
         Global global = Global.GetInstance();
         Ground ground = (Ground)GetTree().GetFirstNodeInGroup("Ground");
 
-        float miningSpeed = global.GetState<float>("MiningSpeed");
+        if (ground == null) 
+            return;
 
-        Vector2I tileDirection = (Vector2I)Vector2.Down;
-        Vector2I tilePosition = ground.ToTilePosition(GlobalPosition);
-        Vector2I miningTilePosition = tilePosition + tileDirection;
+        float miningSpeed = global.GetState<float>("MiningSpeed");
+        Vector2I tilePosition = ground.ToTilePosition(checkPosition + new Vector2(0, -10));
+        Vector2I miningTilePosition = tilePosition + Vector2I.Down;
+
+        TileData tileData = ground.GroundLayer.GetCellTileData(miningTilePosition);
+
+        if (tileData == null)
+        {
+            miningTilePosition = tilePosition;
+            tileData = ground.GroundLayer.GetCellTileData(miningTilePosition);
+        }
+
+        if (tileData == null) 
+            return;
 
         if (!ground.TileHealth.ContainsKey(miningTilePosition))
         {
-            GD.Print("bjjksgnjsnjsgjssgesjgeks");
-            return;
+            ground.TileHealth[miningTilePosition] = 10.0f;
         }
 
         float tileHealth = ground.TileHealth[miningTilePosition];
-        float newTileHealth = tileHealth - miningSpeed * (float)delta;
+        float damage = miningSpeed * delta;
+        float newTileHealth = tileHealth - damage;
 
-        GD.Print($"Graver i: {miningTilePosition} - HP tilbage: {newTileHealth}");
-
-        if (newTileHealth <= 0.0)
+        if (newTileHealth <= 0.0f)
+        {
             ground.BreakTile(miningTilePosition);
+            ground.TileHealth.Remove(miningTilePosition);
+        }
         else
+        {
             ground.TileHealth[miningTilePosition] = newTileHealth;
+        }
     }
 }
