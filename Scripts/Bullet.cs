@@ -37,7 +37,7 @@ using System;
 [GlobalClass]
 public partial class Bullet : CharacterBody2D
 {
-    public Vector2 SpawnPoint { get; private set; }= Vector2.Inf;
+    public Vector2 SpawnPoint { get; set; }= Vector2.Inf;
     public virtual void OnHit(Node2D hit)
     {
         throw new NotImplementedException();

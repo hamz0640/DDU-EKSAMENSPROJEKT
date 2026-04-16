@@ -97,7 +97,7 @@ script = ExtResource("11_d1ilt")
 [node name="RoofTurret" type="Sprite2D" parent="." node_paths=PackedStringArray("Crosshair")]
 position = Vector2(208.878, -96.8548)
 texture = ExtResource("11_6iyac")
-offset = Vector2(30.1216, -0.168114)
+offset = Vector2(30, 0)
 script = ExtResource("15_wsu2k")
 Crosshair = NodePath("Crosshair")
 

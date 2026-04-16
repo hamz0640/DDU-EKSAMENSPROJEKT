@@ -6,6 +6,7 @@ public partial class EnemySpawner : Node2D
     private uint CurrentWave = 0;
     private SceneTreeTimer TimeUntilNextEnemy = null;
     float TimeBetweenSpawns = 1.0f;
+    Random rnd = new Random();
     private int spawnCount = 0;
     public override void _Ready()
     {
@@ -35,6 +36,13 @@ public partial class EnemySpawner : Node2D
             spawnCount++; 
 
             AddChild(enemy);
+            if (rnd.Next(0,5)==4)
+            {
+                var scene = GD.Load<PackedScene>("res://Scenes/asteroid.tscn");
+                Asteroid asteroid = scene.Instantiate<Asteroid>();
+                AddChild(asteroid);
+                GD.Print("Asteroid spawned");
+            }
 
             if (!spawnRight)
             {
