@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://bo3ki2g1e7pfy" path="res://Scripts/WaveAnnouncement.cs" id="11_g0wmg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nt8jn"]
-bg_color = Color(0.06, 0.03, 0.03, 0.92)
+bg_color = Color(0.06, 0.03, 0.03, 0.534)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0wmg"]
 bg_color = Color(0.85, 0.1, 0.1, 1)
@@ -189,9 +189,18 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Control" type="Control" parent="Control"]
-anchors_preset = 0
-offset_right = 1918.0
-offset_bottom = 1078.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -615.0
+offset_top = -348.0
+offset_right = 615.0
+offset_bottom = 348.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("11_g0wmg")
 
 [node name="Banner" type="Panel" parent="Control/Control"]
