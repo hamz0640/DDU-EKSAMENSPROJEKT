@@ -1,88 +1,88 @@
 [gd_scene load_steps=28 format=3 uid="uid://bo5nx05jemu0x"]
 
-[ext_resource type="Script" uid="uid://c0ti4qcwgicbt" path="res://Scripts/Enemy.cs" id="1_afpow"]
-[ext_resource type="Texture2D" uid="uid://c7db5yk128jgm" path="res://Assets/Enemies/EnemyShooting.png" id="2_287tu"]
-[ext_resource type="Texture2D" uid="uid://le1uk7mi0bid" path="res://Assets/Enemies/EnemyRun&Gun.png" id="2_0830c"]
-[ext_resource type="Texture2D" uid="uid://c742qeo7hoxp2" path="res://Assets/Enemies/EnemyWalk.png" id="3_0830c"]
+[ext_resource type="Script" uid="uid://c0ti4qcwgicbt" path="res://Scripts/Enemy.cs" id="1_dwuu0"]
+[ext_resource type="Texture2D" uid="uid://le1uk7mi0bid" path="res://Assets/Enemies/EnemyRun&Gun.png" id="2_w431v"]
+[ext_resource type="Texture2D" uid="uid://c7db5yk128jgm" path="res://Assets/Enemies/EnemyShooting.png" id="3_e0wfr"]
+[ext_resource type="Texture2D" uid="uid://c742qeo7hoxp2" path="res://Assets/Enemies/EnemyWalk.png" id="4_wlbdh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ghaa6"]
-atlas = ExtResource("2_0830c")
+atlas = ExtResource("2_w431v")
 region = Rect2(0, 0, 42, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dhkrs"]
-atlas = ExtResource("2_0830c")
+atlas = ExtResource("2_w431v")
 region = Rect2(42, 0, 42, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5xdhn"]
-atlas = ExtResource("2_0830c")
+atlas = ExtResource("2_w431v")
 region = Rect2(84, 0, 42, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4jyny"]
-atlas = ExtResource("2_0830c")
+atlas = ExtResource("2_w431v")
 region = Rect2(126, 0, 42, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vh8xy"]
-atlas = ExtResource("2_0830c")
+atlas = ExtResource("2_w431v")
 region = Rect2(168, 0, 42, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qjcj6"]
-atlas = ExtResource("2_0830c")
+atlas = ExtResource("2_w431v")
 region = Rect2(210, 0, 42, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ycey"]
-atlas = ExtResource("2_0830c")
+atlas = ExtResource("2_w431v")
 region = Rect2(252, 0, 42, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8cim4"]
-atlas = ExtResource("2_0830c")
+atlas = ExtResource("2_w431v")
 region = Rect2(294, 0, 42, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dp5w"]
-atlas = ExtResource("2_287tu")
+atlas = ExtResource("3_e0wfr")
 region = Rect2(0, 0, 42, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_auwsv"]
-atlas = ExtResource("2_287tu")
+atlas = ExtResource("3_e0wfr")
 region = Rect2(42, 0, 42, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8uf12"]
-atlas = ExtResource("2_287tu")
+atlas = ExtResource("3_e0wfr")
 region = Rect2(84, 0, 42, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_po0sg"]
-atlas = ExtResource("2_287tu")
+atlas = ExtResource("3_e0wfr")
 region = Rect2(126, 0, 42, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_haro7"]
-atlas = ExtResource("3_0830c")
+atlas = ExtResource("4_wlbdh")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_56vhr"]
-atlas = ExtResource("3_0830c")
+atlas = ExtResource("4_wlbdh")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ta2yt"]
-atlas = ExtResource("3_0830c")
+atlas = ExtResource("4_wlbdh")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4x7e"]
-atlas = ExtResource("3_0830c")
+atlas = ExtResource("4_wlbdh")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vt4ob"]
-atlas = ExtResource("3_0830c")
+atlas = ExtResource("4_wlbdh")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hgeoe"]
-atlas = ExtResource("3_0830c")
+atlas = ExtResource("4_wlbdh")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tk7xo"]
-atlas = ExtResource("3_0830c")
+atlas = ExtResource("4_wlbdh")
 region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_scl1n"]
-atlas = ExtResource("3_0830c")
+atlas = ExtResource("4_wlbdh")
 region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dhkrs"]
@@ -171,7 +171,7 @@ radius = 7.0
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 2
-script = ExtResource("1_afpow")
+script = ExtResource("1_dwuu0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dhkrs")

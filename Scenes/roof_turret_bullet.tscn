@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://b2f25pxm8pjky"]
 
 [ext_resource type="Script" uid="uid://d1u1bh75ke2bq" path="res://Scripts/RoofTurretBullet.cs" id="1_sgqec"]
-[ext_resource type="Texture2D" uid="uid://c40qp4d34g1sb" path="res://Assets/Icons/Bullet.png" id="2_cmev1"]
+[ext_resource type="Texture2D" uid="uid://btleijralmurw" path="res://Assets/RoofTurret/block-out-shell.png" id="2_sgqec"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eetmd"]
-size = Vector2(20, 5)
+size = Vector2(11.9916, 6.01673)
 
 [node name="RoofTurretBullet" type="CharacterBody2D"]
 script = ExtResource("1_sgqec")
@@ -13,11 +13,10 @@ metadata/_custom_type_script = "uid://bfvwjmc4dg27v"
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2.38419e-07, -1.19209e-07)
 rotation = -0.00139447
 shape = SubResource("RectangleShape2D_eetmd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(2.38419e-07, 0)
-rotation = 3.14159
-scale = Vector2(5.33333, 1)
-texture = ExtResource("2_cmev1")
+texture = ExtResource("2_sgqec")
