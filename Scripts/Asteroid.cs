@@ -43,7 +43,7 @@ public partial class Asteroid : Bullet
             tracker.IncrementTracking("Wave:ShieldDamageTaken",  Damage);
 
             GD.Print("Asteroid hit Charging Zone");
-            global.SetState<float>("CurrentEnergy", PlayerEnergy() - Damage);
+            global.SetState<float>("ShieldHealth", ShieldEnergy() - Damage);
 
             QueueFree();
         }
