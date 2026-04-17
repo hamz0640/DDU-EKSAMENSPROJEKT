@@ -110,11 +110,11 @@ public partial class UpgradeMenu : MarginContainer
             upgradeIcon.YellowMineralCount.Text = upgrade.YellowMineralAmount.ToString();
             if (upgrade.MaxBuyAmount == 0)
             {
-                upgradeIcon.AmountBought.Text = "0/∞";
+                upgradeIcon.AmountBought.Text = upgrade.AmountBought + "/∞";
             } 
             else
             {
-                upgradeIcon.AmountBought.Text = "0/" + upgrade.MaxBuyAmount;
+                upgradeIcon.AmountBought.Text = upgrade.AmountBought + "/" + upgrade.MaxBuyAmount;
             }
 
             HBoxContainer.AddChild(upgradeIcon);

@@ -57,7 +57,7 @@ public partial class Tracker : Node
 
         string fileName = day + "-" + month + "-" + year + "   " + hour + "-" + minute + "-" + second; 
 
-        TrackingFile = FileAccess.Open("res://" + fileName + ".txt", FileAccess.ModeFlags.Write);
+        TrackingFile = FileAccess.Open("res://Trackings/" + fileName + ".txt", FileAccess.ModeFlags.Write);
         if (TrackingFile == null)
         {
             GD.PrintErr("Failed to open tracking file");
