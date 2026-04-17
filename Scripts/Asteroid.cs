@@ -24,7 +24,7 @@ public partial class Asteroid : Bullet
         this.Position = new Vector2(rnd.Next(-1200, 1200), -1000);
 
         RotationSpeed = rnd.Next(2, 10);
-        Speed = rnd.Next(40, 160);
+        Speed = rnd.Next(40, 100);
 
     }
 
