@@ -47,7 +47,6 @@ public partial class Global : Node
         // Ship
         State["ShipHealth"] = 100.0f;
         State["CurrentShipHealth"] = 100.0f;
-
     }
 
 
@@ -79,6 +78,41 @@ public partial class Global : Node
 
     public void SetState<[MustBeVariant] T>(string state, T value)
     {
-        State[state] = Variant.From(value);
+        if (!State.ContainsKey(state)) 
+            State.Add(state, Variant.From(value));
+        else
+            State[state] = Variant.From(value);
+    }
+
+    public void ModifyState(string state, int amount)
+    {
+        if (!State.ContainsKey(state)) State[state] = 0;
+
+        int currentState = State[state].As<int>();
+        State[state] = currentState + amount;
+    }
+
+    public void ModifyState(string state, uint amount)
+    {
+        if (!State.ContainsKey(state)) State[state] = 0u;
+
+        uint currentState = State[state].As<uint>();
+        State[state] = currentState + amount;
+    }
+
+    public void ModifyState(string state, float amount)
+    {
+        if (!State.ContainsKey(state)) State[state] = 0.0f;
+
+        float currentState = State[state].As<float>();
+        State[state] = currentState + amount;
+    }
+
+    public void ModifyState(string state, double amount)
+    {
+        if (!State.ContainsKey(state)) State[state] = 0.0d;
+
+        double currentState = State[state].As<double>();
+        State[state] = currentState + amount;
     }
 }
