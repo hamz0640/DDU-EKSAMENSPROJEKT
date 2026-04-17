@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bu4awqbrm06dy"]
+[gd_scene load_steps=18 format=3 uid="uid://bu4awqbrm06dy"]
 
 [ext_resource type="Texture2D" uid="uid://cnnlxdv3g6nl4" path="res://Assets/Turret/turret.png" id="1_fcprl"]
 [ext_resource type="Script" uid="uid://dbruew2b1rcuv" path="res://Scripts/Turret.cs" id="1_hskch"]
@@ -115,9 +115,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hskch"]
-size = Vector2(527, 6)
-
 [node name="turret" type="CharacterBody2D" node_paths=PackedStringArray("animator") groups=["Turret"]]
 z_index = 5
 collision_layer = 0
@@ -133,15 +130,3 @@ sprite_frames = SubResource("SpriteFrames_axnog")
 animation = &"idle"
 autoplay = "deploy"
 frame_progress = 0.710257
-
-[node name="Area2DRight" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DRight"]
-position = Vector2(-1, 6)
-scale = Vector2(1.88, 1)
-shape = SubResource("RectangleShape2D_hskch")
-
-[connection signal="body_entered" from="Area2DRight" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2DRight" to="." method="_on_area_2d_body_exited"]

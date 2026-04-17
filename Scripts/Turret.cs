@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 public partial class Turret : CharacterBody2D
@@ -30,7 +31,7 @@ public partial class Turret : CharacterBody2D
 				animator.FlipH = false;
 				break;
 			case false:
-				animator.FlipV = true;
+				animator.FlipH = true;
 				break;
 		} // Fix turret orientation
 
@@ -59,10 +60,20 @@ public partial class Turret : CharacterBody2D
 	
 	private void _TimeOutShoot()
 	{
-		if(!FacingR && EnemiesWithinR > 0 && EnemiesWithinL <= 0)
+        UpdateEnemieDirection(); // Tjek om enemies er til højre eller venstre
+		GD.Print($"Enemies left:{EnemiesWithinL}, Enemies right: {EnemiesWithinR}");
+		if (!FacingR && EnemiesWithinR >= 1 && EnemiesWithinL < 1)
+		{
 			FacingR = true;
-		if (FacingR && EnemiesWithinL > 0 && EnemiesWithinR <= 0)
+            GetTree().CreateTimer(Shootspeed).Timeout += _TimeOutShoot;
+			goto Earlyexit;
+        }
+		if (FacingR && EnemiesWithinR < 1 && EnemiesWithinL >= 1)
+		{
 			FacingR = false;
+            GetTree().CreateTimer(Shootspeed).Timeout += _TimeOutShoot;
+            goto Earlyexit;
+        }
 
 		if (EnemiesWithinR > 0 || EnemiesWithinL > 0)
 		{
@@ -77,27 +88,20 @@ public partial class Turret : CharacterBody2D
 			animator.Play("idle");
             GetTree().CreateTimer(Shootspeed).Timeout += _TimeOutShoot;
         }
-	}
-    
-	void _on_area_2d_body_entered(Node2D body)
-	{
-		if (body is CharacterBody2D character)
-		{
-			if (body.Position.X < 0)
-				EnemiesWithinR++;
-			else
-				EnemiesWithinL++;
-		}
+	Earlyexit:;
 	}
 
-    void _on_area_2d_body_exited(Node2D body)
+    private void UpdateEnemieDirection()
     {
-        if (body is CharacterBody2D character)
+        var Enemies = GetTree().GetNodesInGroup("Enemy").OfType<Enemy>();
+		EnemiesWithinR = 0;
+		EnemiesWithinL = 0;
+        foreach (Enemy enmy in Enemies)
         {
-            if (body.Position.X < 0)
-                EnemiesWithinR--;
-            else
-                EnemiesWithinL--;
+			if (enmy.GlobalPosition.X > this.GlobalPosition.X)
+				EnemiesWithinR++; // På højre side
+			else
+				EnemiesWithinL++;
         }
     }
 
@@ -105,6 +109,14 @@ public partial class Turret : CharacterBody2D
     {
         var scene = GD.Load<PackedScene>("res://Scenes/turretBullet.tscn");
         var node = scene.Instantiate();
-        AddChild(node);
+		if(node is turretBullet bl)
+		{
+			bl.CheckFacing(FacingR);
+		}
+		else
+		{
+			GD.Print("Fejl");
+		}
+			AddChild(node);
     }
 }
