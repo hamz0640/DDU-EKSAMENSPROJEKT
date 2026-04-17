@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Wave" load_steps=3 format=3 uid="uid://eibn0mq7d8vd"]
+
+[ext_resource type="PackedScene" uid="uid://csys4yn3ffj6t" path="res://Scenes/enemy.tscn" id="1_hnerl"]
+[ext_resource type="Script" uid="uid://cu7doqycys8pn" path="res://Scripts/Wave.cs" id="1_kwk51"]
+
+[resource]
+script = ExtResource("1_kwk51")
+Enemies = Array[PackedScene]([ExtResource("1_hnerl"), ExtResource("1_hnerl"), ExtResource("1_hnerl"), ExtResource("1_hnerl"), ExtResource("1_hnerl"), ExtResource("1_hnerl"), ExtResource("1_hnerl"), ExtResource("1_hnerl"), ExtResource("1_hnerl"), ExtResource("1_hnerl"), ExtResource("1_hnerl"), ExtResource("1_hnerl"), ExtResource("1_hnerl"), ExtResource("1_hnerl")])
+metadata/_custom_type_script = "uid://cu7doqycys8pn"
