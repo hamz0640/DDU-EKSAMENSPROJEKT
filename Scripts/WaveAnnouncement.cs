@@ -28,8 +28,6 @@ public partial class WaveAnnouncement : Control
 
     private void ShowWave(uint waveNumber)
     {
-        WaveLabel.Text = $"WAVE {waveNumber + 1}";
-        SubLabel.Text  = "ENEMIES APPROACHING";
         Visible = true;
 
         Banner.Modulate      = new Color(1, 1, 1, 0);
@@ -66,7 +64,7 @@ public partial class WaveAnnouncement : Control
         Tween.TweenProperty(WaveLabel, "scale", Vector2.One, 0.1f);
 
         // Hold
-        Tween.TweenInterval(1.5f);
+        Tween.TweenInterval(4.0f);
 
         // Everything fades tf out
         Tween.TweenProperty(Banner,   "modulate:a", 0.0f, 0.35f);
