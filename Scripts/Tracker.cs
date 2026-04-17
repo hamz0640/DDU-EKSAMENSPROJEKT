@@ -57,24 +57,24 @@ public partial class Tracker : Node
 
         string fileName = day + "-" + month + "-" + year + "   " + hour + "-" + minute + "-" + second; 
 
-        TrackingFile = FileAccess.Open("res://Trackings/" + fileName + ".txt", FileAccess.ModeFlags.Write);
-        if (TrackingFile == null)
-        {
-            GD.PrintErr("Failed to open tracking file");
-        }
+        // TrackingFile = FileAccess.Open("res://Trackings/" + fileName + ".txt", FileAccess.ModeFlags.Write);
+        // if (TrackingFile == null)
+        // {
+        //     GD.PrintErr("Failed to open tracking file");
+        // }
     }
 
     public override void _ExitTree()
     {
-        List<KeyValuePair<string, Variant>> finalTrackings = Trackings.ToList();
-        finalTrackings.Sort( (a, b) => string.CompareOrdinal(a.Key, b.Key) );
-        foreach (KeyValuePair<string, Variant> track in finalTrackings)
-        {
-            TrackingFile.StoreLine(track.Key + ": " + track.Value.ToString());
-        }
+        // List<KeyValuePair<string, Variant>> finalTrackings = Trackings.ToList();
+        // finalTrackings.Sort( (a, b) => string.CompareOrdinal(a.Key, b.Key) );
+        // foreach (KeyValuePair<string, Variant> track in finalTrackings)
+        // {
+        //     TrackingFile.StoreLine(track.Key + ": " + track.Value.ToString());
+        // }
 
-        TrackingFile.Flush();
-        TrackingFile.Close();
+        // TrackingFile.Flush();
+        // TrackingFile.Close();
     }
 
     public T GetTracking<[MustBeVariant] T>(string tracking)
