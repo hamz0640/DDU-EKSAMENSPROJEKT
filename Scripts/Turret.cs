@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class Turret : CharacterBody2D
 {
@@ -7,7 +8,9 @@ public partial class Turret : CharacterBody2D
 	[Export] AnimatedSprite2D animator;
 	[Export] int Shootspeed = 1;
 	bool deployed = false;
-	int enemiesWithin = 0;
+	int EnemiesWithinR = 0;
+	int EnemiesWithinL = 0;
+	bool FacingR = true;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -21,6 +24,16 @@ public partial class Turret : CharacterBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		switch (FacingR)
+		{
+			case true:
+				animator.FlipH = false;
+				break;
+			case false:
+				animator.FlipV = true;
+				break;
+		} // Fix turret orientation
+
         Vector2 velocity = Velocity;
         if (!IsOnFloor())
 		{
@@ -46,7 +59,12 @@ public partial class Turret : CharacterBody2D
 	
 	private void _TimeOutShoot()
 	{
-		if (enemiesWithin >0)
+		if(!FacingR && EnemiesWithinR > 0 && EnemiesWithinL <= 0)
+			FacingR = true;
+		if (FacingR && EnemiesWithinL > 0 && EnemiesWithinR <= 0)
+			FacingR = false;
+
+		if (EnemiesWithinR > 0 || EnemiesWithinL > 0)
 		{
             animator.Play("shoot");
 			// Shoot logic spawn bullet and smth
@@ -65,18 +83,22 @@ public partial class Turret : CharacterBody2D
 	{
 		if (body is CharacterBody2D character)
 		{
-			enemiesWithin++;
-			GD.Print($"Enemy entered: {character.Name}");
-		}	
+			if (body.Position.X < 0)
+				EnemiesWithinR++;
+			else
+				EnemiesWithinL++;
+		}
 	}
 
     void _on_area_2d_body_exited(Node2D body)
     {
-		if (body is CharacterBody2D character)
-		{
-			enemiesWithin--;
-			GD.Print($"Enemy entered: {character.Name}");
-		}
+        if (body is CharacterBody2D character)
+        {
+            if (body.Position.X < 0)
+                EnemiesWithinR--;
+            else
+                EnemiesWithinL--;
+        }
     }
 
     void BulletSpawn()
