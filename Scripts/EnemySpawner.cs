@@ -48,7 +48,7 @@ public partial class EnemySpawner : Node2D
             if (!spawnRight)
             {
                 enemy.GlobalPosition = new Vector2(
-                    -500,
+                    -400,
                     enemy.GlobalPosition.Y
                 );
             }
