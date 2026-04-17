@@ -1,0 +1,26 @@
+Max:DepthReached: 244.04948425293
+Max:WaveReached: 1
+Max:WidthReached: 355.578979492188
+Mine:DirtMined: 10
+Mine:MineralsMined:Purple: 1
+Mine:MineralsMined:Red: 4
+Mine:MineralsMined:Yellow: 2
+Mine:MineralsSpawned:Purple: 38
+Mine:MineralsSpawned:Red: 51
+Mine:MineralsSpawned:Yellow: 37
+Mine:TotalMined: 17
+Time:InAir: 13.349967956543
+Time:InMine: 75.8683929443359
+Time:InTurret: 32.4996757507324
+Time:InWaves: 25.9331092834473
+Time:OnGround: 92.7886734008789
+Time:OnWire: 7.23337316513062
+Time:Total: 145.87516784668
+Time:UsingJetpack: 4.66667222976685
+UpgradesBought:Shield Regen: 1
+UpgradesBought:Total: 1
+Wave:AsteroidsHitShield: 2
+Wave:AsteroidsShot: 0
+Wave:AsteroidsSpawned: 3
+Wave:ShieldDamageTaken: 165.0
+Wave:TimesShot: 7
