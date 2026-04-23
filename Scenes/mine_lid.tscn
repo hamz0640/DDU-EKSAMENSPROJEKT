@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://bvtf3co8npe7t"]
 
-[ext_resource type="Texture2D" uid="uid://b7mpy28qewkd8" path="res://Assets/tester.png" id="1_nb1xx"]
+[ext_resource type="Texture2D" uid="uid://casos6diaxuw" path="res://Assets/Tiles/MineingLid.png" id="1_nb1xx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11i8i"]
-size = Vector2(44, 5)
+size = Vector2(38, 5)
 
 [node name="MineLid" type="StaticBody2D"]
 collision_layer = 32
@@ -15,6 +15,6 @@ shape = SubResource("RectangleShape2D_11i8i")
 one_way_collision = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 4)
-scale = Vector2(1.2, 1)
+position = Vector2(0, -2)
+scale = Vector2(1, 1)
 texture = ExtResource("1_nb1xx")

@@ -84,6 +84,10 @@ z_index = 1
 tile_map_data = PackedByteArray(0, 0, 4, 0, 255, 255, 1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 253, 255, 2, 0, 0, 0, 0, 0, 0, 0)
 tile_set = ExtResource("2_8gbba")
 
+[node name="MineLid" parent="." instance=ExtResource("16_k12tt")]
+z_index = 11
+position = Vector2(48, 6)
+
 [node name="Wire" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_kry3j")]
 position = Vector2(47, -37)
 player = NodePath("../Player")
@@ -108,9 +112,6 @@ Crosshair = NodePath("Crosshair")
 [node name="Crosshair" type="Sprite2D" parent="RoofTurret"]
 visible = false
 texture = ExtResource("15_k12tt")
-
-[node name="MineLid" parent="." instance=ExtResource("16_k12tt")]
-position = Vector2(48, 6)
 
 [node name="ShipHitbox" type="Area2D" parent="."]
 

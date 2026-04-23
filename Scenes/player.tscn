@@ -562,6 +562,7 @@ WireArea = NodePath("Area2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 z_index = 1
+scale = Vector2(0.600001, 1)
 shape = SubResource("RectangleShape2D_fkybt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
