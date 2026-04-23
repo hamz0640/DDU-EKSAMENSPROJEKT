@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://eo5gb72cyek"]
+[gd_scene load_steps=8 format=3 uid="uid://eo5gb72cyek"]
 
 [ext_resource type="Script" uid="uid://ij8v42cma06a" path="res://Scripts/UpgradeMenu.cs" id="1_2hr16"]
 [ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/Icons/block-out-red-mineral.png" id="1_lhh40"]
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="2_2hr16"]
+[ext_resource type="PackedScene" uid="uid://b1qcoapldww77" path="res://Scenes/upgrade_entry.tscn" id="2_11363"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="3_lpopj"]
+[ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/Icons/icon.svg" id="6_2hr16"]
 
-[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("HBoxContainer", "ShieldHealth", "RedMineralCount", "PurpleMineralCount", "YellowMineralCount")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hr16"]
+bg_color = Color(0.18359, 0.18359, 0.18359, 1)
+
+[node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -16,137 +21,194 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 script = ExtResource("1_2hr16")
-HBoxContainer = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/HSplitContainer/HBoxContainer")
-ShieldHealth = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/HSplitContainer/HBoxContainer2")
-RedMineralCount = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/TextureRect/Label")
-PurpleMineralCount = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/TextureRect2/Label")
-YellowMineralCount = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/TextureRect3/Label")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_2hr16")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_bottom = 30
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 0
-
-[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+[node name="VSplitContainer" type="VSplitContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2"]
-custom_minimum_size = Vector2(0, 100)
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VSplitContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Energy Shield Health" type="ColorRect" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Ship Health" type="ColorRect" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="RedMineralIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 texture = ExtResource("1_lhh40")
 expand_mode = 2
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/TextureRect"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer/RedMineralIcon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "0"
+text = "x0"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="TextureRect2" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="PurpleMineralIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("2_2hr16")
 expand_mode = 2
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/TextureRect2"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer/PurpleMineralIcon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "0"
+text = "x0"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="TextureRect3" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="YellowMineralCount" type="TextureRect" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("3_lpopj")
 expand_mode = 2
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/HBoxContainer/TextureRect3"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer/YellowMineralCount"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "0"
+text = "x0"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/MarginContainer/VSplitContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 20
+size_flags_vertical = 3
+split_offset = 200
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer"]
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer"]
-custom_minimum_size = Vector2(1250, 0)
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_bottom = 20
+size_flags_vertical = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="Upgrades" type="VBoxContainer" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/CenterContainer"]
+[node name="UpgradeEntry" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/VBoxContainer/ScrollContainer/Upgrades" instance=ExtResource("2_11363")]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme_override_constants/margin_left = 20
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_2hr16")
+expand_mode = 4
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4"]
+layout_mode = 2
+
+[node name="UpgradeName" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Today's Pick:"
-vertical_alignment = 1
+text = "Upgrade Name"
+autowrap_mode = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(1250, 0)
-layout_mode = 2
-split_offset = 925
-dragging_enabled = false
-drag_area_highlight_in_editor = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/HSplitContainer"]
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/HSplitContainer"]
+[node name="DescriptionHeader" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
 layout_mode = 2
+text = "Description"
+
+[node name="DescriptionText" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+autowrap_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
+layout_mode = 2
+
+[node name="BuyConditionHeader" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+text = "Buy Condition"
+autowrap_mode = 2
+
+[node name="BuyConditionHeader2" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+text = "None"
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 alignment = 2
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Buy"

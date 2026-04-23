@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1qcoapldww77"]
+
+[ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/Icons/icon.svg" id="2_hwh47"]
+[ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/Icons/block-out-red-mineral.png" id="3_6q7tj"]
+[ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="4_u401c"]
+[ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="5_km84g"]
+
+[node name="UpgradeEntry" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="UpgradeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_hwh47")
+expand_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="UpgradeName" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Upgrade name"
+
+[node name="Spacer" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Minerals" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="RedMineralIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Minerals"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_6q7tj")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="RedMineralCount" type="Label" parent="MarginContainer/HBoxContainer/Minerals/RedMineralIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "x0"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="PurpleMineralIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Minerals"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_u401c")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="PurpleMineralCount" type="Label" parent="MarginContainer/HBoxContainer/Minerals/PurpleMineralIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "x0"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="YellowMineralIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Minerals"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_km84g")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="YellowMineralCount" type="Label" parent="MarginContainer/HBoxContainer/Minerals/YellowMineralIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "x0"
+horizontal_alignment = 2
+vertical_alignment = 2
