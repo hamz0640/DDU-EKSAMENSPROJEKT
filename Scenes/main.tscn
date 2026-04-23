@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=20 format=3 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://wq5het8c2qxr" path="res://Scripts/TurretDoor.cs" id="13_jkdf5"]
 [ext_resource type="Texture2D" uid="uid://bwpditu68il4a" path="res://Assets/RoofTurret/crosshair.png" id="15_k12tt"]
 [ext_resource type="Script" uid="uid://daovwbkwwn7hh" path="res://Scripts/RoofTurret.cs" id="15_wsu2k"]
+[ext_resource type="PackedScene" uid="uid://bvtf3co8npe7t" path="res://Scenes/mine_lid.tscn" id="16_k12tt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k12tt"]
 size = Vector2(24, 38)
@@ -104,3 +105,6 @@ Crosshair = NodePath("Crosshair")
 [node name="Crosshair" type="Sprite2D" parent="RoofTurret"]
 visible = false
 texture = ExtResource("15_k12tt")
+
+[node name="MineLid" parent="." instance=ExtResource("16_k12tt")]
+position = Vector2(48, 6)

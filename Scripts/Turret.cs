@@ -8,6 +8,8 @@ public partial class Turret : CharacterBody2D
 	[Export] int SpawnHeight = 150;
 	[Export] AnimatedSprite2D animator;
 	[Export] int Shootspeed = 1;
+	[Export] RichTextLabel Label;
+	[Export] int Bullets = 300;
 	bool deployed = false;
 	int EnemiesWithinR = 0;
 	int EnemiesWithinL = 0;
@@ -19,6 +21,8 @@ public partial class Turret : CharacterBody2D
 		GD.Print("Turret spawned");
 		this.Position = new Vector2(100, -SpawnHeight);
 		//Screenshake
+		Label.Visible = false;
+		Label.Text = Bullets.ToString();
 
 	}
 
@@ -60,6 +64,7 @@ public partial class Turret : CharacterBody2D
 	
 	private void _TimeOutShoot()
 	{
+		Label.Visible = true;
         UpdateEnemieDirection(); // Tjek om enemies er til højre eller venstre
 		GD.Print($"Enemies left:{EnemiesWithinL}, Enemies right: {EnemiesWithinR}");
 		if (!FacingR && EnemiesWithinR >= 1 && EnemiesWithinL < 1)
@@ -89,6 +94,7 @@ public partial class Turret : CharacterBody2D
             GetTree().CreateTimer(Shootspeed).Timeout += _TimeOutShoot;
         }
 	Earlyexit:;
+		Label.Text = Bullets.ToString();
 	}
 
     private void UpdateEnemieDirection()
@@ -107,15 +113,16 @@ public partial class Turret : CharacterBody2D
 
     void BulletSpawn()
     {
+		Bullets--;
         var scene = GD.Load<PackedScene>("res://Scenes/turretBullet.tscn");
         var node = scene.Instantiate();
-		if(node is turretBullet bl)
+		if(node is turretBullet bl && Bullets > 0)
 		{
 			bl.CheckFacing(FacingR);
 		}
 		else
 		{
-			GD.Print("Fejl");
+			QueueFree();
 		}
 			AddChild(node);
     }

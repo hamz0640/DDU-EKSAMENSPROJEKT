@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvtf3co8npe7t"]
+
+[ext_resource type="Texture2D" uid="uid://bkr7xjj3ucoke" path="res://Assets/RoofTurret/block-out-barrel.png" id="1_nb1xx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_11i8i"]
+size = Vector2(46, 6)
+
+[node name="MineLid" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_11i8i")
+one_way_collision = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nb1xx")
