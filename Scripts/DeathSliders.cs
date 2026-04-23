@@ -57,6 +57,8 @@ public partial class DeathSliders : Control
         DeathMessage.Modulate = new Color(1, 1, 1, 0);
         DeathMessage.Scale = new Vector2(0.5f, 0.5f);
 
+        DeathMessage.PivotOffset = DeathMessage.Size / 2;
+
         Tween textTween = GetTree().CreateTween();
 
         // Fade + scale
