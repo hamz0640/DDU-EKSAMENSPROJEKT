@@ -30,14 +30,14 @@ public partial class EnemyBullet : CharacterBody2D
 
 	void OnBodyEntered(Node2D body)
 	{
-		if (body.Name == "ChargingZone" || body is PlayerController)
+		if (body is PlayerController)
 		{
 			Tracker tracker = Tracker.GetInstance();
 			tracker.IncrementTracking("Wave:ShieldDamageTaken", Damage);
 
 			animation.Play("Hit");
 
-			global.SetState<float>("CurrentShipHealth",ShipHealth()-Damage);
+			global.SetState<float>("CurrentEnergy",PlayerEnergy()-Damage);
 
 			GD.Print(ShipHealth());
 			QueueFree();
@@ -45,22 +45,29 @@ public partial class EnemyBullet : CharacterBody2D
 		}
 	}
 
-	void OnAreaEntered(Area2D body)
+	void OnAreaEntered(Area2D area)
 	{
-		if (body is ChargingZone && ShieldEnergy() > 0.0)
+		if (area.Name == "ChargingZone" && ShieldEnergy() > 0)
 		{
-            global.SetState<float>("ShieldHealth", ShieldEnergy() - Damage);
-			GD.Print(ShieldEnergy());
-
-            QueueFree();
-            
-            GD.Print("ChargingZone Hit");
-            
-        }
+			global.SetState<float>("ShieldHealth", ShieldEnergy() - Damage);
+			GD.Print("Shield hit");
+			QueueFree();
+		}
+		else if (area.Name == "ShipHitbox")
+		{
+			global.SetState<float>("CurrentShipHealth", ShipHealth() - Damage);
+			GD.Print("Ship hit");
+			QueueFree();
+		}
 	}
 	float ShipHealth()
 	{
 		return global.GetState<float>("CurrentShipHealth");
+	}
+
+	float PlayerEnergy()
+	{
+		return global.GetState<float>("CurrentEnergy");
 	}
 
 	float ShieldEnergy()
