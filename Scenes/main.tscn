@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=22 format=3 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
 [ext_resource type="Script" uid="uid://dtoxaxrlw74ln" path="res://Scripts/Ground.cs" id="1_bo1nx"]
+[ext_resource type="Script" path="res://Scripts/Main.cs" id="1_h1bgf"]
 [ext_resource type="TileSet" uid="uid://cqvv03cm71dkj" path="res://Resources/ground.tres" id="2_8gbba"]
 [ext_resource type="TileSet" uid="uid://dt21gb75pk1by" path="res://Resources/background.tres" id="2_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://eo5gb72cyek" path="res://Scenes/upgrade_menu.tscn" id="2_ynf5e"]
@@ -30,6 +31,7 @@ size = Vector2(32, 24)
 size = Vector2(176, 73)
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_h1bgf")
 
 [node name="TurretDoor" type="Node2D" parent="." node_paths=PackedStringArray("Interactable")]
 script = ExtResource("13_jkdf5")

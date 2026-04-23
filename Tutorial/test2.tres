@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://dxykdux5kedm6"]
+
+[ext_resource type="Script" uid="uid://do3ogi7c6uyy7" path="res://Tutorial/TutorialStep.cs" id="1_86v2k"]
+
+[resource]
+script = ExtResource("1_86v2k")
+Title = "Test2"
+Description = "23we2w2w2w2w2w2w2w2w"
+HighlightPosition = Vector2(400, 300)
+HighlightSize = Vector2(200, 211)
+metadata/_custom_type_script = "uid://do3ogi7c6uyy7"

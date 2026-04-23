@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://dknpouguhqt0x"]
+
+[ext_resource type="Script" uid="uid://dw2irvw3m3elc" path="res://Tutorial/TutorialManager.cs" id="1_71327"]
+[ext_resource type="Resource" uid="uid://pr4k7ej04tv5" path="res://Tutorial/test.tres" id="2_3cduj"]
+[ext_resource type="Resource" uid="uid://dxykdux5kedm6" path="res://Tutorial/test2.tres" id="3_ulhh6"]
+
+[node name="TutorialManager" type="CanvasLayer"]
+layer = 128
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_71327")
+Steps = [ExtResource("2_3cduj"), ExtResource("3_ulhh6")]
+BorderColor = Color(1, 0.517647, 1, 1)
+RootPath = NodePath(".")
+InfoBoxPath = NodePath("InfoBox")
+TitleLabelPath = NodePath("InfoBox/MarginContainer/VBoxContainer/TitleLabel")
+DescLabelPath = NodePath("InfoBox/MarginContainer/VBoxContainer/DescLabel")
+NextButtonPath = NodePath("InfoBox/MarginContainer/VBoxContainer/HBoxContainer/NextButton")
+SkipButtonPath = NodePath("InfoBox/MarginContainer/VBoxContainer/HBoxContainer/SkipButton")
+
+[node name="InfoBox" type="Panel" parent="Root"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Root/InfoBox"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Root/InfoBox/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Root/InfoBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="NextButton" type="Button" parent="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "Next"
+
+[node name="SkipButton" type="Button" parent="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "Skip"
+
+[node name="TitleLabel" type="Label" parent="Root/InfoBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+
+[node name="DescLabel" type="Label" parent="Root/InfoBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 2
+
+[connection signal="pressed" from="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="." method="OnNext"]
+[connection signal="pressed" from="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer/SkipButton" to="." method="OnSkip"]
