@@ -24,6 +24,10 @@ public partial class Global : Node
         State["JetpackEffeciency"] = 1.0f;
         State["JetpackDrain"] = 15.0f;
 
+        // Mining 
+        State["MiningDrain"] = 5.0f;
+
+
         // ===== Stats =====
         State["MaxInventorySpace"] = 10;
         State["MiningSpeed"] = 0.5f;

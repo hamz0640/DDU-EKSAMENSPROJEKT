@@ -206,6 +206,16 @@ public partial class PlayerController : CharacterBody2D
             if (!blocked)
                 goto EarlyExit;
 
+			float currentEnergy = global.GetState<float>("CurrentEnergy");
+			float miningDrain = global.GetState<float>("MiningDrain");
+
+			if (currentEnergy <= 0.0f)
+				goto EarlyExit;
+
+			// Drain energy while mining
+			currentEnergy -= miningDrain * delta;
+			global.SetState("CurrentEnergy", currentEnergy);	
+
             TileData tileData = ground.GroundLayer.GetCellTileData(miningTilePosition);
             if (tileData == null)
                 goto EarlyExit;
