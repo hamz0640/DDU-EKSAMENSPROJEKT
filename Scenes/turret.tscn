@@ -123,7 +123,7 @@ default_font = SubResource("SystemFont_hskch")
 [node name="turret" type="CharacterBody2D" node_paths=PackedStringArray("animator", "Label") groups=["Turret"]]
 z_index = 5
 collision_layer = 16
-collision_mask = 17
+collision_mask = 49
 script = ExtResource("1_hskch")
 animator = NodePath("AnimatedSprite2D")
 Label = NodePath("RichTextLabel")

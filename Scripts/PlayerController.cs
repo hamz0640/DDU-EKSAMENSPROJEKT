@@ -70,14 +70,17 @@ public partial class PlayerController : CharacterBody2D
 		
 		switch (CurrentState) {
 			case State.Ground:
-				HandleGroundMovement((float)delta);
+                this.SetCollisionMaskValue(6, true);
+                HandleGroundMovement((float)delta);
 				tracker.IncrementTracking("Time:OnGround", (float)delta);
 				break;
 			case State.Air:
-				HandleAirMovement((float)delta);
+                this.SetCollisionMaskValue(6, true);
+                HandleAirMovement((float)delta);
 				tracker.IncrementTracking("Time:InAir", (float)delta);
 				break;
 			case State.Wire:
+				this.SetCollisionMaskValue(6, false);
 				HandleWireMovement((float)delta);
 				tracker.IncrementTracking("Time:OnWire", (float)delta);
 				break;
