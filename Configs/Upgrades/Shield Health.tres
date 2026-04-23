@@ -8,4 +8,6 @@ RedMineralAmount = 0
 PurpleMineralAmount = 1
 YellowMineralAmount = 1
 MaxBuyAmount = 0
+Description = "Repairs the shield health. Often useful after a wave has been completed"
+BuyCondition = "None"
 metadata/_custom_type_script = "uid://cuxkkwdgb2vyf"

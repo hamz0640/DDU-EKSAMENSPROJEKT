@@ -153,7 +153,7 @@ text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("TopDeathSlider", "BottomDeathSlider", "DeathMessage")]
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("TopDeathSlider", "BottomDeathSlider")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -163,7 +163,6 @@ grow_vertical = 2
 script = ExtResource("9_mmixe")
 TopDeathSlider = NodePath("TopDeathSlider")
 BottomDeathSlider = NodePath("BottomDeathSlider")
-DeathMessage = NodePath("DeathMessage")
 
 [node name="TopDeathSlider" type="ColorRect" parent="Control"]
 visible = false

@@ -8,4 +8,6 @@ RedMineralAmount = 0
 PurpleMineralAmount = 1
 YellowMineralAmount = 0
 MaxBuyAmount = 0
+Description = "Drops a turret from the sky, that shoots enemies on sight"
+BuyCondition = "Max 2 turret can exist in the world at a time"
 metadata/_custom_type_script = "uid://bllpo04jn1ams"

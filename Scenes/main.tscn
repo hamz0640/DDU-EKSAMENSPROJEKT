@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://wq5het8c2qxr" path="res://Scripts/TurretDoor.cs" id="13_jkdf5"]
 [ext_resource type="Texture2D" uid="uid://bwpditu68il4a" path="res://Assets/RoofTurret/crosshair.png" id="15_k12tt"]
 [ext_resource type="Script" uid="uid://daovwbkwwn7hh" path="res://Scripts/RoofTurret.cs" id="15_wsu2k"]
-[ext_resource type="PackedScene" path="res://Scenes/mine_lid.tscn" id="16_k12tt"]
+[ext_resource type="PackedScene" uid="uid://bvtf3co8npe7t" path="res://Scenes/mine_lid.tscn" id="16_k12tt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k12tt"]
 size = Vector2(24, 38)
@@ -46,7 +46,7 @@ shape = SubResource("RectangleShape2D_k12tt")
 script = ExtResource("1_344ge")
 InputChute = NodePath("InputChute")
 UpgradeConsole = NodePath("UpgradeConsole")
-UpgradeMenu = NodePath("UpgradeMenu/MarginContainer")
+UpgradeMenu = NodePath("UpgradeMenu/UpgradeMenu")
 
 [node name="InputChute" parent="UpgradeStation" instance=ExtResource("12_6iyac")]
 position = Vector2(156, -25)
@@ -62,7 +62,7 @@ shape = SubResource("RectangleShape2D_jkdf5")
 
 [node name="UpgradeMenu" type="CanvasLayer" parent="UpgradeStation"]
 
-[node name="MarginContainer" parent="UpgradeStation/UpgradeMenu" instance=ExtResource("2_ynf5e")]
+[node name="UpgradeMenu" parent="UpgradeStation/UpgradeMenu" instance=ExtResource("2_ynf5e")]
 visible = false
 
 [node name="ChargingZone" parent="." instance=ExtResource("1_6bp64")]

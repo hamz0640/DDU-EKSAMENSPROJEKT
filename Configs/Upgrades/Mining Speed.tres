@@ -8,4 +8,6 @@ RedMineralAmount = 1
 PurpleMineralAmount = 0
 YellowMineralAmount = 0
 MaxBuyAmount = 5
+Description = "Increases the rate at which minerals and dirt is excavated"
+BuyCondition = "Max 5 can be bought"
 metadata/_custom_type_script = "uid://d2it48brbmpv8"

@@ -7,119 +7,90 @@ using System.Reflection.Metadata;
 public partial class UpgradeMenu : MarginContainer
 {
     [Export]
-    public HBoxContainer HBoxContainer = null;
-    [Export]
-    public HBoxContainer ShieldHealth = null;
+    public VBoxContainer UpgradeList = null;
     [Export]
     private Label RedMineralCount = null;
     [Export]
     private Label PurpleMineralCount = null;
     [Export]
     private Label YellowMineralCount = null;
-    private Random random = new();
+	[Export]
+	private Label UpgradeDescription = null;
+	[Export]
+	private Label UpgradeBuyCondition = null;
+	[Export]
+	private Label UpgradeNameTitle = null;
+
+	public int SelectedIndex = 0;
+
 
     public override void _Ready()
     {
         Global global = Global.GetInstance();
-        global.MineralCountUpdated += HandleUpdate;
+        Array<Upgrade> upgrades = global.GetState<Array<Upgrade>>("Upgrades");
 
-        WaveManager waveManager = WaveManager.GetInstance();
-        waveManager.WaveStarted += HandleShopChange;
-    }
-
-
-    private void HandleUpdate(Mineral.MineralType mineralType, bool _)
-    {
-        Global global = (Global)GetTree().Root.GetNode("Global");
-
-        switch (mineralType)
+        string upgradePath = "res://Configs/Upgrades";
+        DirAccess upgradesDir = DirAccess.Open(upgradePath);
+        foreach (string localUpgradePath in upgradesDir.GetFiles())
         {
-            case Mineral.MineralType.Red:
-                uint redMineralCount = global.GetState<uint>("DepositedRedMineralCount");
-                RedMineralCount.Text = redMineralCount.ToString();
-                break;
-            case Mineral.MineralType.Purple:
-                uint purpleMineralCount = global.GetState<uint>("DepositedPurpleMineralCount");
-                PurpleMineralCount.Text = purpleMineralCount.ToString();
-                break;
-            case Mineral.MineralType.Yellow:
-                uint yellowMineralCount = global.GetState<uint>("DepositedYellowMineralCount");
-                YellowMineralCount.Text = yellowMineralCount.ToString();
-                break;
+            Upgrade upgrade = (Upgrade)GD.Load(upgradePath + "/" + localUpgradePath);
+            upgrade.UpgradeName = localUpgradePath.GetBaseName();
+
+            upgrades.Add(upgrade);
         }
+
+        global.SetState("Upgrades", upgrades);
+
+        ShowUpgrades();
     }
 
-    public void HandleShopChange(uint waveNumber)
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (Input.IsActionJustReleased("up")) SelectedIndex -= 1;
+		if (Input.IsActionJustReleased("down")) SelectedIndex += 1;
+
+		SelectedIndex = Mathf.Clamp(SelectedIndex, 0, UpgradeList.GetChildCount() - 1);
+
+		foreach (Node u in UpgradeList.GetChildren())
+		{
+			UpgradeEntry upgradeEntry = (UpgradeEntry)u;
+			upgradeEntry.UpgradeName.AddThemeFontSizeOverride("font_size", 40);
+			upgradeEntry.Modulate = new Color(0.8f, 0.8f, 0.8f);
+		}
+
+		UpgradeEntry selectedUpgradeEntry = (UpgradeEntry)UpgradeList.GetChild(SelectedIndex);
+		selectedUpgradeEntry.UpgradeName.AddThemeFontSizeOverride("font_size", 45);
+		selectedUpgradeEntry.Modulate = new Color(1, 1, 1);
+
+		UpgradeNameTitle.Text = selectedUpgradeEntry.RelatedUpgradeResource.UpgradeName;
+		UpgradeDescription.Text = selectedUpgradeEntry.RelatedUpgradeResource.Description;
+		UpgradeBuyCondition.Text = selectedUpgradeEntry.RelatedUpgradeResource.BuyCondition;
+    }
+
+
+    public void ShowUpgrades()
     {
         Global global = Global.GetInstance();
         Array<Upgrade> upgrades = global.GetState<Array<Upgrade>>("Upgrades");
 
         foreach (Upgrade upgrade in upgrades)
         {
-            // Could be a problem, if the ShieldHealth upgrade ever changes it's
-            // name (Possibly to include a space?)
-            if (upgrade.UpgradeName == "Shield Health" && ShieldHealth.GetChildCount() == 0)
-            {
-                PackedScene scene = (PackedScene)GD.Load("res://Scenes/upgrade_icon.tscn");
-                UpgradeIcon upgradeIcon = (UpgradeIcon)scene.Instantiate();
+            PackedScene scene = (PackedScene)GD.Load("res://Scenes/upgrade_entry.tscn");
+            UpgradeEntry upgradeEntry = (UpgradeEntry)scene.Instantiate();
 
-                upgradeIcon.UpgradeName.Text = upgrade.UpgradeName;
-                upgradeIcon.RedMineralCount.Text    = upgrade.RedMineralAmount.ToString();
-                upgradeIcon.PurpleMineralCount.Text = upgrade.PurpleMineralAmount.ToString();
-                upgradeIcon.YellowMineralCount.Text = upgrade.YellowMineralAmount.ToString();
-                upgradeIcon.AmountBought.Text = "0/∞";
-
-                upgradeIcon.RelatedUpgradeResource = upgrade;
-                ShieldHealth.AddChild(upgradeIcon);
-            }
-        }
-        
-        for (int i = 0; i < HBoxContainer.GetChildCount(); i++)
-        {
-            HBoxContainer.GetChild(i).QueueFree();
-        }
-
-        List<int> selectedIndices = new List<int>();
-        for (int i = 0; i < 3; i++)
-        {
-            int upgradeIndex = random.Next(0, Mathf.Max(3, upgrades.Count));
-            // Check to ensure that ShieldHealth isn't picked as one of the
-            // random upgrades, as that would feel not good :c
-            if (upgrades[upgradeIndex].UpgradeName == "Shield Health")
-                selectedIndices.Add(upgradeIndex);
-
-            while (selectedIndices.Contains(upgradeIndex))
-            {
-                upgradeIndex = random.Next(0, Mathf.Max(3, upgrades.Count));
-
-                // Check to ensure that ShieldHealth isn't picked as one of the
-                // random upgrades, as that would feel not good :c
-                if (upgrades[upgradeIndex].UpgradeName == "Shield Health")
-                    selectedIndices.Add(upgradeIndex);
-            }
+            upgradeEntry.UpgradeName.Text = upgrade.UpgradeName;
+            if (upgrade.RedMineralAmount == 0) { upgradeEntry.RedMineralIcon.Hide(); } 
+            else {upgradeEntry.RedMineralCount.Text = upgrade.RedMineralAmount.ToString(); }
             
-            selectedIndices.Add(upgradeIndex);
-            Upgrade upgrade = upgrades[upgradeIndex];
+            if (upgrade.PurpleMineralAmount == 0) { upgradeEntry.PurpleMineralIcon.Hide(); } 
+            else {upgradeEntry.PurpleMineralCount.Text = upgrade.PurpleMineralAmount.ToString(); } 
 
-            PackedScene scene = (PackedScene)GD.Load("res://Scenes/upgrade_icon.tscn");
-            UpgradeIcon upgradeIcon = (UpgradeIcon)scene.Instantiate();
+            if (upgrade.YellowMineralAmount == 0) { upgradeEntry.YellowMineralIcon.Hide(); } 
+            else {upgradeEntry.YellowMineralCount.Text = upgrade.YellowMineralAmount.ToString(); }
 
-            upgradeIcon.UpgradeName.Text = upgrade.UpgradeName;
-            upgradeIcon.RedMineralCount.Text    = upgrade.RedMineralAmount.ToString();
-            upgradeIcon.PurpleMineralCount.Text = upgrade.PurpleMineralAmount.ToString();
-            upgradeIcon.YellowMineralCount.Text = upgrade.YellowMineralAmount.ToString();
-            if (upgrade.MaxBuyAmount == 0)
-            {
-                upgradeIcon.AmountBought.Text = upgrade.AmountBought + "/∞";
-            } 
-            else
-            {
-                upgradeIcon.AmountBought.Text = upgrade.AmountBought + "/" + upgrade.MaxBuyAmount;
-            }
-
-            HBoxContainer.AddChild(upgradeIcon);
-
-            upgradeIcon.RelatedUpgradeResource = upgrade;
+            UpgradeList.AddChild(upgradeEntry);
+            upgradeEntry.RelatedUpgradeResource = upgrade;
         }
     }
 }

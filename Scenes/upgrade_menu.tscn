@@ -1,16 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://eo5gb72cyek"]
+[gd_scene load_steps=7 format=3 uid="uid://eo5gb72cyek"]
 
 [ext_resource type="Script" uid="uid://ij8v42cma06a" path="res://Scripts/UpgradeMenu.cs" id="1_2hr16"]
 [ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/Icons/block-out-red-mineral.png" id="1_lhh40"]
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="2_2hr16"]
-[ext_resource type="PackedScene" uid="uid://b1qcoapldww77" path="res://Scenes/upgrade_entry.tscn" id="2_11363"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="3_lpopj"]
 [ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/Icons/icon.svg" id="6_2hr16"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hr16"]
 bg_color = Color(0.18359, 0.18359, 0.18359, 1)
 
-[node name="MarginContainer" type="MarginContainer"]
+[node name="UpgradeMenu" type="MarginContainer" node_paths=PackedStringArray("UpgradeList", "UpgradeDescription", "UpgradeBuyCondition", "UpgradeNameTitle")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,6 +20,10 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 script = ExtResource("1_2hr16")
+UpgradeList = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/VBoxContainer/ScrollContainer/UpgradeList")
+UpgradeDescription = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/DescriptionText")
+UpgradeBuyCondition = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/BuyConditionText")
+UpgradeNameTitle = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/UpgradeName")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -130,13 +133,10 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Upgrades" type="VBoxContainer" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/VBoxContainer/ScrollContainer"]
+[node name="UpgradeList" type="VBoxContainer" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="UpgradeEntry" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/VBoxContainer/ScrollContainer/Upgrades" instance=ExtResource("2_11363")]
-layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer"]
 custom_minimum_size = Vector2(300, 0)
@@ -180,6 +180,7 @@ layout_mode = 2
 
 [node name="DescriptionHeader" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "Description"
 
 [node name="DescriptionText" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
@@ -194,10 +195,11 @@ layout_mode = 2
 [node name="BuyConditionHeader" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "Buy Condition"
 autowrap_mode = 2
 
-[node name="BuyConditionHeader2" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
+[node name="BuyConditionText" type="Label" parent="PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer"]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 text = "None"

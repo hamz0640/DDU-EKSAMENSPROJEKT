@@ -20,22 +20,6 @@ public partial class UpgradeStation : Node2D
         {
             ToggleUpgradeConsole(!UpgradeMenu.Visible);
         };
-
-        Global global = Global.GetInstance();
-        Array<Upgrade> upgrades = global.GetState<Array<Upgrade>>("Upgrades");
-
-        string upgradePath = "res://Configs/Upgrades";
-        DirAccess upgradesDir = DirAccess.Open(upgradePath);
-        foreach (string localUpgradePath in upgradesDir.GetFiles())
-        {
-            Upgrade upgrade = (Upgrade)GD.Load(upgradePath + "/" + localUpgradePath);
-            upgrade.UpgradeName = localUpgradePath.GetBaseName();
-
-            upgrades.Add(upgrade);
-        }
-
-        global.SetState("Upgrades", upgrades);
-        UpgradeMenu.HandleShopChange(0);
     }
 
 
@@ -56,6 +40,7 @@ public partial class UpgradeStation : Node2D
 
         UI.Visible = !visible;
         UpgradeMenu.Visible = visible;
+        UpgradeMenu.SelectedIndex = 0;
     }
 
     private void DepositMinerals()

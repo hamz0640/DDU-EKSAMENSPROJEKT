@@ -8,4 +8,6 @@ RedMineralAmount = 2
 PurpleMineralAmount = 1
 YellowMineralAmount = 1
 MaxBuyAmount = 0
+Description = "Regenerates a small amount of shield health, at the start of each wave"
+BuyCondition = "None"
 metadata/_custom_type_script = "uid://cepdtgr7vvefx"

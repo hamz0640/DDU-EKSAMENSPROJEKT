@@ -1,14 +1,15 @@
 using Godot;
 using System;
 
-public partial class UpgradeIcon : MarginContainer
+public partial class UpgradeEntry : PanelContainer
 {
-    [Export]
-    public Label RedMineralCount = null;
-    [Export]
-    public Label PurpleMineralCount = null;
-    [Export]
-    public Label YellowMineralCount = null;
+    [Export] public Label RedMineralCount = null;
+    [Export] public Label PurpleMineralCount = null;
+    [Export] public Label YellowMineralCount = null;
+    [Export] public TextureRect RedMineralIcon = null;
+    [Export] public TextureRect PurpleMineralIcon = null;
+    [Export] public TextureRect YellowMineralIcon = null;
+
     [Export]
     public Label UpgradeName = null;
     [Export]

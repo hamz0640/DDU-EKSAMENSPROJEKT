@@ -8,4 +8,6 @@ RedMineralAmount = 1
 PurpleMineralAmount = 1
 YellowMineralAmount = 1
 MaxBuyAmount = 5
+Description = "Increases the chance of extracting multiple minerals, from one mineral ore"
+BuyCondition = "Max 5 can be bought"
 metadata/_custom_type_script = "uid://bfw1sfmrw5s1g"

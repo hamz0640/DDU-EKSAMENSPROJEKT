@@ -9,6 +9,9 @@ public abstract partial class Upgrade : Resource
     [Export] public uint PurpleMineralAmount;
     [Export] public uint YellowMineralAmount;
     [Export] public uint MaxBuyAmount;
+    [Export] public string Description = "Not Set";
+    [Export] public string BuyCondition = "None";
+
     public uint AmountBought = 0;
     public string UpgradeName = "Not Set";
 
