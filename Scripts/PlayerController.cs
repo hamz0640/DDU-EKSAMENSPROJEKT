@@ -7,6 +7,7 @@ using System.Threading;
 
 public partial class PlayerController : CharacterBody2D 
 {
+	[Export] AnimatedSprite2D anim;
 	[ExportGroup("Basic Movement")]
 	[Export]
 	public float MaxSpeed = 75.0f;
@@ -33,20 +34,17 @@ public partial class PlayerController : CharacterBody2D
 	private bool JetpackActivated = false;
 
 	private int TimeSinceMountChange = 0;
-	private AnimatedSprite2D anim = null;
 	private bool InTurret = false;
 	private int KnockOffWire = 0;
 	enum State { Ground, Air, Wire };
 
-
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 		((TurretDoor)GetNode("/root/Main/TurretDoor")).ToggleTurret += OnToggleTurret;
-        anim = (AnimatedSprite2D)GetNode("AnimatedSprite2D");
-    }
+	}
 
-    public override void _PhysicsProcess(double delta)
-    {
+	public override void _PhysicsProcess(double delta)
+	{
 		Tracker tracker = Tracker.GetInstance();
 		tracker.IncrementTracking("Time:Total", (float)delta);
 		if (GlobalPosition.Y > 0)
@@ -69,11 +67,11 @@ public partial class PlayerController : CharacterBody2D
 		
 		switch (CurrentState) {
 			case State.Ground:
-                HandleGroundMovement((float)delta);
+				HandleGroundMovement((float)delta);
 				tracker.IncrementTracking("Time:OnGround", (float)delta);
 				break;
 			case State.Air:
-                HandleAirMovement((float)delta);
+				HandleAirMovement((float)delta);
 				tracker.IncrementTracking("Time:InAir", (float)delta);
 				break;
 			case State.Wire:
@@ -87,7 +85,7 @@ public partial class PlayerController : CharacterBody2D
 		HandleAnimations();
 
 		TimeSinceMountChange += 1;
-    }
+	}
 
 	private void OnToggleTurret() {
 		if (!InTurret)
@@ -105,15 +103,37 @@ public partial class PlayerController : CharacterBody2D
 
 	private void HandleAnimations()
 	{
+		Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
 		anim.FlipH = Velocity.X < 0.0;
-
 		if (CurrentState == State.Ground)
 		{
 			if (Mathf.Abs(Velocity.X) == MaxSpeed)
 				anim.Play("move");
-			else if (Velocity.X == 0.0f)
-				anim.Play("idle");
-			else
+            else if (Velocity.X == 0.0f)
+            {
+                // Check for mining inputs FIRST
+                if (Math.Round(GlobalPosition.Y) != -12 && inputDirection != Vector2.Zero)
+                {
+                    if (inputDirection.Y == 1)
+                    {
+                        anim.Play("mine_down");
+                        anim.FlipH = false;
+                    }
+                    else if (inputDirection.Y == -1 && Math.Round(GlobalPosition.Y) != -11)
+                    {
+                        anim.Play("mine_up");
+                        anim.FlipH = false;
+                    }
+                    else if (inputDirection.X != 0)
+                    {
+                        anim.Play("mine_side");
+                        anim.FlipH = inputDirection.X < 0;
+                    }
+                }
+                else
+                    anim.Play("idle");
+            }
+            else
 				ShowSpecificFrame("acceleration", (int)(Mathf.Abs(Velocity.X) / (MaxSpeed / 5.0)));
 		}
 
@@ -143,9 +163,9 @@ public partial class PlayerController : CharacterBody2D
 			return;
 
 		if (IsOnFloor())
-            CurrentState = State.Ground;
+			CurrentState = State.Ground;
 		else
-            CurrentState = State.Air;
+			CurrentState = State.Air;
 	}
 
 	private void HandleMine(float delta)
@@ -153,27 +173,27 @@ public partial class PlayerController : CharacterBody2D
 		Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
 
 		if (inputDirection.Angle() % (Mathf.Pi / 2.0) == 0 && inputDirection != Vector2.Zero)
-        {
+		{
 			Global global = Global.GetInstance();
-            Ground ground = (Ground)GetTree().GetFirstNodeInGroup("Ground");
+			Ground ground = (Ground)GetTree().GetFirstNodeInGroup("Ground");
 
 			float miningSpeed = global.GetState<float>("MiningSpeed");
 
-            Vector2I tileDirection = (Vector2I)inputDirection;
-            Vector2I tilePosition  = ground.ToTilePosition(GlobalPosition);
-            Vector2I miningTilePosition = tilePosition + tileDirection;
+			Vector2I tileDirection = (Vector2I)inputDirection;
+			Vector2I tilePosition  = ground.ToTilePosition(GlobalPosition);
+			Vector2I miningTilePosition = tilePosition + tileDirection;
 
-            bool blocked = false;
+			bool blocked = false;
 
-            if (tileDirection.X != 0)
-                blocked = IsOnWall();
-            else if (tileDirection.Y > 0)
-                blocked = IsOnFloor();
-            else if (tileDirection.Y < 0)
-                blocked = IsOnCeiling();
+			if (tileDirection.X != 0)
+				blocked = IsOnWall();
+			else if (tileDirection.Y > 0)
+				blocked = IsOnFloor();
+			else if (tileDirection.Y < 0)
+				blocked = IsOnCeiling();
 
-            if (!blocked)
-                goto EarlyExit;
+			if (!blocked)
+				goto EarlyExit;
 
 			float currentEnergy = global.GetState<float>("CurrentEnergy");
 			float miningDrain = global.GetState<float>("MiningDrain");
@@ -185,26 +205,26 @@ public partial class PlayerController : CharacterBody2D
 			currentEnergy -= miningDrain * delta;
 			global.SetState("CurrentEnergy", currentEnergy);	
 
-            TileData tileData = ground.GroundLayer.GetCellTileData(miningTilePosition);
-            if (tileData == null)
-                goto EarlyExit;
+			TileData tileData = ground.GroundLayer.GetCellTileData(miningTilePosition);
+			if (tileData == null)
+				goto EarlyExit;
 
-            float tileHealth = ground.TileHealth[miningTilePosition];
-            float newTileHealth = tileHealth - miningSpeed * (float)delta;
+			float tileHealth = ground.TileHealth[miningTilePosition];
+			float newTileHealth = tileHealth - miningSpeed * (float)delta;
 
-            if (newTileHealth <= 0.0)
-                ground.BreakTile(miningTilePosition);
-            else
-                ground.TileHealth[miningTilePosition] = newTileHealth;
-        }
+			if (newTileHealth <= 0.0)
+				ground.BreakTile(miningTilePosition);
+			else
+				ground.TileHealth[miningTilePosition] = newTileHealth;
+		}
 
-        EarlyExit:
+		EarlyExit:
 			return;
 	}
 
 	private void HandleGroundMovement(float delta)
 	{
-        JetpackActivated = false;
+		JetpackActivated = false;
 		Vector2 velocity = Velocity;
 
 		float sidewaysInput = Input.GetAxis("left", "right");
@@ -212,32 +232,32 @@ public partial class PlayerController : CharacterBody2D
 
 		velocity.X = Mathf.MoveToward(velocity.X, towards, BasicAcceleration * (float)delta);
 
-        bool isTouchingWire = false;
-        float wireX = 0;
+		bool isTouchingWire = false;
+		float wireX = 0;
 
-        var areas = WireArea.GetOverlappingAreas();
-        foreach (var area in areas)
-        {
-            if (area.IsInGroup("wire"))
-            {
-                isTouchingWire = true;
-                wireX = area.GlobalPosition.X;
-                break;
-            }
-        }
+		var areas = WireArea.GetOverlappingAreas();
+		foreach (var area in areas)
+		{
+			if (area.IsInGroup("wire"))
+			{
+				isTouchingWire = true;
+				wireX = area.GlobalPosition.X;
+				break;
+			}
+		}
 
-        if (Input.IsActionPressed("jump"))
+		if (Input.IsActionPressed("jump"))
 		{
 			if(!isTouchingWire || Math.Round(GlobalPosition.Y) != -12)
 				velocity.Y -= JumpForce;
-        }
+		}
 		if (Input.IsActionJustReleased("jump") && isTouchingWire)
 		{
-            velocity.Y = 0;
-            Velocity = Vector2.Zero;
-            velocity = Vector2.Zero;
-            MountWire(wireX);
-        }
+			velocity.Y = 0;
+			Velocity = Vector2.Zero;
+			velocity = Vector2.Zero;
+			MountWire(wireX);
+		}
 
 		// Down through gate
 		if (Input.GetAxis("down", "jump") == -1)
@@ -251,26 +271,26 @@ public partial class PlayerController : CharacterBody2D
 	private void MountWire(float wireX)
 	{
 		// Remember to set velocity and Velocity to 0 beforehand
-        CurrentState = State.Wire;
-        Tween tween = GetTree().CreateTween();
-        tween.SetEase(Tween.EaseType.Out);
-        tween.SetTrans(Tween.TransitionType.Quint);
-        tween.TweenProperty(this, "global_position:x", wireX + 1, 0.5f);
-    }
+		CurrentState = State.Wire;
+		Tween tween = GetTree().CreateTween();
+		tween.SetEase(Tween.EaseType.Out);
+		tween.SetTrans(Tween.TransitionType.Quint);
+		tween.TweenProperty(this, "global_position:x", wireX + 1, 0.5f);
+	}
 
 	private Vector2 DismountWire(Vector2 velocity, float Amplifier)
 	{
-        float sidewaysInput = Input.GetAxis("left", "right");
-        TimeSinceMountChange = -1;
-        this.SetCollisionMaskValue(6, true);
-        CurrentState = State.Air;
-        velocity += new Vector2(1.0f * sidewaysInput, -0.8f) * DismountBoost*Amplifier;
+		float sidewaysInput = Input.GetAxis("left", "right");
+		TimeSinceMountChange = -1;
+		this.SetCollisionMaskValue(6, true);
+		CurrentState = State.Air;
+		velocity += new Vector2(1.0f * sidewaysInput, -0.8f) * DismountBoost*Amplifier;
 		return velocity;
-    }
+	}
 
 	private void HandleAirMovement(float delta)
 	{
-        Tracker tracker = Tracker.GetInstance();
+		Tracker tracker = Tracker.GetInstance();
 		Vector2 velocity = Velocity;
 
 		float sidewaysInput = Input.GetAxis("left", "right");
@@ -281,29 +301,29 @@ public partial class PlayerController : CharacterBody2D
 			if (Velocity.Y > 0.0f)
 				JetpackActivated = true;
 		}
-        
+		
 		if (Input.IsActionJustReleased("jump")) {
 			JetpackActivated = false;
 			
-            bool isTouchingWire = false;
-            float wireX = 0.0f;
+			bool isTouchingWire = false;
+			float wireX = 0.0f;
 
-            var areas = WireArea.GetOverlappingAreas();
-            foreach (var area in areas)
-            {
-                if (area.IsInGroup("wire"))
-                {
-                    isTouchingWire = true;
-                    wireX = area.GlobalPosition.X;
-                    break;
-                }
-            }
+			var areas = WireArea.GetOverlappingAreas();
+			foreach (var area in areas)
+			{
+				if (area.IsInGroup("wire"))
+				{
+					isTouchingWire = true;
+					wireX = area.GlobalPosition.X;
+					break;
+				}
+			}
 			if(isTouchingWire)
 			{
-                Velocity = Vector2.Zero;
-                velocity = Vector2.Zero;
+				Velocity = Vector2.Zero;
+				velocity = Vector2.Zero;
 				MountWire(wireX);
-            }
+			}
 			
 		}
 
@@ -332,13 +352,13 @@ public partial class PlayerController : CharacterBody2D
 	{
 		Vector2 velocity = Velocity;
 
-        float upwardsInput = Input.GetAxis("up", "down");
-        float towards = upwardsInput == 0 ? 0 : MaxWireSpeed * upwardsInput;
-        velocity.Y = Mathf.MoveToward(velocity.Y, towards, WireAcceleration * (float)delta);
-        if (Input.IsActionJustReleased("jump") && !JetpackActivated) // Dismount
+		float upwardsInput = Input.GetAxis("up", "down");
+		float towards = upwardsInput == 0 ? 0 : MaxWireSpeed * upwardsInput;
+		velocity.Y = Mathf.MoveToward(velocity.Y, towards, WireAcceleration * (float)delta);
+		if (Input.IsActionJustReleased("jump") && !JetpackActivated) // Dismount
 		{
 			velocity = DismountWire(velocity,1);
-        }
+		}
 
 		if (upwardsInput == 1 && Velocity.Y == 0)
 		{
@@ -364,7 +384,7 @@ public partial class PlayerController : CharacterBody2D
 		Velocity = velocity;
 		MoveAndSlide();
 	}
-      
+	  
 	private void ShowSpecificFrame(string Animation, int frame) {
 		anim.Stop();  // Stop den først
 		anim.Animation = Animation;
