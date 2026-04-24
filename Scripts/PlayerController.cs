@@ -33,9 +33,9 @@ public partial class PlayerController : CharacterBody2D
 	private bool JetpackActivated = false;
 
 	private int TimeSinceMountChange = 0;
-
 	private AnimatedSprite2D anim = null;
 	private bool InTurret = false;
+	private int KnockOffWire = 0;
 	enum State { Ground, Air, Wire };
 
 
@@ -44,7 +44,6 @@ public partial class PlayerController : CharacterBody2D
 		((TurretDoor)GetNode("/root/Main/TurretDoor")).ToggleTurret += OnToggleTurret;
         anim = (AnimatedSprite2D)GetNode("AnimatedSprite2D");
     }
-
 
     public override void _PhysicsProcess(double delta)
     {
@@ -147,35 +146,7 @@ public partial class PlayerController : CharacterBody2D
             CurrentState = State.Ground;
 		else
             CurrentState = State.Air;
-
-		if (Input.IsActionJustPressed("mount"))
-		{
-			bool isTouchingWire = false;
-            float wireX = 0.0f;
-
-			var areas = WireArea.GetOverlappingAreas();
-			foreach (var area in areas) {
-				if (area.IsInGroup("wire")) {
-					isTouchingWire = true;
-					wireX = area.GlobalPosition.X;
-					break;
-				}
-			}
-
-			if (isTouchingWire && TimeSinceMountChange > 1)
-			{
-				TimeSinceMountChange = -1;
-				CurrentState = State.Wire;
-				Velocity = Vector2.Zero;
-
-				Tween tween = GetTree().CreateTween();
-				tween.SetEase(Tween.EaseType.Out);
-				tween.SetTrans(Tween.TransitionType.Quint);
-				tween.TweenProperty(this, "global_position:x", wireX+1, 0.5f);
-			}
-		}
 	}
-
 
 	private void HandleMine(float delta)
 	{
@@ -257,15 +228,18 @@ public partial class PlayerController : CharacterBody2D
 
         if (Input.IsActionPressed("jump"))
 		{
-            if (!isTouchingWire)
-                velocity.Y -= JumpForce;
+			if(!isTouchingWire || Math.Round(GlobalPosition.Y) != -12)
+				velocity.Y -= JumpForce;
         }
-		else if (Input.IsActionJustReleased("jump"))
+		if (Input.IsActionJustReleased("jump") && isTouchingWire)
 		{
+            velocity.Y = 0;
             Velocity = Vector2.Zero;
             velocity = Vector2.Zero;
             MountWire(wireX);
         }
+
+		// Down through gate
 		if (Input.GetAxis("down", "jump") == -1)
 			this.SetCollisionMaskValue(6, false);
 		else
@@ -284,6 +258,16 @@ public partial class PlayerController : CharacterBody2D
         tween.TweenProperty(this, "global_position:x", wireX + 1, 0.5f);
     }
 
+	private Vector2 DismountWire(Vector2 velocity, float Amplifier)
+	{
+        float sidewaysInput = Input.GetAxis("left", "right");
+        TimeSinceMountChange = -1;
+        this.SetCollisionMaskValue(6, true);
+        CurrentState = State.Air;
+        velocity += new Vector2(1.0f * sidewaysInput, -0.8f) * DismountBoost*Amplifier;
+		return velocity;
+    }
+
 	private void HandleAirMovement(float delta)
 	{
         Tracker tracker = Tracker.GetInstance();
@@ -295,35 +279,32 @@ public partial class PlayerController : CharacterBody2D
 
 		if (Input.IsActionPressed("jump")) {
 			if (Velocity.Y > 0.0f)
-			{
 				JetpackActivated = true;
-            }
 		}
-		else
-		{
+        
+		if (Input.IsActionJustReleased("jump")) {
 			JetpackActivated = false;
-			if (Input.IsActionJustReleased("jump"))
-			{
-                bool isTouchingWire = false;
-                float wireX = 0.0f;
+			
+            bool isTouchingWire = false;
+            float wireX = 0.0f;
 
-                var areas = WireArea.GetOverlappingAreas();
-                foreach (var area in areas)
+            var areas = WireArea.GetOverlappingAreas();
+            foreach (var area in areas)
+            {
+                if (area.IsInGroup("wire"))
                 {
-                    if (area.IsInGroup("wire"))
-                    {
-                        isTouchingWire = true;
-                        wireX = area.GlobalPosition.X;
-                        break;
-                    }
+                    isTouchingWire = true;
+                    wireX = area.GlobalPosition.X;
+                    break;
                 }
-				if(isTouchingWire)
-				{
-                    Velocity = Vector2.Zero;
-                    velocity = Vector2.Zero;
-					MountWire(wireX);
-                }
-			}
+            }
+			if(isTouchingWire)
+			{
+                Velocity = Vector2.Zero;
+                velocity = Vector2.Zero;
+				MountWire(wireX);
+            }
+			
 		}
 
 		Global global = Global.GetInstance();
@@ -351,35 +332,39 @@ public partial class PlayerController : CharacterBody2D
 	{
 		Vector2 velocity = Velocity;
 
-		if (!Input.IsActionJustPressed("mount"))
+        float upwardsInput = Input.GetAxis("up", "down");
+        float towards = upwardsInput == 0 ? 0 : MaxWireSpeed * upwardsInput;
+        velocity.Y = Mathf.MoveToward(velocity.Y, towards, WireAcceleration * (float)delta);
+        if (Input.IsActionJustReleased("jump") && !JetpackActivated) // Dismount
 		{
-			float upwardsInput = Input.GetAxis("up", "down");
-			float towards = upwardsInput == 0 ? 0 : MaxWireSpeed * upwardsInput;
-			velocity.Y = Mathf.MoveToward(velocity.Y, towards, WireAcceleration * (float)delta);
-		}
-
-		if (Input.IsActionJustReleased("jump"))
-		{
-            float sidewaysInput = Input.GetAxis("left", "right");
-            TimeSinceMountChange = -1;
-			CurrentState = State.Air;
-            velocity += new Vector2(1.0f * sidewaysInput, -0.8f) * DismountBoost;
+			velocity = DismountWire(velocity,1);
         }
 
-		if (GlobalPosition.Y < -15.0f) //Dismount at top
+		if (upwardsInput == 1 && Velocity.Y == 0)
+		{
+			KnockOffWire++;
+			GD.Print(KnockOffWire);
+			if(KnockOffWire >= 2)
+			{
+				velocity = DismountWire(velocity, 0.4f);
+			}
+		}
+		else
+		{
+			KnockOffWire = 0;
+		}
+
+		if (GlobalPosition.Y < -24.5f) // Dismount at top
 		{
 			velocity += new Vector2(1.0f, -0.5f) * 150.0f;
 			TimeSinceMountChange = -1;
 			CurrentState = State.Air;
 		}
 
-		//GD.Print($"Player global position:{}, wirens global position: {wire}");
-
 		Velocity = velocity;
 		MoveAndSlide();
 	}
       
-
 	private void ShowSpecificFrame(string Animation, int frame) {
 		anim.Stop();  // Stop den først
 		anim.Animation = Animation;

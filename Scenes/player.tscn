@@ -562,7 +562,7 @@ WireArea = NodePath("Area2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 z_index = 1
-scale = Vector2(0.600001, 1)
+scale = Vector2(0.4, 1)
 shape = SubResource("RectangleShape2D_fkybt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -571,8 +571,10 @@ shape = SubResource("CapsuleShape2D_f60y1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xuaoq")
-animation = &"jetpack_jump"
+animation = &"climb"
 autoplay = "idle"
+frame = 3
+frame_progress = 0.489179
 
 [node name="Camera2D" type="Camera2D" parent="." groups=["Camera"]]
 zoom = Vector2(5, 5)
