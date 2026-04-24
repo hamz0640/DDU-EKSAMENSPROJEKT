@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://dr7xar404mvkk"]
+
+[ext_resource type="Script" uid="uid://do3ogi7c6uyy7" path="res://Tutorial/TutorialStep.cs" id="1_tv11i"]
+
+[resource]
+script = ExtResource("1_tv11i")
+Title = "Mineral count"
+Description = "This is your mineral count. It shows how many minerals you mined from the ground."
+HighlightPosition = Vector2(20, 230)
+HighlightSize = Vector2(440, 120)
+metadata/_custom_type_script = "uid://do3ogi7c6uyy7"

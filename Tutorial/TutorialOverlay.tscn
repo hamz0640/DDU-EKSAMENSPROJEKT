@@ -1,8 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://dknpouguhqt0x"]
+[gd_scene load_steps=10 format=3 uid="uid://dknpouguhqt0x"]
 
 [ext_resource type="Script" uid="uid://dw2irvw3m3elc" path="res://Tutorial/TutorialManager.cs" id="1_71327"]
-[ext_resource type="Resource" uid="uid://pr4k7ej04tv5" path="res://Tutorial/test.tres" id="2_3cduj"]
-[ext_resource type="Resource" uid="uid://dxykdux5kedm6" path="res://Tutorial/test2.tres" id="3_ulhh6"]
+[ext_resource type="Resource" uid="uid://pr4k7ej04tv5" path="res://Tutorial/Roofturret.tres" id="2_3cduj"]
+[ext_resource type="Resource" uid="uid://dxykdux5kedm6" path="res://Tutorial/ShipDoor.tres" id="3_ulhh6"]
+[ext_resource type="Resource" uid="uid://dr7xar404mvkk" path="res://Tutorial/Minerals.tres" id="4_1x8y3"]
+[ext_resource type="Script" uid="uid://do3ogi7c6uyy7" path="res://Tutorial/TutorialStep.cs" id="5_71327"]
+
+[sub_resource type="Resource" id="Resource_71327"]
+script = ExtResource("5_71327")
+Title = "Ship"
+Description = "This is your main ship, protect it at all cost form enemies and other hostile creatures"
+HighlightPosition = Vector2(600, 20)
+HighlightSize = Vector2(1000, 600)
+metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
+
+[sub_resource type="Resource" id="Resource_a3eon"]
+script = ExtResource("5_71327")
+Title = "Wire"
+Description = "You can go down to the mines using the wire by pressing space"
+HighlightPosition = Vector2(120, 350)
+HighlightSize = Vector2(350, 300)
+metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
+
+[sub_resource type="Resource" id="Resource_mf4nu"]
+resource_name = "UpgradeStation"
+script = ExtResource("5_71327")
+Title = "Upgrade station"
+Description = "You can upgrade your gadets via the upgrade station. To acsess the upgrade station pess E"
+HighlightPosition = Vector2(925, 400)
+HighlightSize = Vector2(180, 160)
+metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
+
+[sub_resource type="Resource" id="Resource_5045t"]
+script = ExtResource("5_71327")
+Title = "Upgrade menu"
+Description = "This is the upgrade menu, here you can buy/or upgrade your gadgets."
+HighlightPosition = Vector2(90, 90)
+HighlightSize = Vector2(1800, 900)
+metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [node name="TutorialManager" type="CanvasLayer"]
 layer = 128
@@ -16,8 +51,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_71327")
-Steps = [ExtResource("2_3cduj"), ExtResource("3_ulhh6")]
-BorderColor = Color(1, 0.517647, 1, 1)
+Steps = [SubResource("Resource_71327"), ExtResource("2_3cduj"), ExtResource("3_ulhh6"), ExtResource("4_1x8y3"), SubResource("Resource_a3eon"), SubResource("Resource_mf4nu"), SubResource("Resource_5045t")]
+OverlayColor = Color(0, 0, 0, 0.558)
+BorderColor = Color(0, 0.9, 1, 1)
+BorderWidth = 6.0
+FadeDuration = 0.9
+StepTransitionDuration = 0.8
 RootPath = NodePath(".")
 InfoBoxPath = NodePath("InfoBox")
 TitleLabelPath = NodePath("InfoBox/MarginContainer/VBoxContainer/TitleLabel")
@@ -27,22 +66,44 @@ SkipButtonPath = NodePath("InfoBox/MarginContainer/VBoxContainer/HBoxContainer/S
 
 [node name="InfoBox" type="Panel" parent="Root"]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -700.0
+offset_top = -271.0
+offset_right = 700.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Root/InfoBox"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 38.0
+offset_top = 14.0
+offset_right = 1338.0
+offset_bottom = 239.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Root/InfoBox/MarginContainer"]
 layout_mode = 2
 
+[node name="TitleLabel" type="Label" parent="Root/InfoBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+
+[node name="DescLabel" type="Label" parent="Root/InfoBox/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 1
+
+[node name="Label" type="Label" parent="Root/InfoBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Root/InfoBox/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 40
 alignment = 2
 
 [node name="NextButton" type="Button" parent="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer"]
@@ -54,15 +115,6 @@ text = "Next"
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 text = "Skip"
-
-[node name="TitleLabel" type="Label" parent="Root/InfoBox/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-
-[node name="DescLabel" type="Label" parent="Root/InfoBox/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-autowrap_mode = 2
 
 [connection signal="pressed" from="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="." method="OnNext"]
 [connection signal="pressed" from="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer/SkipButton" to="." method="OnSkip"]
