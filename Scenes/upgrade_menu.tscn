@@ -9,7 +9,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hr16"]
 bg_color = Color(0.18359, 0.18359, 0.18359, 1)
 
-[node name="UpgradeMenu" type="MarginContainer" node_paths=PackedStringArray("UpgradeList", "UpgradeDescription", "UpgradeBuyCondition", "UpgradeNameTitle")]
+[node name="UpgradeMenu" type="MarginContainer" node_paths=PackedStringArray("UpgradeList", "UpgradeDescription", "UpgradeBuyCondition", "UpgradeNameTitle", "BuyButton")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -24,6 +24,7 @@ UpgradeList = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitCon
 UpgradeDescription = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/DescriptionText")
 UpgradeBuyCondition = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/BuyConditionText")
 UpgradeNameTitle = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/UpgradeName")
+BuyButton = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/VBoxContainer/Button")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2

@@ -20,6 +20,8 @@ public partial class UpgradeMenu : MarginContainer
 	private Label UpgradeBuyCondition = null;
 	[Export]
 	private Label UpgradeNameTitle = null;
+    [Export]
+    private Button BuyButton = null;
 
 	public int SelectedIndex = 0;
 
@@ -59,13 +61,34 @@ public partial class UpgradeMenu : MarginContainer
 			upgradeEntry.Modulate = new Color(0.8f, 0.8f, 0.8f);
 		}
 
-		UpgradeEntry selectedUpgradeEntry = (UpgradeEntry)UpgradeList.GetChild(SelectedIndex);
-		selectedUpgradeEntry.UpgradeName.AddThemeFontSizeOverride("font_size", 45);
-		selectedUpgradeEntry.Modulate = new Color(1, 1, 1);
+		UpgradeEntry selectedUpgrade = (UpgradeEntry)UpgradeList.GetChild(SelectedIndex);
+		selectedUpgrade.UpgradeName.AddThemeFontSizeOverride("font_size", 45);
+		selectedUpgrade.Modulate = new Color(1, 1, 1);
 
-		UpgradeNameTitle.Text = selectedUpgradeEntry.RelatedUpgradeResource.UpgradeName;
-		UpgradeDescription.Text = selectedUpgradeEntry.RelatedUpgradeResource.Description;
-		UpgradeBuyCondition.Text = selectedUpgradeEntry.RelatedUpgradeResource.BuyCondition;
+		UpgradeNameTitle.Text = selectedUpgrade.RelatedUpgradeResource.UpgradeName;
+		UpgradeDescription.Text = selectedUpgrade.RelatedUpgradeResource.Description;
+		UpgradeBuyCondition.Text = selectedUpgrade.RelatedUpgradeResource.BuyCondition;
+
+        if (!selectedUpgrade.RelatedUpgradeResource.CanBuy(GetTree()))
+        {
+            BuyButton.Modulate = new Color(0.2f, 0.2f, 0.2f);
+        }
+        else
+        {
+            if (Input.IsActionJustPressed("jump"))
+            {
+                Global global = Global.GetInstance();
+                uint RedMineralCost = selectedUpgrade.RelatedUpgradeResource.RedMineralAmount;
+                uint PurpleMineralCost = selectedUpgrade.RelatedUpgradeResource.PurpleMineralAmount;
+                uint YellowMineralCost = selectedUpgrade.RelatedUpgradeResource.YellowMineralAmount;
+
+                global.ModifyState("DepositedRedMineralCount", -RedMineralCost);
+                global.ModifyState("DepositedPurpleMineralCount", -PurpleMineralCost);
+                global.ModifyState("DepositedYellowMineralCount", -YellowMineralCost);
+
+                selectedUpgrade.RelatedUpgradeResource.OnBuy(GetTree());
+            }
+        }
     }
 
 

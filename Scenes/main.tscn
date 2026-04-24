@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://wq5het8c2qxr" path="res://Scripts/TurretDoor.cs" id="13_jkdf5"]
 [ext_resource type="Texture2D" uid="uid://bwpditu68il4a" path="res://Assets/RoofTurret/crosshair.png" id="15_k12tt"]
 [ext_resource type="Script" uid="uid://daovwbkwwn7hh" path="res://Scripts/RoofTurret.cs" id="15_wsu2k"]
-[ext_resource type="PackedScene" uid="uid://bvtf3co8npe7t" path="res://Scenes/mine_lid.tscn" id="16_k12tt"]
+[ext_resource type="PackedScene" path="res://Scenes/mine_lid.tscn" id="16_k12tt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k12tt"]
 size = Vector2(24, 38)
