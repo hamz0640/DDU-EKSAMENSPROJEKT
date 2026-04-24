@@ -1,10 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://btcichbg1pnh7"]
+[gd_scene load_steps=15 format=3 uid="uid://btcichbg1pnh7"]
 
 [ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/Bars/EL-bar_empty.png" id="1_m78vo"]
 [ext_resource type="PackedScene" uid="uid://dmik8c7oy1xq1" path="res://Scenes/ShipBar.tscn" id="1_nt8jn"]
 [ext_resource type="Texture2D" uid="uid://unqtwkn0pyeq" path="res://Assets/Bars/EL-bar_full.png" id="2_smcll"]
 [ext_resource type="Script" uid="uid://ct7clapidpt65" path="res://Scripts/EnergyBar.cs" id="3_ryf15"]
-[ext_resource type="Script" uid="uid://cax40dl2of44o" path="res://Scripts/WaveCounterLabel.cs" id="4_ryf15"]
 [ext_resource type="Script" uid="uid://cy7a1nhxc65a7" path="res://Scripts/MineralCounter.cs" id="4_smcll"]
 [ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/Icons/block-out-red-mineral.png" id="5_smcll"]
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="6_ryf15"]
@@ -63,15 +62,6 @@ theme_override_constants/margin_bottom = 4
 custom_minimum_size = Vector2(91, 34)
 layout_mode = 2
 size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="BarAndMinerals"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "00"
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("4_ryf15")
 
 [node name="Minerals" type="HBoxContainer" parent="BarAndMinerals"]
 layout_mode = 2

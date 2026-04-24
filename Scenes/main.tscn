@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=21 format=3 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://j7pn54iqe4ig" path="res://Scenes/wire.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://btcichbg1pnh7" path="res://Scenes/ui.tscn" id="6_21xkr"]
 [ext_resource type="Texture2D" uid="uid://bkr7xjj3ucoke" path="res://Assets/RoofTurret/block-out-barrel.png" id="11_6iyac"]
-[ext_resource type="Script" uid="uid://bep4klwunyd34" path="res://Scripts/EnemySpawner.cs" id="11_d1ilt"]
 [ext_resource type="PackedScene" uid="uid://csyuey7k8y0dm" path="res://Scenes/interactable.tscn" id="12_6iyac"]
 [ext_resource type="Script" uid="uid://wq5het8c2qxr" path="res://Scripts/TurretDoor.cs" id="13_jkdf5"]
 [ext_resource type="Texture2D" uid="uid://bwpditu68il4a" path="res://Assets/RoofTurret/crosshair.png" id="15_k12tt"]
@@ -99,10 +98,6 @@ position = Vector2(177, -80)
 
 [node name="UI" parent="." groups=["UI"] instance=ExtResource("6_21xkr")]
 visible = false
-
-[node name="EnemySpawner" type="Node2D" parent="."]
-position = Vector2(861, -14)
-script = ExtResource("11_d1ilt")
 
 [node name="RoofTurret" type="Sprite2D" parent="." node_paths=PackedStringArray("Crosshair")]
 position = Vector2(208.878, -96.8548)
