@@ -59,11 +59,13 @@ public partial class UpgradeMenu : MarginContainer
 			UpgradeEntry upgradeEntry = (UpgradeEntry)u;
 			upgradeEntry.UpgradeName.AddThemeFontSizeOverride("font_size", 40);
 			upgradeEntry.Modulate = new Color(0.8f, 0.8f, 0.8f);
+            upgradeEntry.Lock();
 		}
 
 		UpgradeEntry selectedUpgrade = (UpgradeEntry)UpgradeList.GetChild(SelectedIndex);
 		selectedUpgrade.UpgradeName.AddThemeFontSizeOverride("font_size", 45);
 		selectedUpgrade.Modulate = new Color(1, 1, 1);
+        selectedUpgrade.Unlock();
 
 		UpgradeNameTitle.Text = selectedUpgrade.RelatedUpgradeResource.UpgradeName;
 		UpgradeDescription.Text = selectedUpgrade.RelatedUpgradeResource.Description;
@@ -72,6 +74,8 @@ public partial class UpgradeMenu : MarginContainer
         Global global = Global.GetInstance();
 
         bool canBuy = selectedUpgrade.RelatedUpgradeResource.CanBuy(GetTree());
+        canBuy = !selectedUpgrade.IsLocked;
+
         uint RedMineralCost = selectedUpgrade.RelatedUpgradeResource.RedMineralAmount;
         uint PurpleMineralCost = selectedUpgrade.RelatedUpgradeResource.PurpleMineralAmount;
         uint YellowMineralCost = selectedUpgrade.RelatedUpgradeResource.YellowMineralAmount;
@@ -123,5 +127,11 @@ public partial class UpgradeMenu : MarginContainer
             UpgradeList.AddChild(upgradeEntry);
             upgradeEntry.RelatedUpgradeResource = upgrade;
         }
+    }
+
+    
+    public void DecideAvailableStock(uint waveNumber)
+    {
+        
     }
 }
