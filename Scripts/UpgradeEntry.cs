@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class UpgradeEntry : PanelContainer
 {
@@ -17,72 +18,19 @@ public partial class UpgradeEntry : PanelContainer
     [Export]
     public Label AmountBought = null;
     public Upgrade RelatedUpgradeResource = null; 
+    public bool IsLocked {get; private set; } = true;
 
-
-    private void _OnButtonPressed()
+    public void Lock()
     {
-        if (!RelatedUpgradeResource.CanBuy(GetTree()))
-        {
-            GD.Print("Attempted to buy " + UpgradeName.Text + " but it was already maxxed");
-            return;
-        }
+        Texture2D lockedImage = GD.Load<Texture2D>("res://Assets/Icons/LockedPadlock.png");
+        Icon.Texture = lockedImage;
+        Icon.Modulate = new Color(0.8f, 0.8f, 0.8f);
+    }
 
-        Global global = Global.GetInstance();
-        
-        uint DepositedRedMineralCount    = global.GetState<uint>("DepositedRedMineralCount");
-        uint DepositedPurpleMineralCount = global.GetState<uint>("DepositedPurpleMineralCount");
-        uint DepositedYellowMineralCount = global.GetState<uint>("DepositedYellowMineralCount");
-
-        uint RequiredRedMineralCount    = RelatedUpgradeResource.RedMineralAmount;
-        uint RequiredPurpleMineralCount = RelatedUpgradeResource.PurpleMineralAmount;
-        uint RequiredYellowMineralCount = RelatedUpgradeResource.YellowMineralAmount;
-
-        if (DepositedRedMineralCount < RequiredRedMineralCount)
-        {
-            GD.Print("Attempted to buy " + UpgradeName.Text + " but didn't have enough red minerals");
-            return;
-        }
-            
-        
-        if (DepositedPurpleMineralCount < RequiredPurpleMineralCount)
-        {
-            GD.Print("Attempted to buy " + UpgradeName.Text + " but didn't have enough purple minerals");
-            return;
-        }
-
-        if (DepositedYellowMineralCount < RequiredYellowMineralCount)
-        {
-            GD.Print("Attempted to buy " + UpgradeName.Text + " but didn't have enough yellow minerals");
-            return;
-        }
-        
-        GD.Print("Bought " + UpgradeName.Text);
-        Tracker tracker = Tracker.GetInstance();
-        tracker.IncrementTracking("UpgradesBought:Total", 1u);
-        tracker.IncrementTracking("UpgradesBought:" + UpgradeName.Text, 1u);
-
-        RelatedUpgradeResource.OnBuy(GetTree());
-        if (RelatedUpgradeResource.MaxBuyAmount == 0)
-        {
-            AmountBought.Text = RelatedUpgradeResource.AmountBought.ToString() + "/∞";
-        } 
-        else
-        {
-            string boughtAmount = RelatedUpgradeResource.AmountBought.ToString();
-            string maxBuyAmount = RelatedUpgradeResource.MaxBuyAmount.ToString();
-            AmountBought.Text = boughtAmount + "/" + maxBuyAmount;
-        }
-
-        uint NewDepositedRedMineralCount    = DepositedRedMineralCount    - RequiredRedMineralCount;
-        uint NewDepositedPurpleMineralCount = DepositedPurpleMineralCount - RequiredPurpleMineralCount;
-        uint NewDepositedYellowMineralCount = DepositedYellowMineralCount - RequiredYellowMineralCount; 
-
-        global.SetState("DepositedRedMineralCount",    NewDepositedRedMineralCount);
-        global.SetState("DepositedPurpleMineralCount", NewDepositedPurpleMineralCount);
-        global.SetState("DepositedYellowMineralCount", NewDepositedYellowMineralCount); 
-
-        global.EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Red,    false]);
-        global.EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Purple, false]);
-        global.EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Yellow, false]);
+    public void Unlock()
+    {
+        Texture2D unlockedImage = GD.Load<Texture2D>("res://Assets/Icons/UnlockedPadlock.png");
+        Icon.Texture = unlockedImage;
+        Icon.Modulate = new Color(1.2f, 1.2f, 1.2f);
     }
 }

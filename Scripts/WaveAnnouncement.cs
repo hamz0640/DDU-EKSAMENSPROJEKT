@@ -24,9 +24,9 @@ public partial class WaveAnnouncement : Control
         WaveManager.GetInstance().WaveStarted += OnWaveStarted;
     }
 
-    private void OnWaveStarted(uint waveNumber) => ShowWave(waveNumber);
+    private void OnWaveStarted() => ShowWave();
 
-    private void ShowWave(uint waveNumber)
+    private void ShowWave()
     {
         Visible = true;
 
