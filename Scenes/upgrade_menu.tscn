@@ -9,7 +9,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hr16"]
 bg_color = Color(0.18359, 0.18359, 0.18359, 1)
 
-[node name="UpgradeMenu" type="MarginContainer" node_paths=PackedStringArray("UpgradeList", "UpgradeDescription", "UpgradeBuyCondition", "UpgradeNameTitle", "BuyButton")]
+[node name="UpgradeMenu" type="MarginContainer" node_paths=PackedStringArray("UpgradeList", "RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "UpgradeDescription", "UpgradeBuyCondition", "UpgradeNameTitle", "BuyButton")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,6 +21,9 @@ theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 script = ExtResource("1_2hr16")
 UpgradeList = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/VBoxContainer/ScrollContainer/UpgradeList")
+RedMineralCount = NodePath("PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer/RedMineralIcon/Label")
+PurpleMineralCount = NodePath("PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer/PurpleMineralIcon/Label")
+YellowMineralCount = NodePath("PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer/YellowMineralCount/Label")
 UpgradeDescription = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/DescriptionText")
 UpgradeBuyCondition = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/BuyConditionText")
 UpgradeNameTitle = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/UpgradeName")

@@ -69,26 +69,34 @@ public partial class UpgradeMenu : MarginContainer
 		UpgradeDescription.Text = selectedUpgrade.RelatedUpgradeResource.Description;
 		UpgradeBuyCondition.Text = selectedUpgrade.RelatedUpgradeResource.BuyCondition;
 
-        if (!selectedUpgrade.RelatedUpgradeResource.CanBuy(GetTree()))
-        {
+        Global global = Global.GetInstance();
+
+        bool canBuy = selectedUpgrade.RelatedUpgradeResource.CanBuy(GetTree());
+        uint RedMineralCost = selectedUpgrade.RelatedUpgradeResource.RedMineralAmount;
+        uint PurpleMineralCost = selectedUpgrade.RelatedUpgradeResource.PurpleMineralAmount;
+        uint YellowMineralCost = selectedUpgrade.RelatedUpgradeResource.YellowMineralAmount;
+
+        if (RedMineralCost > global.GetState<uint>("DepositedRedMineralCount")) canBuy = false;
+        if (PurpleMineralCost > global.GetState<uint>("DepositedPurpleMineralCount")) canBuy = false;
+        if (YellowMineralCost > global.GetState<uint>("DepositedYellowMineralCount")) canBuy = false;
+
+        if (!canBuy)
             BuyButton.Modulate = new Color(0.2f, 0.2f, 0.2f);
-        }
         else
+            BuyButton.Modulate = new Color(1.0f, 1.0f, 1.0f);
+        
+        if (Input.IsActionJustPressed("jump") && canBuy)
         {
-            if (Input.IsActionJustPressed("jump"))
-            {
-                Global global = Global.GetInstance();
-                uint RedMineralCost = selectedUpgrade.RelatedUpgradeResource.RedMineralAmount;
-                uint PurpleMineralCost = selectedUpgrade.RelatedUpgradeResource.PurpleMineralAmount;
-                uint YellowMineralCost = selectedUpgrade.RelatedUpgradeResource.YellowMineralAmount;
+            global.ModifyState("DepositedRedMineralCount", -RedMineralCost);
+            global.ModifyState("DepositedPurpleMineralCount", -PurpleMineralCost);
+            global.ModifyState("DepositedYellowMineralCount", -YellowMineralCost);
 
-                global.ModifyState("DepositedRedMineralCount", -RedMineralCost);
-                global.ModifyState("DepositedPurpleMineralCount", -PurpleMineralCost);
-                global.ModifyState("DepositedYellowMineralCount", -YellowMineralCost);
-
-                selectedUpgrade.RelatedUpgradeResource.OnBuy(GetTree());
-            }
+            selectedUpgrade.RelatedUpgradeResource.OnBuy(GetTree());
         }
+
+        RedMineralCount.Text = "x" + global.GetState<uint>("DepositedRedMineralCount").ToString();
+        PurpleMineralCount.Text = "x" + global.GetState<uint>("DepositedPurpleMineralCount").ToString();
+        YellowMineralCount.Text = "x" + global.GetState<uint>("DepositedYellowMineralCount").ToString();
     }
 
 
