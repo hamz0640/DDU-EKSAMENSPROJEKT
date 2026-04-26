@@ -32,7 +32,7 @@ public partial class PlayerController : CharacterBody2D
 
 	private State CurrentState = State.Ground;
 	private bool JetpackActivated = false;
-
+	private bool IsMining = false;
 	private int TimeSinceMountChange = 0;
 	private bool InTurret = false;
 	private int KnockOffWire = 0;
@@ -80,7 +80,7 @@ public partial class PlayerController : CharacterBody2D
 				tracker.IncrementTracking("Time:OnWire", (float)delta);
 				break;
 		}
-
+		IsMining = false;
 		HandleMine((float)delta);
 		HandleAnimations();
 
@@ -112,7 +112,7 @@ public partial class PlayerController : CharacterBody2D
             else if (Velocity.X == 0.0f)
             {
                 // Check for mining inputs FIRST
-                if (Math.Round(GlobalPosition.Y) != -12 && inputDirection != Vector2.Zero)
+                if (Math.Round(GlobalPosition.Y) != -12 && inputDirection != Vector2.Zero && IsMining)
                 {
                     if (inputDirection.Y == 1)
                     {
@@ -213,10 +213,13 @@ public partial class PlayerController : CharacterBody2D
 			float newTileHealth = tileHealth - miningSpeed * (float)delta;
 
 			if (newTileHealth <= 0.0)
-				ground.BreakTile(miningTilePosition);
+                ground.BreakTile(miningTilePosition);
 			else
 				ground.TileHealth[miningTilePosition] = newTileHealth;
-		}
+
+            if (ground.IsBreakable(miningTilePosition))
+                IsMining = true; // Til ANIMATIONS!
+        }
 
 		EarlyExit:
 			return;
@@ -248,7 +251,7 @@ public partial class PlayerController : CharacterBody2D
 
 		if (Input.IsActionPressed("jump"))
 		{
-			if(!isTouchingWire || Math.Round(GlobalPosition.Y) != -12)
+			if(!isTouchingWire || Math.Round(GlobalPosition.Y) !< -11)
 				velocity.Y -= JumpForce;
 		}
 		if (Input.IsActionJustReleased("jump") && isTouchingWire)
@@ -358,6 +361,8 @@ public partial class PlayerController : CharacterBody2D
 		if (Input.IsActionJustReleased("jump") && !JetpackActivated) // Dismount
 		{
 			velocity = DismountWire(velocity,1);
+			if (velocity.X == 0)
+				velocity.Y = 0;
 		}
 
 		if (upwardsInput == 1 && Velocity.Y == 0)
