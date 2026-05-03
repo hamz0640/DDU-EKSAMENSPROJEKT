@@ -18,6 +18,9 @@ public partial class Global : Node
 
     public override void _Ready()
     {
+        // General
+        State["PlayerCanMove"] = true;
+
         // Jetpack?
         State["CurrentEnergy"] = 100f;
         State["MaxEnergy"]     = 100f;

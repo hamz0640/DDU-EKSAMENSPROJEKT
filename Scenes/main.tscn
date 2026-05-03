@@ -94,10 +94,9 @@ position = Vector2(47, -37)
 player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("3_8gbba")]
-position = Vector2(177, -80)
+position = Vector2(177, -11)
 
 [node name="UI" parent="." groups=["UI"] instance=ExtResource("6_21xkr")]
-visible = false
 
 [node name="RoofTurret" type="Sprite2D" parent="." node_paths=PackedStringArray("Crosshair")]
 position = Vector2(208.878, -96.8548)

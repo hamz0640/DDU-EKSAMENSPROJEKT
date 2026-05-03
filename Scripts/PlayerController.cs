@@ -63,6 +63,10 @@ public partial class PlayerController : CharacterBody2D
 			return;
 		}
 
+		Global global = Global.GetInstance();
+		if (!global.GetState<bool>("PlayerCanMove"))
+			return;
+		
 		HandleTransitions();
 		
 		switch (CurrentState) {
