@@ -53,6 +53,7 @@ layout_mode = 2
 alignment = 2
 
 [node name="RedMineralIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Minerals"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("3_6q7tj")
@@ -71,6 +72,7 @@ horizontal_alignment = 2
 vertical_alignment = 2
 
 [node name="PurpleMineralIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Minerals"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("4_u401c")
@@ -89,6 +91,7 @@ horizontal_alignment = 2
 vertical_alignment = 2
 
 [node name="YellowMineralIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Minerals"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("5_km84g")

@@ -37,6 +37,7 @@ public partial class PlayerController : CharacterBody2D
 	private bool InTurret = false;
 	private int KnockOffWire = 0;
 	enum State { Ground, Air, Wire };
+	private bool InMine = false;
 
 	public override void _Ready()
 	{
@@ -45,6 +46,13 @@ public partial class PlayerController : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (GlobalPosition.Y < 0.0f && InMine)
+		{
+			WaveManager waveManager = WaveManager.GetInstance();
+			waveManager.StartWave();
+		}
+		InMine = GlobalPosition.Y > 0.0f;
+
 		Tracker tracker = Tracker.GetInstance();
 		tracker.IncrementTracking("Time:Total", (float)delta);
 		if (GlobalPosition.Y > 0)

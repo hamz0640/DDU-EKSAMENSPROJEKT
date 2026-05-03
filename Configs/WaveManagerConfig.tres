@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WaveManagerConfig" load_steps=4 format=3 uid="uid://cylprwv1s2sen"]
+
+[ext_resource type="PackedScene" uid="uid://csys4yn3ffj6t" path="res://Scenes/enemy.tscn" id="1_vegvx"]
+[ext_resource type="PackedScene" uid="uid://b60nmo171dh5h" path="res://Scenes/asteroid.tscn" id="2_so260"]
+[ext_resource type="Script" uid="uid://bn6ag2sel40s" path="res://Scripts/WaveManagerConfig.cs" id="3_iqel0"]
+
+[resource]
+script = ExtResource("3_iqel0")
+Weights = Dictionary[PackedScene, float]({
+ExtResource("1_vegvx"): 4.0,
+ExtResource("2_so260"): 1.0
+})
+metadata/_custom_type_script = "uid://bn6ag2sel40s"

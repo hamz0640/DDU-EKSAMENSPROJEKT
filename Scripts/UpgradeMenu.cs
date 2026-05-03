@@ -74,7 +74,6 @@ public partial class UpgradeMenu : MarginContainer
         Global global = Global.GetInstance();
 
         bool canBuy = selectedUpgrade.RelatedUpgradeResource.CanBuy(GetTree());
-        canBuy = !selectedUpgrade.IsLocked;
 
         uint RedMineralCost = selectedUpgrade.RelatedUpgradeResource.RedMineralAmount;
         uint PurpleMineralCost = selectedUpgrade.RelatedUpgradeResource.PurpleMineralAmount;
@@ -88,7 +87,7 @@ public partial class UpgradeMenu : MarginContainer
             BuyButton.Modulate = new Color(0.2f, 0.2f, 0.2f);
         else
             BuyButton.Modulate = new Color(1.0f, 1.0f, 1.0f);
-        
+
         if (Input.IsActionJustPressed("jump") && canBuy)
         {
             global.ModifyState("DepositedRedMineralCount", -RedMineralCost);

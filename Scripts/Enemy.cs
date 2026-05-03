@@ -23,9 +23,6 @@ public partial class Enemy : CharacterBody2D
 		// Spawn = new Vector2(rnd.Next(700, 800), -10);
 		// GlobalPosition = Spawn;
 		// Offset = rnd.Next(0, 60);
-		GD.Print("=== ENEMY DEBUG ===");
-		GD.Print("Enemy Layer: " + CollisionLayer);
-		GD.Print("Enemy Mask: " + CollisionMask);
 	}
 
 	public override void _Process(double delta)
