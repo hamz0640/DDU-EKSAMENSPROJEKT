@@ -30,6 +30,7 @@ public partial class UpgradeMenu : MarginContainer
 
     public override void _Ready()
     {
+        BuyButton.Pressed += OnBuyButtonPressed;
         buy = GetNode<AudioStreamPlayer2D>("BuySound");
 
         Global global = Global.GetInstance();
