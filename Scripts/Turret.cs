@@ -15,8 +15,10 @@ public partial class Turret : CharacterBody2D
 	int EnemiesWithinL = 0;
 	bool FacingR = true;
 	// Called when the node enters the scene tree for the first time.
+	AudioStreamPlayer2D sfx;
 	public override void _Ready()
 	{
+		sfx = GetNode<AudioStreamPlayer2D>("Shot");
 		animator.Pause();
 		GD.Print("Turret spawned");
 		this.Position = new Vector2(100, -SpawnHeight);
@@ -124,6 +126,7 @@ public partial class Turret : CharacterBody2D
 		{
 			QueueFree();
 		}
+		sfx.Play();
 			AddChild(node);
     }
 }
