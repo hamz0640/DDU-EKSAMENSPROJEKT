@@ -49,9 +49,13 @@ public partial class TutorialManager : Control
     // World-space target for the directional arrow on step 11.
     // Set this in the Godot editor or call PointArrowAt() manually.
     [Export] public Vector2 Step11ArrowTarget { get; set; } = new Vector2(50f, 50f);
+    AudioStreamPlayer2D sfx;
 
     public override void _Ready()
     {
+
+        sfx = GetNode<AudioStreamPlayer2D>("Click");
+
         Global global = Global.GetInstance();
         global.SetState("PlayerCanMove", false);
 
@@ -256,6 +260,7 @@ public partial class TutorialManager : Control
 
     private void OnNext()
     {
+        sfx.Play();
         if (CurrentStep >= Steps.Length - 1)
         {
             StopDirectionalArrow();
@@ -296,6 +301,7 @@ public partial class TutorialManager : Control
 
     private void OnSkip()
     {
+        sfx.Play();
         StopDirectionalArrow();
         PlayOutroAnimation(() => { Visible = false; });
     }
