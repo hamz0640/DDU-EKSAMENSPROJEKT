@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="TurretEfficiency" load_steps=2 format=3 uid="uid://byy6502vv50mi"]
+[gd_resource type="Resource" script_class="MainTurretCooling" load_steps=2 format=3 uid="uid://byy6502vv50mi"]
 
 [ext_resource type="Script" uid="uid://d33agqrgvst60" path="res://Configs/UpgradeDefinitions/MainTurretCooling.cs" id="1_bbhpf"]
 

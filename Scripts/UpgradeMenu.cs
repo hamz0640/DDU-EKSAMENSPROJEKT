@@ -91,11 +91,7 @@ public partial class UpgradeMenu : MarginContainer
         if (YellowMineralCost > global.GetState<uint>("DepositedYellowMineralCount")) canBuy = false;
 
         if (!canBuy)
-        {
             BuyButton.Modulate = new Color(0.2f, 0.2f, 0.2f);
-            UserError Error = new UserError();
-            Error.CreateError("Out of funds",5);
-        }
         else
             BuyButton.Modulate = new Color(1.0f, 1.0f, 1.0f);
 
@@ -108,6 +104,11 @@ public partial class UpgradeMenu : MarginContainer
             selectedUpgrade.RelatedUpgradeResource.OnBuy(GetTree());
 
             buy.Play();
+        }
+        else if (Input.IsActionJustPressed("jump"))
+        {
+            ErrorManager.Instance.Notify("Out of funds", 5f);
+            GD.Print("Spawned error because no money");
         }
 
         RedMineralCount.Text = "x" + global.GetState<uint>("DepositedRedMineralCount").ToString();

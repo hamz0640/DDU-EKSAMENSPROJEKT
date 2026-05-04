@@ -4,23 +4,17 @@
 
 [node name="Control" type="Control" node_paths=PackedStringArray("ErrorLabel")]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_2icik")
 ErrorLabel = NodePath("Label")
 
 [node name="Sidebar" type="ColorRect" parent="."]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(0.131632, 0.999835)
 color = Color(1, 1, 0.337255, 1)
 
 [node name="MainBack" type="ColorRect" parent="."]
-layout_mode = 0
 offset_left = 5.0
 offset_right = 45.0
 offset_bottom = 40.0
@@ -28,7 +22,6 @@ scale = Vector2(2.76, 1)
 color = Color(1, 1, 0.592157, 1)
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 0
 offset_left = 7.0
 offset_right = 1156.0
 offset_bottom = 501.0
