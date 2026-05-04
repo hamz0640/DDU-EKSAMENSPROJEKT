@@ -1,50 +1,20 @@
 using Godot;
-using System;
-using System.IO;
 
 public partial class UserError : Control
 {
-	[Export] Label ErrorLabel;
-	public string ErrorText { get; set; }
-    private int ErrorID;
-    private float Time = 2f;
-    private SceneTreeTimer Cooldown = null;
-    Global global = Global.GetInstance();
+    [Export] public Label ErrorLabel;
+    public string ErrorText;
+    public float DisplayTime = 2f;
 
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
-	{
-		ErrorLabel.Text = this.ErrorText;
-        Cooldown = GetTree().CreateTimer(Time);
-
-        
-        this.GlobalPosition = new Vector2(-35, -150); // afhængig af hvor mange.
-
-
-    }
-
-	public override void _Process(double delta)
-	{
-		if (Cooldown.TimeLeft <= 0)
-		{
-            global.SetState("ErrorCount", ErrorID--);
-			QueueFree();
-        }
-	}
-
-    public void CreateError(string message, int time)
     {
-        int errorID = global.GetState<int>("ErrorCount");
-        global.SetState("ErrorCount", errorID++);
+        ErrorLabel.Text = ErrorText;
+        var tween = CreateTween();
+        tween.TweenInterval(DisplayTime);
+        tween.Chain().TweenProperty(this, "modulate:a", 0, 0.5f);
+        tween.TweenCallback(Callable.From(QueueFree));
 
-        var errorScene = GD.Load<PackedScene>("res://Scenes/UserError.tscn");
-
-        var newScene = errorScene.Instantiate<UserError>();
-        newScene.ErrorText = message;
-        newScene.Time = 5;
-        ErrorID = errorID;
-        AddChild(newScene);
+        int count = GetParent().GetChildCount();
+        GlobalPosition = new Vector2(-10, -120 + (count * 60));
     }
-
-    public static UserError Instance { get { return Instance; } } 
 }

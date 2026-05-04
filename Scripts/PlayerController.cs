@@ -43,13 +43,14 @@ public partial class PlayerController : CharacterBody2D
 	private bool FreeDrill = false;
 
 	AudioStreamPlayer2D drilling;
-	string[] MineControls = ["right", "left", "up", "down"];
-	private bool MiningAudio = false;
+	AudioStreamPlayer2D flying;
+	
 	public override void _Ready()
 	{
 		((TurretDoor)GetNode("/root/Main/TurretDoor")).ToggleTurret += OnToggleTurret;
         AddToGroup("player");
 		drilling = GetNode<AudioStreamPlayer2D>("Mining");
+		flying = GetNode<AudioStreamPlayer2D>("Jetpack");
     }
 
 	public override void _PhysicsProcess(double delta)
@@ -183,9 +184,11 @@ public partial class PlayerController : CharacterBody2D
 			}
 			else
 			{
+				if (flying.Playing == false) flying.Play();
 				anim.Play("jetpack_boost");
 			}
 		}
+		if (!JetpackActivated) flying.Stop();
 	}
 
 	private void HandleTransitions()
@@ -255,7 +258,7 @@ public partial class PlayerController : CharacterBody2D
 
             if (ground.IsBreakable(miningTilePosition))
                 IsMining = true; // Til ANIMATIONS!
-				MiningAudio = false;
+				
         }
 
 		EarlyExit:

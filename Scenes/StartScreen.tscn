@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkb7hd570xjo1"]
+[gd_scene load_steps=3 format=3 uid="uid://dkb7hd570xjo1"]
 
 [ext_resource type="Script" uid="uid://b11y7l2qrhrer" path="res://Scripts/StartScreen.cs" id="1_ko4ly"]
+[ext_resource type="AudioStream" uid="uid://cuib14d4xhfya" path="res://Assets/Others/blipSelect.wav" id="2_0on6r"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -31,3 +32,6 @@ text = "Start"
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "Quit"
+
+[node name="Select" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_0on6r")
