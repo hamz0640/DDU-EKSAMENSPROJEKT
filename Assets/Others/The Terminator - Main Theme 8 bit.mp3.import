@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b1d8niw7kpylq"
+path="res://.godot/imported/The Terminator - Main Theme 8 bit.mp3-81cca387662ac61d9b3ccc8c791d9e64.mp3str"
+
+[deps]
+
+source_file="res://Assets/Others/The Terminator - Main Theme 8 bit.mp3"
+dest_files=["res://.godot/imported/The Terminator - Main Theme 8 bit.mp3-81cca387662ac61d9b3ccc8c791d9e64.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
