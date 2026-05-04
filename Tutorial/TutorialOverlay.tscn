@@ -25,9 +25,9 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 [sub_resource type="Resource" id="Resource_87rfo"]
 script = ExtResource("5_71327")
 Title = "Shield"
-Description = "This is your base shield, it protects you from enemies and asteroids, but be aware that it can be destroyed"
-HighlightPosition = Vector2(177, -11)
-HighlightSize = Vector2(100, 100)
+Description = "This is your energy. If you run out, you die :c"
+HighlightPosition = Vector2(4, 130)
+HighlightSize = Vector2(300, 120)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_a3eon"]
