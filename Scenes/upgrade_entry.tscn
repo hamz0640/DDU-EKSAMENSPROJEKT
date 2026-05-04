@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="4_u401c"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="5_km84g"]
 
-[node name="UpgradeEntry" type="PanelContainer" node_paths=PackedStringArray("RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "RedMineralIcon", "PurpleMineralIcon", "YellowMineralIcon", "UpgradeName", "Icon")]
+[node name="UpgradeEntry" type="PanelContainer" node_paths=PackedStringArray("RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "RedMineralIcon", "PurpleMineralIcon", "YellowMineralIcon", "ClickDetect", "UpgradeName", "Icon")]
 offset_right = 40.0
 offset_bottom = 40.0
 size_flags_horizontal = 3
@@ -17,6 +17,7 @@ YellowMineralCount = NodePath("MarginContainer/HBoxContainer/Minerals/YellowMine
 RedMineralIcon = NodePath("MarginContainer/HBoxContainer/Minerals/RedMineralIcon")
 PurpleMineralIcon = NodePath("MarginContainer/HBoxContainer/Minerals/PurpleMineralIcon")
 YellowMineralIcon = NodePath("MarginContainer/HBoxContainer/Minerals/YellowMineralIcon")
+ClickDetect = NodePath("Button")
 UpgradeName = NodePath("MarginContainer/HBoxContainer/UpgradeName")
 Icon = NodePath("MarginContainer/HBoxContainer/UpgradeIcon")
 
@@ -108,3 +109,7 @@ grow_vertical = 2
 text = "x0"
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2

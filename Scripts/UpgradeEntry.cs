@@ -10,6 +10,7 @@ public partial class UpgradeEntry : PanelContainer
     [Export] public TextureRect RedMineralIcon = null;
     [Export] public TextureRect PurpleMineralIcon = null;
     [Export] public TextureRect YellowMineralIcon = null;
+    [Export] public Button ClickDetect = null;
 
     [Export]
     public Label UpgradeName = null;
