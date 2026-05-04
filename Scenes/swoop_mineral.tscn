@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6wb11p3pwp5w"]
+
+[ext_resource type="Script" uid="uid://gbx6i7qlwkpw" path="res://Scripts/SwoopMineral.cs" id="1_3f41g"]
+
+[node name="SwoopMineral" type="CharacterBody2D"]
+script = ExtResource("1_3f41g")

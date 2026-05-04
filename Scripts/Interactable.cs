@@ -9,14 +9,19 @@ public partial class Interactable : Area2D
     public delegate void InteractEventHandler();
     [Export]
     string InputActionName = "interact";
-    private bool IsPlayerInInteractableArea = false;
+    [Export]
+    bool ActivateOnTouch = false;
+    public bool IsPlayerInInteractableArea { get; private set; } = false;
 
 
     public override void _Ready()
     {
         BodyEntered += (body) =>
         {
-            if (body is PlayerController) IsPlayerInInteractableArea = true;
+            if (body is PlayerController) {
+                IsPlayerInInteractableArea = true;
+                if (ActivateOnTouch) EmitSignal(SignalName.Interact);
+            };
         };
 
         BodyExited += (body) =>
@@ -28,7 +33,7 @@ public partial class Interactable : Area2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (!(Input.IsActionJustPressed(InputActionName) && IsPlayerInInteractableArea))
+        if (!(Input.IsActionJustPressed(InputActionName) && IsPlayerInInteractableArea) || ActivateOnTouch)
             return;
         
         Camera2D camera = (Camera2D)GetTree().GetFirstNodeInGroup("Camera");

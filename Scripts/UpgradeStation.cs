@@ -2,6 +2,9 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 public partial class UpgradeStation : Node2D
 {
@@ -46,30 +49,59 @@ public partial class UpgradeStation : Node2D
         UpgradeMenu.SelectedIndex = 0;
     }
 
-    private void DepositMinerals()
+    async private void DepositMinerals()
     {
         Global global = Global.GetInstance();
+        var swooop = async () =>
+        {
+            while (true)
+            {
+                await Task.Delay(100);
+                uint redMineralCount = global.GetState<uint>("RedMineralCount");
+                uint purpleMineralCount = global.GetState<uint>("PurpleMineralCount");
+                uint yellowMineralCount = global.GetState<uint>("YellowMineralCount");
 
-        uint redMineralCount    = global.GetState<uint>("RedMineralCount");
-        uint purpleMineralCount = global.GetState<uint>("PurpleMineralCount");
-        uint yellowMineralCount = global.GetState<uint>("YellowMineralCount");
+                if (redMineralCount + purpleMineralCount + yellowMineralCount == 0)
+                    return;
+                
+                if (redMineralCount > 0)
+                {
+                    global.ModifyState("RedMineralCount", -1);
+                    SwoopMineral(Mineral.MineralType.Red);
+                    global.EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Red, false]);
+                    global.ModifyState("DepositedRedMineralCount", 1);
+                }
+                else if (purpleMineralCount > 0)
+                {
+                    global.ModifyState("PurpleMineralCount", -1);
+                    SwoopMineral(Mineral.MineralType.Purple);
+                    global.EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Purple, false]);
+                    global.ModifyState("DepositedPurpleMineralCount", 1);
+                }
+                else if (yellowMineralCount > 0)
+                {
+                    SwoopMineral(Mineral.MineralType.Yellow);
+                    global.ModifyState("YellowMineralCount", -1);
+                    global.EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Yellow, false]);
+                    global.ModifyState("DepositedYellowMineralCount", 1);
+                }
+            }
+        };
 
-        uint depositedRedMineralCount    = global.GetState<uint>("DepositedRedMineralCount");
-        uint depositedPurpleMineralCount = global.GetState<uint>("DepositedPurpleMineralCount");
-        uint depositedYellowMineralCount = global.GetState<uint>("DepositedYellowMineralCount");
+        swooop();
+    }
 
-        global.SetState("DepositedRedMineralCount",    depositedRedMineralCount    + redMineralCount);
-        global.SetState("DepositedPurpleMineralCount", depositedPurpleMineralCount + purpleMineralCount);
-        global.SetState("DepositedYellowMineralCount", depositedYellowMineralCount + yellowMineralCount);
+    private void SwoopMineral(Mineral.MineralType mineralType)
+    {
+        Camera2D camera = (Camera2D)GetTree().GetFirstNodeInGroup("Camera");
 
-        global.SetState<uint>("RedMineralCount", 0);
-        global.SetState<uint>("PurpleMineralCount", 0);
-        global.SetState<uint>("YellowMineralCount", 0);
+        SwoopMineral swoopMineral = new SwoopMineral();
+        
+        swoopMineral.SetMineralType(mineralType);
+        swoopMineral.GlobalPosition = camera.GlobalPosition;
+        swoopMineral.Velocity = InputChute.GlobalPosition - camera.GlobalPosition;
+        swoopMineral.ZIndex = 1000;
 
-        global.SetState<uint>("TotalMineralCount", 0);
-
-        global.EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Red,    false]);
-        global.EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Purple, false]);
-        global.EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Yellow, false]);
+        GetTree().Root.AddChild(swoopMineral);
     }
 }
