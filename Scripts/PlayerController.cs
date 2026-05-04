@@ -40,6 +40,7 @@ public partial class PlayerController : CharacterBody2D
 	private int KnockOffWire = 0;
 	enum State { Ground, Air, Wire };
 	private bool HasBeenInMine = false;
+	private bool HasBeenAboveGround = false;
 	private bool FreeDrill = false;
 
 	AudioStreamPlayer2D drilling;
@@ -60,8 +61,17 @@ public partial class PlayerController : CharacterBody2D
 			WaveManager waveManager = WaveManager.GetInstance();
 			waveManager.StartWave();
 			HasBeenInMine = false;
+			HasBeenAboveGround = false;
+		}
+		if (HasBeenAboveGround && GlobalPosition.Y > 0.0f)
+		{
+			WaveManager waveManager = WaveManager.GetInstance();
+			waveManager.StartWave();
+			HasBeenInMine = false;
+			HasBeenAboveGround = false;
 		}
 		HasBeenInMine = HasBeenInMine || GlobalPosition.Y > 0.0f;
+		HasBeenAboveGround = HasBeenInMine && GlobalPosition.Y < 0.0f;
 
 		Tracker tracker = Tracker.GetInstance();
 		tracker.IncrementTracking("Time:Total", (float)delta);
@@ -168,7 +178,10 @@ public partial class PlayerController : CharacterBody2D
                     
             }
             else
+			{
 				ShowSpecificFrame("acceleration", (int)(Mathf.Abs(Velocity.X) / (MaxSpeed / 5.0)));
+				drilling.Stop();
+			}		
 		}
 
 		if (CurrentState == State.Wire)

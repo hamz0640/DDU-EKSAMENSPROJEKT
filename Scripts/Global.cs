@@ -32,7 +32,6 @@ public partial class Global : Node
 
 
         // ===== Stats =====
-        State["MaxInventorySpace"] = 10;
         State["MiningSpeed"] = 0.5f;
         State["Fortune"] = 1.0f;
 

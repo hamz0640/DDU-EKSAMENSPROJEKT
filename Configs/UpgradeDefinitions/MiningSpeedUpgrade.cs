@@ -13,9 +13,5 @@ public partial class MiningSpeedUpgrade : Upgrade
         float newMiningSpeed = currentMiningSpeed * 1.15f;
 
         global.SetState("MiningSpeed", newMiningSpeed);
-        RedMineralAmount = RedMineralAmount+2;
-        YellowMineralAmount++;
-        PurpleMineralAmount++;
-
     }
 }
