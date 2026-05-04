@@ -53,6 +53,9 @@ public partial class UpgradeMenu : MarginContainer
 
     public override void _PhysicsProcess(double delta)
     {
+        if (!Visible)
+            return;
+
         if (Input.IsActionJustReleased("up")) SelectedIndex -= 1;
 		if (Input.IsActionJustReleased("down")) SelectedIndex += 1;
 
