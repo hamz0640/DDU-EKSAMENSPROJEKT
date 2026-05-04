@@ -12,10 +12,13 @@ public partial class RoofTurret : Sprite2D
     private float TurretVelocity = 0.0f;
     private float MaxTurretVelocity = 2.0f;
     private float TurretAcceleration = 5.0f;
+    AudioStreamPlayer2D sfx;
     public override void _Ready()
     {
         Cooldown = GetTree().CreateTimer(2.0f);
+        sfx = GetNode<AudioStreamPlayer2D>("Shot");
         ((TurretDoor)GetNode("/root/Main/TurretDoor")).ToggleTurret += OnToggleTurret;
+
     }
 
 
@@ -73,7 +76,7 @@ public partial class RoofTurret : Sprite2D
             tween.SetEase(Tween.EaseType.InOut);
             tween.SetTrans(Tween.TransitionType.Linear);
             tween.TweenProperty(this, "offset", new Vector2(30, 0), 1.8f);
-
+            sfx.Play();
             GetTree().Root.AddChild(bullet);
         }
     }
