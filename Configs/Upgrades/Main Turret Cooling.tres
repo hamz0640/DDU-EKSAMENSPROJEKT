@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TurretEfficiency" load_steps=2 format=3 uid="uid://byy6502vv50mi"]
 
-[ext_resource type="Script" uid="uid://db8tmi252sx6v" path="res://Configs/UpgradeDefinitions/TurretEfficiency.cs" id="1_bbhpf"]
+[ext_resource type="Script" uid="uid://d33agqrgvst60" path="res://Configs/UpgradeDefinitions/MainTurretCooling.cs" id="1_bbhpf"]
 
 [resource]
 script = ExtResource("1_bbhpf")
