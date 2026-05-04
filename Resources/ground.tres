@@ -435,7 +435,7 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m0mrx"]
 texture = ExtResource("2_ujj56")
-texture_region_size = Vector2i(32, 32)
+texture_region_size = Vector2i(32, 29)
 0:0/size_in_atlas = Vector2i(10, 4)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(-16, 16)
@@ -453,5 +453,5 @@ terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "ground"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_aiaad")
-sources/1 = SubResource("TileSetAtlasSource_m0mrx")
 sources/2 = SubResource("TileSetAtlasSource_ggrwy")
+sources/1 = SubResource("TileSetAtlasSource_m0mrx")
