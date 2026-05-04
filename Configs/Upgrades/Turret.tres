@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_rvy5f")
-RedMineralAmount = 0
-PurpleMineralAmount = 1
+RedMineralAmount = 1
+PurpleMineralAmount = 2
 YellowMineralAmount = 0
 MaxBuyAmount = 0
 Description = "Drops a turret from the sky, that shoots enemies on sight"

@@ -56,8 +56,10 @@ public partial class Global : Node
         State["CurrentShipHealth"] = 100.0f;
 
         // Upgrades
-        State["TurretEfficiency"] = 1.0f;
+        State["MainTurretCooling"] = 1.0f;
         State["FreeDrill"] = false;
+
+        State["ErrorCount"] = 0;
     }
 
 

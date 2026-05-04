@@ -25,9 +25,9 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 [sub_resource type="Resource" id="Resource_87rfo"]
 script = ExtResource("5_71327")
 Title = "Shield"
-Description = "This is your base shield, it protects you from enemies and asteroids, but be aware that it can be destroyed"
-HighlightPosition = Vector2(177, -11)
-HighlightSize = Vector2(100, 100)
+Description = "This is your energy. If you run out, you die :c"
+HighlightPosition = Vector2(4, 130)
+HighlightSize = Vector2(300, 120)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_a3eon"]
@@ -58,15 +58,15 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 [sub_resource type="Resource" id="Resource_0lbe4"]
 script = ExtResource("5_71327")
 Title = "Drill Upgrade"
-Description = "Start by purchasing the drill upgrade so you can get minerals my nigga"
-HighlightPosition = Vector2(115, 205)
+Description = "Start by purchasing the drill upgrade so you can get minerals"
+HighlightPosition = Vector2(115, 285)
 HighlightSize = Vector2(1400, 100)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_jylwr"]
 script = ExtResource("5_71327")
 Title = "Wave"
-Description = "Wave system bla bla bla"
+Description = "When you return from a mining trip, you can buy upgrades. After buying upgrades, enter the turret to start the next wave"
 HighlightPosition = Vector2(0, 0)
 HighlightSize = Vector2(0, 0)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
@@ -74,7 +74,7 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 [sub_resource type="Resource" id="Resource_ec2ee"]
 script = ExtResource("5_71327")
 Title = "Mine "
-Description = "Start by mining some mineral"
+Description = "Start by purchasing the drill, and mining some minerals"
 HighlightPosition = Vector2(0, 0)
 HighlightSize = Vector2(100, 100)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"

@@ -39,7 +39,7 @@ public partial class PlayerController : CharacterBody2D
 	private bool InTurret = false;
 	private int KnockOffWire = 0;
 	enum State { Ground, Air, Wire };
-	private bool InMine = false;
+	private bool HasBeenInMine = false;
 	private bool FreeDrill = false;
 
 	AudioStreamPlayer2D drilling;
@@ -54,12 +54,13 @@ public partial class PlayerController : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (GlobalPosition.Y < 0.0f && InMine)
+		if (GlobalPosition.Y < 0.0f && HasBeenInMine && InTurret)
 		{
 			WaveManager waveManager = WaveManager.GetInstance();
 			waveManager.StartWave();
+			HasBeenInMine = false;
 		}
-		InMine = GlobalPosition.Y > 0.0f;
+		HasBeenInMine = HasBeenInMine || GlobalPosition.Y > 0.0f;
 
 		Tracker tracker = Tracker.GetInstance();
 		tracker.IncrementTracking("Time:Total", (float)delta);

@@ -53,6 +53,9 @@ public partial class UpgradeMenu : MarginContainer
 
     public override void _PhysicsProcess(double delta)
     {
+        if (!Visible)
+            return;
+
         if (Input.IsActionJustReleased("up")) SelectedIndex -= 1;
 		if (Input.IsActionJustReleased("down")) SelectedIndex += 1;
 
@@ -88,7 +91,11 @@ public partial class UpgradeMenu : MarginContainer
         if (YellowMineralCost > global.GetState<uint>("DepositedYellowMineralCount")) canBuy = false;
 
         if (!canBuy)
+        {
             BuyButton.Modulate = new Color(0.2f, 0.2f, 0.2f);
+            UserError Error = new UserError();
+            Error.CreateError("Out of funds",5);
+        }
         else
             BuyButton.Modulate = new Color(1.0f, 1.0f, 1.0f);
 
