@@ -102,9 +102,15 @@ public partial class WaveManager : Node
 		Node node = scene.Instantiate();
 		if (node is Enemy)
 		{
-			GD.Print("Spawned enemy");
 			Enemy enemy = (Enemy)GD.Load<PackedScene>("res://Scenes/enemy.tscn").Instantiate();
 			GetTree().Root.AddChild(enemy);
+            if (SpawnIndex % 2 == 0)
+            {
+                enemy.GlobalPosition = new Vector2(1000, -15);
+                enemy.SetSpawnSide(true);
+            }
+            else
+                enemy.GlobalPosition = new Vector2(-500, -15);
 		}
 		
 		if (node is Asteroid)

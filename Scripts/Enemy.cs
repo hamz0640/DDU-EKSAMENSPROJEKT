@@ -102,6 +102,7 @@ public partial class Enemy : CharacterBody2D
 	{
 		if (spawnRight)
 		{
+			animation.FlipH = true;
 			Spawn = new Vector2(rnd.Next(700, 800), -10);
 			Speed = -Math.Abs(Speed); // move left
 		}
