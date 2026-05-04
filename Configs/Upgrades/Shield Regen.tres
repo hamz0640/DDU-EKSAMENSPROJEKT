@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ShieldRegenUpgrade" load_steps=2 format=3 uid="uid://dh6gy5arqarqy"]
+[gd_resource type="Resource" script_class="ShieldRegenUpgrade" load_steps=3 format=3 uid="uid://pwtonf5lkig1"]
 
+[ext_resource type="Texture2D" uid="uid://dt113ul837h7c" path="res://Assets/UpgradeIcons/Regen.png" id="1_3sufv"]
 [ext_resource type="Script" uid="uid://cepdtgr7vvefx" path="res://Configs/UpgradeDefinitions/ShieldRegenUpgrade.cs" id="1_ax80j"]
 
 [resource]
@@ -10,4 +11,5 @@ YellowMineralAmount = 1
 MaxBuyAmount = 0
 Description = "Regenerates a small amount of shield health, at the start of each wave"
 BuyCondition = "None"
+UpgradeIcon = ExtResource("1_3sufv")
 metadata/_custom_type_script = "uid://cepdtgr7vvefx"

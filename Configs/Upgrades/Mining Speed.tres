@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="MiningSpeedUpgrade" load_steps=2 format=3 uid="uid://chm6ire2b12r"]
+[gd_resource type="Resource" script_class="MiningSpeedUpgrade" load_steps=3 format=3 uid="uid://cf5re2yi5kkm8"]
 
 [ext_resource type="Script" uid="uid://d2it48brbmpv8" path="res://Configs/UpgradeDefinitions/MiningSpeedUpgrade.cs" id="1_cbk7w"]
+[ext_resource type="Texture2D" uid="uid://he4wa2ukswsi" path="res://Assets/UpgradeIcons/speed.png" id="1_efp4j"]
 
 [resource]
 script = ExtResource("1_cbk7w")
@@ -10,4 +11,5 @@ YellowMineralAmount = 0
 MaxBuyAmount = 5
 Description = "Increases the rate at which minerals and dirt is excavated"
 BuyCondition = "Max 5 can be bought"
+UpgradeIcon = ExtResource("1_efp4j")
 metadata/_custom_type_script = "uid://d2it48brbmpv8"
