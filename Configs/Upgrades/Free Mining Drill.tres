@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="FreeDrill" load_steps=2 format=3 uid="uid://ddi37nybdnoun"]
+[gd_resource type="Resource" script_class="FreeDrill" load_steps=3 format=3 uid="uid://dth1ff2dei7gg"]
 
+[ext_resource type="Texture2D" uid="uid://bvypmoecpuh1v" path="res://Assets/UpgradeIcons/mine drill.png" id="1_kn7ln"]
 [ext_resource type="Script" uid="uid://ds7bckso50dhq" path="res://Configs/UpgradeDefinitions/FreeDrill.cs" id="1_u6d3f"]
 
 [resource]
@@ -10,3 +11,4 @@ YellowMineralAmount = 0
 MaxBuyAmount = 1
 Description = "Your very first drill, free of charge to get you going."
 BuyCondition = "Be a noob"
+UpgradeIcon = ExtResource("1_kn7ln")

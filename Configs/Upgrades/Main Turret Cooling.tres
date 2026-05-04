@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="MainTurretCooling" load_steps=2 format=3 uid="uid://dvh8ba7fll45s"]
+[gd_resource type="Resource" script_class="MainTurretCooling" load_steps=3 format=3 uid="uid://dvh8ba7fll45s"]
 
 [ext_resource type="Script" uid="uid://d33agqrgvst60" path="res://Configs/UpgradeDefinitions/MainTurretCooling.cs" id="1_gssay"]
+[ext_resource type="Texture2D" uid="uid://dkhmusvrc7v20" path="res://Assets/UpgradeIcons/Cooldown.png" id="1_wu3a8"]
 
 [resource]
 script = ExtResource("1_gssay")
@@ -10,3 +11,4 @@ YellowMineralAmount = 3
 MaxBuyAmount = 6
 Description = "Decreases the reload time of the turret by 10%"
 BuyCondition = "None"
+UpgradeIcon = ExtResource("1_wu3a8")
