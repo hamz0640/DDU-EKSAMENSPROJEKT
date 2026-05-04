@@ -29,33 +29,13 @@ offset_right = 120.0
 offset_bottom = 86.0
 scale = Vector2(3, 3)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BarAndMinerals"]
-layout_mode = 2
-
-[node name="EnergyBar" type="MarginContainer" parent="BarAndMinerals/HBoxContainer"]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="EnergyBar" type="TextureProgressBar" parent="BarAndMinerals/HBoxContainer/EnergyBar" groups=["energy_bar"]]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-size_flags_vertical = 0
-texture_under = ExtResource("1_m78vo")
-texture_progress = ExtResource("2_smcll")
-script = ExtResource("3_ryf15")
-
 [node name="Minerals" type="HBoxContainer" parent="BarAndMinerals"]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="BarAndMinerals/Minerals" node_paths=PackedStringArray("MineralImage", "NumberLabel")]
 layout_mode = 2
 theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 0
+theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 0
 script = ExtResource("4_smcll")
@@ -80,7 +60,7 @@ vertical_alignment = 2
 [node name="MarginContainer2" type="MarginContainer" parent="BarAndMinerals/Minerals" node_paths=PackedStringArray("MineralImage", "NumberLabel")]
 layout_mode = 2
 theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 0
+theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 0
 script = ExtResource("4_smcll")
@@ -106,7 +86,7 @@ vertical_alignment = 2
 [node name="MarginContainer3" type="MarginContainer" parent="BarAndMinerals/Minerals" node_paths=PackedStringArray("MineralImage", "NumberLabel")]
 layout_mode = 2
 theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 0
+theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 0
 script = ExtResource("4_smcll")
@@ -128,6 +108,27 @@ grow_vertical = 2
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BarAndMinerals"]
+layout_mode = 2
+
+[node name="EnergyBar" type="MarginContainer" parent="BarAndMinerals/HBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="EnergyBar" type="TextureProgressBar" parent="BarAndMinerals/HBoxContainer/EnergyBar" groups=["energy_bar"]]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_vertical = 0
+texture_under = ExtResource("1_m78vo")
+texture_progress = ExtResource("2_smcll")
+script = ExtResource("3_ryf15")
 
 [node name="Control" type="Control" parent="." node_paths=PackedStringArray("TopDeathSlider", "BottomDeathSlider", "DeathMessage")]
 layout_mode = 3
