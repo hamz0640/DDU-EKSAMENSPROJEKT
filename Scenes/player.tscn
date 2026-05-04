@@ -1,4 +1,4 @@
-[gd_scene load_steps=127 format=3 uid="uid://b4nfhud4df0d"]
+[gd_scene load_steps=128 format=3 uid="uid://b4nfhud4df0d"]
 
 [ext_resource type="Script" uid="uid://ctijk7g5hnmqw" path="res://Scripts/PlayerController.cs" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://dn52ab5uy1yce" path="res://Assets/Player/MonoWheelRobotAccelerateSide.png" id="2_vgqql"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bcs877qse0ymq" path="res://Assets/Player/MonoWheelRobotMineSide.png" id="10_ukyrk"]
 [ext_resource type="Texture2D" uid="uid://0sj88qgcpy2r" path="res://Assets/Player/MonoWheelRobotMineUp.png" id="11_7dp3o"]
 [ext_resource type="AudioStream" uid="uid://b5uo7v86gvpre" path="res://Assets/Others/freesound_community-digging-6691.mp3" id="13_ukyrk"]
+[ext_resource type="AudioStream" uid="uid://r85dv5thwq0u" path="res://Assets/Others/freesound_community-thrusters_loopwav-14699.mp3" id="14_7dp3o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
 size = Vector2(74.625, 2)
@@ -904,3 +905,6 @@ target_position = Vector2(-2.24386e-27, -8)
 
 [node name="Mining" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("13_ukyrk")
+
+[node name="Jetpack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_7dp3o")
