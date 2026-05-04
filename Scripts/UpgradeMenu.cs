@@ -33,6 +33,7 @@ private TextureRect UpgradeIconImage = null;
 
     public override void _Ready()
     {
+        BuyButton.Pressed += OnBuyButtonPressed;
         buy = GetNode<AudioStreamPlayer2D>("BuySound");
 
         Global global = Global.GetInstance();
@@ -90,21 +91,22 @@ private TextureRect UpgradeIconImage = null;
         Global global = Global.GetInstance();
 
         bool canBuy = selectedUpgrade.RelatedUpgradeResource.CanBuy(GetTree());
+        bool canAfford = true;
 
         uint RedMineralCost = selectedUpgrade.RelatedUpgradeResource.RedMineralAmount;
         uint PurpleMineralCost = selectedUpgrade.RelatedUpgradeResource.PurpleMineralAmount;
         uint YellowMineralCost = selectedUpgrade.RelatedUpgradeResource.YellowMineralAmount;
 
-        if (RedMineralCost > global.GetState<uint>("DepositedRedMineralCount")) canBuy = false;
-        if (PurpleMineralCost > global.GetState<uint>("DepositedPurpleMineralCount")) canBuy = false;
-        if (YellowMineralCost > global.GetState<uint>("DepositedYellowMineralCount")) canBuy = false;
+        if (RedMineralCost > global.GetState<uint>("DepositedRedMineralCount")) canAfford = false;
+        if (PurpleMineralCost > global.GetState<uint>("DepositedPurpleMineralCount")) canAfford = false;
+        if (YellowMineralCost > global.GetState<uint>("DepositedYellowMineralCount")) canAfford = false;
 
-        if (!canBuy)
+        if (!canBuy && !canAfford)
             BuyButton.Modulate = new Color(0.2f, 0.2f, 0.2f);
         else
             BuyButton.Modulate = new Color(1.0f, 1.0f, 1.0f);
 
-        if (Input.IsActionJustPressed("jump") && canBuy)
+        if (Input.IsActionJustPressed("jump") && canBuy && canAfford)
         {
             global.ModifyState("DepositedRedMineralCount", -RedMineralCost);
             global.ModifyState("DepositedPurpleMineralCount", -PurpleMineralCost);
@@ -116,8 +118,10 @@ private TextureRect UpgradeIconImage = null;
         }
         else if (Input.IsActionJustPressed("jump"))
         {
-            ErrorManager.Instance.Notify("Out of funds", 5f);
-            GD.Print("Spawned error because no money");
+            if (!canBuy)
+                ErrorManager.Instance.Notify("Max amount already\npurchased", 5f);
+            if (!canAfford)
+                ErrorManager.Instance.Notify("Out of funds, mine\nsome minerals", 5f);
         }
 
         RedMineralCount.Text = "x" + global.GetState<uint>("DepositedRedMineralCount").ToString();
@@ -148,6 +152,11 @@ private TextureRect UpgradeIconImage = null;
 
             UpgradeList.AddChild(upgradeEntry);
             upgradeEntry.RelatedUpgradeResource = upgrade;
+
+            upgradeEntry.ClickDetect.Pressed += () =>
+            {
+                HandleSelectedClick(upgradeEntry);
+            };
         }
     }
 
@@ -155,5 +164,45 @@ private TextureRect UpgradeIconImage = null;
     public void DecideAvailableStock(uint waveNumber)
     {
         
+    }
+
+    public void OnBuyButtonPressed()
+    {
+        Global global = Global.GetInstance();
+        UpgradeEntry selectedUpgrade = (UpgradeEntry)UpgradeList.GetChild(SelectedIndex);
+
+        bool canBuy = selectedUpgrade.RelatedUpgradeResource.CanBuy(GetTree());
+        bool canAfford = true;
+
+        uint RedMineralCost = selectedUpgrade.RelatedUpgradeResource.RedMineralAmount;
+        uint PurpleMineralCost = selectedUpgrade.RelatedUpgradeResource.PurpleMineralAmount;
+        uint YellowMineralCost = selectedUpgrade.RelatedUpgradeResource.YellowMineralAmount;
+
+        if (RedMineralCost > global.GetState<uint>("DepositedRedMineralCount")) canAfford = false;
+        if (PurpleMineralCost > global.GetState<uint>("DepositedPurpleMineralCount")) canAfford = false;
+        if (YellowMineralCost > global.GetState<uint>("DepositedYellowMineralCount")) canAfford = false;
+
+        if (canBuy && canAfford)
+        {
+            global.ModifyState("DepositedRedMineralCount", -RedMineralCost);
+            global.ModifyState("DepositedPurpleMineralCount", -PurpleMineralCost);
+            global.ModifyState("DepositedYellowMineralCount", -YellowMineralCost);
+            
+            selectedUpgrade.RelatedUpgradeResource.OnBuy(GetTree());
+
+            buy.Play();
+        } 
+        else
+        {
+            if (!canBuy)
+                ErrorManager.Instance.Notify("Max amount already\npurchased", 5f);
+            if (!canAfford)
+                ErrorManager.Instance.Notify("Out of funds, mine\nsome minerals", 5f);
+        }
+    }
+
+    public void HandleSelectedClick(UpgradeEntry upgradeEntry)
+    {
+        SelectedIndex = UpgradeList.GetChildren().IndexOf(upgradeEntry);
     }
 }
