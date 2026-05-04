@@ -42,10 +42,14 @@ public partial class PlayerController : CharacterBody2D
 	private bool InMine = false;
 	private bool FreeDrill = false;
 
+	AudioStreamPlayer2D drilling;
+	string[] MineControls = ["right", "left", "up", "down"];
+	private bool MiningAudio = false;
 	public override void _Ready()
 	{
 		((TurretDoor)GetNode("/root/Main/TurretDoor")).ToggleTurret += OnToggleTurret;
         AddToGroup("player");
+		drilling = GetNode<AudioStreamPlayer2D>("Mining");
     }
 
 	public override void _PhysicsProcess(double delta)
@@ -132,18 +136,24 @@ public partial class PlayerController : CharacterBody2D
                 {
                     if (inputDirection.Y == 1)
                     {
+						HandleAudio();
                         anim.Play("mine_down");
                         anim.FlipH = false;
+                        
                     }
                     else if (inputDirection.Y == -1 && Math.Round(GlobalPosition.Y) != -11)
                     {
+                        HandleAudio();
                         anim.Play("mine_up");
                         anim.FlipH = false;
+                        
                     }
                     else if (inputDirection.X != 0)
                     {
+                        HandleAudio();
                         anim.Play("mine_side");
                         anim.FlipH = inputDirection.X < 0;
+						
                     }
                 }
                 else
@@ -238,6 +248,7 @@ public partial class PlayerController : CharacterBody2D
 
             if (ground.IsBreakable(miningTilePosition))
                 IsMining = true; // Til ANIMATIONS!
+				MiningAudio = false;
         }
 
 		EarlyExit:
@@ -414,4 +425,33 @@ public partial class PlayerController : CharacterBody2D
 		anim.Animation = Animation;
 		anim.Frame = frame;  // Sæt frame bagefter
 	}
+
+	private void HandleAudio()
+	{
+		bool ButtonIsHeld = false;
+		foreach(string action in MineControls)
+		{
+			if (Input.IsActionPressed(action))
+			{
+				ButtonIsHeld = true;
+				break;
+			}
+		}
+        
+        if (IsMining && ButtonIsHeld)
+        {
+            // Tjek om lyden allerede spiller
+            if (!drilling.Playing)
+            {
+                drilling.Play();
+            }
+        }
+        else
+        {
+            if (drilling.Playing)
+            {
+                drilling.Stop();
+            }
+        }
+    }
 }

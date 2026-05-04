@@ -1,4 +1,4 @@
-[gd_scene load_steps=126 format=3 uid="uid://b4nfhud4df0d"]
+[gd_scene load_steps=127 format=3 uid="uid://b4nfhud4df0d"]
 
 [ext_resource type="Script" uid="uid://ctijk7g5hnmqw" path="res://Scripts/PlayerController.cs" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://dn52ab5uy1yce" path="res://Assets/Player/MonoWheelRobotAccelerateSide.png" id="2_vgqql"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://mq6nmf5eavp1" path="res://Assets/Player/MonoWheelRobotShoot.png" id="10_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://bcs877qse0ymq" path="res://Assets/Player/MonoWheelRobotMineSide.png" id="10_ukyrk"]
 [ext_resource type="Texture2D" uid="uid://0sj88qgcpy2r" path="res://Assets/Player/MonoWheelRobotMineUp.png" id="11_7dp3o"]
+[ext_resource type="AudioStream" uid="uid://b5uo7v86gvpre" path="res://Assets/Others/freesound_community-digging-6691.mp3" id="13_ukyrk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkybt"]
 size = Vector2(74.625, 2)
@@ -900,3 +901,6 @@ position = Vector2(4, -7)
 scale = Vector2(0.189625, 1)
 shape = SubResource("RectangleShape2D_pu2lt")
 target_position = Vector2(-2.24386e-27, -8)
+
+[node name="Mining" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_ukyrk")
