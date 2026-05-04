@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=25 format=4 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
@@ -19,7 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://bvtf3co8npe7t" path="res://Scenes/mine_lid.tscn" id="16_k12tt"]
 [ext_resource type="AudioStream" uid="uid://dxq11f2epsiqd" path="res://Assets/Others/explosion (1).wav" id="18_b3802"]
 [ext_resource type="PackedScene" uid="uid://dqe8hgah5uw8" path="res://Scenes/ErrorManager.tscn" id="19_fevyy"]
-[ext_resource type="PackedScene" uid="uid://cy5bvaw4ixybf" path="res://Scenes/background.tscn" id="20_hibaj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k12tt"]
 size = Vector2(24, 38)
@@ -110,7 +109,7 @@ position = Vector2(177, -11)
 [node name="UI" parent="." groups=["UI"] instance=ExtResource("6_21xkr")]
 
 [node name="RoofTurret" type="Sprite2D" parent="." node_paths=PackedStringArray("Crosshair")]
-position = Vector2(208, -84)
+position = Vector2(208, -77)
 texture = ExtResource("11_6iyac")
 offset = Vector2(30, 0)
 script = ExtResource("15_wsu2k")
@@ -132,7 +131,7 @@ shape = SubResource("RectangleShape2D_h1bgf")
 [node name="ErrorLayer" parent="." instance=ExtResource("19_fevyy")]
 
 [node name="MaxLeft" type="StaticBody2D" parent="."]
-position = Vector2(-648, -2144)
+position = Vector2(-646, -2153)
 rotation = 3.14159
 scale = Vector2(0.455708, 4.72634)
 collision_layer = 32
@@ -146,7 +145,7 @@ shape = SubResource("RectangleShape2D_fevyy")
 one_way_collision = true
 
 [node name="MaxRight" type="StaticBody2D" parent="."]
-position = Vector2(970, -70)
+position = Vector2(990, -96)
 scale = Vector2(0.455708, 4.72634)
 collision_layer = 32
 collision_mask = 0
@@ -157,5 +156,3 @@ rotation = -1.5708
 scale = Vector2(4.08916, 11.5071)
 shape = SubResource("RectangleShape2D_fevyy")
 one_way_collision = true
-
-[node name="Background" parent="." instance=ExtResource("20_hibaj")]
