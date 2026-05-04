@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=24 format=4 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
@@ -89,7 +89,7 @@ tile_set = ExtResource("2_jjvhh")
 
 [node name="GroundLayer" type="TileMapLayer" parent="Ground"]
 z_index = 1
-tile_map_data = PackedByteArray(0, 0, 4, 0, 255, 255, 1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 253, 255, 2, 0, 0, 0, 0, 0, 0, 0)
+tile_map_data = PackedByteArray("AAAEAP//AQAAAAAAAAAGAP3/AgAAAAAAAAAAAAAAAAAAAAIAAAAAAAEAAAABAAIAAAD//wEAAAACAAIAAAD//wAAAAADAAIAAAACAAAAAAADAAIAAAADAAAAAAAAAAEAAAAEAAAAAAAAAAEAAAAFAAAAAAAAAAEAAAAGAAAAAAAAAAEAAAAHAAAAAAAAAAEAAAAIAAAAAAAAAAEAAAAJAAAAAAAAAAEAAAAJAAEAAAACAAEAAAAIAAEAAAACAAEAAAAHAAEAAAACAAEAAAAGAAEAAAACAAEAAAAFAAEAAAACAAEAAAAEAAEAAAACAAEAAAADAAEAAAACAAEAAAACAAEAAAACAAIAAAAKAAAAAAAAAAIAAAAKAAEAAAABAAIAAAA=")
 tile_set = ExtResource("2_8gbba")
 
 [node name="MineLid" parent="." instance=ExtResource("16_k12tt")]
