@@ -10,7 +10,7 @@ public partial class ShieldRegenUpgrade : Upgrade
         waveManager.WaveStarted += () =>
         {
             Global global = Global.GetInstance();
-            float ShieldHealth = global.GetState<float>("ShieldHealth");
+            float ShieldHealth = global.GetState<float>("CurrentShieldHealth");
 
             ShieldHealth += 100f;
         };
