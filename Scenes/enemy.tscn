@@ -1,9 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://csys4yn3ffj6t"]
+[gd_scene load_steps=30 format=3 uid="uid://csys4yn3ffj6t"]
 
 [ext_resource type="Script" uid="uid://c0ti4qcwgicbt" path="res://Scripts/Enemy.cs" id="1_afpow"]
 [ext_resource type="Texture2D" uid="uid://c7db5yk128jgm" path="res://Assets/Enemies/EnemyShooting.png" id="2_287tu"]
 [ext_resource type="Texture2D" uid="uid://le1uk7mi0bid" path="res://Assets/Enemies/EnemyRun&Gun.png" id="2_0830c"]
 [ext_resource type="Texture2D" uid="uid://c742qeo7hoxp2" path="res://Assets/Enemies/EnemyWalk.png" id="3_0830c"]
+[ext_resource type="AudioStream" uid="uid://boq8ar8thf7du" path="res://Assets/Enemies/VOXScrm_Wilhelm scream (ID 0477)_BigSoundBank.com.mp3" id="5_ghaa6"]
+[ext_resource type="AudioStream" uid="uid://bnodaagb8y2jj" path="res://Assets/Enemies/u_96j4yp891e-akm-gunshot-368240.mp3" id="6_1dp5w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ghaa6"]
 atlas = ExtResource("2_0830c")
@@ -188,5 +190,11 @@ shape = SubResource("RectangleShape2D_287tu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_287tu")
+
+[node name="Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ghaa6")
+
+[node name="Shot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_1dp5w")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

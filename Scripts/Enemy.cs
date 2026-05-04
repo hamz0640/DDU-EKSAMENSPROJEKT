@@ -5,6 +5,8 @@ public partial class Enemy : CharacterBody2D
 {
 	Random rnd=new Random();
     AnimatedSprite2D animation;
+	AudioStreamPlayer2D death;
+	AudioStreamPlayer2D sfx;
 	public float Speed = 30.0f;
 	public int EnemyDistance;
 	Vector2 Origo = new Vector2(0, 0);
@@ -16,6 +18,8 @@ public partial class Enemy : CharacterBody2D
 	
     public override void _Ready()
 	{
+		sfx = GetNode<AudioStreamPlayer2D>("Shot");
+		death = GetNode<AudioStreamPlayer2D>("Death");
 		currentHealth = MaxHealth;
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		animation.Play("Walking");
@@ -45,6 +49,7 @@ public partial class Enemy : CharacterBody2D
 			{
                 if (!hasShot)
 				{
+					sfx.Play();
 					BulletSpawn();
 					hasShot = true;
 				}
@@ -65,6 +70,7 @@ public partial class Enemy : CharacterBody2D
             {
                 if (!hasShot)
                 {
+					sfx.Play();
                     BulletSpawn();
                     hasShot = true;
                 }
@@ -95,6 +101,7 @@ public partial class Enemy : CharacterBody2D
 
 		if (currentHealth <= 0)
 		{
+			death.Play();
 			QueueFree();
 		}
 	}
