@@ -35,6 +35,9 @@ public partial class TutorialManager : Control
 
     public override void _Ready()
     {
+        Global global = Global.GetInstance();
+        global.SetState("PlayerCanMove", false);
+
         Root = GetNode<Control>(RootPath);
         InfoBox = GetNode<Panel>(InfoBoxPath);
         TitleLabel = GetNode<Label>(TitleLabelPath);
@@ -106,6 +109,9 @@ public partial class TutorialManager : Control
 
     private void PlayOutroAnimation(System.Action onDone = null)
     {
+        Global global = Global.GetInstance();
+        global.SetState("PlayerCanMove", true);
+
         KillTween();
         activeTween = CreateTween().SetParallel();
 

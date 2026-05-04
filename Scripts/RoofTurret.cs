@@ -13,6 +13,7 @@ public partial class RoofTurret : Sprite2D
     private float MaxTurretVelocity = 2.0f;
     private float TurretAcceleration = 5.0f;
     AudioStreamPlayer2D sfx;
+
     public override void _Ready()
     {
         Cooldown = GetTree().CreateTimer(2.0f);
@@ -35,17 +36,10 @@ public partial class RoofTurret : Sprite2D
         {
             Vector2 direction = Input.GetVector("left", "right", "up", "down");
             CrosshairPosition += direction * 250.0f * (float)delta;
-
-            float angle = CrosshairPosition.Rotated(Mathf.Pi / 2.0f).Angle();
-            TurretVelocity += Mathf.Sign(angle - Rotation - Mathf.Pi / 2.0f) * TurretAcceleration * (float)delta;
-            TurretVelocity = Mathf.Clamp(TurretVelocity, -MaxTurretVelocity, MaxTurretVelocity);
-            TurretVelocity -= TurretVelocity * 4f * (float)delta;
-            if (Mathf.Abs(TurretVelocity) > 0.1f)
-            {
-                Rotation += TurretVelocity * (float)delta;
-                Rotation = Rotation % (Mathf.Pi * 2);
-            }
-
+            
+            Rotation = CrosshairPosition.Angle();
+            Rotation %= Mathf.Pi * 2;
+            
             CrosshairPosition.X = Mathf.Clamp(CrosshairPosition.X, -620.0f, 620.0f);
             CrosshairPosition.Y = Mathf.Clamp(CrosshairPosition.Y, -340.0f, 80.0f);
 

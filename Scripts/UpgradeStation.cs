@@ -19,6 +19,8 @@ public partial class UpgradeStation : Node2D
         UpgradeConsole.Interact += () =>
         {
             ToggleUpgradeConsole(!UpgradeMenu.Visible);
+            Global global = Global.GetInstance();
+            global.SetState("PlayerCanMove", !UpgradeMenu.Visible);
         };
     }
 

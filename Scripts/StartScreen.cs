@@ -16,7 +16,6 @@ public partial class StartScreen : Control
     private void OnStartPressed()
     {
         GetTree().ChangeSceneToFile("res://Scenes/main.tscn");
-        WaveManager.GetInstance().StartWave();
     }
 
     private void OnQuitPressed()

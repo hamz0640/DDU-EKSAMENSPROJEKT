@@ -50,7 +50,6 @@ public partial class EnemyBullet : CharacterBody2D
 		if (area.Name == "ChargingZone" && ShieldEnergy() > 0)
 		{
 			global.SetState<float>("ShieldHealth", ShieldEnergy() - Damage);
-			GD.Print("Shield hit");
 			QueueFree();
 		}
 		else if (area.Name == "ShipHitbox")
