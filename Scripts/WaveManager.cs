@@ -62,7 +62,7 @@ public partial class WaveManager : Node
 
     private void SpawnNextEnemy()
     {
-        uint maxEnemies = (uint)Mathf.Pow(WaveNumber, 1.4f);
+        uint maxEnemies = (uint)Mathf.Pow(WaveNumber, 1.3f);
         if (SpawnIndex > maxEnemies)
 		{
 			IsInWave = false;
@@ -115,7 +115,7 @@ public partial class WaveManager : Node
 		
 		if (node is Asteroid)
 		{
-			GD.Print("Spawned Asteroid");
+			GetTree().Root.AddChild(scene.Instantiate());
 		}
 	}
 }
