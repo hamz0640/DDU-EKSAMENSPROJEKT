@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="FortuneUpgrade" load_steps=2 format=3 uid="uid://sn4p6armllwx"]
+[gd_resource type="Resource" script_class="FortuneUpgrade" load_steps=3 format=3 uid="uid://sn4p6armllwx"]
 
+[ext_resource type="Texture2D" uid="uid://tvbelgwsn3nn" path="res://Assets/UpgradeIcons/Fortune.png" id="1_3vuub"]
 [ext_resource type="Script" uid="uid://bfw1sfmrw5s1g" path="res://Configs/UpgradeDefinitions/FortuneUpgrade.cs" id="1_4ko6f"]
 
 [resource]
@@ -10,4 +11,5 @@ YellowMineralAmount = 1
 MaxBuyAmount = 5
 Description = "Increases the chance of extracting multiple minerals, from one mineral ore"
 BuyCondition = "Max 5 can be bought"
+UpgradeIcon = ExtResource("1_3vuub")
 metadata/_custom_type_script = "uid://bfw1sfmrw5s1g"

@@ -27,7 +27,7 @@ public partial class ChargingZone : Area2D
         
         float currentEnergy = global.GetState<float>("CurrentEnergy"); 
         float maxEnergy     = global.GetState<float>("MaxEnergy");
-        float shieldEnergy = global.GetState<float>("ShieldHealth");
+        float shieldEnergy = global.GetState<float>("CurrentShieldHealth");
 
         if (shieldEnergy > 1)
         {

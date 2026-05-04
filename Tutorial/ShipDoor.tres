@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_npnmv")
 Title = "Ship door"
-Description = "To acsess the roof turret, enter using the ship door by pressing E"
+Description = "To access the roof turret, enter through the ship door by pressing E."
 HighlightPosition = Vector2(1140, 380)
 HighlightSize = Vector2(150, 250)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"

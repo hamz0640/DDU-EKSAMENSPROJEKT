@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dknpouguhqt0x"]
+[gd_scene load_steps=18 format=3 uid="uid://dknpouguhqt0x"]
 
 [ext_resource type="Script" uid="uid://dw2irvw3m3elc" path="res://Tutorial/TutorialManager.cs" id="1_71327"]
 [ext_resource type="Resource" uid="uid://pr4k7ej04tv5" path="res://Tutorial/Roofturret.tres" id="2_3cduj"]
@@ -17,7 +17,7 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 [sub_resource type="Resource" id="Resource_71327"]
 script = ExtResource("5_71327")
 Title = "Ship"
-Description = "This is your main ship, protect it at all cost form enemies and other hostile creatures"
+Description = "This is your main ship, protect it at all costs from enemies and other hostile creatures."
 HighlightPosition = Vector2(600, 20)
 HighlightSize = Vector2(1000, 600)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
@@ -25,15 +25,23 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 [sub_resource type="Resource" id="Resource_87rfo"]
 script = ExtResource("5_71327")
 Title = "Shield"
-Description = "This is your energy. If you run out, you die :c"
-HighlightPosition = Vector2(4, 130)
+Description = "The blue shield around your base protects you from enemies and asteroids, but be aware that it can be destroyed. It also works as a charging zone for your energy."
+HighlightPosition = Vector2(177, -11)
+HighlightSize = Vector2(100, 100)
+metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
+
+[sub_resource type="Resource" id="Resource_2arwq"]
+script = ExtResource("5_71327")
+Title = "Energy"
+Description = "This bar shows your current energy level. Mining minerals using the jetpack consumes energy. Be aware that if you run out of energy, you will die. Remember, you can always recharge as long as you are in the charging zone."
+HighlightPosition = Vector2(15, 130)
 HighlightSize = Vector2(300, 120)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_a3eon"]
 script = ExtResource("5_71327")
 Title = "Wire"
-Description = "You can go down to the mines using the wire by pressing space"
+Description = "You can go down to the mines using the wire by pressing space."
 HighlightPosition = Vector2(120, 350)
 HighlightSize = Vector2(350, 300)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
@@ -42,7 +50,7 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 resource_name = "UpgradeStation"
 script = ExtResource("5_71327")
 Title = "Upgrade station"
-Description = "You can upgrade your gadets via the upgrade station. To acsess the upgrade station pess E"
+Description = "You can upgrade your gadgets and equipment and view your ship's status via the upgrade station. To access the upgrade station, press E."
 HighlightPosition = Vector2(925, 400)
 HighlightSize = Vector2(180, 160)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
@@ -50,31 +58,47 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 [sub_resource type="Resource" id="Resource_5045t"]
 script = ExtResource("5_71327")
 Title = "Upgrade menu"
-Description = "This is the upgrade menu, here you can buy/or upgrade your gadgets."
+Description = "This is the upgrade menu. Here, you can buy or upgrade your gadgets. To navigate the menu, use W and S to move up or down, and press Space to purchase."
 HighlightPosition = Vector2(90, 90)
 HighlightSize = Vector2(1800, 900)
+metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
+
+[sub_resource type="Resource" id="Resource_4e5ao"]
+script = ExtResource("5_71327")
+Title = "Ship Health"
+Description = "This bar shows your ship's current health. It can be damaged by enemy bullets and other threats. Protect it at all costs, if your ship is destroyed, you automatically die."
+HighlightPosition = Vector2(110, 120)
+HighlightSize = Vector2(230, 100)
+metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
+
+[sub_resource type="Resource" id="Resource_1fhva"]
+script = ExtResource("5_71327")
+Title = "Shield energy"
+Description = "This bar shows your shield energy level. Remember that the shield can be destroyed by enemy bullets and asteroids."
+HighlightPosition = Vector2(350, 120)
+HighlightSize = Vector2(230, 100)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_0lbe4"]
 script = ExtResource("5_71327")
 Title = "Drill Upgrade"
-Description = "Start by purchasing the drill upgrade so you can get minerals"
-HighlightPosition = Vector2(115, 285)
+Description = "Start by purchasing the drill upgrade so you can collect minerals."
+HighlightPosition = Vector2(115, 225)
 HighlightSize = Vector2(1400, 100)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_jylwr"]
 script = ExtResource("5_71327")
-Title = "Wave"
-Description = "When you return from a mining trip, you can buy upgrades. After buying upgrades, enter the turret to start the next wave"
+Title = "Incoming waves"
+Description = "A wave starts every time you go down to the mines. When you go back up and enter the ship to access the roof turret, the wave begins. Once the wave is over, you can go down to the mines again to collect minerals, buy upgrades, and repeat the cycle."
 HighlightPosition = Vector2(0, 0)
 HighlightSize = Vector2(0, 0)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_ec2ee"]
 script = ExtResource("5_71327")
-Title = "Mine "
-Description = "Start by purchasing the drill, and mining some minerals"
+Title = "Mine"
+Description = "Follow the arrow and start mining some minerals. Good luck!"
 HighlightPosition = Vector2(0, 0)
 HighlightSize = Vector2(100, 100)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
@@ -91,7 +115,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_71327")
-Steps = [SubResource("Resource_ov3gm"), SubResource("Resource_71327"), ExtResource("2_3cduj"), SubResource("Resource_87rfo"), ExtResource("3_ulhh6"), ExtResource("4_1x8y3"), SubResource("Resource_a3eon"), SubResource("Resource_mf4nu"), SubResource("Resource_5045t"), SubResource("Resource_0lbe4"), SubResource("Resource_jylwr"), SubResource("Resource_ec2ee")]
+Steps = [SubResource("Resource_ov3gm"), SubResource("Resource_71327"), ExtResource("2_3cduj"), ExtResource("3_ulhh6"), SubResource("Resource_87rfo"), ExtResource("4_1x8y3"), SubResource("Resource_2arwq"), SubResource("Resource_a3eon"), SubResource("Resource_mf4nu"), SubResource("Resource_5045t"), SubResource("Resource_4e5ao"), SubResource("Resource_1fhva"), SubResource("Resource_0lbe4"), SubResource("Resource_jylwr"), SubResource("Resource_ec2ee")]
 OverlayColor = Color(0, 0, 0, 0.558)
 BorderColor = Color(0, 0.9, 1, 1)
 BorderWidth = 6.0
@@ -156,5 +180,5 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 45
 text = "Skip"
 
-[connection signal="pressed" from="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="." method="OnNext"]
-[connection signal="pressed" from="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer/SkipButton" to="." method="OnSkip"]
+[connection signal="pressed" from="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="Root" method="OnNext"]
+[connection signal="pressed" from="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer/SkipButton" to="Root" method="OnSkip"]
