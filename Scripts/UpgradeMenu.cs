@@ -26,6 +26,9 @@ public partial class UpgradeMenu : MarginContainer
     private Button BuyButton = null;
 
 	public int SelectedIndex = 0;
+
+    [Export]
+private TextureRect UpgradeIconImage = null;
     
 
     public override void _Ready()
@@ -74,9 +77,15 @@ public partial class UpgradeMenu : MarginContainer
 		selectedUpgrade.Modulate = new Color(1, 1, 1);
         selectedUpgrade.Unlock();
 
-		UpgradeNameTitle.Text = selectedUpgrade.RelatedUpgradeResource.UpgradeName;
-		UpgradeDescription.Text = selectedUpgrade.RelatedUpgradeResource.Description;
-		UpgradeBuyCondition.Text = selectedUpgrade.RelatedUpgradeResource.BuyCondition;
+        UpgradeNameTitle.Text = selectedUpgrade.RelatedUpgradeResource.UpgradeName;
+        UpgradeDescription.Text = selectedUpgrade.RelatedUpgradeResource.Description;
+        UpgradeBuyCondition.Text = selectedUpgrade.RelatedUpgradeResource.BuyCondition;
+
+        // Add this:
+        if (selectedUpgrade.RelatedUpgradeResource.UpgradeIcon != null)
+            UpgradeIconImage.Texture = selectedUpgrade.RelatedUpgradeResource.UpgradeIcon;
+        else
+            UpgradeIconImage.Texture = null;
 
         Global global = Global.GetInstance();
 

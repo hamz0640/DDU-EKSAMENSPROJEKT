@@ -11,6 +11,7 @@ public partial class UpgradeEntry : PanelContainer
     [Export] public TextureRect PurpleMineralIcon = null;
     [Export] public TextureRect YellowMineralIcon = null;
 
+
     [Export]
     public Label UpgradeName = null;
     [Export]

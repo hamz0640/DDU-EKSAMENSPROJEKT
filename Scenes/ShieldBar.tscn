@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dudh85vr4v1tx"]
+
+[ext_resource type="Texture2D" uid="uid://va7espob7mj3" path="res://Assets/Bars/ShieldBarEmpty.png" id="1_mdfbf"]
+[ext_resource type="Texture2D" uid="uid://c8tm00uj3kufp" path="res://Assets/Bars/ShieldBarFull.png" id="2_igw01"]
+[ext_resource type="Script" uid="uid://bx34xsx8oxbd7" path="res://Scripts/ShieldBar.cs" id="3_mdfbf"]
+
+[node name="TextureProgressBar2" type="TextureProgressBar" groups=["energy_bar"]]
+custom_minimum_size = Vector2(200, 100)
+anchors_preset = -1
+anchor_right = 5.0
+anchor_bottom = 1.35
+offset_left = 2.0
+offset_top = 1.0
+offset_right = -9286.0
+offset_bottom = -1338.0
+scale = Vector2(3, 3)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+nine_patch_stretch = true
+texture_under = ExtResource("1_mdfbf")
+texture_progress = ExtResource("2_igw01")
+script = ExtResource("3_mdfbf")

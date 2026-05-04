@@ -49,7 +49,7 @@ public partial class EnemyBullet : CharacterBody2D
 	{
 		if (area.Name == "ChargingZone" && ShieldEnergy() > 0)
 		{
-			global.SetState<float>("ShieldHealth", ShieldEnergy() - Damage);
+			global.SetState<float>("CurrentShieldHealth", ShieldEnergy() - Damage);
 			QueueFree();
 		}
 		else if (area.Name == "ShipHitbox")
@@ -71,7 +71,7 @@ public partial class EnemyBullet : CharacterBody2D
 
 	float ShieldEnergy()
 	{
-		return global.GetState<float>("ShieldHealth");
+		return global.GetState<float>("CurrentShieldHealth");
 	}
 
 	void CheckDistance()
