@@ -14,11 +14,12 @@ public partial class UpgradeStation : Node2D
     public Interactable UpgradeConsole = null;
     [Export]
     public UpgradeMenu UpgradeMenu = null;
-
+    AudioStreamPlayer2D sfx;
 
     public override void _Ready()
     {
         AddToGroup("UpgradeStation");
+        sfx = GetNode<AudioStreamPlayer2D>("Suck");
         InputChute.Interact += DepositMinerals;
         UpgradeConsole.Interact += () =>
         {
@@ -103,5 +104,6 @@ public partial class UpgradeStation : Node2D
         swoopMineral.ZIndex = 1000;
 
         GetTree().Root.AddChild(swoopMineral);
+        sfx.Play();
     }
 }

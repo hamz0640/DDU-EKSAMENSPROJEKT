@@ -6,6 +6,8 @@ using System.Reflection.Metadata;
 
 public partial class UpgradeMenu : MarginContainer
 {
+    AudioStreamPlayer2D buy;
+
     [Export]
     public VBoxContainer UpgradeList = null;
     [Export]
@@ -24,10 +26,12 @@ public partial class UpgradeMenu : MarginContainer
     private Button BuyButton = null;
 
 	public int SelectedIndex = 0;
-
+    
 
     public override void _Ready()
     {
+        buy = GetNode<AudioStreamPlayer2D>("BuySound");
+
         Global global = Global.GetInstance();
         Array<Upgrade> upgrades = global.GetState<Array<Upgrade>>("Upgrades");
 
@@ -35,7 +39,7 @@ public partial class UpgradeMenu : MarginContainer
         DirAccess upgradesDir = DirAccess.Open(upgradePath);
         foreach (string localUpgradePath in upgradesDir.GetFiles())
         {
-            Upgrade upgrade = (Upgrade)GD.Load(upgradePath + "/" + localUpgradePath);
+            Upgrade upgrade = GD.Load<Upgrade>(upgradePath + "/" + localUpgradePath);
             upgrade.UpgradeName = localUpgradePath.GetBaseName();
 
             upgrades.Add(upgrade);
@@ -93,8 +97,10 @@ public partial class UpgradeMenu : MarginContainer
             global.ModifyState("DepositedRedMineralCount", -RedMineralCost);
             global.ModifyState("DepositedPurpleMineralCount", -PurpleMineralCost);
             global.ModifyState("DepositedYellowMineralCount", -YellowMineralCost);
-
+            
             selectedUpgrade.RelatedUpgradeResource.OnBuy(GetTree());
+
+            buy.Play();
         }
 
         RedMineralCount.Text = "x" + global.GetState<uint>("DepositedRedMineralCount").ToString();
