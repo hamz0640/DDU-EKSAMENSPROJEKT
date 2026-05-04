@@ -34,7 +34,7 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 script = ExtResource("5_71327")
 Title = "Energy"
 Description = "This bar shows your current energy level. Mining minerals using the jetpack consumes energy. Be aware that if you run out of energy, you will die. Remember, you can always recharge as long as you are in the charging zone."
-HighlightPosition = Vector2(5, 0)
+HighlightPosition = Vector2(15, 130)
 HighlightSize = Vector2(300, 120)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
