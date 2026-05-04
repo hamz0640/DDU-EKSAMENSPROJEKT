@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://dknpouguhqt0x"]
+[gd_scene load_steps=19 format=3 uid="uid://dknpouguhqt0x"]
 
 [ext_resource type="Script" uid="uid://dw2irvw3m3elc" path="res://Tutorial/TutorialManager.cs" id="1_71327"]
 [ext_resource type="Resource" uid="uid://pr4k7ej04tv5" path="res://Tutorial/Roofturret.tres" id="2_3cduj"]
 [ext_resource type="Resource" uid="uid://dxykdux5kedm6" path="res://Tutorial/ShipDoor.tres" id="3_ulhh6"]
 [ext_resource type="Resource" uid="uid://dr7xar404mvkk" path="res://Tutorial/Minerals.tres" id="4_1x8y3"]
 [ext_resource type="Script" uid="uid://do3ogi7c6uyy7" path="res://Tutorial/TutorialStep.cs" id="5_71327"]
+[ext_resource type="AudioStream" uid="uid://cuib14d4xhfya" path="res://Assets/Others/blipSelect.wav" id="6_a3eon"]
 
 [sub_resource type="Resource" id="Resource_ov3gm"]
 script = ExtResource("5_71327")
@@ -179,6 +180,9 @@ text = "Next"
 layout_mode = 2
 theme_override_font_sizes/font_size = 45
 text = "Skip"
+
+[node name="Click" type="AudioStreamPlayer2D" parent="Root"]
+stream = ExtResource("6_a3eon")
 
 [connection signal="pressed" from="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="Root" method="OnNext"]
 [connection signal="pressed" from="Root/InfoBox/MarginContainer/VBoxContainer/HBoxContainer/SkipButton" to="Root" method="OnSkip"]
