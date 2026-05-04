@@ -85,6 +85,8 @@ public partial class PlayerController : CharacterBody2D
 			return;
 		
 		HandleTransitions();
+
+
 		
 		switch (CurrentState) {
 			case State.Ground:
@@ -103,7 +105,7 @@ public partial class PlayerController : CharacterBody2D
 		}
 		IsMining = false;
 		HandleMine((float)delta);
-		HandleAnimations();
+		HandleAnimationsAndAudio();
 
 		TimeSinceMountChange += 1;
 	}
@@ -122,7 +124,7 @@ public partial class PlayerController : CharacterBody2D
 		}
 	}
 
-	private void HandleAnimations()
+	private void HandleAnimationsAndAudio()
 	{
 		Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
 		anim.FlipH = Velocity.X < 0.0;
@@ -137,28 +139,32 @@ public partial class PlayerController : CharacterBody2D
                 {
                     if (inputDirection.Y == 1)
                     {
-						HandleAudio();
+						if (drilling.Playing == false) drilling.Play();
                         anim.Play("mine_down");
                         anim.FlipH = false;
                         
                     }
                     else if (inputDirection.Y == -1 && Math.Round(GlobalPosition.Y) != -11)
                     {
-                        HandleAudio();
+                        if (drilling.Playing == false) drilling.Play();
                         anim.Play("mine_up");
                         anim.FlipH = false;
                         
                     }
                     else if (inputDirection.X != 0)
                     {
-                        HandleAudio();
+                        if (drilling.Playing == false) drilling.Play();
                         anim.Play("mine_side");
                         anim.FlipH = inputDirection.X < 0;
 						
                     }
                 }
                 else
-                    anim.Play("idle");
+				{
+					drilling.Stop();
+					anim.Play("idle");
+				}
+                    
             }
             else
 				ShowSpecificFrame("acceleration", (int)(Mathf.Abs(Velocity.X) / (MaxSpeed / 5.0)));
@@ -426,33 +432,4 @@ public partial class PlayerController : CharacterBody2D
 		anim.Animation = Animation;
 		anim.Frame = frame;  // Sæt frame bagefter
 	}
-
-	private void HandleAudio()
-	{
-		bool ButtonIsHeld = false;
-		foreach(string action in MineControls)
-		{
-			if (Input.IsActionPressed(action))
-			{
-				ButtonIsHeld = true;
-				break;
-			}
-		}
-        
-        if (IsMining && ButtonIsHeld)
-        {
-            // Tjek om lyden allerede spiller
-            if (!drilling.Playing)
-            {
-                drilling.Play();
-            }
-        }
-        else
-        {
-            if (drilling.Playing)
-            {
-                drilling.Stop();
-            }
-        }
-    }
 }
