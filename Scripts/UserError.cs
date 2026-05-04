@@ -46,5 +46,5 @@ public partial class UserError : Control
         AddChild(newScene);
     }
 
-    public static UserError Instance { get { return Instance; } } }
+    public static UserError Instance { get { return Instance; } } 
 }
