@@ -53,7 +53,7 @@ public partial class RoofTurret : Sprite2D
             Tracker tracker = Tracker.GetInstance();
             tracker.IncrementTracking("Wave:TimesShot", 1u);
 
-            float UpgradeAmplifier = global.GetState<float>("TurretEfficiency");
+            float UpgradeAmplifier = global.GetState<float>("MainTurretCooling");
             Cooldown = GetTree().CreateTimer(2.0f*UpgradeAmplifier);
             PackedScene bulletScene = (PackedScene)GD.Load("res://Scenes/roof_turret_bullet.tscn");
             RoofTurretBullet bullet = (RoofTurretBullet)bulletScene.Instantiate();
