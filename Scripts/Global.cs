@@ -58,6 +58,8 @@ public partial class Global : Node
         // Upgrades
         State["MainTurretCooling"] = 1.0f;
         State["FreeDrill"] = false;
+
+        State["ErrorCount"] = 0;
     }
 
 
