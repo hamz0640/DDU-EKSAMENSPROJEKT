@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="TurretUpgrade" load_steps=2 format=3 uid="uid://fhyqv4o6xrjq"]
+[gd_resource type="Resource" script_class="TurretUpgrade" load_steps=3 format=3 uid="uid://fhyqv4o6xrjq"]
 
+[ext_resource type="Texture2D" uid="uid://gvovqeqleomy" path="res://Assets/UpgradeIcons/turret12.png" id="1_5bs61"]
 [ext_resource type="Script" uid="uid://bllpo04jn1ams" path="res://Configs/UpgradeDefinitions/TurretUpgrade.cs" id="1_rvy5f"]
 
 [resource]
@@ -10,4 +11,5 @@ YellowMineralAmount = 0
 MaxBuyAmount = 0
 Description = "Drops a turret from the sky, that shoots enemies on sight"
 BuyCondition = "Max 2 turret can exist in the world at a time"
+UpgradeIcon = ExtResource("1_5bs61")
 metadata/_custom_type_script = "uid://bllpo04jn1ams"

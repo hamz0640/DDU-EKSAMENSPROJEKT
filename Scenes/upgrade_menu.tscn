@@ -1,16 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://eo5gb72cyek"]
+[gd_scene load_steps=10 format=3 uid="uid://eo5gb72cyek"]
 
 [ext_resource type="Script" uid="uid://ij8v42cma06a" path="res://Scripts/UpgradeMenu.cs" id="1_2hr16"]
 [ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/Icons/block-out-red-mineral.png" id="1_lhh40"]
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="2_2hr16"]
+[ext_resource type="PackedScene" uid="uid://dmik8c7oy1xq1" path="res://Scenes/ShipBar.tscn" id="2_lpopj"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="3_lpopj"]
+[ext_resource type="PackedScene" uid="uid://dudh85vr4v1tx" path="res://Scenes/ShieldBar.tscn" id="3_mpwqm"]
 [ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/Icons/icon.svg" id="6_2hr16"]
 [ext_resource type="AudioStream" uid="uid://cuib14d4xhfya" path="res://Assets/Others/blipSelect.wav" id="6_lpopj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hr16"]
 bg_color = Color(0.18359, 0.18359, 0.18359, 1)
 
-[node name="UpgradeMenu" type="MarginContainer" node_paths=PackedStringArray("UpgradeList", "RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "UpgradeDescription", "UpgradeBuyCondition", "UpgradeNameTitle", "BuyButton")]
+[node name="UpgradeMenu" type="MarginContainer" node_paths=PackedStringArray("UpgradeList", "RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "UpgradeDescription", "UpgradeBuyCondition", "UpgradeNameTitle", "BuyButton", "UpgradeIconImage")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -29,6 +31,7 @@ UpgradeDescription = NodePath("PanelContainer/MarginContainer/VSplitContainer/HS
 UpgradeBuyCondition = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/BuyConditionText")
 UpgradeNameTitle = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/UpgradeName")
 BuyButton = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer4/VBoxContainer/VBoxContainer/Button")
+UpgradeIconImage = NodePath("PanelContainer/MarginContainer/VSplitContainer/HSplitContainer/PanelContainer/MarginContainer/VBoxContainer/TextureRect")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -58,15 +61,16 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Energy Shield Health" type="ColorRect" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(300, 30)
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
+theme_override_constants/separation = 50
 
-[node name="Ship Health" type="ColorRect" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(300, 30)
+[node name="TextureProgressBar" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer2" instance=ExtResource("2_lpopj")]
 layout_mode = 2
-size_flags_horizontal = 0
+
+[node name="TextureProgressBar2" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer2" instance=ExtResource("3_mpwqm")]
+custom_minimum_size = Vector2(200, 34)
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VSplitContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
