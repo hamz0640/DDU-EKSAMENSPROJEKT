@@ -1,4 +1,4 @@
-[gd_scene load_steps=125 format=3 uid="uid://b4nfhud4df0d"]
+[gd_scene load_steps=126 format=3 uid="uid://b4nfhud4df0d"]
 
 [ext_resource type="Script" uid="uid://ctijk7g5hnmqw" path="res://Scripts/PlayerController.cs" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://dn52ab5uy1yce" path="res://Assets/Player/MonoWheelRobotAccelerateSide.png" id="2_vgqql"]
@@ -854,12 +854,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("anim", "WireArea")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pu2lt"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("anim", "shapeCast1", "shapeCast2", "WireArea")]
 z_index = 10
 collision_layer = 17
 collision_mask = 35
 script = ExtResource("1_fkybt")
 anim = NodePath("AnimatedSprite2D")
+shapeCast1 = NodePath("ShapeCast2D1")
+shapeCast2 = NodePath("ShapeCast2D2")
 WireArea = NodePath("Area2D")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -882,3 +886,17 @@ centered = false
 [node name="Camera2D" type="Camera2D" parent="." groups=["Camera"]]
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
+
+[node name="ShapeCast2D1" type="ShapeCast2D" parent="."]
+z_index = 1
+position = Vector2(-4, -7)
+scale = Vector2(0.189625, 1)
+shape = SubResource("RectangleShape2D_pu2lt")
+target_position = Vector2(-2.24386e-27, -8)
+
+[node name="ShapeCast2D2" type="ShapeCast2D" parent="."]
+z_index = 1
+position = Vector2(4, -7)
+scale = Vector2(0.189625, 1)
+shape = SubResource("RectangleShape2D_pu2lt")
+target_position = Vector2(-2.24386e-27, -8)

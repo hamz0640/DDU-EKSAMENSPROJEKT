@@ -8,6 +8,8 @@ using System.Threading;
 public partial class PlayerController : CharacterBody2D 
 {
 	[Export] AnimatedSprite2D anim;
+	[Export] ShapeCast2D shapeCast1;
+	[Export] ShapeCast2D shapeCast2;
 	[ExportGroup("Basic Movement")]
 	[Export]
 	public float MaxSpeed = 75.0f;
@@ -42,7 +44,8 @@ public partial class PlayerController : CharacterBody2D
 	public override void _Ready()
 	{
 		((TurretDoor)GetNode("/root/Main/TurretDoor")).ToggleTurret += OnToggleTurret;
-	}
+        AddToGroup("player");
+    }
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -202,9 +205,9 @@ public partial class PlayerController : CharacterBody2D
 			else if (tileDirection.Y > 0)
 				blocked = IsOnFloor();
 			else if (tileDirection.Y < 0)
-				blocked = IsOnCeiling();
+                blocked = (shapeCast1.IsColliding() && shapeCast2.IsColliding()) ? true : blocked;
 
-			if (!blocked)
+            if (!blocked)
 				goto EarlyExit;
 
 			float currentEnergy = global.GetState<float>("CurrentEnergy");
