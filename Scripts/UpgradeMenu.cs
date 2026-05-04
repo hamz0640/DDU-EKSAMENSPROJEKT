@@ -81,21 +81,22 @@ public partial class UpgradeMenu : MarginContainer
         Global global = Global.GetInstance();
 
         bool canBuy = selectedUpgrade.RelatedUpgradeResource.CanBuy(GetTree());
+        bool canAfford = true;
 
         uint RedMineralCost = selectedUpgrade.RelatedUpgradeResource.RedMineralAmount;
         uint PurpleMineralCost = selectedUpgrade.RelatedUpgradeResource.PurpleMineralAmount;
         uint YellowMineralCost = selectedUpgrade.RelatedUpgradeResource.YellowMineralAmount;
 
-        if (RedMineralCost > global.GetState<uint>("DepositedRedMineralCount")) canBuy = false;
-        if (PurpleMineralCost > global.GetState<uint>("DepositedPurpleMineralCount")) canBuy = false;
-        if (YellowMineralCost > global.GetState<uint>("DepositedYellowMineralCount")) canBuy = false;
+        if (RedMineralCost > global.GetState<uint>("DepositedRedMineralCount")) canAfford = false;
+        if (PurpleMineralCost > global.GetState<uint>("DepositedPurpleMineralCount")) canAfford = false;
+        if (YellowMineralCost > global.GetState<uint>("DepositedYellowMineralCount")) canAfford = false;
 
-        if (!canBuy)
+        if (!canBuy && !canAfford)
             BuyButton.Modulate = new Color(0.2f, 0.2f, 0.2f);
         else
             BuyButton.Modulate = new Color(1.0f, 1.0f, 1.0f);
 
-        if (Input.IsActionJustPressed("jump") && canBuy)
+        if (Input.IsActionJustPressed("jump") && canBuy && canAfford)
         {
             global.ModifyState("DepositedRedMineralCount", -RedMineralCost);
             global.ModifyState("DepositedPurpleMineralCount", -PurpleMineralCost);
@@ -107,8 +108,10 @@ public partial class UpgradeMenu : MarginContainer
         }
         else if (Input.IsActionJustPressed("jump"))
         {
-            ErrorManager.Instance.Notify("Out of funds", 5f);
-            GD.Print("Spawned error because no money");
+            if (!canBuy)
+                ErrorManager.Instance.Notify("Max amount already\npurchased", 5f);
+            if (!canAfford)
+                ErrorManager.Instance.Notify("Out of funds, mine\nsome minerals", 5f);
         }
 
         RedMineralCount.Text = "x" + global.GetState<uint>("DepositedRedMineralCount").ToString();
