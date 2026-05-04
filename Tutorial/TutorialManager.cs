@@ -41,17 +41,21 @@ public partial class TutorialManager : Control
 
     // Steps where overlay + highlight border + normal arrow are hidden.
     // Only InfoBox (and optionally directional arrow) is shown.
-    private static readonly int[] NoOverlaySteps = { 10, 11 };
+    private static readonly int[] NoOverlaySteps = { 13, 4 , 14 };
 
     // Steps where the directional arrow is shown.
-    private static readonly int[] DirectionalArrowSteps = { 11 };
+    private static readonly int[] DirectionalArrowSteps = { 14 };
 
     // World-space target for the directional arrow on step 11.
     // Set this in the Godot editor or call PointArrowAt() manually.
     [Export] public Vector2 Step11ArrowTarget { get; set; } = new Vector2(50f, 50f);
+    AudioStreamPlayer2D sfx;
 
     public override void _Ready()
     {
+
+        sfx = GetNode<AudioStreamPlayer2D>("Click");
+
         Global global = Global.GetInstance();
         global.SetState("PlayerCanMove", false);
 
@@ -256,6 +260,7 @@ public partial class TutorialManager : Control
 
     private void OnNext()
     {
+        sfx.Play();
         if (CurrentStep >= Steps.Length - 1)
         {
             StopDirectionalArrow();
@@ -270,7 +275,7 @@ public partial class TutorialManager : Control
 
         int next = CurrentStep + 1;
 
-        if (next == 11)
+        if (next == 14)
         {
             Global global = Global.GetInstance();
             global.SetState("PlayerCanMove", true);
@@ -285,7 +290,7 @@ public partial class TutorialManager : Control
                 UpgradeStation station = (UpgradeStation)GetTree().GetFirstNodeInGroup("UpgradeStation");
                 if (station != null)
                 {
-                    if (next == 8 || next == 9)
+                    if (next == 9 || next == 10 || next == 11 || next == 12 )
                         station.ToggleUpgradeConsole(true);
                     else
                         station.ToggleUpgradeConsole(false);
@@ -296,6 +301,7 @@ public partial class TutorialManager : Control
 
     private void OnSkip()
     {
+        sfx.Play();
         StopDirectionalArrow();
         PlayOutroAnimation(() => { Visible = false; });
     }

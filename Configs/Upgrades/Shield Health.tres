@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ShieldHealthUpgrade" load_steps=2 format=3 uid="uid://b1qsmsxjq6bb4"]
+[gd_resource type="Resource" script_class="ShieldHealthUpgrade" load_steps=3 format=3 uid="uid://cq11udctamarn"]
 
 [ext_resource type="Script" uid="uid://cuxkkwdgb2vyf" path="res://Configs/UpgradeDefinitions/ShieldHealthUpgrade.cs" id="1_hepoy"]
+[ext_resource type="Texture2D" uid="uid://b8go0o07tbmka" path="res://Assets/UpgradeIcons/ShieldHealth.png" id="1_nbxes"]
 
 [resource]
 script = ExtResource("1_hepoy")
@@ -10,4 +11,5 @@ YellowMineralAmount = 1
 MaxBuyAmount = 0
 Description = "Repairs the shield health. Often useful after a wave has been completed"
 BuyCondition = "None"
+UpgradeIcon = ExtResource("1_nbxes")
 metadata/_custom_type_script = "uid://cuxkkwdgb2vyf"

@@ -46,10 +46,19 @@ public partial class WaveManager : Node
         {
             tracker.IncrementTracking("Time:InWaves", (float)delta);
         }
+
+        if (EnemiesInWorld <= 0 && IsInWave)
+        {
+            IsInWave = false;
+            EmitSignal("WaveEnded");
+			GD.Print("Wave Ended");
+        }
     }
 
     public void StartWave()
     {
+        if (IsInWave) return;
+
         WaveNumber += 1;
         IsInWave = true;
         SpawnIndex = 0;
@@ -58,6 +67,7 @@ public partial class WaveManager : Node
 		GD.Print("Wave " + WaveNumber +  " Started");
         SpawnTimer = GetTree().CreateTimer(TimeBetweenSpawns);
 		SpawnTimer.Timeout += SpawnNextEnemy;
+        SpawnNextEnemy();
     }
 
     private void SpawnNextEnemy()
@@ -65,9 +75,6 @@ public partial class WaveManager : Node
         uint maxEnemies = (uint)Mathf.Pow(WaveNumber, 1.3f);
         if (SpawnIndex > maxEnemies)
 		{
-			IsInWave = false;
-            EmitSignal("WaveEnded");
-			GD.Print("Wave Ended");
 			return;
 		}
         else
