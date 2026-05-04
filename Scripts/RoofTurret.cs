@@ -12,10 +12,14 @@ public partial class RoofTurret : Sprite2D
     private float TurretVelocity = 0.0f;
     private float MaxTurretVelocity = 2.0f;
     private float TurretAcceleration = 5.0f;
+    AudioStreamPlayer2D sfx;
+
     public override void _Ready()
     {
         Cooldown = GetTree().CreateTimer(2.0f);
+        sfx = GetNode<AudioStreamPlayer2D>("Shot");
         ((TurretDoor)GetNode("/root/Main/TurretDoor")).ToggleTurret += OnToggleTurret;
+
     }
 
 
@@ -32,17 +36,10 @@ public partial class RoofTurret : Sprite2D
         {
             Vector2 direction = Input.GetVector("left", "right", "up", "down");
             CrosshairPosition += direction * 250.0f * (float)delta;
-
-            float angle = CrosshairPosition.Rotated(Mathf.Pi / 2.0f).Angle();
-            TurretVelocity += Mathf.Sign(angle - Rotation - Mathf.Pi / 2.0f) * TurretAcceleration * (float)delta;
-            TurretVelocity = Mathf.Clamp(TurretVelocity, -MaxTurretVelocity, MaxTurretVelocity);
-            TurretVelocity -= TurretVelocity * 4f * (float)delta;
-            if (Mathf.Abs(TurretVelocity) > 0.1f)
-            {
-                Rotation += TurretVelocity * (float)delta;
-                Rotation = Rotation % (Mathf.Pi * 2);
-            }
-
+            
+            Rotation = CrosshairPosition.Angle();
+            Rotation %= Mathf.Pi * 2;
+            
             CrosshairPosition.X = Mathf.Clamp(CrosshairPosition.X, -620.0f, 620.0f);
             CrosshairPosition.Y = Mathf.Clamp(CrosshairPosition.Y, -340.0f, 80.0f);
 
@@ -73,7 +70,7 @@ public partial class RoofTurret : Sprite2D
             tween.SetEase(Tween.EaseType.InOut);
             tween.SetTrans(Tween.TransitionType.Linear);
             tween.TweenProperty(this, "offset", new Vector2(30, 0), 1.8f);
-
+            sfx.Play();
             GetTree().Root.AddChild(bullet);
         }
     }
