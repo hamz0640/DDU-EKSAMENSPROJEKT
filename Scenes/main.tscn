@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=23 format=3 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b4nfhud4df0d" path="res://Scenes/player.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://j7pn54iqe4ig" path="res://Scenes/wire.tscn" id="5_kry3j"]
 [ext_resource type="PackedScene" uid="uid://btcichbg1pnh7" path="res://Scenes/ui.tscn" id="6_21xkr"]
+[ext_resource type="AudioStream" uid="uid://buf1cf7aj0xaq" path="res://Assets/Others/pickupCoin (1).wav" id="6_b3802"]
 [ext_resource type="Texture2D" uid="uid://bkr7xjj3ucoke" path="res://Assets/RoofTurret/block-out-barrel.png" id="11_6iyac"]
 [ext_resource type="PackedScene" uid="uid://csyuey7k8y0dm" path="res://Scenes/interactable.tscn" id="12_6iyac"]
 [ext_resource type="Script" uid="uid://wq5het8c2qxr" path="res://Scripts/TurretDoor.cs" id="13_jkdf5"]
@@ -52,7 +53,6 @@ UpgradeMenu = NodePath("UpgradeMenu/UpgradeMenu")
 
 [node name="InputChute" parent="UpgradeStation" instance=ExtResource("12_6iyac")]
 position = Vector2(156, -25)
-ActivateOnTouch = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpgradeStation/InputChute"]
 shape = SubResource("RectangleShape2D_6iyac")
@@ -67,6 +67,9 @@ shape = SubResource("RectangleShape2D_jkdf5")
 
 [node name="UpgradeMenu" parent="UpgradeStation/UpgradeMenu" instance=ExtResource("2_ynf5e")]
 visible = false
+
+[node name="Suck" type="AudioStreamPlayer2D" parent="UpgradeStation"]
+stream = ExtResource("6_b3802")
 
 [node name="ChargingZone" parent="." instance=ExtResource("1_6bp64")]
 position = Vector2(153, 8)

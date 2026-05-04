@@ -40,6 +40,7 @@ public partial class PlayerController : CharacterBody2D
 	private int KnockOffWire = 0;
 	enum State { Ground, Air, Wire };
 	private bool InMine = false;
+	private bool FreeDrill = false;
 
 	public override void _Ready()
 	{
@@ -185,11 +186,14 @@ public partial class PlayerController : CharacterBody2D
 
 	private void HandleMine(float delta)
 	{
+        Global global = Global.GetInstance();
+		if (!global.GetState<bool>("FreeDrill"))
+			goto EarlyExit;
+
 		Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
 
 		if (inputDirection.Angle() % (Mathf.Pi / 2.0) == 0 && inputDirection != Vector2.Zero)
 		{
-			Global global = Global.GetInstance();
 			Ground ground = (Ground)GetTree().GetFirstNodeInGroup("Ground");
 
 			float miningSpeed = global.GetState<float>("MiningSpeed");

@@ -13,6 +13,7 @@ public partial class RoofTurret : Sprite2D
     private float MaxTurretVelocity = 2.0f;
     private float TurretAcceleration = 5.0f;
     AudioStreamPlayer2D sfx;
+    Global global = Global.GetInstance();
 
     public override void _Ready()
     {
@@ -52,7 +53,8 @@ public partial class RoofTurret : Sprite2D
             Tracker tracker = Tracker.GetInstance();
             tracker.IncrementTracking("Wave:TimesShot", 1u);
 
-            Cooldown = GetTree().CreateTimer(2.0f);
+            float UpgradeAmplifier = global.GetState<float>("TurretEfficiency");
+            Cooldown = GetTree().CreateTimer(2.0f*UpgradeAmplifier);
             PackedScene bulletScene = (PackedScene)GD.Load("res://Scenes/roof_turret_bullet.tscn");
             RoofTurretBullet bullet = (RoofTurretBullet)bulletScene.Instantiate();
 

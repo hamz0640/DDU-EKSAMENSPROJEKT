@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TurretEfficiency" load_steps=2 format=3 uid="uid://byy6502vv50mi"]
+
+[ext_resource type="Script" uid="uid://db8tmi252sx6v" path="res://Configs/UpgradeDefinitions/TurretEfficiency.cs" id="1_bbhpf"]
+
+[resource]
+script = ExtResource("1_bbhpf")
+RedMineralAmount = 2
+PurpleMineralAmount = 0
+YellowMineralAmount = 3
+MaxBuyAmount = 6
+Description = "Decreases the reload time of the turret by 10%"
+BuyCondition = "None"

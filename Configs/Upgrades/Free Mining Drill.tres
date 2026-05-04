@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="FreeDrill" load_steps=2 format=3 uid="uid://ddi37nybdnoun"]
+
+[ext_resource type="Script" uid="uid://ds7bckso50dhq" path="res://Configs/UpgradeDefinitions/FreeDrill.cs" id="1_u6d3f"]
+
+[resource]
+script = ExtResource("1_u6d3f")
+RedMineralAmount = 0
+PurpleMineralAmount = 0
+YellowMineralAmount = 0
+MaxBuyAmount = 1
+Description = "Your very first drill, free of charge to get you going."
+BuyCondition = "Be a noob"
