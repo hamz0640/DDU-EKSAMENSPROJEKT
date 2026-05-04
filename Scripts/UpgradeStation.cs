@@ -15,6 +15,7 @@ public partial class UpgradeStation : Node2D
 
     public override void _Ready()
     {
+        AddToGroup("UpgradeStation");
         InputChute.Interact += DepositMinerals;
         UpgradeConsole.Interact += () =>
         {
@@ -36,7 +37,7 @@ public partial class UpgradeStation : Node2D
         }
     }
 
-    private void ToggleUpgradeConsole(bool visible)
+    public void ToggleUpgradeConsole(bool visible)
     {
         CanvasLayer UI = (CanvasLayer)GetTree().GetFirstNodeInGroup("UI");
 

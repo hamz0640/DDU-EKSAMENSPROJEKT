@@ -27,11 +27,28 @@ public partial class TutorialManager : Control
 
     private int CurrentStep = 0;
 
-    // Animation variabels
+    // Animation variables
     private float overlayAlpha = 0f;
     private float infoBoxAlpha = 0f;
     private float infoBoxSlideOffset = 0f;
     private Tween activeTween;
+    private bool ShowDirectionalArrow = false;
+    private Vector2 ArrowTarget = Vector2.Zero;
+    private Vector2 ArrowOrigin = Vector2.Zero;
+    private bool ArrowOriginSet = false;
+    private float ArrowPulse = 0f;
+    private Tween ArrowAnimTween;
+
+    // Steps where overlay + highlight border + normal arrow are hidden.
+    // Only InfoBox (and optionally directional arrow) is shown.
+    private static readonly int[] NoOverlaySteps = { 10, 11 };
+
+    // Steps where the directional arrow is shown.
+    private static readonly int[] DirectionalArrowSteps = { 11 };
+
+    // World-space target for the directional arrow on step 11.
+    // Set this in the Godot editor or call PointArrowAt() manually.
+    [Export] public Vector2 Step11ArrowTarget { get; set; } = new Vector2(50f, 50f);
 
     public override void _Ready()
     {
@@ -59,17 +76,16 @@ public partial class TutorialManager : Control
             Visible = false;
     }
 
+    private bool IsNoOverlayStep(int index) => System.Array.IndexOf(NoOverlaySteps, index) >= 0;
+    private bool IsDirectionalArrowStep(int index) => System.Array.IndexOf(DirectionalArrowSteps, index) >= 0;
+
     private void PlayIntroAnimation(System.Action onDone = null)
     {
         KillTween();
         activeTween = CreateTween().SetParallel();
-
-        
         activeTween.TweenProperty(this, "modulate:a", 1f, FadeDuration)
             .SetEase(Tween.EaseType.Out)
             .SetTrans(Tween.TransitionType.Cubic);
-
-     
         float targetY = InfoBox.Position.Y - 80f;
         activeTween.TweenProperty(InfoBox, "position:y", targetY, FadeDuration)
             .SetEase(Tween.EaseType.Out)
@@ -92,7 +108,7 @@ public partial class TutorialManager : Control
 
         activeTween.TweenProperty(InfoBox, "position:y", InfoBox.Position.Y + 20f, 0f);
 
-        var parallel = activeTween.SetParallel(true);
+        activeTween.SetParallel(true);
         activeTween.TweenProperty(InfoBox, "modulate:a", 1f, StepTransitionDuration)
             .SetEase(Tween.EaseType.Out)
             .SetTrans(Tween.TransitionType.Sine);
@@ -113,18 +129,17 @@ public partial class TutorialManager : Control
         global.SetState("PlayerCanMove", true);
 
         KillTween();
-        activeTween = CreateTween().SetParallel();
+        activeTween = CreateTween();
 
         activeTween.TweenProperty(this, "modulate:a", 0f, FadeDuration)
             .SetEase(Tween.EaseType.In)
             .SetTrans(Tween.TransitionType.Cubic);
 
-        activeTween.TweenProperty(InfoBox, "position:y", InfoBox.Position.Y + 80f, FadeDuration)
+        activeTween.Parallel().TweenProperty(InfoBox, "position:y", InfoBox.Position.Y + 80f, FadeDuration)
             .SetEase(Tween.EaseType.In)
             .SetTrans(Tween.TransitionType.Back);
 
-        if (onDone != null)
-            activeTween.Chain().TweenCallback(Callable.From(onDone));
+        if (onDone != null) activeTween.TweenCallback(Callable.From(onDone));
     }
 
     private void KillTween()
@@ -133,7 +148,6 @@ public partial class TutorialManager : Control
             activeTween.Kill();
         activeTween = null;
     }
-
 
     private void ShowStep(int index)
     {
@@ -144,13 +158,32 @@ public partial class TutorialManager : Control
         DescLabel.Text = step.Description;
         NextButton.Text = (index >= Steps.Length - 1) ? "Done" : "Next";
 
+        if (IsDirectionalArrowStep(index))
+            PointArrowAt(Step11ArrowTarget);
+        else
+            StopDirectionalArrow();
+
         Root.QueueRedraw();
     }
 
-
     public override void _Draw()
     {
-        if (CurrentStep >= Steps.Length) return;
+        if (CurrentStep >= Steps.Length)
+        {
+            if (ShowDirectionalArrow)
+                DrawDirectionalArrow();
+            return;
+        }
+
+        // No-overlay steps: skip dark background, highlight rect, and normal arrow.
+        // Only draw directional arrow if this step needs it.
+        if (IsNoOverlayStep(CurrentStep))
+        {
+            if (ShowDirectionalArrow)
+                DrawDirectionalArrow();
+            return;
+        }
+
         var step = Steps[CurrentStep];
         var screenSize = Root.Size;
         var rect = new Rect2(step.HighlightPosition, step.HighlightSize);
@@ -175,11 +208,8 @@ public partial class TutorialManager : Control
         Color neonGlow = new Color(0.0f, 0.9f, 1.0f, 0.15f);
         Color neonMid  = new Color(0.0f, 0.9f, 1.0f, 0.35f);
 
-        // Yderste glow lag (tykkest, mest gennemsigtig)
         Root.DrawLine(boxPoint, targetPoint, neonGlow, 12f, true);
-        // Midterste glow lag
         Root.DrawLine(boxPoint, targetPoint, neonMid, 5f, true);
-        // Kerne linjen (skarp og lys)
         Root.DrawLine(boxPoint, targetPoint, neonCyan, 1.5f, true);
 
         DrawArrowHead(targetPoint, boxPoint, neonCyan, neonGlow);
@@ -194,10 +224,8 @@ public partial class TutorialManager : Control
         Vector2 left  = tip - dir * size + perp * (size * 0.5f);
         Vector2 right = tip - dir * size - perp * (size * 0.5f);
 
-        // Fyldt trekant som pilehoved
         Vector2[] triangle = { tip, left, right };
 
-        // Glow lag under trekanten
         Color glowFill = new Color(glowColor.R, glowColor.G, glowColor.B, 0.25f);
         Root.DrawPolygon(triangle, new Color[] { glowFill, glowFill, glowFill });
 
@@ -230,18 +258,45 @@ public partial class TutorialManager : Control
     {
         if (CurrentStep >= Steps.Length - 1)
         {
-            PlayOutroAnimation(() => { Visible = false; });
+            StopDirectionalArrow();
+            PlayOutroAnimation(() =>
+            {
+                Modulate = new Color(1, 1, 1, 1f);
+                InfoBox.Visible = false;
+                CurrentStep = Steps.Length;
+            });
             return;
         }
 
-        int nextIndex = CurrentStep + 1;
+        int next = CurrentStep + 1;
+
+        if (next == 11)
+        {
+            Global global = Global.GetInstance();
+            global.SetState("PlayerCanMove", true);
+            GD.Print("bruh");
+        }
+
         PlayStepTransition(
-            onMidpoint: () => ShowStep(nextIndex)
+            onMidpoint: () =>
+            {
+                ShowStep(next);
+
+                UpgradeStation station = (UpgradeStation)GetTree().GetFirstNodeInGroup("UpgradeStation");
+                if (station != null)
+                {
+                    if (next == 8 || next == 9)
+                        station.ToggleUpgradeConsole(true);
+                    else
+                        station.ToggleUpgradeConsole(false);
+                }
+            }
         );
     }
 
     private void OnSkip()
     {
+        StopDirectionalArrow();
         PlayOutroAnimation(() => { Visible = false; });
     }
 
@@ -249,17 +304,13 @@ public partial class TutorialManager : Control
     {
         var panelStyle = new StyleBoxFlat();
         panelStyle.BgColor = new Color(0.05f, 0.07f, 0.12f, 0.85f);
-
         panelStyle.BorderColor = new Color(0.0f, 0.9f, 1.0f, 1f);
         panelStyle.SetBorderWidthAll(2);
-
         panelStyle.SetCornerRadiusAll(8);
-
         panelStyle.ExpandMarginTop = 2f;
         panelStyle.ExpandMarginBottom = 2f;
         panelStyle.ExpandMarginLeft = 2f;
         panelStyle.ExpandMarginRight = 2f;
-
         panelStyle.ShadowColor = new Color(0.0f, 0.9f, 1.0f, 0.3f);
         panelStyle.ShadowSize = 12;
         panelStyle.ShadowOffset = new Vector2(0, 4);
@@ -273,12 +324,11 @@ public partial class TutorialManager : Control
         DescLabel.AddThemeFontSizeOverride("font_size", 30);
 
         StyleButton(NextButton, new Color(0.0f, 0.9f, 1.0f), new Color(0.02f, 0.08f, 0.15f));
-        StyleButton(SkipButton,  new Color(0.4f, 0.4f, 0.5f), new Color(0.08f, 0.08f, 0.12f));
+        StyleButton(SkipButton, new Color(0.4f, 0.4f, 0.5f), new Color(0.08f, 0.08f, 0.12f));
     }
 
     private void StyleButton(Button btn, Color borderColor, Color bgColor)
     {
-        // Normal
         var normal = new StyleBoxFlat();
         normal.BgColor = bgColor;
         normal.BorderColor = borderColor;
@@ -292,31 +342,146 @@ public partial class TutorialManager : Control
         normal.ShadowSize = 6;
 
         var hover = (StyleBoxFlat)normal.Duplicate();
-        hover.BgColor = new Color(
-            bgColor.R + 0.08f,
-            bgColor.G + 0.08f,
-            bgColor.B + 0.1f,
-            1f
-        );
+        hover.BgColor = new Color(bgColor.R + 0.08f, bgColor.G + 0.08f, bgColor.B + 0.1f, 1f);
         hover.ShadowSize = 10;
         hover.ShadowColor = new Color(borderColor.R, borderColor.G, borderColor.B, 0.5f);
 
         var pressed = (StyleBoxFlat)normal.Duplicate();
-        pressed.BgColor = new Color(
-            borderColor.R * 0.3f,
-            borderColor.G * 0.3f,
-            borderColor.B * 0.3f,
-            1f
-        );
+        pressed.BgColor = new Color(borderColor.R * 0.3f, borderColor.G * 0.3f, borderColor.B * 0.3f, 1f);
 
         btn.AddThemeStyleboxOverride("normal", normal);
         btn.AddThemeStyleboxOverride("hover", hover);
         btn.AddThemeStyleboxOverride("pressed", pressed);
-        btn.AddThemeStyleboxOverride("focus", normal); 
+        btn.AddThemeStyleboxOverride("focus", normal);
 
         btn.AddThemeColorOverride("font_color", borderColor);
         btn.AddThemeColorOverride("font_hover_color", new Color(1f, 1f, 1f, 1f));
         btn.AddThemeColorOverride("font_pressed_color", new Color(1f, 1f, 1f, 1f));
         btn.AddThemeFontSizeOverride("font_size", 25);
     }
-}   
+
+    private void DrawDirectionalArrow()
+    {
+        if (!ArrowOriginSet) return;
+
+        Vector2 origin = ArrowOrigin;
+
+        // Convert ArrowTarget (world position) to this control's local draw space
+        Vector2 worldScreenPos = GetViewport().GetCanvasTransform() * ArrowTarget;
+        Vector2 localTarget = GetGlobalTransformWithCanvas().AffineInverse() * worldScreenPos;
+
+        Vector2 dir  = (localTarget - origin).Normalized();
+        Vector2 perp = new Vector2(-dir.Y, dir.X);
+
+        float pulse     = ArrowPulse;
+        float march     = pulse;
+        float glowAlpha = 0.15f + pulse * 0.45f;
+        float coreAlpha = 0.55f + pulse * 0.45f;
+        float glowWidth = 10f   + pulse * 8f;
+        float tipScale  = 0.75f + pulse * 0.5f;
+
+        Color core = new Color(0f, 0.9f, 1f, coreAlpha);
+        Color glow = new Color(0f, 0.9f, 1f, glowAlpha);
+        Color mid  = new Color(0f, 0.9f, 1f, glowAlpha * 0.6f);
+
+        float totalLen = origin.DistanceTo(localTarget);
+        float shaftEnd = totalLen - 28f;
+
+        DrawLine(origin, origin + dir * shaftEnd, glow, glowWidth, true);
+        DrawLine(origin, origin + dir * shaftEnd, mid,  4f,        true);
+        DrawLine(origin, origin + dir * shaftEnd, core, 1.5f,      true);
+
+        float chevronSpacing = 32f;
+        float chevronSize    = 7f;
+        int   chevronCount   = Mathf.Max(1, (int)(shaftEnd / chevronSpacing));
+
+        for (int i = 0; i < chevronCount; i++)
+        {
+            float t    = ((float)i / chevronCount + march) % 1f;
+            float dist = t * shaftEnd;
+            Vector2 center = origin + dir * dist;
+
+            float edgeFade  = Mathf.Sin(t * Mathf.Pi);
+            Color chevColor = new Color(core.R, core.G, core.B, core.A * edgeFade);
+            Color chevGlow  = new Color(glow.R, glow.G, glow.B, glowAlpha * edgeFade * 0.8f);
+
+            Vector2 ctip  = center + dir * chevronSize;
+            Vector2 left  = center - dir * chevronSize + perp * chevronSize;
+            Vector2 right = center - dir * chevronSize - perp * chevronSize;
+
+            DrawLine(left,  ctip, chevGlow,  4f,   true);
+            DrawLine(right, ctip, chevGlow,  4f,   true);
+            DrawLine(left,  ctip, chevColor, 1.2f, true);
+            DrawLine(right, ctip, chevColor, 1.2f, true);
+        }
+
+        Vector2 tipPos = localTarget;
+        float   hSize  = 16f * tipScale;
+        Vector2 hLeft  = tipPos - dir * hSize + perp * (hSize * 0.55f);
+        Vector2 hRight = tipPos - dir * hSize - perp * (hSize * 0.55f);
+
+        Vector2[] tri     = { tipPos, hLeft, hRight };
+        Color     triFill = new Color(0f, 0.9f, 1f, 0.3f + pulse * 0.3f);
+        DrawPolygon(tri, new Color[] { triFill, triFill, triFill });
+        DrawPolyline(new Vector2[] { tipPos, hLeft, hRight, tipPos }, core, 2f, true);
+
+        DrawCircle(tipPos, 3.5f, core);
+        DrawArc(tipPos, 6f  + pulse * 6f,  0, Mathf.Tau, 24, new Color(core.R, core.G, core.B, (1f - pulse) * 0.8f),  1.5f);
+        DrawArc(tipPos, 12f + pulse * 8f,  0, Mathf.Tau, 24, new Color(core.R, core.G, core.B, (1f - pulse) * 0.35f), 1f);
+        DrawCircle(origin, 4f + pulse * 3f, new Color(core.R, core.G, core.B, 0.5f + pulse * 0.5f));
+    }
+
+    private void StopDirectionalArrow()
+    {
+        ShowDirectionalArrow = false;
+        ArrowOriginSet = false;
+        KillArrowTween();
+        QueueRedraw();
+    }
+
+    private void KillArrowTween()
+    {
+        if (ArrowAnimTween != null && ArrowAnimTween.IsValid())
+            ArrowAnimTween.Kill();
+        ArrowAnimTween = null;
+    }
+
+    private void PointArrowAt(Vector2 worldPos)
+    {
+        var player = GetPlayer();
+        if (player != null)
+        {
+            Vector2 playerScreenPos = GetViewport().GetCanvasTransform() * player.GlobalPosition;
+            ArrowOrigin = GetGlobalTransformWithCanvas().AffineInverse() * playerScreenPos;
+        }
+        else
+        {
+            ArrowOrigin = Size / 2f;
+        }
+
+        ArrowTarget = worldPos;
+        ShowDirectionalArrow = true;
+        ArrowOriginSet = true;
+
+        KillArrowTween();
+        ArrowAnimTween = CreateTween().SetLoops();
+        ArrowAnimTween
+            .TweenMethod(Callable.From<float>(v => { ArrowPulse = v; QueueRedraw(); }),
+                0f, 1f, 0.55f)
+            .SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+        ArrowAnimTween
+            .TweenMethod(Callable.From<float>(v => { ArrowPulse = v; QueueRedraw(); }),
+                1f, 0f, 0.55f)
+            .SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+    }
+
+    private CharacterBody2D GetPlayer()
+    {
+        return GetTree().GetFirstNodeInGroup("player") as CharacterBody2D;
+    }
+
+    private Camera2D GetCamera2D()
+    {
+        return GetTree().GetFirstNodeInGroup("Camera") as Camera2D;
+    }
+}
