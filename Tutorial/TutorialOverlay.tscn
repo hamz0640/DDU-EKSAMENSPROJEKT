@@ -19,8 +19,8 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 script = ExtResource("5_71327")
 Title = "Ship"
 Description = "This is your main ship, protect it at all costs from enemies and other hostile creatures."
-HighlightPosition = Vector2(600, 20)
-HighlightSize = Vector2(1000, 600)
+HighlightPosition = Vector2(575, 110)
+HighlightSize = Vector2(1000, 500)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_87rfo"]
@@ -43,8 +43,8 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 script = ExtResource("5_71327")
 Title = "Wire"
 Description = "You can go down to the mines using the wire by pressing space."
-HighlightPosition = Vector2(120, 350)
-HighlightSize = Vector2(350, 300)
+HighlightPosition = Vector2(120, 290)
+HighlightSize = Vector2(380, 360)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_mf4nu"]
