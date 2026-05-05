@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://btcichbg1pnh7"]
+[gd_scene load_steps=15 format=3 uid="uid://btcichbg1pnh7"]
 
 [ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/Bars/EL-bar_empty.png" id="1_m78vo"]
 [ext_resource type="Texture2D" uid="uid://unqtwkn0pyeq" path="res://Assets/Bars/EL-bar_full.png" id="2_smcll"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/Icons/block-out-red-mineral.png" id="5_smcll"]
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="6_ryf15"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="7_mmixe"]
+[ext_resource type="Script" uid="uid://dkc6pnmt2l6b3" path="res://Scripts/Wavecounter.cs" id="8_nt8jn"]
 [ext_resource type="Script" uid="uid://28hmv2noa3tw" path="res://Scripts/DeathSliders.cs" id="9_mmixe"]
 [ext_resource type="Script" uid="uid://bo3ki2g1e7pfy" path="res://Scripts/WaveAnnouncement.cs" id="11_g0wmg"]
 
@@ -147,6 +148,12 @@ size_flags_vertical = 0
 texture_under = ExtResource("1_m78vo")
 texture_progress = ExtResource("2_smcll")
 script = ExtResource("3_ryf15")
+
+[node name="Wavecounter" type="Label" parent="BarAndMinerals/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Wave:"
+script = ExtResource("8_nt8jn")
 
 [node name="Control" type="Control" parent="." node_paths=PackedStringArray("TopDeathSlider", "BottomDeathSlider", "DeathMessage")]
 layout_mode = 3
