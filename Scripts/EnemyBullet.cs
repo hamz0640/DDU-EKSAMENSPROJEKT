@@ -50,14 +50,22 @@ public partial class EnemyBullet : CharacterBody2D
 		if (area.Name == "ChargingZone" && ShieldEnergy() > 0)
 		{
 			global.SetState<float>("CurrentShieldHealth", ShieldEnergy() - Damage);
-			QueueFree();
+            Direction = new Vector2(0, 0);
+            Velocity = Direction * 0;
+			animation.Play("Hit");
+			animation.Connect(AnimatedSprite2D.SignalName.AnimationFinished, Callable.From(() => { this.QueueFree(); }),
+           (uint)ConnectFlags.Deferred);
+			
 		}
 		else if (area.Name == "ShipHitbox")
 		{
 			global.SetState<float>("CurrentShipHealth", ShipHealth() - Damage);
-			GD.Print("Ship hit");
-			QueueFree();
-		}
+			Direction = new Vector2(0, 0);
+			Velocity = Direction * 0;
+            animation.Play("Hit");
+            animation.Connect(AnimatedSprite2D.SignalName.AnimationFinished, Callable.From(() => { this.QueueFree(); }),
+           (uint)ConnectFlags.Deferred);
+        }
 	}
 	float ShipHealth()
 	{

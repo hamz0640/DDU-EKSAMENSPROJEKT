@@ -29,7 +29,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_odot3")
 }],
-"loop": true,
+"loop": false,
 "name": &"Hit",
 "speed": 24.0
 }]
@@ -48,8 +48,7 @@ shape = SubResource("RectangleShape2D_6afsh")
 position = Vector2(-0.25, 0)
 scale = Vector2(1.16667, 0.5)
 sprite_frames = SubResource("SpriteFrames_t8o6v")
-animation = &"Bullet"
-frame_progress = 0.681255
+animation = &"Hit"
 
 [connection signal="area_entered" from="BulletHit" to="." method="OnAreaEntered"]
 [connection signal="body_entered" from="BulletHit" to="." method="OnBodyEntered"]
