@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/Icons/block-out-red-mineral.png" id="5_smcll"]
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="6_ryf15"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="7_mmixe"]
-[ext_resource type="Script" path="res://Scripts/Wavecounter.cs" id="8_nt8jn"]
+[ext_resource type="Script" uid="uid://dkc6pnmt2l6b3" path="res://Scripts/Wavecounter.cs" id="8_nt8jn"]
 [ext_resource type="Script" uid="uid://28hmv2noa3tw" path="res://Scripts/DeathSliders.cs" id="9_mmixe"]
 [ext_resource type="Script" uid="uid://bo3ki2g1e7pfy" path="res://Scripts/WaveAnnouncement.cs" id="11_g0wmg"]
 
