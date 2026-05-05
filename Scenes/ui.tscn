@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://btcichbg1pnh7"]
+[gd_scene load_steps=19 format=3 uid="uid://btcichbg1pnh7"]
 
 [ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/Bars/EL-bar_empty.png" id="1_m78vo"]
+[ext_resource type="PackedScene" uid="uid://dmik8c7oy1xq1" path="res://Scenes/ShipBar.tscn" id="1_nt8jn"]
 [ext_resource type="Texture2D" uid="uid://unqtwkn0pyeq" path="res://Assets/Bars/EL-bar_full.png" id="2_smcll"]
 [ext_resource type="Script" uid="uid://ct7clapidpt65" path="res://Scripts/EnergyBar.cs" id="3_ryf15"]
 [ext_resource type="Script" uid="uid://cy7a1nhxc65a7" path="res://Scripts/MineralCounter.cs" id="4_smcll"]
@@ -8,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="6_ryf15"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="7_mmixe"]
 [ext_resource type="Script" uid="uid://dkc6pnmt2l6b3" path="res://Scripts/Wavecounter.cs" id="8_nt8jn"]
+[ext_resource type="PackedScene" uid="uid://dudh85vr4v1tx" path="res://Scenes/ShieldBar.tscn" id="9_8fs27"]
 [ext_resource type="Script" uid="uid://28hmv2noa3tw" path="res://Scripts/DeathSliders.cs" id="9_mmixe"]
 [ext_resource type="Texture2D" uid="uid://pyr6mmx6a2p7" path="res://Assets/Others/vignette.png" id="11_4vbiv"]
 [ext_resource type="Script" uid="uid://bo3ki2g1e7pfy" path="res://Scripts/WaveAnnouncement.cs" id="11_g0wmg"]
@@ -316,3 +318,38 @@ position = Vector2(960, 540)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("11_4vbiv")
 script = ExtResource("12_4vbiv")
+
+[node name="ShieldShipBars" type="HBoxContainer" parent="."]
+visible = false
+offset_right = 211.0
+offset_bottom = 42.0
+scale = Vector2(3, 3)
+
+[node name="EnergyBar" type="MarginContainer" parent="ShieldShipBars"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TextureProgressBar2" parent="ShieldShipBars/EnergyBar" instance=ExtResource("9_8fs27")]
+custom_minimum_size = Vector2(100, 34)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="EnergyBar2" type="MarginContainer" parent="ShieldShipBars"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TextureProgressBar" parent="ShieldShipBars/EnergyBar2" instance=ExtResource("1_nt8jn")]
+custom_minimum_size = Vector2(91, 34)
+layout_mode = 2
