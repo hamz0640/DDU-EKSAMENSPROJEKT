@@ -6,18 +6,20 @@
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="4_u401c"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="5_km84g"]
 
-[node name="UpgradeEntry" type="PanelContainer" node_paths=PackedStringArray("RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "RedMineralIcon", "PurpleMineralIcon", "YellowMineralIcon", "ClickDetect", "UpgradeName", "Icon")]
+[node name="UpgradeEntry" type="PanelContainer" node_paths=PackedStringArray("RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "RedMineralIcon", "PurpleMineralIcon", "YellowMineralIcon", "ClickDetect", "BoughtAmount", "MaxBuyAmount", "UpgradeName", "Icon")]
 offset_right = 40.0
 offset_bottom = 40.0
 size_flags_horizontal = 3
 script = ExtResource("1_v4e2c")
-RedMineralCount = NodePath("MarginContainer/HBoxContainer/Minerals/RedMineralIcon/RedMineralCount")
-PurpleMineralCount = NodePath("MarginContainer/HBoxContainer/Minerals/PurpleMineralIcon/PurpleMineralCount")
-YellowMineralCount = NodePath("MarginContainer/HBoxContainer/Minerals/YellowMineralIcon/YellowMineralCount")
-RedMineralIcon = NodePath("MarginContainer/HBoxContainer/Minerals/RedMineralIcon")
-PurpleMineralIcon = NodePath("MarginContainer/HBoxContainer/Minerals/PurpleMineralIcon")
-YellowMineralIcon = NodePath("MarginContainer/HBoxContainer/Minerals/YellowMineralIcon")
+RedMineralCount = NodePath("MarginContainer/HBoxContainer/HBoxContainer2/Minerals/RedMineralIcon/RedMineralCount")
+PurpleMineralCount = NodePath("MarginContainer/HBoxContainer/HBoxContainer2/Minerals/PurpleMineralIcon/PurpleMineralCount")
+YellowMineralCount = NodePath("MarginContainer/HBoxContainer/HBoxContainer2/Minerals/YellowMineralIcon/YellowMineralCount")
+RedMineralIcon = NodePath("MarginContainer/HBoxContainer/HBoxContainer2/Minerals/RedMineralIcon")
+PurpleMineralIcon = NodePath("MarginContainer/HBoxContainer/HBoxContainer2/Minerals/PurpleMineralIcon")
+YellowMineralIcon = NodePath("MarginContainer/HBoxContainer/HBoxContainer2/Minerals/YellowMineralIcon")
 ClickDetect = NodePath("Button")
+BoughtAmount = NodePath("MarginContainer/HBoxContainer/HBoxContainer/BoughtAmount")
+MaxBuyAmount = NodePath("MarginContainer/HBoxContainer/HBoxContainer/MaxBuyAmount")
 UpgradeName = NodePath("MarginContainer/HBoxContainer/UpgradeName")
 Icon = NodePath("MarginContainer/HBoxContainer/UpgradeIcon")
 
@@ -36,24 +38,49 @@ layout_mode = 2
 texture = ExtResource("2_v4e2c")
 expand_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
 [node name="UpgradeName" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Upgrade name"
 
-[node name="Spacer" type="Control" parent="MarginContainer/HBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 2
 
-[node name="Minerals" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="BoughtAmount" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="Slash" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "/"
+
+[node name="MaxBuyAmount" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="VSeparator3" type="VSeparator" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 alignment = 2
 
-[node name="RedMineralIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Minerals"]
+[node name="Minerals" type="HBoxContainer" parent="MarginContainer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+alignment = 2
+
+[node name="RedMineralIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxContainer2/Minerals"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -61,7 +88,7 @@ texture = ExtResource("3_6q7tj")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="RedMineralCount" type="Label" parent="MarginContainer/HBoxContainer/Minerals/RedMineralIcon"]
+[node name="RedMineralCount" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer2/Minerals/RedMineralIcon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,7 +99,7 @@ text = "x0"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="PurpleMineralIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Minerals"]
+[node name="PurpleMineralIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxContainer2/Minerals"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -80,7 +107,7 @@ texture = ExtResource("4_u401c")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="PurpleMineralCount" type="Label" parent="MarginContainer/HBoxContainer/Minerals/PurpleMineralIcon"]
+[node name="PurpleMineralCount" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer2/Minerals/PurpleMineralIcon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -91,7 +118,7 @@ text = "x0"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="YellowMineralIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Minerals"]
+[node name="YellowMineralIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxContainer2/Minerals"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -99,7 +126,7 @@ texture = ExtResource("5_km84g")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="YellowMineralCount" type="Label" parent="MarginContainer/HBoxContainer/Minerals/YellowMineralIcon"]
+[node name="YellowMineralCount" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer2/Minerals/YellowMineralIcon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

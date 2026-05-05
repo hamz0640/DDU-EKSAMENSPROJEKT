@@ -11,14 +11,13 @@ public partial class UpgradeEntry : PanelContainer
     [Export] public TextureRect PurpleMineralIcon = null;
     [Export] public TextureRect YellowMineralIcon = null;
     [Export] public Button ClickDetect = null;
-
+    [Export] public Label BoughtAmount = null;
+    [Export] public Label MaxBuyAmount = null;
 
     [Export]
     public Label UpgradeName = null;
     [Export]
     public TextureRect Icon = null;
-    [Export]
-    public Label AmountBought = null;
     public Upgrade RelatedUpgradeResource = null; 
     public bool IsLocked {get; private set; } = true;
 
