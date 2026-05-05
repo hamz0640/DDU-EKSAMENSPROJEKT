@@ -6,7 +6,6 @@ public partial class ShieldBar : TextureProgressBar
     [Export] public float FlashSpeed = 3f;
     [Export] public float LowEnergyThreshold = 25.0f;
 
-    private bool _isFlashing = false;
     private Tween _flashTween;
     private bool IsFlashing = false;
     private Tween FlashTween;
@@ -39,9 +38,9 @@ public partial class ShieldBar : TextureProgressBar
 
         float percentage = (currentHealth / maxHealth) * 100f;
 
-        if (percentage <= LowEnergyThreshold && !_isFlashing)
+        if (percentage <= LowEnergyThreshold && !IsFlashing)
             StartFlash();
-        else if (percentage > LowEnergyThreshold && _isFlashing)
+        else if (percentage > LowEnergyThreshold && IsFlashing)
             StopFlash();
     }
     private void StartFlash()

@@ -7,8 +7,9 @@ public partial class ShieldHealthUpgrade : Upgrade
     public override void OnBuy(SceneTree _tree)
     {
         Global global = Global.GetInstance();
-        float shieldHealth = global.GetState<float>("CurrentShieldHealth") + 200.0f;
-        global.SetState("CurrentShieldHealth", shieldHealth);
+        float max = global.GetState<float>("ShieldHealth") + 200f;
+        global.SetState("ShieldHealth", max);
+        global.SetState("CurrentShieldHealth", max);
         AmountBought += 1;
     }
 }
