@@ -39,8 +39,6 @@ public partial class PlayerController : CharacterBody2D
 	private bool InTurret = false;
 	private int KnockOffWire = 0;
 	enum State { Ground, Air, Wire };
-	private bool HasBeenInMine = false;
-	private bool HasBeenAboveGround = false;
 	private bool FreeDrill = false;
 
 	AudioStreamPlayer2D drilling;
@@ -56,23 +54,6 @@ public partial class PlayerController : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (GlobalPosition.Y < 0.0f && HasBeenInMine && InTurret)
-		{
-			WaveManager waveManager = WaveManager.GetInstance();
-			waveManager.StartWave();
-			HasBeenInMine = false;
-			HasBeenAboveGround = false;
-		}
-		if (HasBeenAboveGround && GlobalPosition.Y > 0.0f)
-		{
-			WaveManager waveManager = WaveManager.GetInstance();
-			waveManager.StartWave();
-			HasBeenInMine = false;
-			HasBeenAboveGround = false;
-		}
-		HasBeenInMine = HasBeenInMine || GlobalPosition.Y > 0.0f;
-		HasBeenAboveGround = HasBeenInMine && GlobalPosition.Y < 0.0f;
-
 		Tracker tracker = Tracker.GetInstance();
 		tracker.IncrementTracking("Time:Total", (float)delta);
 		if (GlobalPosition.Y > 0)
@@ -254,8 +235,8 @@ public partial class PlayerController : CharacterBody2D
 				goto EarlyExit;
 
 			// Drain energy while mining
-			currentEnergy -= miningDrain * delta;
-			global.SetState("CurrentEnergy", currentEnergy);	
+			global.ModifyState("CurrentEnergy", -miningDrain * delta);
+			global.ModifyState("EnergyUsedSinceLastWave", miningDrain * delta);	
 
 			TileData tileData = ground.GroundLayer.GetCellTileData(miningTilePosition);
 			if (tileData == null)
@@ -392,8 +373,9 @@ public partial class PlayerController : CharacterBody2D
 		{
 			tracker.IncrementTracking("Time:UsingJetpack", delta);
 			velocity.Y = Mathf.MoveToward(Velocity.Y, -MaxJetpackSpeed, JetpackAcceleration * delta);
-			currentEnergy -= 1.0f / jetpackEfficiency * jetpackDrain * delta;
-			global.SetState("CurrentEnergy", currentEnergy);
+			float energyDrain = 1.0f / jetpackEfficiency * jetpackDrain * delta;
+			global.ModifyState("CurrentEnergy", -energyDrain);
+			global.ModifyState("EnergyUsedSinceLastWave", energyDrain);
 		}
 		else
 		{

@@ -20,7 +20,6 @@ public partial class Turret : CharacterBody2D
 	{
 		sfx = GetNode<AudioStreamPlayer2D>("Shot");
 		animator.Pause();
-		GD.Print("Turret spawned");
 		this.Position = new Vector2(100, -SpawnHeight);
 		//Screenshake
 		Label.Visible = false;
@@ -68,7 +67,6 @@ public partial class Turret : CharacterBody2D
 	{
 		Label.Visible = true;
         UpdateEnemieDirection(); // Tjek om enemies er til højre eller venstre
-		GD.Print($"Enemies left:{EnemiesWithinL}, Enemies right: {EnemiesWithinR}");
 		if (!FacingR && EnemiesWithinR >= 1 && EnemiesWithinL < 1)
 		{
 			FacingR = true;

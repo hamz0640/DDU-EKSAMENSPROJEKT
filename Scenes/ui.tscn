@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://btcichbg1pnh7"]
+[gd_scene load_steps=17 format=3 uid="uid://btcichbg1pnh7"]
 
 [ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/Bars/EL-bar_empty.png" id="1_m78vo"]
 [ext_resource type="Texture2D" uid="uid://unqtwkn0pyeq" path="res://Assets/Bars/EL-bar_full.png" id="2_smcll"]
@@ -9,7 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="7_mmixe"]
 [ext_resource type="Script" uid="uid://dkc6pnmt2l6b3" path="res://Scripts/Wavecounter.cs" id="8_nt8jn"]
 [ext_resource type="Script" uid="uid://28hmv2noa3tw" path="res://Scripts/DeathSliders.cs" id="9_mmixe"]
+[ext_resource type="Texture2D" uid="uid://pyr6mmx6a2p7" path="res://Assets/Others/vignette.png" id="11_4vbiv"]
 [ext_resource type="Script" uid="uid://bo3ki2g1e7pfy" path="res://Scripts/WaveAnnouncement.cs" id="11_g0wmg"]
+[ext_resource type="Script" uid="uid://pa44vflkowv6" path="res://Scripts/Vignette.cs" id="12_4vbiv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nt8jn"]
 bg_color = Color(0.0627451, 0.0313726, 0.0235294, 0.760784)
@@ -308,3 +310,9 @@ theme_override_colors/font_shadow_color = Color(0.482353, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
 theme_override_font_sizes/font_size = 90
 text = "YOU DIED"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_4vbiv")
+script = ExtResource("12_4vbiv")
