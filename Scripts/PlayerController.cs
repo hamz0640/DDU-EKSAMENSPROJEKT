@@ -40,9 +40,12 @@ public partial class PlayerController : CharacterBody2D
 	private int KnockOffWire = 0;
 	enum State { Ground, Air, Wire };
 	private bool FreeDrill = false;
+	
+	bool PowerLow = false;
 
 	AudioStreamPlayer2D drilling;
 	AudioStreamPlayer2D flying;
+	AudioStreamPlayer2D lowpower;
 	
 	public override void _Ready()
 	{
@@ -50,6 +53,7 @@ public partial class PlayerController : CharacterBody2D
         AddToGroup("player");
 		drilling = GetNode<AudioStreamPlayer2D>("Mining");
 		flying = GetNode<AudioStreamPlayer2D>("Jetpack");
+		lowpower = GetNode<AudioStreamPlayer2D>("LowPower");
     }
 
 	public override void _PhysicsProcess(double delta)
@@ -100,7 +104,22 @@ public partial class PlayerController : CharacterBody2D
 		HandleAnimationsAndAudio();
 
 		TimeSinceMountChange += 1;
-	}
+
+        float currentEnergy = global.GetState<float>("CurrentEnergy");
+        float maxEnergy = global.GetState<float>("MaxEnergy");
+
+        float fraction = currentEnergy / maxEnergy;
+
+		if (fraction < 0.4 && !PowerLow)
+		{
+			lowpower.Play();
+			lowpower.Connect(AudioStreamPlayer2D.SignalName.Finished, Callable.From(() => {PowerLow=true; }),
+           (uint)ConnectFlags.OneShot);
+			
+		}
+		if (fraction > 0.5 && PowerLow) PowerLow = false;
+
+    }
 
 	private void OnToggleTurret() {
 		if (!InTurret)
