@@ -23,6 +23,7 @@ public partial class WaveManager : Node
     private Godot.Collections.Dictionary<PackedScene, float> Weights = null;
     private float ChanceOfStartingWave = 0.0f;
     private float EnergyUsedMultiplier = 0.0f;
+    private bool SpawningStarted = false;
 
 	private Random rand = new Random();
 
@@ -51,12 +52,13 @@ public partial class WaveManager : Node
             tracker.IncrementTracking("Time:InWaves", (float)delta);
         }
 
-        if (EnemiesInWorld <= 0 && IsInWave)
+        if (EnemiesInWorld <= 0 && IsInWave && SpawningStarted)
         {
             IsInWave = false;
+            SpawningStarted = false;
             EmitSignal("WaveEnded");
-			GD.Print("Wave Ended");
         }
+
 
         if (Engine.GetPhysicsFrames() % 60 == 0)
         {
@@ -86,7 +88,8 @@ public partial class WaveManager : Node
         EmitSignal("WaveStarted");
 
         await Task.Delay((5 + (int)WaveNumber) * 1000);
-		GD.Print("Wave " + WaveNumber +  " Started");
+        SpawningStarted = true;
+        GD.Print("Wave " + WaveNumber + " Started");
         SpawnTimer = GetTree().CreateTimer(TimeBetweenSpawns);
 		SpawnTimer.Timeout += SpawnNextEnemy;
         SpawnNextEnemy();

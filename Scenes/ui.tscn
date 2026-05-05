@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://btcichbg1pnh7"]
+[gd_scene load_steps=21 format=3 uid="uid://btcichbg1pnh7"]
 
 [ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/Bars/EL-bar_empty.png" id="1_m78vo"]
 [ext_resource type="PackedScene" uid="uid://dmik8c7oy1xq1" path="res://Scenes/ShipBar.tscn" id="1_nt8jn"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" uid="uid://28hmv2noa3tw" path="res://Scripts/DeathSliders.cs" id="9_mmixe"]
 [ext_resource type="Texture2D" uid="uid://pyr6mmx6a2p7" path="res://Assets/Others/vignette.png" id="11_4vbiv"]
 [ext_resource type="Script" uid="uid://bo3ki2g1e7pfy" path="res://Scripts/WaveAnnouncement.cs" id="11_g0wmg"]
+[ext_resource type="Texture2D" uid="uid://bdbgfer1xig0m" path="res://Assets/Others/back.png" id="11_kuui0"]
+[ext_resource type="Texture2D" uid="uid://bsi2gtmx1vsfh" path="res://Assets/Others/banner.png" id="11_whq80"]
 [ext_resource type="Script" uid="uid://pa44vflkowv6" path="res://Scripts/Vignette.cs" id="12_4vbiv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nt8jn"]
@@ -20,9 +22,11 @@ bg_color = Color(0.0627451, 0.0313726, 0.0235294, 0.760784)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0wmg"]
 bg_color = Color(0.85, 0.1, 0.1, 1)
+draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vbiv"]
 bg_color = Color(0.85, 0.1, 0.1, 1)
+draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3r70p"]
 bg_color = Color(0.85, 0.1, 0.1, 0.4)
@@ -220,6 +224,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nt8jn")
 
+[node name="TextureRect" type="TextureRect" parent="Control/Control/Banner"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 104.0
+scale = Vector2(4.80415, 2.01295)
+texture = ExtResource("11_kuui0")
+
 [node name="LeftBorder" type="Panel" parent="Control/Control/Banner"]
 layout_mode = 1
 anchors_preset = -1
@@ -227,9 +238,22 @@ anchor_bottom = 1.0
 offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.89165, 1.00174)
 theme_override_styles/panel = SubResource("StyleBoxFlat_g0wmg")
 
+[node name="TextureRect" type="TextureRect" parent="Control/Control/Banner/LeftBorder"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.617382, 0.995437)
+texture = ExtResource("11_whq80")
+
 [node name="RightBorder" type="Panel" parent="Control/Control/Banner"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -241,7 +265,15 @@ grow_vertical = 2
 pivot_offset = Vector2(20, 0)
 theme_override_styles/panel = SubResource("StyleBoxFlat_4vbiv")
 
+[node name="TextureRect" type="TextureRect" parent="Control/Control/Banner/RightBorder"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.500881, 1.00423)
+texture = ExtResource("11_whq80")
+
 [node name="Divider" type="Panel" parent="Control/Control/Banner"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -266,9 +298,10 @@ offset_right = -2.0
 offset_bottom = -82.6
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.01224, 0.963108)
 pivot_offset = Vector2(300, 35)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 66
+theme_override_font_sizes/font_size = 50
 text = "You have been spotted!"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -281,11 +314,11 @@ anchor_bottom = 1.0
 offset_left = 2.0
 offset_top = 97.4
 offset_right = 2.0
-offset_bottom = 21.6
+offset_bottom = 17.6
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.85098)
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 21
 text = "ENEMIES APPROACHING 
 Prepare with upgrades 
 Return to your battle station

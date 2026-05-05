@@ -21,12 +21,30 @@ public partial class WaveAnnouncement : Control
 
         Visible = false;
 
-        WaveManager.GetInstance().WaveStarted += OnWaveStarted;
+        WaveManager wm = WaveManager.GetInstance();
+        wm.WaveStarted += OnWaveStarted;
+        wm.WaveEnded += OnWaveEnded;
     }
 
-    private void OnWaveStarted() => ShowWave();
+    private void OnWaveStarted()
+    {
+        WaveManager wm = WaveManager.GetInstance();
 
-    private void ShowWave()
+        WaveLabel.Text = "You have been spotted!";
+        SubLabel.Text = "ENEMIES APPROACHING\nPrepare with upgrades\nReturn to your battle station";
+
+        PlayAnimation();
+    }
+
+    private void OnWaveEnded()
+    {
+        WaveLabel.Text = "WAVE COMPLETE";
+        SubLabel.Text = "GOOD JOB";
+
+        PlayAnimation();
+    }
+
+    private void PlayAnimation()
     {
         Visible = true;
 
@@ -45,10 +63,10 @@ public partial class WaveAnnouncement : Control
         Tween.TweenProperty(Banner, "modulate:a", 1.0f, 0.15f);
 
         // Red borders slice in 
-        Tween.Parallel().TweenProperty(LeftBorder,  "scale:x", 1.0f, 0.2f)
-              .SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Quart);
+        Tween.Parallel().TweenProperty(LeftBorder,  "scale:x", 1.0f, 0.2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Quart);
+
         Tween.Parallel().TweenProperty(RightBorder, "scale:x", 1.0f, 0.2f)
-              .SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Quart);
+            .SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Quart);
 
         // Sub label fades 
         Tween.TweenProperty(SubLabel, "modulate:a", 1.0f, 0.15f);
@@ -58,7 +76,8 @@ public partial class WaveAnnouncement : Control
 
         //  Wave label pops 
         Tween.Parallel().TweenProperty(WaveLabel, "modulate:a", 1.0f, 0.2f);
-        Tween.Parallel().TweenProperty(WaveLabel, "scale", new Vector2(1.1f, 1.1f), 0.2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Back);
+        Tween.Parallel().TweenProperty(WaveLabel, "scale", new Vector2(1.1f, 1.1f), 0.2f)
+            .SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Back);
 
         // back to normal
         Tween.TweenProperty(WaveLabel, "scale", Vector2.One, 0.1f);
@@ -67,9 +86,9 @@ public partial class WaveAnnouncement : Control
         Tween.TweenInterval(4.0f);
 
         // Everything fades tf out
-        Tween.TweenProperty(Banner,   "modulate:a", 0.0f, 0.35f);
-        Tween.Parallel().TweenProperty(SubLabel,  "modulate:a", 0.0f, 0.35f);
-        Tween.Parallel().TweenProperty(Divider,   "modulate:a", 0.0f, 0.35f);
+        Tween.TweenProperty(Banner, "modulate:a", 0.0f, 0.35f);
+        Tween.Parallel().TweenProperty(SubLabel, "modulate:a", 0.0f, 0.35f);
+        Tween.Parallel().TweenProperty(Divider, "modulate:a", 0.0f, 0.35f);
         Tween.Parallel().TweenProperty(WaveLabel, "modulate:a", 0.0f, 0.35f);
 
         Tween.Finished += () => Visible = false;
