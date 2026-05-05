@@ -83,7 +83,7 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 [sub_resource type="Resource" id="Resource_jylwr"]
 script = ExtResource("5_71327")
 Title = "Incoming waves"
-Description = "A wave staWhen you come back up from the mines and enter the ship to access the roof turret, the wave begins. Once the wave is over, you can go down to the mines again to collect minerals, buy upgrades, and repeat the cycle."
+Description = "Waves start at random intervals. Each wave gets harder, so make sure to prepare with upgrades"
 HighlightPosition = Vector2(0, 0)
 HighlightSize = Vector2(0, 0)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
