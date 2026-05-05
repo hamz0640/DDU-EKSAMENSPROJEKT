@@ -16,7 +16,6 @@ public partial class Vignette : Sprite2D
         if (fraction > 0.5f)
         {
             Modulate = new Color(0f, 0f, 0f, 0f);
-            GD.Print("reee");
         }
         else if (fraction < 0.5f && fraction > 0.25f)
         {
