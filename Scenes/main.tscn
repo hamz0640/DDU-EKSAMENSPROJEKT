@@ -18,7 +18,7 @@
 [ext_resource type="Script" uid="uid://daovwbkwwn7hh" path="res://Scripts/RoofTurret.cs" id="15_wsu2k"]
 [ext_resource type="PackedScene" uid="uid://bvtf3co8npe7t" path="res://Scenes/mine_lid.tscn" id="16_k12tt"]
 [ext_resource type="AudioStream" uid="uid://dxq11f2epsiqd" path="res://Assets/Others/explosion (1).wav" id="18_b3802"]
-[ext_resource type="PackedScene" uid="uid://dqe8hgah5uw8" path="res://Scenes/ErrorManager.tscn" id="19_fevyy"]
+[ext_resource type="PackedScene" path="res://Scenes/ErrorManager.tscn" id="19_fevyy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k12tt"]
 size = Vector2(24, 38)
