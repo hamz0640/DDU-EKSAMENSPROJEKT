@@ -9,6 +9,6 @@ RedMineralAmount = 0
 PurpleMineralAmount = 0
 YellowMineralAmount = 0
 MaxBuyAmount = 1
-Description = "Your very first drill, free of charge to get you going."
+Description = "Your very first drill, free of charge to get you going. How generous?"
 BuyCondition = "Be a noob"
 UpgradeIcon = ExtResource("1_kn7ln")

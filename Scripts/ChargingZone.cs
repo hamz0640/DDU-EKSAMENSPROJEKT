@@ -2,7 +2,7 @@ using Godot;
 
 public partial class ChargingZone : Area2D
 {
-    [Export] public float ChargeRate = 5f; 
+    [Export] public float ChargeRate = 10f; 
     
     private bool IsInChargingZone = false; 
     private PlayerController Player = null;

@@ -27,6 +27,7 @@ public partial class Global : Node
         State["JetpackEffeciency"] = 1.0f;
         State["JetpackDrain"] = 15.0f;
         State["EnergyUsedSinceLastWave"] = 0.0f;
+        State["JetpackDrain"] = 10.0f;
 
         // Mining 
         State["MiningDrain"] = 5.0f;
@@ -59,7 +60,7 @@ public partial class Global : Node
         // Upgrades
         State["MainTurretCooling"] = 1.0f;
         State["FreeDrill"] = false;
-
+        State["RegenAmount"] = 0;
         State["ErrorCount"] = 0;
     }
 
@@ -74,14 +75,21 @@ public partial class Global : Node
             SetState("DepositedPurpleMineralCount", (uint)99999);
             SetState("DepositedYellowMineralCount", (uint)99999);
 
-            SetState("RedMineralCount",    (uint)99999);
-            SetState("PurpleMineralCount", (uint)99999);
-            SetState("YellowMineralCount", (uint)99999);
+            SetState("RedMineralCount",    (uint)100);
+            SetState("PurpleMineralCount", (uint)100);
+            SetState("YellowMineralCount", (uint)100);
 
             EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Red,    false]);
             EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Purple, false]);
             EmitSignal("MineralCountUpdated", [(int)Mineral.MineralType.Yellow, false]);
         }
+
+        float shieldHealth = GetState<float>("CurrentShieldHealth");
+        shieldHealth += 1f * (float)delta * 0.8f * GetState<float>("RegenAmount");
+        if (shieldHealth < 200f)
+            SetState("CurrentShieldHealth", shieldHealth);
+        GD.Print(shieldHealth);
+
     }
 
 

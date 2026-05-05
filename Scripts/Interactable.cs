@@ -9,6 +9,7 @@ public partial class Interactable : Area2D
     public delegate void InteractEventHandler();
     [Export]
     string InputActionName = "interact";
+    string InputActionName2 = "escape";
     [Export]
     bool ActivateOnTouch = false;
     public bool IsPlayerInInteractableArea { get; private set; } = false;
@@ -33,7 +34,7 @@ public partial class Interactable : Area2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (!(Input.IsActionJustPressed(InputActionName) && IsPlayerInInteractableArea) || ActivateOnTouch)
+        if (!(Input.IsActionJustPressed(InputActionName) && IsPlayerInInteractableArea) || ActivateOnTouch && !(Input.IsActionJustPressed(InputActionName2) && IsPlayerInInteractableArea) || ActivateOnTouch)
             return;
         
         Camera2D camera = (Camera2D)GetTree().GetFirstNodeInGroup("Camera");

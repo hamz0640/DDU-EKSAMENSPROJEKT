@@ -82,7 +82,6 @@ private TextureRect UpgradeIconImage = null;
         UpgradeDescription.Text = selectedUpgrade.RelatedUpgradeResource.Description;
         UpgradeBuyCondition.Text = selectedUpgrade.RelatedUpgradeResource.BuyCondition;
 
-        // Add this:
         if (selectedUpgrade.RelatedUpgradeResource.UpgradeIcon != null)
             UpgradeIconImage.Texture = selectedUpgrade.RelatedUpgradeResource.UpgradeIcon;
         else

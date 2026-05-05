@@ -194,6 +194,7 @@ public partial class PlayerController : CharacterBody2D
 		if (CurrentState == State.Wire)
 		{
 			anim.Play("climb");
+			drilling.Stop();
 		}
 
 		if (CurrentState == State.Air)
