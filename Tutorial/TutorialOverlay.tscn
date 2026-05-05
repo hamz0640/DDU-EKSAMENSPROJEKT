@@ -34,7 +34,7 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 [sub_resource type="Resource" id="Resource_2arwq"]
 script = ExtResource("5_71327")
 Title = "Energy"
-Description = "This bar shows your current energy level. Mining minerals using the jetpack consumes energy. Be aware that if you run out of energy, you will die. Remember, you can always recharge as long as you are in the charging zone."
+Description = "This bar shows your current energy level. Mining minerals and using the jetpack consumes energy. Be aware that if you run out of energy, you will die. Remember, you can always recharge as long as you are in the charging zone."
 HighlightPosition = Vector2(15, 130)
 HighlightSize = Vector2(300, 120)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
@@ -42,7 +42,7 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 [sub_resource type="Resource" id="Resource_a3eon"]
 script = ExtResource("5_71327")
 Title = "Wire"
-Description = "You can go down to the mines using the wire by pressing space."
+Description = "You can go down to the mines using the wire by pressing the spacebar."
 HighlightPosition = Vector2(120, 290)
 HighlightSize = Vector2(380, 360)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
@@ -80,6 +80,14 @@ HighlightPosition = Vector2(350, 120)
 HighlightSize = Vector2(230, 100)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
+[sub_resource type="Resource" id="Resource_jylwr"]
+script = ExtResource("5_71327")
+Title = "Incoming waves"
+Description = "A wave starts every time you come back from the mine. When you go back up and enter the ship to access the roof turret, the wave begins. Once the wave is over, you can go down to the mine again to collect minerals, buy upgrades, and repeat the cycle."
+HighlightPosition = Vector2(0, 0)
+HighlightSize = Vector2(0, 0)
+metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
+
 [sub_resource type="Resource" id="Resource_0lbe4"]
 script = ExtResource("5_71327")
 Title = "Drill Upgrade"
@@ -88,18 +96,10 @@ HighlightPosition = Vector2(115, 320)
 HighlightSize = Vector2(1400, 100)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
-[sub_resource type="Resource" id="Resource_jylwr"]
-script = ExtResource("5_71327")
-Title = "Incoming waves"
-Description = "A wave starts every time you go down to the mines. When you go back up and enter the ship to access the roof turret, the wave begins. Once the wave is over, you can go down to the mines again to collect minerals, buy upgrades, and repeat the cycle."
-HighlightPosition = Vector2(0, 0)
-HighlightSize = Vector2(0, 0)
-metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
-
 [sub_resource type="Resource" id="Resource_ec2ee"]
 script = ExtResource("5_71327")
 Title = "Mine"
-Description = "Follow the arrow and start mining some minerals. Good luck!"
+Description = "After purchasing the drill upgrade, follow the arrow and start mining some minerals. Good luck!"
 HighlightPosition = Vector2(0, 0)
 HighlightSize = Vector2(100, 100)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
@@ -116,7 +116,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_71327")
-Steps = [SubResource("Resource_ov3gm"), SubResource("Resource_71327"), ExtResource("2_3cduj"), ExtResource("3_ulhh6"), SubResource("Resource_87rfo"), ExtResource("4_1x8y3"), SubResource("Resource_2arwq"), SubResource("Resource_a3eon"), SubResource("Resource_mf4nu"), SubResource("Resource_5045t"), SubResource("Resource_4e5ao"), SubResource("Resource_1fhva"), SubResource("Resource_0lbe4"), SubResource("Resource_jylwr"), SubResource("Resource_ec2ee")]
+Steps = [SubResource("Resource_ov3gm"), SubResource("Resource_71327"), ExtResource("2_3cduj"), ExtResource("3_ulhh6"), SubResource("Resource_87rfo"), ExtResource("4_1x8y3"), SubResource("Resource_2arwq"), SubResource("Resource_a3eon"), SubResource("Resource_mf4nu"), SubResource("Resource_5045t"), SubResource("Resource_4e5ao"), SubResource("Resource_1fhva"), SubResource("Resource_jylwr"), SubResource("Resource_0lbe4"), SubResource("Resource_ec2ee")]
 OverlayColor = Color(0, 0, 0, 0.558)
 BorderColor = Color(0, 0.9, 1, 1)
 BorderWidth = 6.0
@@ -128,7 +128,7 @@ TitleLabelPath = NodePath("InfoBox/MarginContainer/VBoxContainer/TitleLabel")
 DescLabelPath = NodePath("InfoBox/MarginContainer/VBoxContainer/DescLabel")
 NextButtonPath = NodePath("InfoBox/MarginContainer/VBoxContainer/HBoxContainer/NextButton")
 SkipButtonPath = NodePath("InfoBox/MarginContainer/VBoxContainer/HBoxContainer/SkipButton")
-Step11ArrowTarget = Vector2(50, 20)
+Step11ArrowTarget = Vector2(200, -20)
 
 [node name="InfoBox" type="Panel" parent="Root"]
 layout_mode = 1

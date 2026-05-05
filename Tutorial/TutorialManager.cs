@@ -41,14 +41,17 @@ public partial class TutorialManager : Control
 
     // Steps where overlay + highlight border + normal arrow are hidden.
     // Only InfoBox (and optionally directional arrow) is shown.
-    private static readonly int[] NoOverlaySteps = { 13, 4 , 14 };
+    private static readonly int[] NoOverlaySteps = {12,  13, 4 , 14 };
 
     // Steps where the directional arrow is shown.
-    private static readonly int[] DirectionalArrowSteps = { 14 };
+    private static readonly int[] DirectionalArrowSteps = { 13, 14 };
 
     // World-space target for the directional arrow on step 11.
     // Set this in the Godot editor or call PointArrowAt() manually.
-    [Export] public Vector2 Step11ArrowTarget { get; set; } = new Vector2(50f, 50f);
+    [Export] public Vector2 Step11ArrowTarget { get; set; } = new Vector2(1000f, -2220f);
+
+    [Export] public Vector2 Step14ArrowTarget { get; set; } = new Vector2(50f, 50f);
+
     AudioStreamPlayer2D sfx;
 
     public override void _Ready()
@@ -163,9 +166,22 @@ public partial class TutorialManager : Control
         NextButton.Text = (index >= Steps.Length - 1) ? "Done" : "Next";
 
         if (IsDirectionalArrowStep(index))
-            PointArrowAt(Step11ArrowTarget);
+        {
+            switch (index)
+            {
+                case 13:
+                    PointArrowAt(Step11ArrowTarget); 
+                    break;
+
+                case 14:
+                    PointArrowAt(Step14ArrowTarget);
+                    break;
+            }
+        }
         else
+        {
             StopDirectionalArrow();
+        }
 
         Root.QueueRedraw();
     }
@@ -275,7 +291,7 @@ public partial class TutorialManager : Control
 
         int next = CurrentStep + 1;
 
-        if (next == 14)
+        if (next == 14 || next == 13)
         {
             Global global = Global.GetInstance();
             global.SetState("PlayerCanMove", true);
@@ -290,7 +306,7 @@ public partial class TutorialManager : Control
                 UpgradeStation station = (UpgradeStation)GetTree().GetFirstNodeInGroup("UpgradeStation");
                 if (station != null)
                 {
-                    if (next == 9 || next == 10 || next == 11 || next == 12 )
+                    if (next == 9 || next == 10 || next == 11)
                         station.ToggleUpgradeConsole(true);
                     else
                         station.ToggleUpgradeConsole(false);

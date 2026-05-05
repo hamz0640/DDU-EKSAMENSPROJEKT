@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_pqvog")
 Title = "Roof Turret"
-Description = "Use this turret to kill enemies and destroy asteroids by pressing Space."
+Description = "Use this turret to kill enemies and destroy asteroids by pressing Spacebar."
 HighlightPosition = Vector2(1000, 130)
 HighlightSize = Vector2(400, 150)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
