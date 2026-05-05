@@ -88,7 +88,6 @@ public partial class Global : Node
         shieldHealth += 1f * (float)delta * 0.8f * GetState<float>("RegenAmount");
         if (shieldHealth < 200f)
             SetState("CurrentShieldHealth", shieldHealth);
-        GD.Print(shieldHealth);
 
     }
 
