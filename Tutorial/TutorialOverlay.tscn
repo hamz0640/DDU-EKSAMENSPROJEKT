@@ -96,10 +96,18 @@ HighlightPosition = Vector2(115, 320)
 HighlightSize = Vector2(1400, 100)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
+[sub_resource type="Resource" id="Resource_jylwr"]
+script = ExtResource("5_71327")
+Title = "Incoming waves"
+Description = "A wave staWhen you come back up from the mines and enter the ship to access the roof turret, the wave begins. Once the wave is over, you can go down to the mines again to collect minerals, buy upgrades, and repeat the cycle."
+HighlightPosition = Vector2(0, 0)
+HighlightSize = Vector2(0, 0)
+metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
+
 [sub_resource type="Resource" id="Resource_ec2ee"]
 script = ExtResource("5_71327")
 Title = "Mine"
-Description = "After purchasing the drill upgrade, follow the arrow and start mining some minerals. Good luck!"
+Description = "Buy the drill upgrade, and then follow the arrow and start mining some minerals. Good luck!"
 HighlightPosition = Vector2(0, 0)
 HighlightSize = Vector2(100, 100)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"

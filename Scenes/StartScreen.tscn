@@ -13,7 +13,7 @@ offset_bottom = 40.0
 script = ExtResource("1_ko4ly")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(984, 166)
+position = Vector2(987, 175)
 texture = ExtResource("2_3u666")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -44,4 +44,5 @@ stream = ExtResource("2_0on6r")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_usjih")
+volume_db = 24.0
 autoplay = true
