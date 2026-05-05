@@ -113,6 +113,7 @@ private TextureRect UpgradeIconImage = null;
             global.ModifyState("DepositedYellowMineralCount", -YellowMineralCost);
             
             selectedUpgrade.RelatedUpgradeResource.OnBuy(GetTree());
+            selectedUpgrade.BoughtAmount.Text = selectedUpgrade.RelatedUpgradeResource.AmountBought.ToString();
 
             buy.Play();
         }
@@ -149,6 +150,12 @@ private TextureRect UpgradeIconImage = null;
 
             if (upgrade.YellowMineralAmount == 0) { upgradeEntry.YellowMineralIcon.Hide(); } 
             else {upgradeEntry.YellowMineralCount.Text = upgrade.YellowMineralAmount.ToString(); }
+
+            float maxBuyAmount = upgrade.MaxBuyAmount;
+            if (maxBuyAmount == 0)
+                upgradeEntry.MaxBuyAmount.Text = "∞";
+            else
+                upgradeEntry.MaxBuyAmount.Text = maxBuyAmount.ToString();
 
             UpgradeList.AddChild(upgradeEntry);
             upgradeEntry.RelatedUpgradeResource = upgrade;
