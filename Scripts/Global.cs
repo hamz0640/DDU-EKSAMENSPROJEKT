@@ -26,6 +26,7 @@ public partial class Global : Node
         State["MaxEnergy"]     = 100f;
         State["JetpackEffeciency"] = 1.0f;
         State["JetpackDrain"] = 15.0f;
+        State["EnergyUsedSinceLastWave"] = 0.0f;
 
         // Mining 
         State["MiningDrain"] = 5.0f;

@@ -5,6 +5,7 @@ using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public partial class WaveManager : Node
 {
@@ -19,10 +20,11 @@ public partial class WaveManager : Node
     private SceneTreeTimer SpawnTimer = null;
     private uint SpawnIndex = 0;
     private float TimeBetweenSpawns = 1.0f;
-    [Export]
     private Godot.Collections.Dictionary<PackedScene, float> Weights = null;
+    private float ChanceOfStartingWave = 0.0f;
+    private float EnergyUsedMultiplier = 0.0f;
 
-	private Random rand = new Random(0);
+	private Random rand = new Random();
 
     public static WaveManager GetInstance() {
         return (WaveManager)((SceneTree)Engine.GetMainLoop()).Root.GetNode("/root/WaveManager");
@@ -33,6 +35,8 @@ public partial class WaveManager : Node
     {
         WaveManagerConfig config = GD.Load<WaveManagerConfig>("res://configs/WaveManagerConfig.tres");
 		Weights = config.Weights;
+        ChanceOfStartingWave = config.ChanceOfStartingWave;
+        EnergyUsedMultiplier = config.EnergyUsedMultiplier;
     }
 
 
@@ -53,9 +57,27 @@ public partial class WaveManager : Node
             EmitSignal("WaveEnded");
 			GD.Print("Wave Ended");
         }
+
+        if (Engine.GetPhysicsFrames() % 60 == 0)
+        {
+            Global global = Global.GetInstance();
+            float UsedEnergy = global.GetState<float>("EnergyUsedSinceLastWave");
+            float MaxEnergy  = global.GetState<float>("MaxEnergy");
+
+            float value = rand.NextSingle();
+            float requiredValue = ChanceOfStartingWave * Mathf.Pow(UsedEnergy / MaxEnergy, 4f) * EnergyUsedMultiplier;
+
+            GD.Print("attempted wave start" + requiredValue);
+
+            if (requiredValue >= value)
+            {
+                StartWave();
+                global.SetState("EnergyUsedSinceLastWave", 0.0f);
+            }
+        }
     }
 
-    public void StartWave()
+    public async Task StartWave()
     {
         if (IsInWave) return;
 
@@ -64,6 +86,7 @@ public partial class WaveManager : Node
         SpawnIndex = 0;
         EmitSignal("WaveStarted");
 
+        await Task.Delay((5 + (int)WaveNumber) * 1000);
 		GD.Print("Wave " + WaveNumber +  " Started");
         SpawnTimer = GetTree().CreateTimer(TimeBetweenSpawns);
 		SpawnTimer.Timeout += SpawnNextEnemy;
