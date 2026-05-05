@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b11y7l2qrhrer" path="res://Scripts/StartScreen.cs" id="1_ko4ly"]
 [ext_resource type="AudioStream" uid="uid://cuib14d4xhfya" path="res://Assets/Others/blipSelect.wav" id="2_0on6r"]
-[ext_resource type="Texture2D" uid="uid://k430ekrrebrl" path="res://Assets/Others/BackGroundStartScreen.png" id="2_3u666"]
+[ext_resource type="Texture2D" uid="uid://b22ba0vqbguap" path="res://Assets/Others/BackGroundStartScreen.png" id="2_3u666"]
 [ext_resource type="AudioStream" uid="uid://b1d8niw7kpylq" path="res://Assets/Others/The Terminator - Main Theme 8 bit.mp3" id="3_usjih"]
 
 [node name="Control" type="Control"]

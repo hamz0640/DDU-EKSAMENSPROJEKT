@@ -83,7 +83,7 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 [sub_resource type="Resource" id="Resource_jylwr"]
 script = ExtResource("5_71327")
 Title = "Incoming waves"
-Description = "A wave starts every time you come back from the mine. When you go back up and enter the ship to access the roof turret, the wave begins. Once the wave is over, you can go down to the mine again to collect minerals, buy upgrades, and repeat the cycle."
+Description = "A wave staWhen you come back up from the mines and enter the ship to access the roof turret, the wave begins. Once the wave is over, you can go down to the mines again to collect minerals, buy upgrades, and repeat the cycle."
 HighlightPosition = Vector2(0, 0)
 HighlightSize = Vector2(0, 0)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
@@ -94,14 +94,6 @@ Title = "Drill Upgrade"
 Description = "Start by purchasing the drill upgrade so you can collect minerals."
 HighlightPosition = Vector2(115, 320)
 HighlightSize = Vector2(1400, 100)
-metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
-
-[sub_resource type="Resource" id="Resource_jylwr"]
-script = ExtResource("5_71327")
-Title = "Incoming waves"
-Description = "A wave staWhen you come back up from the mines and enter the ship to access the roof turret, the wave begins. Once the wave is over, you can go down to the mines again to collect minerals, buy upgrades, and repeat the cycle."
-HighlightPosition = Vector2(0, 0)
-HighlightSize = Vector2(0, 0)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_ec2ee"]
