@@ -46,6 +46,7 @@ public partial class PlayerController : CharacterBody2D
 	AudioStreamPlayer2D drilling;
 	AudioStreamPlayer2D flying;
 	AudioStreamPlayer2D lowpower;
+	AudioStreamPlayer2D roll;
 	
 	public override void _Ready()
 	{
@@ -54,6 +55,7 @@ public partial class PlayerController : CharacterBody2D
 		drilling = GetNode<AudioStreamPlayer2D>("Mining");
 		flying = GetNode<AudioStreamPlayer2D>("Jetpack");
 		lowpower = GetNode<AudioStreamPlayer2D>("LowPower");
+		roll = GetNode<AudioStreamPlayer2D>("Rolling");
     }
 
 	public override void _PhysicsProcess(double delta)
@@ -110,11 +112,10 @@ public partial class PlayerController : CharacterBody2D
 
         float fraction = currentEnergy / maxEnergy;
 
-		if (fraction < 0.4 && !PowerLow)
+		if (fraction < 0.5 && !PowerLow)
 		{
 			lowpower.Play();
-			lowpower.Connect(AudioStreamPlayer2D.SignalName.Finished, Callable.From(() => {PowerLow=true; }),
-           (uint)ConnectFlags.OneShot);
+			PowerLow = true;
 			
 		}
 		if (fraction > 0.5 && PowerLow) PowerLow = false;
@@ -142,42 +143,48 @@ public partial class PlayerController : CharacterBody2D
 		if (CurrentState == State.Ground)
 		{
 			if (Mathf.Abs(Velocity.X) == MaxSpeed)
-				anim.Play("move");
-            else if (Velocity.X == 0.0f)
-            {
-                // Check for mining inputs FIRST
-                if (Math.Round(GlobalPosition.Y) != -12 && inputDirection != Vector2.Zero && IsMining)
-                {
-                    if (inputDirection.Y == 1)
-                    {
-						if (drilling.Playing == false) drilling.Play();
-                        anim.Play("mine_down");
-                        anim.FlipH = false;
-                        
-                    }
-                    else if (inputDirection.Y == -1 && Math.Round(GlobalPosition.Y) != -11)
-                    {
-                        if (drilling.Playing == false) drilling.Play();
-                        anim.Play("mine_up");
-                        anim.FlipH = false;
-                        
-                    }
-                    else if (inputDirection.X != 0)
-                    {
-                        if (drilling.Playing == false) drilling.Play();
-                        anim.Play("mine_side");
-                        anim.FlipH = inputDirection.X < 0;
-						
-                    }
-                }
-                else
+			{
+                if (roll.Playing == false) roll.Play();
+                anim.Play("move");
+			}
+
+
+			else if (Velocity.X == 0.0f)
+			{
+				// Check for mining inputs FIRST
+				if (Math.Round(GlobalPosition.Y) != -12 && inputDirection != Vector2.Zero && IsMining)
 				{
+					if (inputDirection.Y == 1)
+					{
+						if (drilling.Playing == false) drilling.Play();
+						anim.Play("mine_down");
+						anim.FlipH = false;
+
+					}
+					else if (inputDirection.Y == -1 && Math.Round(GlobalPosition.Y) != -11)
+					{
+						if (drilling.Playing == false) drilling.Play();
+						anim.Play("mine_up");
+						anim.FlipH = false;
+
+					}
+					else if (inputDirection.X != 0)
+					{
+						if (drilling.Playing == false) drilling.Play();
+						anim.Play("mine_side");
+						anim.FlipH = inputDirection.X < 0;
+
+					}
+				}
+				else
+				{
+					roll.Stop();
 					drilling.Stop();
 					anim.Play("idle");
 				}
-                    
-            }
-            else
+
+			}
+			else
 			{
 				ShowSpecificFrame("acceleration", (int)(Mathf.Abs(Velocity.X) / (MaxSpeed / 5.0)));
 				drilling.Stop();
@@ -187,6 +194,7 @@ public partial class PlayerController : CharacterBody2D
 		if (CurrentState == State.Wire)
 		{
 			anim.Play("climb");
+			drilling.Stop();
 		}
 
 		if (CurrentState == State.Air)

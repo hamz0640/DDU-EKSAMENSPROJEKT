@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="4_u401c"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="5_km84g"]
 
-[node name="UpgradeEntry" type="PanelContainer" node_paths=PackedStringArray("RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "RedMineralIcon", "PurpleMineralIcon", "YellowMineralIcon", "ClickDetect", "BoughtAmount", "MaxBuyAmount", "UpgradeName", "Icon")]
+[node name="UpgradeEntry" type="PanelContainer" node_paths=PackedStringArray("RedMineralCount", "PurpleMineralCount", "YellowMineralCount", "RedMineralIcon", "PurpleMineralIcon", "YellowMineralIcon", "ClickDetect", "UpgradeName", "Icon")]
 offset_right = 40.0
 offset_bottom = 40.0
 size_flags_horizontal = 3
@@ -18,8 +18,6 @@ RedMineralIcon = NodePath("MarginContainer/HBoxContainer/HBoxContainer2/Minerals
 PurpleMineralIcon = NodePath("MarginContainer/HBoxContainer/HBoxContainer2/Minerals/PurpleMineralIcon")
 YellowMineralIcon = NodePath("MarginContainer/HBoxContainer/HBoxContainer2/Minerals/YellowMineralIcon")
 ClickDetect = NodePath("Button")
-BoughtAmount = NodePath("MarginContainer/HBoxContainer/HBoxContainer/BoughtAmount")
-MaxBuyAmount = NodePath("MarginContainer/HBoxContainer/HBoxContainer/MaxBuyAmount")
 UpgradeName = NodePath("MarginContainer/HBoxContainer/UpgradeName")
 Icon = NodePath("MarginContainer/HBoxContainer/UpgradeIcon")
 

@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class TurretEfficiency : Upgrade
+public partial class TurretEffeciency : Upgrade
 {
     public override void OnBuy(SceneTree _tree)
     {

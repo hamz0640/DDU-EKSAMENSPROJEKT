@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c86h53nvk46oy"
-path="res://.godot/imported/Background.png-9a2b1db7637d9e3b0e6979d0579541e7.ctex"
+uid="uid://u37yc0hh22nx"
+path="res://.godot/imported/JetPackIcon.png-ecabc3821048768fa06cc967b25f97fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Others/Background.png"
-dest_files=["res://.godot/imported/Background.png-9a2b1db7637d9e3b0e6979d0579541e7.ctex"]
+source_file="res://Assets/Player/JetPackIcon.png"
+dest_files=["res://.godot/imported/JetPackIcon.png-ecabc3821048768fa06cc967b25f97fb.ctex"]
 
 [params]
 
