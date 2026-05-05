@@ -7,5 +7,5 @@ script = ExtResource("1_tv11i")
 Title = "Mineral count"
 Description = "This is your mineral count. It shows how many minerals you have mined from the ground."
 HighlightPosition = Vector2(5, 0)
-HighlightSize = Vector2(440, 110)
+HighlightSize = Vector2(450, 130)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
