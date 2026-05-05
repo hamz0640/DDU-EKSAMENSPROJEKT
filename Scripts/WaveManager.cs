@@ -67,7 +67,6 @@ public partial class WaveManager : Node
             float value = rand.NextSingle();
             float requiredValue = ChanceOfStartingWave * Mathf.Pow(UsedEnergy / MaxEnergy, 4f) * EnergyUsedMultiplier;
 
-            GD.Print("attempted wave start" + requiredValue);
 
             if (requiredValue >= value)
             {
