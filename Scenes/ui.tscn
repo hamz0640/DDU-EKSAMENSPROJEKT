@@ -161,9 +161,14 @@ texture_under = ExtResource("1_m78vo")
 texture_progress = ExtResource("2_smcll")
 script = ExtResource("3_ryf15")
 
-[node name="Wavecounter" type="Label" parent="BarAndMinerals/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
+[node name="Wavecounter" type="Label" parent="."]
+offset_left = 310.0
+offset_top = 220.0
+offset_right = 615.0
+offset_bottom = 326.0
+scale = Vector2(0.54, 0.54)
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 100
 text = "Wave:"
 script = ExtResource("8_nt8jn")
 
