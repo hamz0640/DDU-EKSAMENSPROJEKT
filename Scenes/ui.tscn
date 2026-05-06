@@ -362,10 +362,23 @@ texture = ExtResource("11_4vbiv")
 script = ExtResource("12_4vbiv")
 
 [node name="ShieldShipBars" type="HBoxContainer" parent="."]
-visible = false
 offset_right = 211.0
 offset_bottom = 42.0
 scale = Vector2(3, 3)
+
+[node name="EnergyBar2" type="MarginContainer" parent="ShieldShipBars"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TextureProgressBar" parent="ShieldShipBars/EnergyBar2" instance=ExtResource("1_nt8jn")]
+custom_minimum_size = Vector2(91, 34)
+layout_mode = 2
 
 [node name="EnergyBar" type="MarginContainer" parent="ShieldShipBars"]
 custom_minimum_size = Vector2(1, 1)
@@ -381,17 +394,3 @@ theme_override_constants/margin_bottom = 4
 custom_minimum_size = Vector2(100, 34)
 layout_mode = 2
 size_flags_horizontal = 0
-
-[node name="EnergyBar2" type="MarginContainer" parent="ShieldShipBars"]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="TextureProgressBar" parent="ShieldShipBars/EnergyBar2" instance=ExtResource("1_nt8jn")]
-custom_minimum_size = Vector2(91, 34)
-layout_mode = 2
