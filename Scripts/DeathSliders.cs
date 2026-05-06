@@ -27,6 +27,8 @@ public partial class DeathSliders : Control
     {
         Global global = Global.GetInstance();
 
+        var waveManager = WaveManager.GetInstance();
+
         if (global.GetState<float>("CurrentEnergy") <= 0.0f && !IsDead)
         {
             IsDead = true;
@@ -36,16 +38,16 @@ public partial class DeathSliders : Control
             switch (source)
             {
                 case "enemy":
-                    DeathMessage.Text = "You were killed by enemy soldier";
+                    DeathMessage.Text = $"You were killed by enemy soldier\nYou made it to wave: {waveManager.WaveNumber}";
                     break;
                 case "jetpack":
-                    DeathMessage.Text = "You ran out of energy using your jetpack";
+                    DeathMessage.Text = $"You ran out of energy using your jetpack\nYou made it to wave: {waveManager.WaveNumber}";
                     break;
                 case "mining":
-                    DeathMessage.Text = "You exhausted yourself mining";
+                    DeathMessage.Text = $"You exhausted yourself mining\nYou made it to wave: {waveManager.WaveNumber}";
                     break;
                 default:
-                    DeathMessage.Text = "You ran out of energy";
+                    DeathMessage.Text = $"You ran out of energy\nYou made it to wave: {waveManager.WaveNumber}";
                     break;
             }
 
@@ -65,7 +67,7 @@ public partial class DeathSliders : Control
         }
         if ((global.GetState<float>("CurrentShipHealth") <= 0.0f) && IsDead == false){
             IsDead = true;
-            DeathMessage.Text = "You're ship was destroyed";
+            DeathMessage.Text = $"You're ship was destroyed\nYou made it to wave: {waveManager.WaveNumber}";
             Tween tween = GetTree().CreateTween();
 
             TopDeathSlider.Show();
@@ -113,7 +115,7 @@ public partial class DeathSliders : Control
 
             shakeTween.Finished += () =>
             {
-                GetTree().CreateTimer(1.5).Timeout += () =>
+                GetTree().CreateTimer(4.5).Timeout += () =>
                 {
                     OnQuitPressed();
                 };
