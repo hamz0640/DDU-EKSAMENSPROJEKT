@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WireSpeed" load_steps=2 format=3 uid="uid://c04bsx4n0hp4g"]
+[gd_resource type="Resource" script_class="WireSpeed" load_steps=3 format=3 uid="uid://ccgibxe7cbacs"]
 
 [ext_resource type="Script" uid="uid://bsf3erd2y4e87" path="res://Configs/UpgradeDefinitions/WireSpeed.cs" id="1_jvm2w"]
+[ext_resource type="Texture2D" uid="uid://dwjabqiokvd0j" path="res://Assets/UpgradeIcons/wirespeed.png" id="1_ukek2"]
 
 [resource]
 script = ExtResource("1_jvm2w")
@@ -10,4 +11,5 @@ YellowMineralAmount = 3
 MaxBuyAmount = 0
 Description = "Increases the speed at which you are able to climb the wire"
 BuyCondition = "None"
+UpgradeIcon = ExtResource("1_ukek2")
 metadata/_custom_type_script = "uid://bsf3erd2y4e87"
