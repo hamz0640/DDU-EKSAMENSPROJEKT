@@ -80,7 +80,13 @@ public partial class PlayerController : CharacterBody2D
 
 		Global global = Global.GetInstance();
 		if (!global.GetState<bool>("PlayerCanMove"))
-			return;
+		{
+            if (drilling.Playing) drilling.Stop();
+            if (roll.Playing) roll.Stop();
+            if (flying.Playing) flying.Stop();
+            return;
+        }
+			
 		
 		HandleTransitions();
 
@@ -126,7 +132,10 @@ public partial class PlayerController : CharacterBody2D
 		if (!InTurret)
 		{
 			Hide();
-			GlobalPosition = new Vector2(229, -20);
+            if (drilling.Playing) drilling.Stop();
+            if (roll.Playing) roll.Stop();
+            if (flying.Playing) flying.Stop();
+            GlobalPosition = new Vector2(229, -20);
 			InTurret = true;
 		} 
 		else
@@ -214,6 +223,7 @@ public partial class PlayerController : CharacterBody2D
 			}
 		}
 		if (!JetpackActivated) flying.Stop();
+
 	}
 
 	private void HandleTransitions()
