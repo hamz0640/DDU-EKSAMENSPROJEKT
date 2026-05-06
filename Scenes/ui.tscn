@@ -362,6 +362,7 @@ texture = ExtResource("11_4vbiv")
 script = ExtResource("12_4vbiv")
 
 [node name="ShieldShipBars" type="HBoxContainer" parent="."]
+visible = false
 offset_right = 211.0
 offset_bottom = 42.0
 scale = Vector2(3, 3)
