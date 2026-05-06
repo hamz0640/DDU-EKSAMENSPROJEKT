@@ -262,6 +262,7 @@ public partial class PlayerController : CharacterBody2D
 				goto EarlyExit;
 
 			// Drain energy while mining
+			global.SetState("LastEnergyDamageSource", "mining");
 			global.ModifyState("CurrentEnergy", -miningDrain * delta);
 			global.ModifyState("EnergyUsedSinceLastWave", miningDrain * delta);	
 
@@ -401,6 +402,7 @@ public partial class PlayerController : CharacterBody2D
 			tracker.IncrementTracking("Time:UsingJetpack", delta);
 			velocity.Y = Mathf.MoveToward(Velocity.Y, -MaxJetpackSpeed, JetpackAcceleration * delta);
 			float energyDrain = 1.0f / jetpackEfficiency * jetpackDrain * delta;
+			global.SetState("LastEnergyDamageSource", "jetpack");
 			global.ModifyState("CurrentEnergy", -energyDrain);
 			global.ModifyState("EnergyUsedSinceLastWave", energyDrain);
 		}
