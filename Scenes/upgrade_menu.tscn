@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://vxoogc1pv7yd" path="res://Assets/Icons/block-out-purple-mineral.png" id="2_2hr16"]
 [ext_resource type="PackedScene" uid="uid://dmik8c7oy1xq1" path="res://Scenes/ShipBar.tscn" id="2_lpopj"]
 [ext_resource type="Texture2D" uid="uid://dl4vrhq8if4l8" path="res://Assets/Icons/block-out-yellow-mineral.png" id="3_lpopj"]
-[ext_resource type="PackedScene" path="res://Scenes/ShieldBar.tscn" id="3_mpwqm"]
+[ext_resource type="PackedScene" uid="uid://dudh85vr4v1tx" path="res://Scenes/ShieldBar.tscn" id="3_mpwqm"]
 [ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/Icons/icon.svg" id="6_2hr16"]
 [ext_resource type="AudioStream" uid="uid://2ccoujtv8hvl" path="res://Assets/Others/modestas123123-cash-register-kaching-sound-effect-125042.wav" id="8_v4egn"]
 [ext_resource type="AudioStream" uid="uid://d0qwnmmpxlqg" path="res://Assets/Others/blipSelect (1).wav" id="9_v4egn"]
@@ -95,10 +95,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -387.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 40
-text = "x0"
+text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
 
@@ -113,10 +114,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -480.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 40
-text = "x0"
+text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
 
@@ -131,10 +133,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -497.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 40
-text = "x0"
+text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
 

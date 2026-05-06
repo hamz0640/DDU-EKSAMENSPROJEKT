@@ -134,9 +134,9 @@ private TextureRect UpgradeIconImage = null;
                 ErrorManager.Instance.Notify("Out of funds, mine\nsome minerals", 5f);
         }
 
-        RedMineralCount.Text = "x" + global.GetState<uint>("DepositedRedMineralCount").ToString();
-        PurpleMineralCount.Text = "x" + global.GetState<uint>("DepositedPurpleMineralCount").ToString();
-        YellowMineralCount.Text = "x" + global.GetState<uint>("DepositedYellowMineralCount").ToString();
+        RedMineralCount.Text = global.GetState<uint>("DepositedRedMineralCount").ToString();
+        PurpleMineralCount.Text = global.GetState<uint>("DepositedPurpleMineralCount").ToString();
+        YellowMineralCount.Text = global.GetState<uint>("DepositedYellowMineralCount").ToString();
     }
 
 
