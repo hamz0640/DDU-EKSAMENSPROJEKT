@@ -199,8 +199,12 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Control" type="Control" parent="Control"]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
+layer = 10
+
+[node name="Control" type="Control" parent="Control/CanvasLayer"]
+z_index = 1000
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -214,7 +218,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_g0wmg")
 
-[node name="Banner" type="Panel" parent="Control/Control"]
+[node name="Banner" type="Panel" parent="Control/CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.35
@@ -224,14 +228,14 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nt8jn")
 
-[node name="TextureRect" type="TextureRect" parent="Control/Control/Banner"]
+[node name="TextureRect" type="TextureRect" parent="Control/CanvasLayer/Control/Banner"]
 layout_mode = 0
 offset_right = 256.0
 offset_bottom = 104.0
 scale = Vector2(4.80415, 2.01295)
 texture = ExtResource("11_kuui0")
 
-[node name="LeftBorder" type="Panel" parent="Control/Control/Banner"]
+[node name="LeftBorder" type="Panel" parent="Control/CanvasLayer/Control/Banner"]
 layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 1.0
@@ -241,7 +245,7 @@ grow_vertical = 2
 scale = Vector2(1.89165, 1.00174)
 theme_override_styles/panel = SubResource("StyleBoxFlat_g0wmg")
 
-[node name="TextureRect" type="TextureRect" parent="Control/Control/Banner/LeftBorder"]
+[node name="TextureRect" type="TextureRect" parent="Control/CanvasLayer/Control/Banner/LeftBorder"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -252,7 +256,7 @@ grow_vertical = 2
 scale = Vector2(0.617382, 0.995437)
 texture = ExtResource("11_whq80")
 
-[node name="RightBorder" type="Panel" parent="Control/Control/Banner"]
+[node name="RightBorder" type="Panel" parent="Control/CanvasLayer/Control/Banner"]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -265,14 +269,14 @@ grow_vertical = 2
 pivot_offset = Vector2(20, 0)
 theme_override_styles/panel = SubResource("StyleBoxFlat_4vbiv")
 
-[node name="TextureRect" type="TextureRect" parent="Control/Control/Banner/RightBorder"]
+[node name="TextureRect" type="TextureRect" parent="Control/CanvasLayer/Control/Banner/RightBorder"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(0.500881, 1.00423)
 texture = ExtResource("11_whq80")
 
-[node name="Divider" type="Panel" parent="Control/Control/Banner"]
+[node name="Divider" type="Panel" parent="Control/CanvasLayer/Control/Banner"]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -287,7 +291,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3r70p")
 
-[node name="WaveLabel" type="Label" parent="Control/Control/Banner"]
+[node name="WaveLabel" type="Label" parent="Control/CanvasLayer/Control/Banner"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -306,7 +310,7 @@ text = "You have been spotted!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SubLabel" type="Label" parent="Control/Control/Banner"]
+[node name="SubLabel" type="Label" parent="Control/CanvasLayer/Control/Banner"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
