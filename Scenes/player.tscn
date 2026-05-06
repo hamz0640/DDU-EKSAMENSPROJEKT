@@ -1,4 +1,4 @@
-[gd_scene load_steps=130 format=3 uid="uid://b4nfhud4df0d"]
+[gd_scene load_steps=131 format=3 uid="uid://b4nfhud4df0d"]
 
 [ext_resource type="Script" uid="uid://ctijk7g5hnmqw" path="res://Scripts/PlayerController.cs" id="1_fkybt"]
 [ext_resource type="Texture2D" uid="uid://dn52ab5uy1yce" path="res://Assets/Player/MonoWheelRobotAccelerateSide.png" id="2_vgqql"]
@@ -860,6 +860,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pu2lt"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fd4e3"]
+size = Vector2(30, 1)
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("anim", "shapeCast1", "shapeCast2", "WireArea")]
 z_index = 10
 collision_layer = 17
@@ -878,7 +881,7 @@ scale = Vector2(0.4, 1)
 shape = SubResource("RectangleShape2D_fkybt")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(16, -14, -16, -14, -3, 13, -2, 14, 2, 14, 3, 13)
+polygon = PackedVector2Array(15, -10, 12, -12, 0, -14, -12, -12, -15, -10, -3, 13, -2, 14, 2, 14, 3, 13)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-16, -46)
@@ -916,3 +919,11 @@ stream = ExtResource("15_h4iuc")
 
 [node name="Rolling" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("16_fd4e3")
+
+[node name="TurretNoZone" type="Area2D" parent="." groups=["TurretNoZone"]]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TurretNoZone"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_fd4e3")

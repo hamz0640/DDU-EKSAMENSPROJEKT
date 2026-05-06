@@ -39,9 +39,8 @@ public partial class EnemyBullet : CharacterBody2D
 
 			global.SetState<float>("CurrentEnergy",PlayerEnergy()-Damage);
 
-			GD.Print(ShipHealth());
-			QueueFree();
-				
+			global.SetState("LastEnergyDamageSource", "enemy");
+			QueueFree();	
 		}
 	}
 
@@ -64,7 +63,10 @@ public partial class EnemyBullet : CharacterBody2D
 			Velocity = Direction * 0;
             animation.Play("Hit");
             animation.Connect(AnimatedSprite2D.SignalName.AnimationFinished, Callable.From(() => { this.QueueFree(); }),
+			
            (uint)ConnectFlags.Deferred);
+		   	global.SetState<string>("DeathReason","You're ship was destroyed");
+
         }
 	}
 	float ShipHealth()

@@ -27,13 +27,45 @@ public partial class DeathSliders : Control
     {
         Global global = Global.GetInstance();
 
-        // FIXED condition (important!)
-        if ((global.GetState<float>("CurrentEnergy") <= 0.0f ||
-             global.GetState<float>("CurrentShipHealth") <= 0.0f) 
-             && IsDead == false)
+        if (global.GetState<float>("CurrentEnergy") <= 0.0f && !IsDead)
         {
             IsDead = true;
 
+            string source = global.GetState<string>("LastEnergyDamageSource");
+
+            switch (source)
+            {
+                case "enemy":
+                    DeathMessage.Text = "You were killed by enemy soldier";
+                    break;
+                case "jetpack":
+                    DeathMessage.Text = "You ran out of energy using your jetpack";
+                    break;
+                case "mining":
+                    DeathMessage.Text = "You exhausted yourself mining";
+                    break;
+                default:
+                    DeathMessage.Text = "You ran out of energy";
+                    break;
+            }
+
+            Tween tween = GetTree().CreateTween();
+
+            TopDeathSlider.Show();
+            BottomDeathSlider.Show();
+
+            tween.SetParallel(true);
+            tween.TweenProperty(TopDeathSlider, "position", new Vector2(0, 0), 0.5);
+            tween.TweenProperty(BottomDeathSlider, "position", new Vector2(0, 540), 0.5);
+
+            tween.SetTrans(Tween.TransitionType.Sine);
+            tween.SetEase(Tween.EaseType.InOut);
+
+            tween.Finished += OnSlidersFinished;
+        }
+        if ((global.GetState<float>("CurrentShipHealth") <= 0.0f) && IsDead == false){
+            IsDead = true;
+            DeathMessage.Text = "You're ship was destroyed";
             Tween tween = GetTree().CreateTween();
 
             TopDeathSlider.Show();
@@ -81,7 +113,6 @@ public partial class DeathSliders : Control
 
             shakeTween.Finished += () =>
             {
-                // Wait before restarting game
                 GetTree().CreateTimer(1.5).Timeout += () =>
                 {
                     OnQuitPressed();
