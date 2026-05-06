@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
 public partial class Turret : CharacterBody2D
@@ -10,21 +11,23 @@ public partial class Turret : CharacterBody2D
 	[Export] int Shootspeed = 1;
 	[Export] RichTextLabel Label;
 	[Export] int Bullets = 300;
+	[Export] Area2D TurretDetector;
 	bool deployed = false;
 	int EnemiesWithinR = 0;
 	int EnemiesWithinL = 0;
 	bool FacingR = true;
+	Random rnd = new Random();
 	// Called when the node enters the scene tree for the first time.
 	AudioStreamPlayer2D sfx;
 	public override void _Ready()
 	{
 		sfx = GetNode<AudioStreamPlayer2D>("Shot");
 		animator.Pause();
-		this.Position = new Vector2(100, -SpawnHeight);
+		this.Position = new Vector2(rnd.Next(20,280), -SpawnHeight);
 		//Screenshake
 		Label.Visible = false;
 		Label.Text = Bullets.ToString();
-
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,6 +57,21 @@ public partial class Turret : CharacterBody2D
 				GetTree().CreateTimer(3).Timeout += _DeployAnimation;
             }
 		}
+		if(this.GlobalPosition.Y > -0.5)
+            this.GlobalPosition = new Vector2(rnd.Next(20, 280), -SpawnHeight);
+
+
+        var areas = TurretDetector.GetOverlappingAreas();
+        foreach (var area in areas)
+        {
+            if (area.IsInGroup("TurretNoZone"))
+            {
+                this.GlobalPosition = new Vector2(rnd.Next(20, 280), -SpawnHeight);
+                break;
+            }
+			GD.Print(area.Name);
+        }
+
         MoveAndSlide();
     }
 
