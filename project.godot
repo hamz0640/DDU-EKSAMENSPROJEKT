@@ -44,6 +44,10 @@ Turret=""
 Interactable=""
 TurretNoZone=""
 
+[gui]
+
+theme/custom_font="uid://bf5t283x0ojs"
+
 [input]
 
 ui_left={

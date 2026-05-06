@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://btcichbg1pnh7"]
+[gd_scene load_steps=22 format=3 uid="uid://btcichbg1pnh7"]
 
 [ext_resource type="Texture2D" uid="uid://c7jokrqdqeh4h" path="res://Assets/Bars/EL-bar_empty.png" id="1_m78vo"]
 [ext_resource type="PackedScene" uid="uid://dmik8c7oy1xq1" path="res://Scenes/ShipBar.tscn" id="1_nt8jn"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bdbgfer1xig0m" path="res://Assets/Others/back.png" id="11_kuui0"]
 [ext_resource type="Texture2D" uid="uid://bsi2gtmx1vsfh" path="res://Assets/Others/banner.png" id="11_whq80"]
 [ext_resource type="Script" uid="uid://pa44vflkowv6" path="res://Scripts/Vignette.cs" id="12_4vbiv"]
+[ext_resource type="FontFile" uid="uid://bf5t283x0ojs" path="res://Assets/Others/BankGothic Md BT.ttf" id="13_smy1h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nt8jn"]
 bg_color = Color(0.0627451, 0.0313726, 0.0235294, 0.760784)
@@ -34,8 +35,8 @@ bg_color = Color(0.85, 0.1, 0.1, 0.4)
 [node name="UI" type="CanvasLayer"]
 
 [node name="BarAndMinerals" type="VBoxContainer" parent="."]
-offset_right = 120.0
-offset_bottom = 86.0
+offset_right = 181.0
+offset_bottom = 99.0
 scale = Vector2(3, 3)
 
 [node name="Minerals" type="HBoxContainer" parent="BarAndMinerals"]
@@ -135,6 +136,9 @@ theme_override_font_sizes/font_size = 120
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="Label" type="Label" parent="BarAndMinerals"]
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BarAndMinerals"]
 layout_mode = 2
@@ -305,6 +309,7 @@ grow_vertical = 2
 scale = Vector2(1.01224, 0.963108)
 pivot_offset = Vector2(300, 35)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("13_smy1h")
 theme_override_font_sizes/font_size = 50
 text = "You have been spotted!"
 horizontal_alignment = 1
@@ -362,6 +367,20 @@ offset_right = 211.0
 offset_bottom = 42.0
 scale = Vector2(3, 3)
 
+[node name="EnergyBar2" type="MarginContainer" parent="ShieldShipBars"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TextureProgressBar" parent="ShieldShipBars/EnergyBar2" instance=ExtResource("1_nt8jn")]
+custom_minimum_size = Vector2(91, 34)
+layout_mode = 2
+
 [node name="EnergyBar" type="MarginContainer" parent="ShieldShipBars"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
@@ -376,17 +395,3 @@ theme_override_constants/margin_bottom = 4
 custom_minimum_size = Vector2(100, 34)
 layout_mode = 2
 size_flags_horizontal = 0
-
-[node name="EnergyBar2" type="MarginContainer" parent="ShieldShipBars"]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="TextureProgressBar" parent="ShieldShipBars/EnergyBar2" instance=ExtResource("1_nt8jn")]
-custom_minimum_size = Vector2(91, 34)
-layout_mode = 2
