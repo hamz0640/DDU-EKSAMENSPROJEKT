@@ -21,7 +21,7 @@ public partial class PlayerController : CharacterBody2D
 	[Export]
 	public float MaxWireSpeed = 100.0f;
 	[Export]
-	public float WireAcceleration = 600.0f;
+	public float WireAcceleration = 200.0f;
 	[Export]
 	public Area2D WireArea = null;
 	[Export]
@@ -415,10 +415,12 @@ public partial class PlayerController : CharacterBody2D
 
 	private void HandleWireMovement(float delta)
 	{
+		Global global = Global.GetInstance();
+		float wireSpeed = global.GetState<float>("WireSpeed");
 		Vector2 velocity = Velocity;
 
 		float upwardsInput = Input.GetAxis("up", "down");
-		float towards = upwardsInput == 0 ? 0 : MaxWireSpeed * upwardsInput;
+		float towards = upwardsInput == 0 ? 0 : MaxWireSpeed * upwardsInput * wireSpeed;
 		velocity.Y = Mathf.MoveToward(velocity.Y, towards, WireAcceleration * (float)delta);
 		if (Input.IsActionJustReleased("jump") && !JetpackActivated) // Dismount
 		{

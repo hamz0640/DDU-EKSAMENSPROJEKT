@@ -35,6 +35,7 @@ public partial class Global : Node
 
         // ===== Stats =====
         State["MiningSpeed"] = 0.5f;
+        State["WireSpeed"] = 1.0f;
         State["Fortune"] = 1.0f;
 
         // Minerals
