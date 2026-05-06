@@ -34,7 +34,7 @@ public partial class Enemy : CharacterBody2D
         Global global = Global.GetInstance();
         if (global.GetState<float>("ShieldHealth") > 0.0)
 		{
-			EnemyDistance = 400+Offset;
+			EnemyDistance = 200+Offset;
 		}
 		else
 		{
