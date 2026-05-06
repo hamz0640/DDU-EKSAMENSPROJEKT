@@ -1,11 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://bu4awqbrm06dy"]
+[gd_scene load_steps=23 format=3 uid="uid://bu4awqbrm06dy"]
 
 [ext_resource type="Texture2D" uid="uid://cnnlxdv3g6nl4" path="res://Assets/Turret/turret.png" id="1_fcprl"]
 [ext_resource type="Script" uid="uid://dbruew2b1rcuv" path="res://Scripts/Turret.cs" id="1_hskch"]
 [ext_resource type="AudioStream" uid="uid://b8jcvof0fjyy0" path="res://Assets/Others/laserShoot.wav" id="3_6spbj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6spbj"]
-size = Vector2(17, 17)
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_6spbj"]
+points = PackedVector2Array(-3, 8.5, 0, 9.5, 3, 8.5, 8.5, -8.5, -8.5, -8.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hskch"]
 atlas = ExtResource("1_fcprl")
@@ -121,18 +121,25 @@ animations = [{
 [sub_resource type="Theme" id="Theme_6spbj"]
 default_font = SubResource("SystemFont_hskch")
 
-[node name="turret" type="CharacterBody2D" node_paths=PackedStringArray("animator", "Label") groups=["Turret"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6spbj"]
+size = Vector2(17, 3.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pulj5"]
+size = Vector2(10, 7)
+
+[node name="turret" type="CharacterBody2D" node_paths=PackedStringArray("animator", "Label", "TurretDetector") groups=["Turret"]]
 z_index = 5
 collision_layer = 16
 collision_mask = 49
 script = ExtResource("1_hskch")
 animator = NodePath("AnimatedSprite2D")
 Label = NodePath("RichTextLabel")
-Bullets = 20
+Bullets = 22
+TurretDetector = NodePath("TurretDetector")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 6.5)
-shape = SubResource("RectangleShape2D_6spbj")
+shape = SubResource("ConvexPolygonShape2D_6spbj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_axnog")
@@ -155,3 +162,18 @@ vertical_alignment = 1
 
 [node name="Shot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_6spbj")
+
+[node name="OtherTurretBeGone" type="Area2D" parent="." groups=["TurretNoZone"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherTurretBeGone"]
+position = Vector2(-0.5, -4.25)
+shape = SubResource("RectangleShape2D_6spbj")
+
+[node name="TurretDetector" type="Area2D" parent="."]
+position = Vector2(0, 1)
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TurretDetector"]
+position = Vector2(0, 12.5)
+shape = SubResource("RectangleShape2D_pulj5")
