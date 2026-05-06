@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="TurretEffeciency" load_steps=3 format=3 uid="uid://c5icgf2urj2p"]
+[gd_resource type="Resource" script_class="JetPackEffeciency" load_steps=3 format=3 uid="uid://c5icgf2urj2p"]
 
 [ext_resource type="Texture2D" uid="uid://u37yc0hh22nx" path="res://Assets/Player/JetPackIcon.png" id="1_eeh6p"]
-[ext_resource type="Script" uid="uid://cni2esom5we6o" path="res://Configs/UpgradeDefinitions/TurretEffeciency.cs" id="1_jgnct"]
+[ext_resource type="Script" uid="uid://dkxus56ffdnpc" path="res://Configs/UpgradeDefinitions/JetPackEffeciency.cs" id="2_eeh6p"]
 
 [resource]
-script = ExtResource("1_jgnct")
+script = ExtResource("2_eeh6p")
 RedMineralAmount = 2
 PurpleMineralAmount = 1
 YellowMineralAmount = 2
