@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://0k0iwsy7pt4t"
+path="res://.godot/imported/Perturbator - Humans Are Such Easy Prey (SPOTISAVER).mp3-57d788c69de8c4abc6a002f155c4f9ae.mp3str"
+
+[deps]
+
+source_file="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Perturbator - Humans Are Such Easy Prey (SPOTISAVER).mp3"
+dest_files=["res://.godot/imported/Perturbator - Humans Are Such Easy Prey (SPOTISAVER).mp3-57d788c69de8c4abc6a002f155c4f9ae.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

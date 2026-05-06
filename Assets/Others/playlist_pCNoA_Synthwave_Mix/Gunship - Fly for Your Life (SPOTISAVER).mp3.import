@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://btt1xcgs2scdm"
+path="res://.godot/imported/Gunship - Fly for Your Life (SPOTISAVER).mp3-ae9c891f67e8456f09fe9935ee15a71d.mp3str"
+
+[deps]
+
+source_file="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Gunship - Fly for Your Life (SPOTISAVER).mp3"
+dest_files=["res://.godot/imported/Gunship - Fly for Your Life (SPOTISAVER).mp3-ae9c891f67e8456f09fe9935ee15a71d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

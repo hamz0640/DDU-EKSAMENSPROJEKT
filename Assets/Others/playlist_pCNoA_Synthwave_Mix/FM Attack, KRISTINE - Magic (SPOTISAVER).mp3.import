@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ki1wdopvssva"
+path="res://.godot/imported/FM Attack, KRISTINE - Magic (SPOTISAVER).mp3-ea887a4e9606ef14994a299f524e594d.mp3str"
+
+[deps]
+
+source_file="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/FM Attack, KRISTINE - Magic (SPOTISAVER).mp3"
+dest_files=["res://.godot/imported/FM Attack, KRISTINE - Magic (SPOTISAVER).mp3-ea887a4e9606ef14994a299f524e594d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

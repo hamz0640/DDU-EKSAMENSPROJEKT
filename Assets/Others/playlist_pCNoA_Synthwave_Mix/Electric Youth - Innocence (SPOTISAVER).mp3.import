@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c6l58b4ujrdmw"
+path="res://.godot/imported/Electric Youth - Innocence (SPOTISAVER).mp3-f07c6f4a4ee3c851e777ad585081ee56.mp3str"
+
+[deps]
+
+source_file="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Electric Youth - Innocence (SPOTISAVER).mp3"
+dest_files=["res://.godot/imported/Electric Youth - Innocence (SPOTISAVER).mp3-f07c6f4a4ee3c851e777ad585081ee56.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

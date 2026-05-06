@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://brttnyemlp31b"
+path="res://.godot/imported/Perturbator - Death Squad (SPOTISAVER).mp3-8cbc3e4b712c460d18fbc0b6eacf8b3d.mp3str"
+
+[deps]
+
+source_file="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Perturbator - Death Squad (SPOTISAVER).mp3"
+dest_files=["res://.godot/imported/Perturbator - Death Squad (SPOTISAVER).mp3-8cbc3e4b712c460d18fbc0b6eacf8b3d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

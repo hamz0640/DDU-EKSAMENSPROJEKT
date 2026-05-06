@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d2u7y4vemrkk0"
+path="res://.godot/imported/Darkest - Mourning Moon Departer (SPOTISAVER).mp3-7dea5512882de8772be335f8b1e70a24.mp3str"
+
+[deps]
+
+source_file="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Darkest - Mourning Moon Departer (SPOTISAVER).mp3"
+dest_files=["res://.godot/imported/Darkest - Mourning Moon Departer (SPOTISAVER).mp3-7dea5512882de8772be335f8b1e70a24.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
