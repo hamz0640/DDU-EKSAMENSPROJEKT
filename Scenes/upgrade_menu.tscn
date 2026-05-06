@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://eo5gb72cyek"]
+[gd_scene load_steps=11 format=3 uid="uid://eo5gb72cyek"]
 
 [ext_resource type="Script" uid="uid://ij8v42cma06a" path="res://Scripts/UpgradeMenu.cs" id="1_2hr16"]
 [ext_resource type="Texture2D" uid="uid://bnjukcn7ice43" path="res://Assets/Icons/block-out-red-mineral.png" id="1_lhh40"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dudh85vr4v1tx" path="res://Scenes/ShieldBar.tscn" id="3_mpwqm"]
 [ext_resource type="Texture2D" uid="uid://dq1awjibriy8h" path="res://Assets/Icons/icon.svg" id="6_2hr16"]
 [ext_resource type="AudioStream" uid="uid://cuib14d4xhfya" path="res://Assets/Others/blipSelect.wav" id="6_lpopj"]
+[ext_resource type="AudioStream" uid="uid://d0qwnmmpxlqg" path="res://Assets/Others/blipSelect (1).wav" id="9_v4egn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hr16"]
 bg_color = Color(0.18359, 0.18359, 0.18359, 1)
@@ -229,3 +230,7 @@ text = "Buy"
 
 [node name="BuySound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_lpopj")
+
+[node name="UpDown" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_v4egn")
+volume_db = -12.226

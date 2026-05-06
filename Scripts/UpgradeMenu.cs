@@ -7,6 +7,7 @@ using System.Reflection.Metadata;
 public partial class UpgradeMenu : MarginContainer
 {
     AudioStreamPlayer2D buy;
+    AudioStreamPlayer2D select;
 
     [Export]
     public VBoxContainer UpgradeList = null;
@@ -35,6 +36,7 @@ private TextureRect UpgradeIconImage = null;
     {
         BuyButton.Pressed += OnBuyButtonPressed;
         buy = GetNode<AudioStreamPlayer2D>("BuySound");
+        select = GetNode<AudioStreamPlayer2D>("UpDown");
 
         Global global = Global.GetInstance();
         Array<Upgrade> upgrades = global.GetState<Array<Upgrade>>("Upgrades");
@@ -60,8 +62,16 @@ private TextureRect UpgradeIconImage = null;
         if (!Visible)
             return;
 
-        if (Input.IsActionJustReleased("up")) SelectedIndex -= 1;
-		if (Input.IsActionJustReleased("down")) SelectedIndex += 1;
+        if (Input.IsActionJustReleased("up")) 
+        { 
+            SelectedIndex -= 1;
+            select.Play();
+        }
+        if (Input.IsActionJustReleased("down")) 
+        { 
+            SelectedIndex += 1;
+            select.Play();
+        }
 
 		SelectedIndex = Mathf.Clamp(SelectedIndex, 0, UpgradeList.GetChildCount() - 1);
 
