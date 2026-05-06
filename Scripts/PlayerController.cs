@@ -142,7 +142,7 @@ public partial class PlayerController : CharacterBody2D
 		anim.FlipH = Velocity.X < 0.0;
 		if (CurrentState == State.Ground)
 		{
-			if (Mathf.Abs(Velocity.X) == MaxSpeed)
+			if (Mathf.Abs(Velocity.X) == MaxSpeed && CurrentState == State.Ground)
 			{
                 if (roll.Playing == false) roll.Play();
                 anim.Play("move");
@@ -193,13 +193,17 @@ public partial class PlayerController : CharacterBody2D
 
 		if (CurrentState == State.Wire)
 		{
+			if (roll.Playing) roll.Stop();
+			if (drilling.Playing) drilling.Stop();
 			anim.Play("climb");
 			drilling.Stop();
 		}
 
 		if (CurrentState == State.Air)
 		{
-			if (!JetpackActivated)
+            if (roll.Playing) roll.Stop();
+            if (drilling.Playing) drilling.Stop();
+            if (!JetpackActivated)
 			{
 				anim.Play("jetpack_fall");
 			}
