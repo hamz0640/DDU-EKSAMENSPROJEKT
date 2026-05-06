@@ -35,8 +35,8 @@ metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 script = ExtResource("5_71327")
 Title = "Energy"
 Description = "This bar shows your current energy level. Mining minerals and using the jetpack consumes energy. Be aware that if you run out of energy, you will die. Remember, you can always recharge as long as you are in the charging zone."
-HighlightPosition = Vector2(15, 130)
-HighlightSize = Vector2(300, 120)
+HighlightPosition = Vector2(15, 185)
+HighlightSize = Vector2(300, 110)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_a3eon"]
@@ -69,7 +69,7 @@ script = ExtResource("5_71327")
 Title = "Ship Health"
 Description = "This bar shows your ship's current health. It can be damaged by enemy bullets and other threats. Protect it at all costs, if your ship is destroyed, you automatically die."
 HighlightPosition = Vector2(110, 120)
-HighlightSize = Vector2(230, 100)
+HighlightSize = Vector2(230, 80)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_1fhva"]
@@ -77,7 +77,7 @@ script = ExtResource("5_71327")
 Title = "Shield energy"
 Description = "This bar shows your shield energy level. Remember that the shield can be destroyed by enemy bullets and asteroids."
 HighlightPosition = Vector2(350, 120)
-HighlightSize = Vector2(230, 100)
+HighlightSize = Vector2(230, 80)
 metadata/_custom_type_script = "uid://do3ogi7c6uyy7"
 
 [sub_resource type="Resource" id="Resource_jylwr"]
