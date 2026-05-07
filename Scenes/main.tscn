@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=36 format=4 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
@@ -21,24 +21,13 @@
 [ext_resource type="PackedScene" path="res://Scenes/ErrorManager.tscn" id="19_fevyy"]
 [ext_resource type="AudioStream" uid="uid://dbqnjjgdbwjat" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/After Dark - Lost in 84 (SPOTISAVER).mp3" id="20_aqgau"]
 [ext_resource type="AudioStream" uid="uid://d0pxjx7n6in4d" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Carpenter Brut - Leather Teeth (SPOTISAVER).mp3" id="21_8cuat"]
-[ext_resource type="AudioStream" uid="uid://ceg1sns78rapf" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/FM-84, Ollie Wride - Running in the Night (SPOTISAVER).mp3" id="22_o1aky"]
 [ext_resource type="AudioStream" uid="uid://d33pq1ku8qrw8" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/gelowler - Never the Same (SPOTISAVER).mp3" id="23_kwxat"]
-[ext_resource type="AudioStream" uid="uid://btt1xcgs2scdm" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Gunship - Fly for Your Life (SPOTISAVER).mp3" id="24_aa8k8"]
-[ext_resource type="AudioStream" uid="uid://7md4iqrsj4lb" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Gunship - Taste like Venom (SPOTISAVER).mp3" id="25_kqrg6"]
-[ext_resource type="AudioStream" uid="uid://cbe5m0j72ns5h" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Gunship, Power Glove - Ghost (feat. Power Glove) (SPOTISAVER).mp3" id="26_nwwfm"]
 [ext_resource type="AudioStream" uid="uid://n6epcg3776gy" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Lazerhawk - Overdrive (SPOTISAVER).mp3" id="27_s8vy0"]
-[ext_resource type="AudioStream" uid="uid://ccjbb45w50i6i" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Nightcrawler, Dana Jean Phoenix - Genesis (SPOTISAVER).mp3" id="28_jut3y"]
 [ext_resource type="AudioStream" uid="uid://brttnyemlp31b" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Perturbator - Death Squad (SPOTISAVER).mp3" id="29_v2nl5"]
-[ext_resource type="AudioStream" uid="uid://0k0iwsy7pt4t" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Perturbator - Humans Are Such Easy Prey (SPOTISAVER).mp3" id="30_dmskm"]
-[ext_resource type="AudioStream" uid="uid://dh7lt0qk4ljly" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Perturbator, Greta Link - Venger (feat. Greta Link) (SPOTISAVER).mp3" id="31_xdkp6"]
 [ext_resource type="AudioStream" uid="uid://c64pni2sq3orr" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Carpenter Brut - Looking For Tracy Tzu (SPOTISAVER).mp3" id="32_54nrm"]
-[ext_resource type="AudioStream" uid="uid://c0n4ra3plaqqi" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Perturbator, Noir Deco - Technoir (feat. Noir Deco) (SPOTISAVER).mp3" id="33_55jeb"]
 [ext_resource type="AudioStream" uid="uid://c0o80wwx34vvp" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Carpenter Brut - Roller Mobster (SPOTISAVER).mp3" id="34_gsvbx"]
 [ext_resource type="AudioStream" uid="uid://cxobufg44hx7h" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Cassetter, Cyberwalker, Lebedev Sax - Irrelevant (SPOTISAVER).mp3" id="35_bv80c"]
 [ext_resource type="AudioStream" uid="uid://d2u7y4vemrkk0" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Darkest - Mourning Moon Departer (SPOTISAVER).mp3" id="36_ptfg5"]
-[ext_resource type="AudioStream" uid="uid://b1juioinpj6si" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/DRYVE, Lucy Daydream - Blink Of An Eye (SPOTISAVER).mp3" id="37_2daye"]
-[ext_resource type="AudioStream" uid="uid://c6l58b4ujrdmw" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Electric Youth - Innocence (SPOTISAVER).mp3" id="38_1semv"]
-[ext_resource type="AudioStream" uid="uid://ki1wdopvssva" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/FM Attack, KRISTINE - Magic (SPOTISAVER).mp3" id="39_2060n"]
 [ext_resource type="AudioStream" uid="uid://cxelmpsmnhnrb" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/FM-84 - Maverick (SPOTISAVER).mp3" id="40_6ml46"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k12tt"]
@@ -58,28 +47,17 @@ size = Vector2(120.504, 0.90246)
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_qax2n"]
 shuffle = true
-stream_count = 21
-stream_0 = ExtResource("20_aqgau")
-stream_1 = ExtResource("21_8cuat")
+stream_count = 10
+stream_0 = ExtResource("21_8cuat")
+stream_1 = ExtResource("20_aqgau")
 stream_2 = ExtResource("32_54nrm")
 stream_3 = ExtResource("34_gsvbx")
 stream_4 = ExtResource("35_bv80c")
 stream_5 = ExtResource("36_ptfg5")
-stream_6 = ExtResource("37_2daye")
-stream_7 = ExtResource("38_1semv")
-stream_8 = ExtResource("39_2060n")
-stream_9 = ExtResource("40_6ml46")
-stream_10 = ExtResource("22_o1aky")
-stream_11 = ExtResource("23_kwxat")
-stream_12 = ExtResource("24_aa8k8")
-stream_13 = ExtResource("25_kqrg6")
-stream_14 = ExtResource("26_nwwfm")
-stream_15 = ExtResource("27_s8vy0")
-stream_16 = ExtResource("28_jut3y")
-stream_17 = ExtResource("29_v2nl5")
-stream_18 = ExtResource("30_dmskm")
-stream_19 = ExtResource("31_xdkp6")
-stream_20 = ExtResource("33_55jeb")
+stream_6 = ExtResource("40_6ml46")
+stream_7 = ExtResource("23_kwxat")
+stream_8 = ExtResource("27_s8vy0")
+stream_9 = ExtResource("29_v2nl5")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_h1bgf")
@@ -205,5 +183,5 @@ one_way_collision = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamPlaylist_qax2n")
-volume_db = -14.59
+volume_db = -25.0
 autoplay = true
