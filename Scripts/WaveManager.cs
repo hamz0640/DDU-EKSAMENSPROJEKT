@@ -96,7 +96,7 @@ public partial class WaveManager : Node
 
     private void SpawnNextEnemy()
     {
-        uint maxEnemies = (uint)Mathf.Pow(WaveNumber, 1.3f);
+        uint maxEnemies = (uint)Mathf.Pow(WaveNumber, 1.5f);
         if (SpawnIndex > maxEnemies)
 		{
 			return;
