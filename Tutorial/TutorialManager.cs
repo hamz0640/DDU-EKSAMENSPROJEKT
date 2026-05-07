@@ -56,11 +56,10 @@ public partial class TutorialManager : Control
 
     public override void _Ready()
     {
-
         sfx = GetNode<AudioStreamPlayer2D>("Click");
 
         Global global = Global.GetInstance();
-        global.SetState("PlayerCanMove", false);
+        global.SetState("InTutorial", true);
 
         Root = GetNode<Control>(RootPath);
         InfoBox = GetNode<Panel>(InfoBoxPath);
@@ -133,7 +132,7 @@ public partial class TutorialManager : Control
     private void PlayOutroAnimation(System.Action onDone = null)
     {
         Global global = Global.GetInstance();
-        global.SetState("PlayerCanMove", true);
+        global.SetState("InTutorial", false);
 
         KillTween();
         activeTween = CreateTween();

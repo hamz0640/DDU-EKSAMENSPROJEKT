@@ -18,6 +18,9 @@ public partial class Global : Node
 
     public override void _Ready()
     {
+        // Tutorial 
+        State["InTutorial"] = false;
+
         // General
         State["PlayerCanMove"] = true;
 

@@ -60,8 +60,13 @@ public partial class PlayerController : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		Global global = Global.GetInstance();
+		bool InTut = global.GetState<bool>("InTutorial");
 		Tracker tracker = Tracker.GetInstance();
 		tracker.IncrementTracking("Time:Total", (float)delta);
+
+		if (InTut) return;
+		
 		if (GlobalPosition.Y > 0)
 		{
 			tracker.IncrementTracking("Time:InMine", (float)delta);
@@ -78,7 +83,6 @@ public partial class PlayerController : CharacterBody2D
 			return;
 		}
 
-		Global global = Global.GetInstance();
 		UpgradeStation upgradeStation = (UpgradeStation)GetTree().GetFirstNodeInGroup("UpgradeStation");
 		if (upgradeStation.UpgradeMenu.Visible == false && InTurret == false)
 		{
