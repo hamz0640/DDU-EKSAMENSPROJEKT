@@ -31,7 +31,6 @@ public partial class Enemy : CharacterBody2D
 	{		
 		if (GlobalPosition.DistanceTo(Ship + Offset) < EnemyDistance)
 		{
-			GD.Print("Ahhhh");
 			Velocity = new Vector2( 0 , 0 );
 			animation.Play("Shooting");
 			if (animation.Frame == 1)
