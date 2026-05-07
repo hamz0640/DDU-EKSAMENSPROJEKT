@@ -10,6 +10,5 @@ public partial class MainTurretCooling : Upgrade
         float shieldHealth = global.GetState<float>("MainTurretCooling") * 0.9f;
         global.SetState("MainTurretCooling", shieldHealth);
         AmountBought += 1;
-        GD.Print("purchased");
     }
 }

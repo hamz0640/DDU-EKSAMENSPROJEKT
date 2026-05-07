@@ -16,7 +16,6 @@ public partial class Asteroid : Bullet
     {
         // Dette kører koden inde i Bullet scriptet
         base._Ready();
-        GD.Print("Asteroid spawned");
 
         Tracker tracker = Tracker.GetInstance();
         tracker.IncrementTracking("Wave:AsteroidsSpawned", 1u);
@@ -32,7 +31,6 @@ public partial class Asteroid : Bullet
     {
         if (hit is TileMapLayer)
         {
-            GD.Print("Asteroid hit ground");
             QueueFree();
         }
 
@@ -42,7 +40,6 @@ public partial class Asteroid : Bullet
             tracker.IncrementTracking("Wave:AsteroidsHitShield", 1u);
             tracker.IncrementTracking("Wave:ShieldDamageTaken",  Damage);
 
-            GD.Print("Asteroid hit Charging Zone");
             global.SetState<float>("ShieldHealth", ShieldEnergy() - Damage);
 
             QueueFree();

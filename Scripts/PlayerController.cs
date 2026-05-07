@@ -453,7 +453,6 @@ public partial class PlayerController : CharacterBody2D
 		if (upwardsInput == 1 && Velocity.Y == 0)
 		{
 			KnockOffWire++;
-			GD.Print(KnockOffWire);
 			if(KnockOffWire >= 2)
 			{
 				velocity = DismountWire(velocity, 0.4f);

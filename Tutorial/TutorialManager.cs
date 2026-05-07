@@ -295,7 +295,6 @@ public partial class TutorialManager : Control
         {
             Global global = Global.GetInstance();
             global.SetState("PlayerCanMove", true);
-            GD.Print("bruh");
         }
 
         PlayStepTransition(

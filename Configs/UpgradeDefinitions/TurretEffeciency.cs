@@ -10,6 +10,5 @@ public partial class TurretEffeciency : Upgrade
         float shieldHealth = global.GetState<float>("TurretEfficiency") * 0.9f;
         global.SetState("TurretEfficiency", shieldHealth);
         AmountBought += 1;
-        GD.Print("purchased");
     }
 }

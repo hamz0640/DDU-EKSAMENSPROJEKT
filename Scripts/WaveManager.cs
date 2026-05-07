@@ -89,7 +89,6 @@ public partial class WaveManager : Node
 
         await Task.Delay((5 + (int)WaveNumber) * 1000);
         SpawningStarted = true;
-        GD.Print("Wave " + WaveNumber + " Started");
         SpawnTimer = GetTree().CreateTimer(TimeBetweenSpawns);
 		SpawnTimer.Timeout += SpawnNextEnemy;
         SpawnNextEnemy();

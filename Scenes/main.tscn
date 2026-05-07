@@ -18,7 +18,7 @@
 [ext_resource type="Script" uid="uid://daovwbkwwn7hh" path="res://Scripts/RoofTurret.cs" id="15_wsu2k"]
 [ext_resource type="PackedScene" uid="uid://bvtf3co8npe7t" path="res://Scenes/mine_lid.tscn" id="16_k12tt"]
 [ext_resource type="AudioStream" uid="uid://dxq11f2epsiqd" path="res://Assets/Others/explosion (1).wav" id="18_b3802"]
-[ext_resource type="PackedScene" uid="uid://dqe8hgah5uw8" path="res://Scenes/ErrorManager.tscn" id="19_fevyy"]
+[ext_resource type="PackedScene" path="res://Scenes/ErrorManager.tscn" id="19_fevyy"]
 [ext_resource type="AudioStream" uid="uid://dbqnjjgdbwjat" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/After Dark - Lost in 84 (SPOTISAVER).mp3" id="20_aqgau"]
 [ext_resource type="AudioStream" uid="uid://d0pxjx7n6in4d" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Carpenter Brut - Leather Teeth (SPOTISAVER).mp3" id="21_8cuat"]
 [ext_resource type="AudioStream" uid="uid://d33pq1ku8qrw8" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/gelowler - Never the Same (SPOTISAVER).mp3" id="23_kwxat"]
