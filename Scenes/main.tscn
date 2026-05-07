@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://vtp7jvawas5r"]
+[gd_scene load_steps=36 format=4 uid="uid://vtp7jvawas5r"]
 
 [ext_resource type="PackedScene" uid="uid://djfihwdiwhouv" path="res://Scenes/chargingZone.tscn" id="1_6bp64"]
 [ext_resource type="Script" uid="uid://dt5iv1dpph7vb" path="res://Scripts/UpgradeStation.cs" id="1_344ge"]
@@ -24,7 +24,6 @@
 [ext_resource type="AudioStream" uid="uid://d33pq1ku8qrw8" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/gelowler - Never the Same (SPOTISAVER).mp3" id="23_kwxat"]
 [ext_resource type="AudioStream" uid="uid://n6epcg3776gy" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Lazerhawk - Overdrive (SPOTISAVER).mp3" id="27_s8vy0"]
 [ext_resource type="AudioStream" uid="uid://brttnyemlp31b" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Perturbator - Death Squad (SPOTISAVER).mp3" id="29_v2nl5"]
-[ext_resource type="AudioStream" uid="uid://0k0iwsy7pt4t" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Perturbator - Humans Are Such Easy Prey (SPOTISAVER).mp3" id="30_dmskm"]
 [ext_resource type="AudioStream" uid="uid://c64pni2sq3orr" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Carpenter Brut - Looking For Tracy Tzu (SPOTISAVER).mp3" id="32_54nrm"]
 [ext_resource type="AudioStream" uid="uid://c0o80wwx34vvp" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Carpenter Brut - Roller Mobster (SPOTISAVER).mp3" id="34_gsvbx"]
 [ext_resource type="AudioStream" uid="uid://cxobufg44hx7h" path="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Cassetter, Cyberwalker, Lebedev Sax - Irrelevant (SPOTISAVER).mp3" id="35_bv80c"]
@@ -48,9 +47,9 @@ size = Vector2(120.504, 0.90246)
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_qax2n"]
 shuffle = true
-stream_count = 12
-stream_0 = ExtResource("20_aqgau")
-stream_1 = ExtResource("21_8cuat")
+stream_count = 10
+stream_0 = ExtResource("21_8cuat")
+stream_1 = ExtResource("20_aqgau")
 stream_2 = ExtResource("32_54nrm")
 stream_3 = ExtResource("34_gsvbx")
 stream_4 = ExtResource("35_bv80c")
@@ -59,8 +58,6 @@ stream_6 = ExtResource("40_6ml46")
 stream_7 = ExtResource("23_kwxat")
 stream_8 = ExtResource("27_s8vy0")
 stream_9 = ExtResource("29_v2nl5")
-stream_10 = ExtResource("30_dmskm")
-stream_11 = ExtResource("20_aqgau")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_h1bgf")
@@ -186,5 +183,5 @@ one_way_collision = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamPlaylist_qax2n")
-volume_db = -18.0
+volume_db = -25.0
 autoplay = true
