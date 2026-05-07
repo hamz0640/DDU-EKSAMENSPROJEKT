@@ -10,12 +10,12 @@
 
 ## Gruppen
 
-| Navn | Rolle |
-|---|---|
-| Anton Mikkel Syndergaard Pulapa | Udvikler |
-| Mikkel Mørch Laulund | Udvikler |
-| Lucas Rømer Isaksen | Udvikler |
-| Hamza Alomari | Udvikler |
+| Navn |
+|---|
+| Anton Mikkel Syndergaard Pulapa |
+| Mikkel Mørch Laulund | 
+| Lucas Rømer Isaksen |
+| Hamza Alomari |
 
 > Vejleder: **Thomas Birk Abildgaard**
 
