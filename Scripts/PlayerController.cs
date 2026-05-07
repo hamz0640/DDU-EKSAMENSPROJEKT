@@ -172,6 +172,7 @@ public partial class PlayerController : CharacterBody2D
 				// Check for mining inputs FIRST
 				if (Math.Round(GlobalPosition.Y) != -12 && inputDirection != Vector2.Zero && IsMining)
 				{
+					roll.Stop();
 					if (inputDirection.Y == 1)
 					{
 						if (drilling.Playing == false) drilling.Play();

@@ -19,7 +19,7 @@ public partial class Asteroid : Bullet
         Tracker tracker = Tracker.GetInstance();
         tracker.IncrementTracking("Wave:AsteroidsSpawned", 1u);
 
-        this.Position = new Vector2(rnd.Next(-1200, 1200), -1000);
+        this.Position = new Vector2(rnd.Next(-1200, 1200), rnd.Next(-1000,-600));
 
         RotationSpeed = rnd.Next(2, 10);
         Speed = rnd.Next(40, 100);

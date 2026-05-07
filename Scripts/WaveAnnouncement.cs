@@ -31,7 +31,7 @@ public partial class WaveAnnouncement : Control
         WaveManager wm = WaveManager.GetInstance();
 
         WaveLabel.Text = "You have been spotted!";
-        SubLabel.Text = "ENEMIES APPROACHING\nPrepare with upgrades\nReturn to your battle station";
+        SubLabel.Text = "ENEMIES APPROACHING\nReturn to your battle station\nPrepare with upgrades";
 
         PlayAnimation();
     }

@@ -7,7 +7,7 @@ public partial class TurretEffeciency : Upgrade
     public override void OnBuy(SceneTree _tree)
     {
         Global global = Global.GetInstance();
-        float shieldHealth = global.GetState<float>("TurretEfficiency") * 0.9f;
+        float shieldHealth = global.GetState<float>("TurretEfficiency") * 0.8f;
         global.SetState("TurretEfficiency", shieldHealth);
         AmountBought += 1;
     }

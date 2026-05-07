@@ -24,6 +24,7 @@ public partial class WaveManager : Node
     private float ChanceOfStartingWave = 0.0f;
     private float EnergyUsedMultiplier = 0.0f;
     private bool SpawningStarted = false;
+    private bool DoneSpawning = false;
 
 	private Random rand = new Random();
 
@@ -52,7 +53,7 @@ public partial class WaveManager : Node
             tracker.IncrementTracking("Time:InWaves", (float)delta);
         }
 
-        if (EnemiesInWorld <= 0 && IsInWave && SpawningStarted)
+        if (EnemiesInWorld <= 0 && IsInWave && SpawningStarted && DoneSpawning)
         {
             IsInWave = false;
             SpawningStarted = false;
@@ -81,7 +82,7 @@ public partial class WaveManager : Node
     public async Task StartWave()
     {
         if (IsInWave) return;
-
+        DoneSpawning = false;
         WaveNumber += 1;
         IsInWave = true;
         SpawnIndex = 0;
@@ -99,10 +100,12 @@ public partial class WaveManager : Node
         uint maxEnemies = (uint)Mathf.Pow(WaveNumber, 1.5f);
         if (SpawnIndex > maxEnemies)
 		{
+            DoneSpawning = true;
 			return;
 		}
         else
 		{
+            DoneSpawning = false;
 			SpawnIndex += 1;
 			SpawnTimer = GetTree().CreateTimer(TimeBetweenSpawns);
 			SpawnTimer.Timeout += SpawnNextEnemy;

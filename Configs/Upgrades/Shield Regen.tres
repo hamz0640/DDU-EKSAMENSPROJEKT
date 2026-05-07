@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_ax80j")
-RedMineralAmount = 3
+RedMineralAmount = 2
 PurpleMineralAmount = 0
 YellowMineralAmount = 1
 MaxBuyAmount = 0

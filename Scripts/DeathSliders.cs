@@ -44,7 +44,7 @@ public partial class DeathSliders : Control
                     DeathMessage.Text = $"You ran out of energy using your jetpack\nYou made it to wave: {waveManager.WaveNumber}";
                     break;
                 case "mining":
-                    DeathMessage.Text = $"You exhausted yourself mining\nYou made it to wave: {waveManager.WaveNumber}";
+                    DeathMessage.Text = $"You exhausted yourself from mining\nYou made it to wave: {waveManager.WaveNumber}";
                     break;
                 default:
                     DeathMessage.Text = $"You ran out of energy\nYou made it to wave: {waveManager.WaveNumber}";

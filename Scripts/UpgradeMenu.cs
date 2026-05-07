@@ -73,15 +73,20 @@ private TextureRect UpgradeIconImage = null;
             select.Play();
         }
 
-		SelectedIndex = Mathf.Clamp(SelectedIndex, 0, UpgradeList.GetChildCount() - 1);
+        if (SelectedIndex < 0)
+            SelectedIndex = UpgradeList.GetChildCount() - 1;
+        else if (SelectedIndex > UpgradeList.GetChildCount() - 1)
+            SelectedIndex = 0;
+            
+        //SelectedIndex = Mathf.Clamp(SelectedIndex, 0, UpgradeList.GetChildCount() - 1);
 
-		foreach (Node u in UpgradeList.GetChildren())
-		{
-			UpgradeEntry upgradeEntry = (UpgradeEntry)u;
-			upgradeEntry.UpgradeName.AddThemeFontSizeOverride("font_size", 40);
-			upgradeEntry.Modulate = new Color(0.8f, 0.8f, 0.8f);
-            upgradeEntry.Lock();
-		}
+            foreach (Node u in UpgradeList.GetChildren())
+            {
+                UpgradeEntry upgradeEntry = (UpgradeEntry)u;
+                upgradeEntry.UpgradeName.AddThemeFontSizeOverride("font_size", 40);
+                upgradeEntry.Modulate = new Color(0.8f, 0.8f, 0.8f);
+                upgradeEntry.Lock();
+            }
 
 		UpgradeEntry selectedUpgrade = (UpgradeEntry)UpgradeList.GetChild(SelectedIndex);
 		selectedUpgrade.UpgradeName.AddThemeFontSizeOverride("font_size", 45);

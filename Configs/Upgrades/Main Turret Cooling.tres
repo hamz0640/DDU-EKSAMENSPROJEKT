@@ -6,9 +6,9 @@
 [resource]
 script = ExtResource("1_gssay")
 RedMineralAmount = 1
-PurpleMineralAmount = 2
-YellowMineralAmount = 3
-MaxBuyAmount = 7
-Description = "Decreases the reload time of the turret by 10%!"
-BuyCondition = "A maximum of 7 can be bought."
+PurpleMineralAmount = 1
+YellowMineralAmount = 4
+MaxBuyAmount = 8
+Description = "Decreases the reload time of the turret by 20%!"
+BuyCondition = "A maximum of 8 can be bought."
 UpgradeIcon = ExtResource("1_wu3a8")
