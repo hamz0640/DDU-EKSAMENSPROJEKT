@@ -79,6 +79,12 @@ public partial class PlayerController : CharacterBody2D
 		}
 
 		Global global = Global.GetInstance();
+		UpgradeStation upgradeStation = (UpgradeStation)GetTree().GetFirstNodeInGroup("UpgradeStation");
+		if (upgradeStation.UpgradeMenu.Visible == false && InTurret == false)
+		{
+			global.SetState("PlayerCanMove", true);
+		}
+
 		if (!global.GetState<bool>("PlayerCanMove"))
 		{
             drilling.Stop();
@@ -86,8 +92,7 @@ public partial class PlayerController : CharacterBody2D
             flying.Stop();
             return;
         }
-			
-		
+
 		HandleTransitions();
 
 
@@ -448,7 +453,6 @@ public partial class PlayerController : CharacterBody2D
 		if (upwardsInput == 1 && Velocity.Y == 0)
 		{
 			KnockOffWire++;
-			GD.Print(KnockOffWire);
 			if(KnockOffWire >= 2)
 			{
 				velocity = DismountWire(velocity, 0.4f);

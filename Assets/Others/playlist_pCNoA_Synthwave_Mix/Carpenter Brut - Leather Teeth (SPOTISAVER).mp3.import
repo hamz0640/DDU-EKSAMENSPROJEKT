@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d0pxjx7n6in4d"
+path="res://.godot/imported/Carpenter Brut - Leather Teeth (SPOTISAVER).mp3-6fc2f5a9b67b754e692761e44ccdca2f.mp3str"
+
+[deps]
+
+source_file="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Carpenter Brut - Leather Teeth (SPOTISAVER).mp3"
+dest_files=["res://.godot/imported/Carpenter Brut - Leather Teeth (SPOTISAVER).mp3-6fc2f5a9b67b754e692761e44ccdca2f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

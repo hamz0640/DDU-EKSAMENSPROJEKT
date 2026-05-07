@@ -93,8 +93,8 @@ public partial class Global : Node
 
         float shieldHealth = GetState<float>("CurrentShieldHealth");
         shieldHealth += 1f * (float)delta * 0.8f * GetState<float>("RegenAmount");
-        if (shieldHealth < 200f)
-            SetState("CurrentShieldHealth", shieldHealth);
+        float maxShield = GetState<float>("ShieldHealth");
+        if (shieldHealth < maxShield) SetState("CurrentShieldHealth", Math.Min(shieldHealth, maxShield));
 
     }
 

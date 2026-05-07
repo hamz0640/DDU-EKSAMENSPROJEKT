@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c64pni2sq3orr"
+path="res://.godot/imported/Carpenter Brut - Looking For Tracy Tzu (SPOTISAVER).mp3-3cf6651b45a39427dbc8f7a987817b06.mp3str"
+
+[deps]
+
+source_file="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/Carpenter Brut - Looking For Tracy Tzu (SPOTISAVER).mp3"
+dest_files=["res://.godot/imported/Carpenter Brut - Looking For Tracy Tzu (SPOTISAVER).mp3-3cf6651b45a39427dbc8f7a987817b06.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

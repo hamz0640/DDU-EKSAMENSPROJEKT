@@ -3,18 +3,18 @@ using System;
 
 public partial class Enemy : CharacterBody2D
 {
-	Random rnd=new Random();
+	Random rnd = new Random();
     AnimatedSprite2D animation;
 	AudioStreamPlayer2D death;
 	AudioStreamPlayer2D sfx;
 	public float Speed = 30.0f;
-	public int EnemyDistance;
-	Vector2 Origo = new Vector2(0, 0);
+	public int EnemyDistance = 400;
+	Vector2 Ship = new Vector2(160, 0);
 	Vector2 Spawn;
 	private bool hasShot = false;
 	[Export] public double MaxHealth = 3;
 	private double currentHealth;
-	int Offset;
+	Vector2 Offset;
 	
     public override void _Ready()
 	{
@@ -24,24 +24,12 @@ public partial class Enemy : CharacterBody2D
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		animation.Play("Walking");
 		animation.FlipH = Speed < 0;
-		// Spawn = new Vector2(rnd.Next(700, 800), -10);
-		// GlobalPosition = Spawn;
-		// Offset = rnd.Next(0, 60);
+		Offset = new Vector2(rnd.Next(-60, 60), 0);
 	}
 
 	public override void _Process(double delta)
-	{
-        Global global = Global.GetInstance();
-        if (global.GetState<float>("ShieldHealth") > 0.0)
-		{
-			EnemyDistance = 200+Offset;
-		}
-		else
-		{
-			EnemyDistance =330+Offset;
-		}
-		
-		if (GlobalPosition.DistanceTo(Origo) < EnemyDistance)
+	{		
+		if (GlobalPosition.DistanceTo(Ship + Offset) < EnemyDistance)
 		{
 			Velocity = new Vector2( 0 , 0 );
 			animation.Play("Shooting");
@@ -53,7 +41,8 @@ public partial class Enemy : CharacterBody2D
 					BulletSpawn();
 					hasShot = true;
 				}
-            } else
+            } 
+			else
 			{
 				hasShot = false;
 			}
@@ -63,7 +52,7 @@ public partial class Enemy : CharacterBody2D
             Velocity = new Vector2(Speed, 0);
             MoveAndSlide();
         }
-        if (GlobalPosition.DistanceTo(Origo) > EnemyDistance)
+        if (GlobalPosition.DistanceTo(Ship + Offset) > EnemyDistance)
 		{
             animation.Play("Run&Gun");
             if (animation.Frame == 1 || animation.Frame == 5)
@@ -110,14 +99,9 @@ public partial class Enemy : CharacterBody2D
 		if (spawnRight)
 		{
 			animation.FlipH = true;
-			Spawn = new Vector2(rnd.Next(700, 800), -10);
 			Speed = -Math.Abs(Speed); // move left
 		}
 		else
-		{
-			Spawn = new Vector2(rnd.Next(-800, -700), -10);
 			Speed = Math.Abs(Speed); // move right
-		}
 	}
-
 }

@@ -69,7 +69,6 @@ public partial class Turret : CharacterBody2D
                 this.GlobalPosition = new Vector2(rnd.Next(20, 280), -SpawnHeight);
                 break;
             }
-			GD.Print(area.Name);
         }
 
         MoveAndSlide();

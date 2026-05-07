@@ -10,6 +10,5 @@ public partial class JetPackEffeciency : Upgrade
         float newvalue = global.GetState<float>("JetpackEffeciency") * 1.15f;
         global.SetState("JetpackEffeciency", newvalue);
         AmountBought += 1;
-        GD.Print("purchased");
     }
 }

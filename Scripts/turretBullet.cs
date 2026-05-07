@@ -16,7 +16,6 @@ public partial class turretBullet : CharacterBody2D
     {
         animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         animation.Play("Bullet");
-        GD.Print(FacingR);
         if (FacingR)
         {
             animation.FlipH = false;
@@ -49,12 +48,10 @@ public partial class turretBullet : CharacterBody2D
     void OnBodyEntered(Node2D body)
     {
         animation.Play("Hit");
-        GD.Print($"Bullet hit: {body.Name} | Type: {body.GetType()} | Groups: {string.Join(", ", body.GetGroups())}");
         
 
         if (body is Enemy enemy)
         {
-            GD.Print("Enemy hit!");
             enemy.TakeDamage(1);
             QueueFree();
         }

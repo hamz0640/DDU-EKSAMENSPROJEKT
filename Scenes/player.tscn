@@ -910,15 +910,19 @@ target_position = Vector2(-2.24386e-27, -8)
 
 [node name="Mining" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("13_ukyrk")
+volume_db = 10.0
 
 [node name="Jetpack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_7dp3o")
+volume_db = 10.0
 
 [node name="LowPower" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("15_h4iuc")
+volume_db = 10.0
 
 [node name="Rolling" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("16_fd4e3")
+volume_db = 10.0
 
 [node name="TurretNoZone" type="Area2D" parent="." groups=["TurretNoZone"]]
 collision_layer = 16

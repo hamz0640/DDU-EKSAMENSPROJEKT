@@ -10,13 +10,11 @@ public partial class Asteroid : Bullet
     float Speed;
     Global global = Global.GetInstance();
     Random rnd = new Random();
-    int Damage = 20;
-
+    WaveManager waveManager = WaveManager.GetInstance();
     public override void _Ready()
     {
         // Dette kører koden inde i Bullet scriptet
         base._Ready();
-        GD.Print("Asteroid spawned");
 
         Tracker tracker = Tracker.GetInstance();
         tracker.IncrementTracking("Wave:AsteroidsSpawned", 1u);
@@ -30,9 +28,10 @@ public partial class Asteroid : Bullet
 
     public override void OnHit(Node2D hit)
     {
+        uint Damage = 20 + (2 * waveManager.WaveNumber);
+
         if (hit is TileMapLayer)
         {
-            GD.Print("Asteroid hit ground");
             QueueFree();
         }
 
@@ -42,8 +41,7 @@ public partial class Asteroid : Bullet
             tracker.IncrementTracking("Wave:AsteroidsHitShield", 1u);
             tracker.IncrementTracking("Wave:ShieldDamageTaken",  Damage);
 
-            GD.Print("Asteroid hit Charging Zone");
-            global.SetState<float>("ShieldHealth", ShieldEnergy() - Damage);
+            global.SetState<float>("CurrentShieldHealth", ShieldEnergy() - Damage);
 
             QueueFree();
         }
@@ -64,7 +62,7 @@ public partial class Asteroid : Bullet
 
     float ShieldEnergy()
     {
-        return global.GetState<float>("ShieldHealth");
+        return global.GetState<float>("CurrentShieldHealth");
     }
 
 }

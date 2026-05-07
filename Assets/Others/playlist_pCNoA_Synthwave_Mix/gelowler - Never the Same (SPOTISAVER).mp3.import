@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d33pq1ku8qrw8"
+path="res://.godot/imported/gelowler - Never the Same (SPOTISAVER).mp3-b0c507785ec7f1ee2d717ae1ab184e39.mp3str"
+
+[deps]
+
+source_file="res://Assets/Others/playlist_pCNoA_Synthwave_Mix/gelowler - Never the Same (SPOTISAVER).mp3"
+dest_files=["res://.godot/imported/gelowler - Never the Same (SPOTISAVER).mp3-b0c507785ec7f1ee2d717ae1ab184e39.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

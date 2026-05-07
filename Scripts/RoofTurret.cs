@@ -88,10 +88,11 @@ public partial class RoofTurret : Sprite2D
             CanvasLayer UI = (CanvasLayer)GetTree().GetFirstNodeInGroup("UI");
             Crosshair.Show();
             UI.Hide();
-            GD.Print("test 2");
             Control hudElement = UI.GetNode<Control>("BarAndMinerals");
             Control hudElement2 = UI.GetNode<Control>("ShieldShipBars");
+            Control hudElement3 = UI.GetNode<Control>("Wavecounter");
             hudElement.Hide();
+            hudElement3.Hide();
             hudElement2.Show();
 
             JustEnteredTurret = true;
@@ -113,9 +114,10 @@ public partial class RoofTurret : Sprite2D
             UI.Show();
             Control hudElement = UI.GetNode<Control>("BarAndMinerals");
             Control hudElement2 = UI.GetNode<Control>("ShieldShipBars");
+            Control hudElement3 = UI.GetNode<Control>("Wavecounter");
             hudElement.Show();
             hudElement2.Hide();
-            GD.Print("test 1");
+            hudElement3.Show();
 
             Tween tween = GetTree().CreateTween();
 
