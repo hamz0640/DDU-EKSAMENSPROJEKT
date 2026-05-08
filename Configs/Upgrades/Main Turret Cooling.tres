@@ -5,9 +5,9 @@
 
 [resource]
 script = ExtResource("1_gssay")
-RedMineralAmount = 1
+RedMineralAmount = 2
 PurpleMineralAmount = 1
-YellowMineralAmount = 4
+YellowMineralAmount = 2
 MaxBuyAmount = 8
 Description = "Decreases the reload time of the turret by 20%!"
 BuyCondition = "A maximum of 8 can be bought."
