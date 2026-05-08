@@ -3,7 +3,7 @@ using Godot;
 public partial class ErrorManager : Node
 {
     public static ErrorManager Instance { get; private set; }
-    private PackedScene _errorScene = GD.Load<PackedScene>("res://Scenes/UserError.tscn");
+    private PackedScene _errorScene = GD.Load<PackedScene>("res://Scenes/user_error.tscn");
 
     public override void _Ready()
     {
