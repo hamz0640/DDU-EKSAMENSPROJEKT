@@ -1,18 +1,18 @@
 [gd_scene load_steps=8 format=3 uid="uid://diwo3t26wpwq3"]
 
-[ext_resource type="Script" uid="uid://b7bsnt4wcu7y8" path="res://Scripts/TurretBullet.cs" id="1_0hh05"]
-[ext_resource type="Texture2D" uid="uid://c40qp4d34g1sb" path="res://Assets/Icons/Bullet.png" id="2_nje4e"]
-[ext_resource type="Texture2D" uid="uid://com3xu3bqmmhy" path="res://Assets/Enemies/BulletHit.png" id="3_ujgty"]
+[ext_resource type="Script" uid="uid://b7bsnt4wcu7y8" path="res://Scripts/TurretBullet.cs" id="1_rq765"]
+[ext_resource type="Texture2D" uid="uid://c40qp4d34g1sb" path="res://Assets/Icons/Bullet.png" id="2_5xi4j"]
+[ext_resource type="Texture2D" uid="uid://com3xu3bqmmhy" path="res://Assets/Enemies/BulletHit.png" id="3_c02x3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6afsh"]
 size = Vector2(4.7987, 2.77778)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6afsh"]
-atlas = ExtResource("2_nje4e")
+atlas = ExtResource("2_5xi4j")
 region = Rect2(0, 0, 3, 3)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_odot3"]
-atlas = ExtResource("3_ujgty")
+atlas = ExtResource("3_c02x3")
 region = Rect2(0, 0, 5, 5)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t8o6v"]
@@ -36,7 +36,7 @@ animations = [{
 
 [node name="Bullet" type="CharacterBody2D"]
 collision_layer = 4
-script = ExtResource("1_0hh05")
+script = ExtResource("1_rq765")
 
 [node name="BulletHit" type="Area2D" parent="."]
 collision_layer = 8

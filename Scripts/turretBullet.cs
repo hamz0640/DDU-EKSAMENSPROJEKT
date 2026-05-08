@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 
-public partial class turretBullet : CharacterBody2D
+public partial class TurretBullet : CharacterBody2D
 {
     Vector2 OffsetR = new Vector2(-6, -0.5f);
     Vector2 OffsetL = new Vector2(6, 0.5f);

@@ -131,9 +131,9 @@ public partial class Turret : CharacterBody2D
     void BulletSpawn()
     {
 		Bullets--;
-        var scene = GD.Load<PackedScene>("res://Scenes/turretBullet.tscn");
+        var scene = GD.Load<PackedScene>("res://Scenes/turret_bullet.tscn");
         var node = scene.Instantiate();
-		if(node is turretBullet bl && Bullets > 0)
+		if(node is TurretBullet bl && Bullets > 0)
 		{
 			bl.CheckFacing(FacingR);
 		}
